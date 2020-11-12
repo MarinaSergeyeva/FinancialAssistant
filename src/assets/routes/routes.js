@@ -14,7 +14,7 @@ export default [
     label: 'DynamicsPage',
     exact: true,
     component: lazy(() => import('../../pages/DynamicsPage/DynamicsPage')),
-    private: true,
+    private: false,
     restricted: true,
   },
   {
@@ -22,7 +22,7 @@ export default [
     label: 'ExpensePage',
     exact: true,
     component: lazy(() => import('../../pages/ExpensePage/ExpensePage')),
-    private: true,
+    private: false,
     restricted: true,
   },
   {
@@ -30,7 +30,7 @@ export default [
     label: 'PlanPage',
     exact: true,
     component: lazy(() => import('../../pages/PlanPage/PlanPage')),
-    private: true,
+    private: false,
     restricted: true,
   },
   {
@@ -38,7 +38,7 @@ export default [
     label: 'NotFound',
     exact: true,
     component: lazy(() => import('../../pages/NotFound/NotFound')),
-    private: true,
+    private: false,
     restricted: true,
   },
 ];
