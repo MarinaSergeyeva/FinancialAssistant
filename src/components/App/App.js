@@ -1,5 +1,13 @@
+import Header from '../Header/Header';
+import PlanForm from '../PlanForm/PlanForm';
+
 function App() {
-  return 111;
+  return (
+    <>
+      <Header />
+      <PlanForm />
+    </>
+  );
 }
 
 export default App;
