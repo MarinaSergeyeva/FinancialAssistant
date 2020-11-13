@@ -15,11 +15,11 @@
 /build
 
 # misc
-/backend/.DS_Store
-/backend/.env.local
-/backend/.env.development.local
-/backend/.env.test.local
-/backend/.env.production.local
+/backend/src/.DS_Store
+/backend/src/.env.local
+/backend/src/.env.development.local
+/backend/src/.env.test.local
+/backend/src/.env.production.local
 
 npm-debug.log*
 yarn-debug.log*

@@ -35,12 +35,12 @@ class CrudServer {
   async initDatabase() {
     try {
       mongoose.set('debug', true);
-      // await mongoose.connect(process.env.DATABASE, {
-      //   useNewUrlParser: true,
-      //   useUnifiedTopology: true,
-      //   useFindAndModify: false,
-      //   useCreateIndex: true,
-      // });
+      await mongoose.connect(process.env.DB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+      });
       console.log('Database has been connected');
     } catch (err) {
       console.log('Something bad happend while connection to DB', err);
