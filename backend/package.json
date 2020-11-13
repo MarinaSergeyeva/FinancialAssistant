@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backendpart",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarinaSergeyeva/FinancialAssistant.git"
+  },
+  "author": "BC22",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarinaSergeyeva/FinancialAssistant/issues"
+  },
+  "homepage": "https://github.com/MarinaSergeyeva/FinancialAssistant#readme"
+}
