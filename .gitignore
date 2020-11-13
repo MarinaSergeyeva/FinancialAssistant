@@ -3,6 +3,7 @@
 # dependencies
 /frontend/node_modules
 /backend/node_modules
+# /backend/.env
 /frontend/.pnp
 /backend/.pnp
 /frontend/.pnp.js
@@ -15,6 +16,7 @@
 /build
 
 # misc
+/backend/.env
 /backend/.DS_Store
 /backend/.env.local
 /backend/.env.development.local
