@@ -98,6 +98,7 @@ const RegistrationTxt = styled.p`
 const RegistrationInputForm = styled.div``;
 
 const RegistrationInput = styled.input`
+
   position: relative;
   width: 316px;
   height: 56px;
