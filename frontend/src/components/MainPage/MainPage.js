@@ -10,10 +10,24 @@ import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 const MainPage = () => {
   return (
     <MainPageContainer>
-      <MainPageTitile>
-        Планировщик <br/> для совместного{' '}
-        <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
-      </MainPageTitile>
+      <Mobile>
+        <MainPageTitile>
+          Планировщик для совместного{' '}
+          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+        </MainPageTitile>
+      </Mobile>
+      <Tablet>
+        <MainPageTitile>
+          Планировщик для совместного{' '}
+          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+        </MainPageTitile>
+      </Tablet>
+      <Desktop>
+        <MainPageTitile>
+          Планировщик <br /> для совместного{' '}
+          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+        </MainPageTitile>
+      </Desktop>
       <GoogleAuthBtn>
         <GoogleAuthBtnImg
           src={googleLogo}
@@ -63,7 +77,7 @@ const MainPageContainer = styled.div`
     margin: 0 auto;
   }
   @media ${device.desktop} {
-      position: relative;
+    position: relative;
     padding-top: 70px;
     padding-bottom: 43px;
     width: 968px;
