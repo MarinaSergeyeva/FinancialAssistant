@@ -12,14 +12,12 @@ const Input = props => {
 export default Input;
 
 const InputWrapper = styled.div`
-  height: 4em;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  font-weight: bold;
-  font-size: 1.4em;
-  background-color: #000000;
-  color: #ffffff;
-  padding: 0.5em;
-  outline: 1px solid #888888;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 42px;
+  padding-right: 10px;
+  height: 36px;
 `;
