@@ -1,50 +1,103 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs-2";
-
-export class Chart extends React.Component {
+import moment from "moment";
+export class Chart extends Component {
   constructor(props) {
     super(props);
     this.chartReference = React.createRef();
+    //======
+    let sData = {};
+    sData.label = [];
+    sData.time = [];
+
+    const count = 12;
+    for (let i = 0; i < count; i++) {
+      sData.label.push(
+        moment()
+          .year(2020)
+          .month(i - 1)
+          .date(i * 1)
+        //   .startOf("day")
+      );
+      //   sData.time.push(Math.round(Math.random() * 100));
+    }
+    console.log("sData.label", sData.label);
+    //======
     this.state = {
       data: {
+        labels: sData.label,
         datasets: [
           {
-            data: [20, 50, 150, 75, 400, 0],
-            label: "Left dataset",
+            data: [20, 50, 150, 75, 400, 50],
+            label: "Blue income",
             yAxisID: "first-y-axis",
+            barThickness: 6,
+            backgroundColor: "#7C9AF2",
+            borderRadius: 10,
           },
 
           {
             data: [1, 5, 1, 2, 1, 0],
             label: "Right dataset",
             yAxisID: "second-y-axis",
+            barThickness: 6,
           },
           {
             data: [10, 50, 10, 20, 10, 300],
             label: "Right dataset",
             yAxisID: "third-y-axis",
+            barThickness: 6,
           },
         ],
-        labels: ["January", "February", "March", "April", "May", "June"],
+        // labels: [
+        //   "January",
+        //   "February",
+        //   "March",
+        //   "April",
+        //   "May",
+        //   "June",
+        //   "july",
+        //   "september",
+        // ],
       },
       options: {
+        layout: {
+          padding: {
+            left: 50,
+            right: 50,
+            top: 100,
+            bottom: 0,
+          },
+        },
         scales: {
+          //   xAxes: [
+          // {
+          //   ticks: {
+          //     max: 900,
+          //     min: 0,
+          //     stepSize: 100,
+          //   },
+          // },
+          //],
           xAxes: [
             {
-              ticks: {
-                max: 500,
-                min: 0,
-                stepSize: 100,
-              },
+              type: "time",
+              //   time: {
+              //     unit: "month",
+              //   },
+              //   ticks: {
+              //     min: moment().month(), //!!!!   start to show chart from this month!
+              //   },
             },
+            // {
+            //   type: "time",
+            //   position: "bottom",
+            //   time: {
+            //     unit: "month",
+            //   },
+            // },
           ],
-          xAxes: [
-            {
-              ticks: {
-                min: "January", //!!!!   start to show chart from this month!
-              },
-            },
-          ],
+
           yAxes: [
             {
               id: "first-y-axis",
@@ -74,6 +127,8 @@ export class Chart extends React.Component {
   render() {
     return (
       <Bar
+        // width={500}
+        // heigth={300}
         ref={this.chartReference}
         data={this.state.data}
         options={this.state.options}
