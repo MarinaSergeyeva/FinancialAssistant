@@ -8,7 +8,7 @@ const field = {
   saving: '',
   apartmentCost: '',
   apartmentArea: '',
-  accumulation: '',
+  accumulation: { inputValue: '', helperText: false },
 };
 
 function PlanForm() {
@@ -18,7 +18,7 @@ function PlanForm() {
     <PlanFormStyled>
       <form onSubmit={() => {}}>
         <label>
-          1. ЗП обоих супругов
+          <span>1. ЗП обоих супругов</span>
           <input
             type="text"
             name="salary"
@@ -28,7 +28,7 @@ function PlanForm() {
           />
         </label>
         <label>
-          2. Пассивные доходы, мес.
+          <span>2. Пассивные доходы, мес.</span>
           <input
             type="text"
             name="passiveIncome"
@@ -40,7 +40,7 @@ function PlanForm() {
           />
         </label>
         <label>
-          3. Сбережения
+          <span>3. Сбережения</span>
           <input
             type="text"
             name="saving"
@@ -50,7 +50,7 @@ function PlanForm() {
           />
         </label>{' '}
         <label>
-          4. Укажите стоимость вашей будущей квартиры
+          <span>4. Укажите стоимость вашей будущей квартиры</span>
           <input
             type="text"
             name="apartmentCost"
@@ -62,7 +62,7 @@ function PlanForm() {
           />
         </label>
         <label>
-          5. Укажите кол-во кв. м вашей будущей квартиры
+          <span>5. Укажите кол-во кв. м вашей будущей квартиры</span>
           <input
             type="text"
             name="apartmentArea"
@@ -74,14 +74,22 @@ function PlanForm() {
           />
         </label>
         <label>
-          6. Накопление, %
+          <span>6. Накопление, %</span>
           <input
             type="text"
             name="accumulation"
-            value={state.accumulation}
+            value={state.accumulation.inputValue}
             placeholder={placeHolder}
+            onClick={() => {}}
             onChange={e => getState({ ...state, accumulation: e.target.value })}
           />
+          {console.log(state.accumulation.helperText)}
+          {state.accumulation.helperText && (
+            <p className="accumulation">
+              Укажите процент, который бы хотели накапливать в месяц от общей
+              суммы доходов и вы увидите, когда достигните цели
+            </p>
+          )}
         </label>
       </form>
     </PlanFormStyled>
