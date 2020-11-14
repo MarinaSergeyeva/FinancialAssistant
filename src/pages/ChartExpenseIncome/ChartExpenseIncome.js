@@ -1,7 +1,8 @@
 import React, { Component, useEffect } from "react";
-import { Bar } from "react-chartjs-2";
+
 import moment from "moment";
 import Chart from "chart.js";
+
 export function MyChart() {
   let sData = {};
   sData.label = [];
@@ -21,7 +22,7 @@ export function MyChart() {
 
   useEffect(() => {
     var ctx = document.getElementById("myChart").getContext("2d");
-
+    ctx.lineCap = "round";
     var chart = new Chart(ctx, {
       type: "bar",
       data: {
@@ -29,38 +30,28 @@ export function MyChart() {
 
         datasets: [
           {
-            barThickness: 7,
-
             label: "Доходы",
-
             backgroundColor: "#7C9AF2",
             data: [30, 45, 300, 59, 267, 254, 346, 346, 134, 188, 12, 124],
           },
           {
-            barThickness: 7,
-
             label: "Расходы",
-
             backgroundColor: "#FF6C00",
             data: [202, 415, 30, 79, 217, 24, 36, 36, 14, 18, 122, 14],
           },
           {
-            barThickness: 7,
-
             label: "План",
-
             backgroundColor: "#D7D8DD",
             data: [450, 420, 380, 320, 217, 245, 318, 300, 200, 180, 122, 50],
           },
         ],
       },
 
-      // Configuration options go here
       options: {
-        title: {
-          display: true,
-          text: "Custom Chart Title",
-        },
+        // title: {
+        //   display: true,
+        //   text: "Custom Chart Title",
+        // },
         legend: {
           display: true,
           labels: {
@@ -70,9 +61,9 @@ export function MyChart() {
         layout: {
           padding: {
             left: 50,
-            right: 0,
+            right: 10,
             top: 50,
-            bottom: 0,
+            bottom: 10,
           },
         },
         responsive: false,
@@ -87,7 +78,7 @@ export function MyChart() {
                   month: "MMM",
                 },
               },
-              barPercentage: 0.5,
+              barPercentage: 0.7,
               categoryPercentage: 0.5,
             },
           ],
@@ -111,7 +102,7 @@ export function MyChart() {
         },
       },
     });
-    ctx.lineCap = "round";
+
     // return () => chart.destroy();
   });
   return (
