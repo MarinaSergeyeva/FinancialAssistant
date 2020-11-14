@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const UserModel = require('../auth/user.model');
-const AppError = require('./AppError');
+const AppError = require('../api/errors/appError');
+const userModel = require('../api/users/user.model');
 
 exports.authorize = async (req, res, next) => {
   const authHeader = req.get('Authorization');
@@ -15,7 +15,7 @@ exports.authorize = async (req, res, next) => {
   } catch (error) {
     next(new AppError('Unauthorized', 401));
   }
-  const user = await UserModel.findById(userId);
+  const user = await userModel.findById(userId);
   if (!user) {
     next(new AppError('Unauthorized', 401));
   }
