@@ -1,142 +1,275 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import moment from "moment";
-export class Chart extends Component {
-  constructor(props) {
-    super(props);
-    this.chartReference = React.createRef();
-    //======
-    let sData = {};
-    sData.label = [];
-    sData.time = [];
+import Chart from "chart.js";
+export function MyChart() {
+  let sData = {};
+  sData.label = [];
+  sData.time = [];
 
-    const count = 12;
-    for (let i = 0; i < count; i++) {
-      sData.label.push(
-        moment()
-          .year(2020)
-          .month(i - 1)
-          .date(i * 1)
-        //   .startOf("day")
-      );
-      //   sData.time.push(Math.round(Math.random() * 100));
-    }
-    console.log("sData.label", sData.label);
-    //======
-    this.state = {
+  const count = 12;
+  for (let i = 0; i < count; i++) {
+    sData.label.push(
+      moment()
+        //.year(2020)
+        .month(i - 1)
+
+      //   .date(i * 1)
+      //   .startOf("day")
+    );
+  }
+
+  useEffect(() => {
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    var chart = new Chart(ctx, {
+      type: "bar",
       data: {
         labels: sData.label,
+
         datasets: [
           {
-            data: [20, 50, 150, 75, 400, 50],
-            label: "Blue income",
-            yAxisID: "first-y-axis",
-            barThickness: 6,
-            backgroundColor: "#7C9AF2",
-            borderRadius: 10,
-          },
+            barThickness: 7,
 
-          {
-            data: [1, 5, 1, 2, 1, 0],
-            label: "Right dataset",
-            yAxisID: "second-y-axis",
-            barThickness: 6,
+            label: "Доходы",
+
+            backgroundColor: "#7C9AF2",
+            data: [30, 45, 300, 59, 267, 254, 346, 346, 134, 188, 12, 124],
           },
           {
-            data: [10, 50, 10, 20, 10, 300],
-            label: "Right dataset",
-            yAxisID: "third-y-axis",
-            barThickness: 6,
+            barThickness: 7,
+
+            label: "Расходы",
+
+            backgroundColor: "#FF6C00",
+            data: [202, 415, 30, 79, 217, 24, 36, 36, 14, 18, 122, 14],
+          },
+          {
+            barThickness: 7,
+
+            label: "План",
+
+            backgroundColor: "#D7D8DD",
+            data: [450, 420, 380, 320, 217, 245, 318, 300, 200, 180, 122, 50],
           },
         ],
-        // labels: [
-        //   "January",
-        //   "February",
-        //   "March",
-        //   "April",
-        //   "May",
-        //   "June",
-        //   "july",
-        //   "september",
-        // ],
       },
+
+      // Configuration options go here
       options: {
+        title: {
+          display: true,
+          text: "Custom Chart Title",
+        },
+        legend: {
+          display: true,
+          labels: {
+            fontColor: "rgba(24, 25, 31, 0.54)",
+          },
+        },
         layout: {
           padding: {
             left: 50,
-            right: 50,
-            top: 100,
+            right: 0,
+            top: 50,
             bottom: 0,
           },
         },
+        responsive: false,
         scales: {
-          //   xAxes: [
-          // {
-          //   ticks: {
-          //     max: 900,
-          //     min: 0,
-          //     stepSize: 100,
-          //   },
-          // },
-          //],
           xAxes: [
             {
+              gridLines: { display: false },
               type: "time",
-              //   time: {
-              //     unit: "month",
-              //   },
-              //   ticks: {
-              //     min: moment().month(), //!!!!   start to show chart from this month!
-              //   },
+              time: {
+                unit: "month",
+                displayFormats: {
+                  month: "MMM",
+                },
+              },
+              barPercentage: 0.5,
+              categoryPercentage: 0.5,
             },
-            // {
-            //   type: "time",
-            //   position: "bottom",
-            //   time: {
-            //     unit: "month",
-            //   },
-            // },
           ],
-
           yAxes: [
             {
-              id: "first-y-axis",
-              type: "linear",
-              position: "top",
-            },
-            {
-              id: "second-y-axis",
-              type: "linear",
-              position: "left",
-            },
-            {
-              id: "third-y-axis",
-              type: "linear",
-              position: "right",
+              gridLines: {
+                display: true,
+                borderDash: [10, 10],
+              },
+
+              ticks: {
+                //beginAtZero: true,
+                stepSize: 100,
+                // max: 500,
+                //   min: 0,
+                suggestedMin: 50,
+                suggestedMax: 500,
+              },
             },
           ],
         },
       },
-    };
-  }
-
-  componentDidMount() {
-    console.log(this.chartReference); // returns a Chart.js instance reference
-  }
-
-  render() {
-    return (
-      <Bar
-        // width={500}
-        // heigth={300}
-        ref={this.chartReference}
-        data={this.state.data}
-        options={this.state.options}
-      />
-    );
-  }
+    });
+    ctx.lineCap = "round";
+    // return () => chart.destroy();
+  });
+  return (
+    <div className="chartjs-wrapper">
+      <canvas
+        id="myChart"
+        width="500"
+        height="350"
+        className="chartjs"
+      ></canvas>
+    </div>
+  );
 }
 
+//===============New++++++==================
+
+// export class Chart extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.chartReference = React.createRef();
+//     //======
+//     let sData = {};
+//     sData.label = [];
+//     sData.time = [];
+
+//     const count = 12;
+//     for (let i = 0; i < count; i++) {
+//       sData.label.push(
+//         moment()
+//           //   .year(2020)
+//           .month(i - 1)
+//         //   .date(i * 1)
+//         //   .startOf("day")
+//       );
+//       //   sData.time.push(Math.round(Math.random() * 100));
+//     }
+//     console.log("sData.label", sData.label);
+//     console.log("Chart.defaults", Chart.defaults);
+//     //======
+//     this.state = {
+//       data: {
+//         labels: sData.label,
+//         datasets: [
+//           {
+//             data: [20, 50, 150, 75, 400, 50],
+//             label: "income",
+//             yAxisID: "first-y-axis",
+//             // barThickness: 10,
+//             borderColor: "black",
+//             borderWidth: 2,
+//             borderRadius: 5,
+//             borderSkipped: false,
+//             backgroundColor: "#7C9AF2",
+//             // borderWidth: 2,
+//             // borderColor: "black",
+//             // borderSkipped: "bottom",
+//             // borderRadius: 2,
+//             // hitRadius: 4,
+//           },
+
+//           {
+//             data: [1, 5, 1, 2, 1, 0],
+//             label: "expenditure",
+//             yAxisID: "second-y-axis",
+//             backgroundColor: "#FF6C00",
+//             // barThickness: 10,
+//             hitRadius: 4,
+//             //borderRadius: 2,
+//           },
+//           {
+//             data: [10, 50, 10, 20, 10, 300],
+//             label: "target amount need to save",
+//             yAxisID: "third-y-axis",
+//             backgroundColor: "#D7D8DD",
+//             // barThickness: 10,
+//             //hitRadius: 2,
+//             barRoundness: 5,
+//           },
+//         ],
+//       },
+//       options: {
+//         layout: {
+//           padding: {
+//             left: 50,
+//             right: 50,
+//             top: 100,
+//             bottom: 0,
+//           },
+//         },
+//         scales: {
+//           //   xAxes: [
+//           // {
+//           //   ticks: {
+//           //     max: 900,
+//           //     min: 0,
+//           //     stepSize: 100,
+//           //   },
+//           // },
+//           //],
+//           xAxes: [
+//             {
+//               type: "time",
+//               time: {
+//                 unit: "month",
+//               },
+//               //   ticks: {
+//               //     min: "Feb", //!!!!   start to show chart from this month!
+//               //   },
+//             },
+//             // {
+//             //   type: "time",
+//             //   position: "bottom",
+//             //   time: {
+//             //     unit: "month",
+//             //   },
+//             // },
+//           ],
+
+//           yAxes: [
+//             {
+//               id: "first-y-axis",
+//               type: "linear",
+//               position: "top",
+//             },
+//             {
+//               id: "second-y-axis",
+//               type: "linear",
+//               position: "left",
+//             },
+//             {
+//               id: "third-y-axis",
+//               type: "linear",
+//               position: "right",
+//             },
+//           ],
+//         },
+//       },
+//     };
+//   }
+
+//   componentDidMount() {
+//     console.log(this.chartReference); // returns a Chart.js instance reference
+//   }
+
+//   render() {
+//     return (
+//       <Bar
+//         // type="horizontalBar"
+//         // width={500}
+//         // heigth={300}
+//         ref={this.chartReference}
+//         data={this.state.data}
+//         options={this.state.options}
+//       />
+//     );
+//   }
+// }
+//==================NEW++++++++=+=============
 // let myChart = document.getElementById("myChart").getContext("2d");
 // let Chart = new Chart(myChart, {
 //   type: "bar",

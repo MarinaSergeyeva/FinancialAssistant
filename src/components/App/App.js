@@ -1,8 +1,8 @@
 import React from "react";
-import { Chart } from "../../pages/ChartExpenseIncome/ChartExpenseIncome.js";
+import { MyChart } from "../../pages/ChartExpenseIncome/ChartExpenseIncome.js";
 
 function App() {
-  return <Chart />;
+  return <MyChart />;
 }
 
 export default App;
