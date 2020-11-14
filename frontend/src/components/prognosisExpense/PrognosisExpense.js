@@ -2,6 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 
+const PrognosisExpense = () => {
+  const handleClick = () => {
+    console.log('Отправка запроса - транзакция по расходам');
+  };
+  return (
+    <PrognosisExpenseWrapper>
+      <div className="inner">
+        <p className="value">-600 &#x20B4;</p>
+        <p className="small">Лимит на день</p>
+      </div>
+
+      <div className="inner">
+        <p className="value">-5000 &#x20B4;</p>
+        <p className="small">Отклонение от плановой суммы накопления</p>
+      </div>
+
+      <button className="btn" onClick={handleClick} type="button">
+        Готово
+      </button>
+    </PrognosisExpenseWrapper>
+  );
+};
+
+export default PrognosisExpense;
+
 const PrognosisExpenseWrapper = styled.div`
   padding: 34px 40px;
   border-radius: 8px;
@@ -32,6 +57,7 @@ const PrognosisExpenseWrapper = styled.div`
     color: inherit;
   }
   @media (min-width: ${size.tablet}) {
+    padding: 32px 25px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -41,33 +67,7 @@ const PrognosisExpenseWrapper = styled.div`
       width: 30%;
     }
   }
-
   @media (min-width: ${size.desktop}) {
     padding: 32px 65px;
   }
 `;
-
-const PrognosisExpense = () => {
-  const handleClick = () => {
-    console.log('Отправка запроса - транзакция по расходам');
-  };
-  return (
-    <PrognosisExpenseWrapper>
-      <div className="inner">
-        <p className="value">-600 &#x20B4;</p>
-        <p className="small">Лимит на день</p>
-      </div>
-
-      <div className="inner">
-        <p className="value">-5000 &#x20B4;</p>
-        <p className="small">Отклонение от плановой суммы накопления</p>
-      </div>
-
-      <button className="btn" onClick={handleClick} type="button">
-        Готово
-      </button>
-    </PrognosisExpenseWrapper>
-  );
-};
-
-export default PrognosisExpense;
