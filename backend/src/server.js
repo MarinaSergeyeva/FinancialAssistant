@@ -1,14 +1,9 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
+const path = require('path');
 const morgan = require('morgan');
-
-// const contactRouter = require('./api/contacts/contactRoutes');
-// const userRouter = require('./api/users/userRoutes');
 const authRouter = require('./api/auth/auth.routers');
-// const dotenv = require('dotenv');
-require('dotenv').config({ path: path.join(__dirname, './.env') });
-// dotenv.config();
+require('dotenv').config({ path: path.join('./.env') });
 
 const AppError = require('./api/errors/appError');
 const PORT = process.env.PORT || 8080;

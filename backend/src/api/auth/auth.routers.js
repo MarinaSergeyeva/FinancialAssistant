@@ -1,41 +1,31 @@
-const { Router } = require("express");
+const { Router } = require('express');
 const authRouter = Router();
-const Joi = require("joi");
-const { validate } = require("../../utils.js/validate");
-
-const AuthController = require("./auth.controller");
-const { authorize } = require("../../utils.js/authMiddleware");
+const Joi = require('joi');
+const { validate } = require('../../utils.js/validate');
+const AuthController = require('./auth.controller');
 const catchAsync = require('../../utils.js/catchAsync');
 
-
-
-const registerScheme = Joi.object({
+const registerSchema = Joi.object({
   username: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
 
-const loginScheme = Joi.object({
+const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
 
 authRouter.post(
-  "/sign-up",
-  validate(registerScheme),
-  catchAsync(AuthController.createNewUser)
+  '/sign-up',
+  validate(registerSchema),
+  catchAsync(AuthController.createNewUser),
 );
 
 authRouter.post(
-  "/sign-in",
-  validate(loginScheme),
-  catchAsync(AuthController.loginUser)
-);
-
-authRouter.post(
-  "/sign-out",
-  catchAsync(authorize),
-  catchAsync(AuthController.logout)
+  '/sign-in',
+  validate(loginSchema),
+  catchAsync(AuthController.loginUser),
 );
 
 module.exports = authRouter;

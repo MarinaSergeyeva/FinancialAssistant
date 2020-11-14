@@ -9,7 +9,7 @@ const UserSchema = new Schema(
       unique: true,
       required: true,
     },
-    password: { type: String },
+    passwordHash: { type: String },
     balance: { type: Number, default: 0, required: true },
     flatPrice: { type: Number, default: 0, required: true },
     flatSquareMeters: { type: Number, default: 0, required: true },
