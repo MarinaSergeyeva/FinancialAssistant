@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import modalTransition from './modalTransition.module.css';
-import style from './ModalBackDrop.module.css';
+import styled from 'styled-components';
 
 const modalBackDrop = WrappedComponent => {
   return class ModalBackDrop extends Component {
@@ -39,7 +39,7 @@ const modalBackDrop = WrappedComponent => {
 
     render() {
       return (
-        <div data-type="modal" className={style.overlay}>
+        <ModalOverlay data-type="modal">
           <CSSTransition
             in={this.state.isOpen}
             timeout={250}
@@ -48,9 +48,22 @@ const modalBackDrop = WrappedComponent => {
           >
             <WrappedComponent {...this.props} closeModal={this.closeModal} />
           </CSSTransition>
-        </div>
+        </ModalOverlay>
       );
     }
   };
 };
 export default modalBackDrop;
+
+const ModalOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgb(128, 128, 128, 0.65);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
