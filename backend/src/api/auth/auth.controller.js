@@ -22,12 +22,6 @@ exports.createNewUser = async (req, res, next) => {
     username,
     email,
     password: passwordHash,
-    // totalSalary,
-    // passiveIncome,
-    // incomePercentageToSavings,
-    // flatPrice,
-    // flatSquareMeters,
-    // balance,
   });
 
   res.status(201).json({
@@ -36,12 +30,6 @@ exports.createNewUser = async (req, res, next) => {
       id: newUser._id,
       username: newUser.username,
       email: newUser.email,
-      // totalSalary: newUser.totalSalary,
-      // passiveIncome: newUser.passiveIncome,
-      // incomePercentageToSavings: newUser.incomePercentageToSavings,
-      // flatPrice: newUser.flatPrice,
-      // flatSquareMeters: newUser.flatSquareMeters,
-      // balance: newUser.balance,
     },
   });
 };
@@ -71,12 +59,6 @@ exports.loginUser = async (req, res, next) => {
       username: existUser.username,
       email: existUser.email,
       id: existUser._id,
-      // totalSalary: existUser.totalSalary,
-      // passiveIncome: existUser.passiveIncome,
-      // incomePercentageToSavings: existUser.incomePercentageToSavings,
-      // flatPrice: existUser.flatPrice,
-      // flatSquareMeters: existUser.flatSquareMeters,
-      // balance: existUser.balance,
       },
       token: token
       }
