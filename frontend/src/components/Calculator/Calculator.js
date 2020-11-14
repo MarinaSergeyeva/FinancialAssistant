@@ -3,13 +3,18 @@ import React, { useState } from 'react';
 import * as math from 'mathjs';
 import { Button } from './CalcButton/CalcButton';
 import styled from 'styled-components';
-import styles from './Calculator.module.css';
 import Input from './CalcInput/CalcInput';
+import { ClearButton } from './CalcButton/ClearButton';
 
 const Calculator = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState('0');
 
   const addToInput = val => {
+    if (input === '0') {
+      console.log('hello');
+      // setInput(' ');
+      return setInput(val);
+    }
     setInput(input + val);
   };
 
@@ -23,7 +28,14 @@ const Calculator = () => {
         <Input input={input} />
       </Row>
       <Row>
-        <Button handleClick={addToInput}>AC</Button>
+        <ClearButton
+          handleClear={() => {
+            setInput('0');
+          }}
+          handleClick={addToInput}
+        >
+          AC
+        </ClearButton>
         <Button handleClick={addToInput}>+/-</Button>
         <Button handleClick={addToInput}>%</Button>
         <Button handleClick={addToInput}>/</Button>
