@@ -4,7 +4,7 @@ const Joi = require("joi");
 const { validate } = require("../../utils.js/validate");
 
 const AuthController = require("./auth.controller");
-const { authorize } = require("../../utils.js/authorize");
+const { authorize } = require("../../utils.js/authMiddleware");
 const catchAsync = require('../../utils.js/catchAsync');
 
 

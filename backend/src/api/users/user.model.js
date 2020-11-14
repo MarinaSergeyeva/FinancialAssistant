@@ -1,21 +1,26 @@
-const mongoose = require("mongoose");
-
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const userScheme = new Schema({
-  username:{ type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  token: { type: String },
-  id : { type: String },
-  totalSalary:{ type: Number },
-  passiveIncome: { type: Number },
-  incomePercentageToSavings : { type: Number },
-  flatPrice: { type: Number },
-  flatSquareMeters : { type: Number },
-  balance: { type: Number },
-});
+const UserSchema = new Schema(
+  {
+    username: { type: String, required: true },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    password: { type: String },
+    balance: { type: Number, default: 0, required: true },
+    flatPrice: { type: Number, default: 0, required: true },
+    flatSquareMeters: { type: Number, default: 0, required: true },
+    totalSalary: { type: Number, default: 0, required: true },
+    passiveIncome: { type: Number, default: 0, required: true },
+    incomePercentageToSavings: { type: Number, default: 0, required: true },
+    giftsUnpacked: { type: Number, default: 0 },
+    giftsForUnpacking: { type: Number, default: 0 },
+    tokens: [{ type: String }],
+  },
+  { timestamps: true },
+);
 
-const UserModel = mongoose.model("User", userScheme);
-
-module.exports = UserModel;
+module.exports = mongoose.model('User', UserSchema);
