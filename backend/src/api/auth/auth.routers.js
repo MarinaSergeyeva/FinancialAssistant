@@ -33,7 +33,7 @@ authRouter.post(
 );
 
 authRouter.post(
-  "/logout",
+  "/sign-out",
   catchAsync(authorize),
   catchAsync(AuthController.logout)
 );
