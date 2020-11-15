@@ -3,6 +3,7 @@ const transactionRouter = express.Router();
 const {
   createTransaction,
     getTransactionCategories,
+    getTrans,
 } = require('./transaction.controller');
 const { authorize } = require('../../utils.js/authMiddleware');
 const { validate } = require('../../utils.js/validate');
@@ -14,7 +15,6 @@ const addTransactionSchema = Joi.object({
   type: Joi.string().required(),
   comment: Joi.string(),
   category: Joi.string(),
-  userId: Joi.object(),
 });
 
 transactionRouter.post(
