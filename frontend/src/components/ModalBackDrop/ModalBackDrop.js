@@ -61,7 +61,7 @@ export default modalBackDrop;
 // import modalTransition from './modalTransition.module.css';
 // import styled from 'styled-components';
 
-// const modalBackDrop = WrappedComponent => {
+// const ModalBackDrop = WrappedComponent => {
 //   const [isOpen, setIsOpen] = useState(false);
 
 //   useEffect(() => {
@@ -77,17 +77,17 @@ export default modalBackDrop;
 //     };
 //   });
 
-//   closeModal = () => {
-//     close();
+//   const closeModal = () => {
+//     // close();
 //   };
 
-//   closeModalKeydown = e => {
+//   const closeModalKeydown = e => {
 //     if (e.code === 'Escape') {
 //       closeModal();
 //     }
 //   };
 
-//   closeModalOverlay = e => {
+//    const closeModalOverlay = e => {
 //     if (e.target.dataset.type === 'modal') {
 //       closeModal();
 //     }
@@ -106,7 +106,7 @@ export default modalBackDrop;
 //     </ModalOverlay>
 //   );
 // };
-// export default modalBackDrop;
+// export default ModalBackDrop;
 
 const ModalOverlay = styled.div`
   width: 100%;
