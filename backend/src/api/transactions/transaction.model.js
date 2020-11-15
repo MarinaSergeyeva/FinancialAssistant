@@ -27,3 +27,16 @@ const transactionSchema = new Schema(
 );
 
 module.exports = mongoose.model('Transaction', transactionSchema);
+
+class TransactionModel {
+  constructor() {
+    this.db = mongoose.model('Transaction', transactionSchema);
+  }
+
+  async addTransaction(transaction) {
+    return await this.db.create(transaction);
+  }
+
+}
+
+module.exports = new TransactionModel();
