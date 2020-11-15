@@ -3,7 +3,7 @@ import React, { Component, useEffect } from "react";
 import moment from "moment";
 import Chart from "chart.js";
 
-export function MyChart() {
+export const MyChart = () => {
   let sData = {};
   sData.label = [];
   sData.time = [];
@@ -41,6 +41,9 @@ export function MyChart() {
           },
           {
             label: "План",
+            // lineHeight: 1.2,
+            // fontColor: "pink",
+            // padding: 50,
             backgroundColor: "#D7D8DD",
             data: [450, 420, 380, 320, 217, 245, 318, 300, 200, 180, 122, 50],
           },
@@ -52,25 +55,34 @@ export function MyChart() {
         //   display: true,
         //   text: "Custom Chart Title",
         // },
+
         legend: {
           display: true,
+          align: "start",
+
           labels: {
             fontColor: "rgba(24, 25, 31, 0.54)",
+            boxWidth: 20,
+            boxHeight: 20,
+            padding: 30,
           },
         },
         layout: {
           padding: {
-            left: 50,
+            left: 40,
             right: 10,
-            top: 50,
-            bottom: 10,
+            top: 0,
+            bottom: 0,
           },
         },
-        responsive: false,
+        responsive: true,
         scales: {
           xAxes: [
             {
-              gridLines: { display: false },
+              gridLines: {
+                display: false,
+                offset: true,
+              },
               type: "time",
               time: {
                 unit: "month",
@@ -78,8 +90,8 @@ export function MyChart() {
                   month: "MMM",
                 },
               },
-              barPercentage: 0.7,
-              categoryPercentage: 0.5,
+              barPercentage: 0.8,
+              categoryPercentage: 0.6,
             },
           ],
           yAxes: [
@@ -109,13 +121,13 @@ export function MyChart() {
     <div className="chartjs-wrapper">
       <canvas
         id="myChart"
-        width="500"
-        height="350"
+        // width="418"
+        height="500"
         className="chartjs"
       ></canvas>
     </div>
   );
-}
+};
 
 //===============New++++++==================
 
