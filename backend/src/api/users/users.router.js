@@ -5,7 +5,7 @@ const { authorize } = require('../../utils.js/authMiddleware');
 const { validate } = require('../../utils.js/validate');
 const Joi = require('joi');
 
-const UserSchema = Joi.object({
+const DataUserSchema = Joi.object({
   balance: Joi.number().required(),
   flatPrice: Joi.number().required(),
   flatSquareMeters: Joi.number().required(),
@@ -17,8 +17,9 @@ const UserSchema = Joi.object({
 usersRouter.put(
   '/savings-info',
   authorize,
-  validate(UserSchema),
+  validate(DataUserSchema),
   updateUsersController,
 );
 
 module.exports = usersRouter;
+module.exports = { DataUserSchema };
