@@ -37,6 +37,10 @@ class TransactionModel {
     return await this.db.create(transaction);
   }
 
+  async getTransaction() {
+    return await this.db.find();
+  }
+
 }
 
 module.exports = new TransactionModel();
