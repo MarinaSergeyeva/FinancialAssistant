@@ -2,7 +2,7 @@ const UserDB = require('./user.model');
 const catchAsync = require('../../utils.js/catchAsync');
 
 const updateUsersController = catchAsync(async (req, res, next) => {
-  if (req.user && req.body) {
+  if (req.body) {
     const updatedUser = await UserDB.findByIdAndUpdate(req.user._id, req.body, {
       new: true,
     });
