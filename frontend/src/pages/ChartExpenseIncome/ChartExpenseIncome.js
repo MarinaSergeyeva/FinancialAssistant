@@ -30,16 +30,22 @@ export const MyChart = () => {
 
         datasets: [
           {
+            barPercentage: 0.8,
+            categoryPercentage: 0.6,
             label: "Доходы",
             backgroundColor: "#7C9AF2",
             data: [30, 45, 300, 59, 267, 254, 346, 346, 134, 188, 12, 124],
           },
           {
+            categoryPercentage: 0.6,
+            barPercentage: 0.8,
             label: "Расходы",
             backgroundColor: "#FF6C00",
             data: [202, 415, 30, 79, 217, 24, 36, 36, 14, 18, 122, 14],
           },
           {
+            categoryPercentage: 0.6,
+            barPercentage: 0.8,
             label: "План",
             // lineHeight: 1.2,
             // fontColor: "pink",
@@ -90,8 +96,8 @@ export const MyChart = () => {
                   month: "MMM",
                 },
               },
-              barPercentage: 0.8,
-              categoryPercentage: 0.6,
+              // barPercentage: 0.8,
+              // categoryPercentage: 0.6,
             },
           ],
           yAxes: [
@@ -115,7 +121,7 @@ export const MyChart = () => {
       },
     });
 
-    // return () => chart.destroy();
+    return () => chart.destroy();
   });
   return (
     <div className="chartjs-wrapper">
