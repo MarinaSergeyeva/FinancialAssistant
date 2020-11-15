@@ -6,12 +6,12 @@ const { validate } = require('../../utils.js/validate');
 const Joi = require('joi');
 
 const UserSchema = Joi.object({
-  balance: Joi.number(),
-  flatPrice: Joi.number(),
-  flatSquareMeters: Joi.number(),
-  totalSalary: Joi.number(),
-  passiveIncome: Joi.number(),
-  incomePercentageToSavings: Joi.number(),
+  balance: Joi.number().required(),
+  flatPrice: Joi.number().required(),
+  flatSquareMeters: Joi.number().required(),
+  totalSalary: Joi.number().required(),
+  passiveIncome: Joi.number().required(),
+  incomePercentageToSavings: Joi.number().required(),
 });
 
 usersRouter.put(
