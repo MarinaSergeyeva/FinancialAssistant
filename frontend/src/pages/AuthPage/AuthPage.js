@@ -1,8 +1,58 @@
-import React from 'react';
-import { Registration } from '../../components/Auth/Registration/Registration';
+import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import device from '../../common/deviceSizes';
+import MainPage from '../../components/MainPage/MainPage';
+import Registration from '../../components/Auth/Registration/Registration';
+import Login from '../../components/Auth/Login/Login';
+import styled from 'styled-components';
+
+
+
 
 const AuthPage = () => {
-  return <Registration/>;
+  const [isShowRegistration, setIsShowRegistration] = useState(false);
+  const [isShowLogin, setIsShowLogin] = useState(false);
+
+  const showModalAuth = (e) => {
+    (e.target.innerText === 'Рeгистрация')
+    ? setIsShowRegistration(true)
+    : setIsShowLogin(true);
+  };
+
+  const closeRegistration = () => {
+    setIsShowRegistration(prev => !prev);
+    setIsShowLogin(prev => !prev);
+  };
+  
+  const closeLogin = () => {
+    setIsShowLogin(prev => !prev);
+  };
+
+  const isOnBigDevice = useMediaQuery({
+    query: device.largeDevice,
+  });
+  return (
+    <>
+      {isOnBigDevice && (
+        <>
+          <Button type="button" onClick={(e) => showModalAuth(e)}>
+            Рeгистрация
+          </Button>
+          <Button type="button" onClick={(e) => showModalAuth(e)}>
+            Вход
+          </Button>
+        </>
+      )}
+      {isShowRegistration && <Registration close={closeRegistration} />}
+      {isShowLogin && <Login close={closeLogin} />}
+      <MainPage />
+    </>
+  );
 };
+
+const Button = styled.button`
+  margin: 10px;
+  padding: 10px;
+`;
 
 export default AuthPage;

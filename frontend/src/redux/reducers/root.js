@@ -6,7 +6,7 @@ import authReducer from './authReducer';
 export const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['access_token'],
+  whitelist: ['token'],
 };
 
 const root = combineReducers({

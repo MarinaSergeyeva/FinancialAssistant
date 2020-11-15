@@ -1,7 +1,7 @@
 import authConstants from '../constants/authConstants';
 
 const initialState = {
-  access_token: '',
+  token: '',
 };
 
 const auth = (state = initialState, { type, payload }) => {
