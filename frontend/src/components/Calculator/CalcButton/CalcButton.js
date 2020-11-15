@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import device from '../../../common/deviceSizes';
 
 export const Button = props => (
   <ButtonWrapper
@@ -28,5 +29,15 @@ const ButtonWrapper = styled.div`
     margin-right: 0px;
     background-color: #fe9241;
     color: #ffffff;
+  }
+  @media ${device.tablet} {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+  @media ${device.desktop} {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
   }
 `;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import device from '../../../common/deviceSizes';
 
 const Input = props => {
   return (
@@ -21,4 +22,13 @@ const InputWrapper = styled.div`
   line-height: 42px;
   padding-right: 10px;
   height: 36px;
+
+  @media ${device.tablet} {
+    font-size: 24px;
+    height: 24px;
+  }
+  @media ${device.desktop} {
+    font-size: 24px;
+    height: 24px;
+  }
 `;

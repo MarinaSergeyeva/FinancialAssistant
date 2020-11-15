@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import device from '../../../common/deviceSizes';
 
 export const ClearButton = props => (
   <ClearBtn className="clear-btn" onClick={props.handleClear}>
@@ -21,4 +22,14 @@ const ClearBtn = styled.div`
   height: 44px;
   border-radius: ${props => (props.radius ? props.radius : '50%')};
   margin-right: 12px;
+  @media ${device.tablet} {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+  @media ${device.desktop} {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
 `;

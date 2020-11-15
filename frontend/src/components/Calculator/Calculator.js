@@ -5,21 +5,22 @@ import { Button } from './CalcButton/CalcButton';
 import styled from 'styled-components';
 import Input from './CalcInput/CalcInput';
 import { ClearButton } from './CalcButton/ClearButton';
+import device from '../../common/deviceSizes';
 
 const Calculator = () => {
   const [input, setInput] = useState('0');
+  // const [result, setResult] = useState(''); /// Will be used in connecting component
 
   const addToInput = val => {
     if (input === '0') {
-      console.log('hello');
-      // setInput(' ');
       return setInput(val);
     }
     setInput(input + val);
   };
 
   const handleEqual = () => {
-    setInput(math.evaluate(input));
+    setInput(Math.round(math.evaluate(input) * 100) / 100);
+    // setResult(math.evaluate(input));/// Will be used in connecting component
   };
 
   return (
@@ -95,6 +96,18 @@ const CalculatorWrapper = styled.div`
   width: 263px;
   background-color: #f3f3f5;
   border-radius: 8px;
+  @media ${device.tablet} {
+    height: 239px;
+    width: 170px;
+    padding: 18px;
+    font-size: 16px;
+  }
+  @media ${device.desktop} {
+    height: 239px;
+    width: 170px;
+    padding: 18px;
+    font-size: 16px;
+  }
 `;
 
 const Row = styled.div`
@@ -103,19 +116,3 @@ const Row = styled.div`
   justify-content: ${props =>
     props.justifyContent ? props.justifyContent : 'space-around'};
 `;
-
-// const ZeroButton = styled.div`
-//   text-align: left;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-weight: lighter;
-//   background-color: #ffffff;
-//   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16);
-//   color: #212638;
-//   flex: 1;
-//   max-width: 100px;
-//   height: 44px;
-//   border-radius: 22px;
-//   flex-grow: 2;
-// `;
