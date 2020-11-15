@@ -1,8 +1,26 @@
-import React from 'react';
-import Calculator from '../../components/Calculator/Calculator';
+import React, { useState } from 'react';
+import Test from '../test/Test';
+import MainPage from '../../components/MainPage/MainPage';
 
 const AuthPage = () => {
-  return <Calculator />;
+  const [isShow, setIsShow] = useState(false);
+  const showModal = () => {
+    setIsShow(true);
+  };
+
+  const close = () => {
+    setIsShow(prev => !prev);
+  };
+
+  return (
+    <>
+      <button type="button" onClick={() => showModal()}>
+        click me
+      </button>
+      {isShow && <Test close={close} />}
+      <MainPage />
+    </>
+  );
 };
 
 export default AuthPage;
