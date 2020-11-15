@@ -18,7 +18,7 @@ const updateUsersController = catchAsync(async (req, res, next) => {
       incomePercentageToSavings: updatedUser.incomePercentageToSavings,
     });
   }
-  res.status(404).json({ message: 'Not found' });
+  res.status(401).json({ message: 'Unauthorized' });
 });
 
 module.exports = { updateUsersController };
