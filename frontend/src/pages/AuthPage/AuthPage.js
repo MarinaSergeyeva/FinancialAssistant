@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import Test from '../test/Test';
+import { Registration } from '../../components/Auth/Registration/Registration';
+
 
 const AuthPage = () => {
 
@@ -18,6 +20,7 @@ const AuthPage = () => {
       <button type="button" onClick={() => showModal()}>click me</button>
       {isShow && <Test close={close}/>}
       <p>'AuthPage'</p>
+      <Registration />
       </>
   )
 };
