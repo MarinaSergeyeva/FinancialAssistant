@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { MyChart } from "../ChartExpenseIncome/ChartExpenseIncome.js";
 import styles from "../ChartExpenseIncome/ChartExpenseIncome.module.css";
+import { MonthlyExecutionPlan } from "../MonthlyExecutionPlan/MonthlyExecutionPlan.js";
 const DynamicsPage = () => {
   return (
     <>
@@ -11,6 +12,7 @@ const DynamicsPage = () => {
         </div>
         <MyChart />
       </div>
+      <MonthlyExecutionPlan />
     </>
   );
 };

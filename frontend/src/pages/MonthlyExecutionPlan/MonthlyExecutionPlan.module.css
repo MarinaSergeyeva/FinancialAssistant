@@ -1,0 +1,54 @@
+
+
+.Monthly_main_wrapper{
+border:1px solid black;
+width:468px;
+
+
+
+}
+
+.Month_input{
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom:1px solid  rgba(0, 0, 0, 0.36);;
+    font-size: 14px;
+line-height: 20px;
+color: #18191F;
+background-image: url();
+
+    /* margin:20px; */
+}
+
+.Monthly_cards_wrapper{
+    margin-top:20px;
+    display:flex;
+    flex-wrap:wrap;
+    width:468px;
+    justify-content:space-between;
+
+}
+.Monthly_cards{
+    line-height: 18px;
+    width: 88px;
+    height: 48px;
+    background-color:#F3F3F5;
+    display:flex;
+   flex-direction:column;
+     justify-content: center;
+     align-items: center;
+     border: 1px solid #B6C4D4;
+     border-radius: 4px;
+}
+.label{
+    font-size: 12px;
+    
+color: rgba(24, 25, 31, 0.54);
+}
+.value{
+    font-size: 14px;
+
+    
+   color: #18191F; 
+}

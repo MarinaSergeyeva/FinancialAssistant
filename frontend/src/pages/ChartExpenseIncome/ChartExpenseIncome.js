@@ -75,7 +75,7 @@ export const MyChart = () => {
             bottom: 0,
           },
         },
-        responsive: true,
+        //responsive: true,
         scales: {
           xAxes: [
             {
@@ -122,7 +122,7 @@ export const MyChart = () => {
       <canvas
         id="myChart"
         // width="418"
-        height="500"
+        height="200"
         className="chartjs"
       ></canvas>
     </div>
