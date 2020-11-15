@@ -23,7 +23,7 @@ class CrudServer {
     this.initServer();
     await this.initDatabase();
     this.initMiddlewares();
-    // this.initServerRouters();
+    this.initServerRouters();
     this.initErrorHandling();
     this.startListening();
   }
@@ -66,12 +66,12 @@ class CrudServer {
     });
   }
 
-  // initServerRouters() {
+  initServerRouters() {
   //   this.server.use('/api/v1/contacts', contactRouter);
   //   this.server.use('/api/v1/auth', authRouter);
   //   this.server.use('/api/v1/users', userRouter);
   //   this.server.use('/', userRouter, express.static('public'));
-  // }
+  }
 
   initErrorHandling() {
     this.server.all('*', (req, res, next) => {
