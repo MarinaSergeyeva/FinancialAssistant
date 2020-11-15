@@ -26,21 +26,8 @@ const transactionSchema = new Schema(
   { timestamps: true },
 );
 
-module.exports = mongoose.model('Transaction', transactionSchema);
+const TransactionModel = mongoose.model('Transaction', transactionSchema);
 
-class TransactionModel {
-  constructor() {
-    this.db = mongoose.model('Transaction', transactionSchema);
-  }
-
-  async addTransaction(transaction) {
-    return await this.db.create(transaction);
-  }
-
-  async getTransaction() {
-    return await this.db.find();
-  }
-
-}
-
-module.exports = new TransactionModel();
+module.exports = {
+  TransactionModel,
+};
