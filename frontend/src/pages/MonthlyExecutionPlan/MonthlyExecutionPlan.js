@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./MonthlyExecutionPlan.module.css";
-
+import ru from "date-fns/locale/ru";
+registerLocale("ru", ru);
 export const MonthlyExecutionPlan = () => {
   const [startDate, setStartDate] = useState(new Date());
 
@@ -13,11 +14,12 @@ export const MonthlyExecutionPlan = () => {
         <p className={styles.label}>Месяц </p>
 
         <DatePicker
+          locale="ru"
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
           selected={startDate}
           onChange={(date) => setStartDate(date)}
-          dateFormat="MMMM  yyyy"
+          dateFormat=" MMMM YYY"
           showMonthYearPicker
           showFullMonthYearPicker
           showTwoColumnMonthYearPicker

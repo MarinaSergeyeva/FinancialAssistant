@@ -81,7 +81,7 @@ export const MyChart = () => {
             bottom: 0,
           },
         },
-        //responsive: true,
+        responsive: true,
         scales: {
           xAxes: [
             {
