@@ -1,27 +1,28 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Test from '../test/Test';
 import MainPage from '../../components/MainPage/MainPage';
-
+import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
 
 const AuthPage = () => {
-
   const [isShow, setIsShow] = useState(false);
   const showModal = () => {
     setIsShow(true);
   };
 
   const close = () => {
-    setIsShow(prev => !prev)
-  }
-
+    setIsShow(prev => !prev);
+  };
 
   return (
     <>
-      <button type="button" onClick={() => showModal()}>click me</button>
-      {isShow && <Test close={close}/>}
-      <MainPage/>
-      </>
-  )
+      <ApartmentVisualization />
+      <button type="button" onClick={() => showModal()}>
+        click me
+      </button>
+      {isShow && <Test close={close} />}
+      <MainPage />
+    </>
+  );
 };
 
 export default AuthPage;
