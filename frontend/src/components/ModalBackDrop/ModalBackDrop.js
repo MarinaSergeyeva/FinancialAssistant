@@ -8,13 +8,14 @@ const modalBackDrop = WrappedComponent => {
     state = {
       isOpen: false,
     };
+
     componentDidMount() {
       this.setState({ isOpen: true });
       window.addEventListener('keydown', this.closeModalKeydown);
       document.addEventListener('click', this.closeModalOverlay);
       document.body.style.overflow = 'hidden';
     }
-
+    
     componentWillUnmount() {
       window.removeEventListener('keydown', this.closeModalKeydown);
       document.removeEventListener('click', this.closeModalOverlay);
@@ -54,6 +55,58 @@ const modalBackDrop = WrappedComponent => {
   };
 };
 export default modalBackDrop;
+
+// import React, { useState, useEffect } from 'react';
+// import { CSSTransition } from 'react-transition-group';
+// import modalTransition from './modalTransition.module.css';
+// import styled from 'styled-components';
+
+// const modalBackDrop = WrappedComponent => {
+//   const [isOpen, setIsOpen] = useState(false);
+
+//   useEffect(() => {
+//     setIsOpen(true);
+//     window.addEventListener('keydown', closeModalKeydown);
+//     document.addEventListener('click', closeModalOverlay);
+//     document.body.style.overflow = 'hidden';
+
+//     return function cleanup() {
+//       window.removeEventListener('keydown', closeModalKeydown);
+//       document.removeEventListener('click', closeModalOverlay);
+//       document.body.style.overflow = 'auto';
+//     };
+//   });
+
+//   closeModal = () => {
+//     close();
+//   };
+
+//   closeModalKeydown = e => {
+//     if (e.code === 'Escape') {
+//       closeModal();
+//     }
+//   };
+
+//   closeModalOverlay = e => {
+//     if (e.target.dataset.type === 'modal') {
+//       closeModal();
+//     }
+//   };
+
+//   return (
+//     <ModalOverlay data-type="modal">
+//       <CSSTransition
+//         in={isOpen}
+//         timeout={250}
+//         classNames={modalTransition}
+//         unmountOnExit
+//       >
+//         <WrappedComponent closeModalOverlay={closeModalOverlay} closeModalKeydown={closeModalKeydown} closeModal={closeModal} />
+//       </CSSTransition>
+//     </ModalOverlay>
+//   );
+// };
+// export default modalBackDrop;
 
 const ModalOverlay = styled.div`
   width: 100%;
