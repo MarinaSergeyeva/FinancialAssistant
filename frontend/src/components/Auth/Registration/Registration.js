@@ -13,6 +13,7 @@ import {
 import operation from '../../../redux/operations/authOperations';
 import modalBackDrop from '../../ModalBackDrop/ModalBackDrop';
 
+
 const Registration = ({close}) => {
   const dispatch = useDispatch();
   const [username, setHandelName] = useState('');

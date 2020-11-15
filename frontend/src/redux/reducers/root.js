@@ -6,11 +6,12 @@ import authReducer from './authReducer';
 export const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'user'],
 };
 
 const root = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
+  error: {}
 });
 
 export default root;

@@ -6,6 +6,7 @@ import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.
 import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
 import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
 import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
+// import Registration from '../Auth/Registration/Registration';
 
 const MainPage = () => {
   return (
