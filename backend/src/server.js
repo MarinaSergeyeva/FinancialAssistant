@@ -23,7 +23,7 @@ class CrudServer {
     this.initMiddlewares();
     this.initServerRouters();
     this.initErrorHandling();
-    return this.startListening();
+    this.startListening();
   }
 
   initServer() {
@@ -80,7 +80,7 @@ class CrudServer {
   }
 
   startListening() {
-    return this.server.listen(PORT, err => {
+    this.server.listen(PORT, err => {
       if (err) {
         return console.log('Something bad happened', err);
       }
