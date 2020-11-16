@@ -9,4 +9,6 @@
   --main-background-color: rgba(0, 0, 0, 0.03);
   --secondary-background-color: #373b53;
   --third-background-color: rgba(55, 59, 83, 0.2);
+
+  --main-font:'Roboto', Arial, sans-serif;
 }
