@@ -5,6 +5,7 @@ import operation from '../../../redux/operations/authOperations'
 import {colors,fonts} from '../../../stylesheet/vars'
 
 export const Registration = () => {
+  console.log('fonts.main', fonts.main)
   const dispatch = useDispatch();
   const [name, setHandleName] = useState('');
   const [email, setHandleEmail] = useState('');

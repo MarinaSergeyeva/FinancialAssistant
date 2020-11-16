@@ -33,7 +33,7 @@ const boxShadow = {
 }
 
 const fonts = {
-    main: `Roboto', Arial, sans-serif`,
+    main: `'Roboto'`,
     secondary: `'Gilroy', Arial, sans-serif`
 }
 
