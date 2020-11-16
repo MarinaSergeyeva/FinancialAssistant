@@ -10,7 +10,6 @@ const createTransaction = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     transaction: newTransaction,
-    // userId: user._id,
   });
 });
 

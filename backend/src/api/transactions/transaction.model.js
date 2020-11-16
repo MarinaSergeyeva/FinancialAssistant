@@ -20,6 +20,7 @@ const transactionSchema = new Schema(
       type: String,
       enum: Object.values(expensesCategories),
       default: expensesCategories.OTHER,
+      required: true,
     },
     userId: { type: ObjectId, ref: 'User' },
   },
