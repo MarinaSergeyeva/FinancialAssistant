@@ -38,13 +38,16 @@ export const AuthInput = styled.input`
   box-sizing: border-box;
   border-radius: 4px;
   margin-bottom: 30px;
+  padding-left: 18px;
+  color: rgba(24, 25, 31, 0.54);
 
-  ::placeholder {
+  &::placeholder {
     padding-left: 18px;
   }
 
-  :active{
-    border: 1px solid rgba(0, 0, 0, 0.36);
+  &:active,
+  &:focus {
+    border: 1px solid #2196F3;
   }
 `;
 
@@ -60,6 +63,13 @@ export const AuthInputTxt = styled.p`
   padding: 0px 5px;
   background: #fff;
   z-index: 100;
+
+  &:active,
+  &:focus,
+  &:hover {
+    color: #2196F3;
+
+  }
 `;
 
 export const AuthButtonBlock = styled.div`

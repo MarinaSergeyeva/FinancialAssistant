@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
+import device from '../../../common/deviceSizes';
 // import styled from 'styled-components';
 import {
   AuthFormWrapper,
@@ -19,6 +21,8 @@ const Registration = ({close}) => {
   const [username, setHandelName] = useState('');
   const [email, setHandelEmail] = useState('');
   const [password, setHandelPassword] = useState('');
+
+
  
 
   const handelSubmit = e => {
@@ -63,6 +67,7 @@ const Registration = ({close}) => {
             name="email"
             required
           />
+       
         </AuthInputForm>
 
         <AuthInputForm>
@@ -75,6 +80,7 @@ const Registration = ({close}) => {
             name="password"
             required
           />
+          
         </AuthInputForm>
 
         <AuthButtonBlock>

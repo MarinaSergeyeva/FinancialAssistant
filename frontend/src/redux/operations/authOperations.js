@@ -35,7 +35,7 @@ const userLogin = credentials => dispatch => {
       dispatch(authAction.loginSuccess(res.data));
     })
     .catch(err => {
-      console.log(err);
+      console.log(err.message);
       dispatch(authAction.loginError(err));
     });
 };
