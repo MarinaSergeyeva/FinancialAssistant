@@ -4,6 +4,7 @@ const path = require('path');
 const morgan = require('morgan');
 const authRouter = require('./api/auth/auth.routers');
 const userRouter = require('./api/users/user.router');
+const transactionRouter = require('./api/transactions/transactionRouter');
 require('dotenv').config({ path: path.join('./.env') });
 
 const AppError = require('./api/errors/appError');
@@ -65,6 +66,7 @@ class CrudServer {
   }
 
   initServerRouters() {
+    this.server.use('/api/v1/transactions', transactionRouter);
     //   this.server.use('/api/v1/contacts', contactRouter);
     this.server.use('/api/v1/auth', authRouter);
     this.server.use('/api/v1/users', userRouter);
