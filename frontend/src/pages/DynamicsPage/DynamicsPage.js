@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import { colors } from '../../stylesheet/vars'
+import GiftCompleting from '../../components/GiftCompleting/GiftCompleting'
 
 
 const DynamicsPage = () => {
@@ -26,7 +27,7 @@ const DynamicsPage = () => {
           </PictureWrapper>
         </ProgressPictureWrapper>
       <PresentWrapper>
-          <p>'Present'</p>
+          <GiftCompleting />
       </PresentWrapper>
       </ProgressPicturePresentWrapper>
     </DynamicsPageWrapper>
