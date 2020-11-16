@@ -10,7 +10,7 @@ describe('CurrentUser test suite', () => {
 
   before(async () => {
     const crudServer = new CrudServer();
-    await crudServer.start();
+    await crudServer.startForTest();
     server = crudServer.server;
   });
 
@@ -42,6 +42,8 @@ describe('CurrentUser test suite', () => {
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn: 2 * 24 * 60 * 60,
         });
+        userDoc.tokens.push(token);
+        await userDoc.save();
 
         response = await request(server)
           .get('/api/v1/users/current')

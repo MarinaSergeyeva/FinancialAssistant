@@ -27,6 +27,14 @@ class CrudServer {
     this.startListening();
   }
 
+  async startForTest() {
+    this.initServer();
+    await this.initDatabase();
+    this.initMiddlewares();
+    this.initServerRouters();
+    this.initErrorHandling();
+  }
+
   initServer() {
     this.server = express();
   }

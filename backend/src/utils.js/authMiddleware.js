@@ -15,7 +15,7 @@ exports.authorize = async (req, res, next) => {
   } catch (error) {
     next(new AppError('Unauthorized', 401));
   }
-  const user = await userModel.findById(userId);
+  const user = await userModel.findOne({ _id: userId, tokens: token });
   if (!user) {
     next(new AppError('Unauthorized', 401));
   }
