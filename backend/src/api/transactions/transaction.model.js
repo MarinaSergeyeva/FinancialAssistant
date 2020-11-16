@@ -20,10 +20,22 @@ const transactionSchema = new Schema(
       type: String,
       enum: Object.values(expensesCategories),
       default: expensesCategories.OTHER,
+      required: true,
     },
     userId: { type: ObjectId, ref: 'User' },
   },
   { timestamps: true },
 );
 
-module.exports = mongoose.model('Transaction', transactionSchema);
+transactionSchema.statics.createTransaction = createTransaction;
+
+const TransactionModel = mongoose.model('Transaction', transactionSchema);
+
+async function createTransaction(info) {
+  return this.create(info);
+}
+
+
+module.exports = {
+  TransactionModel,
+};

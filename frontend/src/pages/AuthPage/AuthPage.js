@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import Test from '../test/Test';
 import MainPage from '../../components/MainPage/MainPage';
 import Calculator from '../../components/Calculator/Calculator';
+import Modal from '../../components/Modal/Modal';
 
 const AuthPage = () => {
   const [showCalculator, setShowCalculator] = useState(false)
   const showCalculatorHandler = () => {
     setShowCalculator(true)
   }
+
+
   const [isShow, setIsShow] = useState(false);
   const showModal = () => {
     setIsShow(true);
   };
 
-  const close = () => {
-    setIsShow(prev => !prev);
+  const closeModal = () => {
+    setIsShow(false);
   };
 
   return (
@@ -26,7 +29,12 @@ const AuthPage = () => {
         calculator
       </button>
       {showCalculator && <Calculator/>}
-      {isShow && <Test close={close} />}
+      {isShow && (
+        <Modal closeModal={closeModal}>
+          <Test />
+        </Modal>
+      )}
+
       <MainPage />
     </>
   );
