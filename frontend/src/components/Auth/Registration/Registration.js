@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import operation from '../../../redux/operations/authOperations'
+import { colors } from '../../../stylesheet/vars'
 
 export const Registration = () => {
   const dispatch = useDispatch();
@@ -113,7 +114,7 @@ const RegistrationInput = styled.input`
 `;
 
 const RegistrationInputTxt = styled.p`
-  font-family: 'Roboto';
+  font-family: 'Gilroy';
   position: absolute;
   text-align: center;
   line-height: 14.06px;
@@ -137,7 +138,7 @@ const RegistrationButtonBlock = styled.div`
   & button {
     width: 170px;
     height: 40px;
-    background: #ff6c00;
+    background: ${colors.main};
     text-align: center;
     border-radius: 8px;
     border: none;
