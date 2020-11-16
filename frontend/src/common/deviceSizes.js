@@ -12,6 +12,8 @@ const device = {
   mobile: `(min-width: ${size.mobile}) and (max-width: ${size.beforeTablet})`,
   tablet: `(min-width: ${size.tablet}) and (max-width: ${size.beforeDesktop})`,
   desktop: `(min-width: ${size.desktop})`,
+  largeTablet: `(min-width: ${size.beforeTablet})`,
+  largeDesktop: `(min-width: ${size.beforeDesktop})`,
 };
 
 export const Mobile = ({ children }) => {
