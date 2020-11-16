@@ -1,6 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 // import { useMediaQuery } from 'react-responsive';
 import device from '../common/deviceSizes';
+import { background, textColor } from '../stylesheet/vars';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`
@@ -12,7 +13,8 @@ export const AuthFormWrapper = styled.div`
   border-radius: 8px;
   background: #fff;
   margin: 5px;
-  box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14), 0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14),
+    0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
 
   @media ${device.mobile} {
     box-shadow: none;
@@ -22,7 +24,6 @@ export const AuthFormWrapper = styled.div`
     align-items: center;
     width: 100%;
     height: 276px;
-
   }
 `;
 
@@ -45,7 +46,6 @@ export const AuthTxt = styled.p`
 export const AuthInputForm = styled.div``;
 
 export const AuthInput = styled.input`
-
   position: relative;
   width: 316px;
   height: 56px;
@@ -62,7 +62,7 @@ export const AuthInput = styled.input`
 
   &:active,
   &:focus {
-    border: 1px solid #2196F3;
+    border: 1px solid #2196f3;
   }
 
   @media ${device.mobile} {
@@ -91,8 +91,7 @@ export const AuthInputTxt = styled.p`
   &:active,
   &:focus,
   &:hover {
-    color: #2196F3;
-
+    color: #2196f3;
   }
 `;
 
@@ -115,3 +114,47 @@ export const AuthButtonBlock = styled.div`
 `;
 
 //!
+
+//!ExpenseForm
+
+export const UserInput = styled.input`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  width: 280px;
+  padding: 10px 12px 12px;
+  background: ${background.main};
+  border: none;
+  border-bottom: 1px solid rgba(24, 25, 31, 0.36);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+`;
+
+export const UserInputLabel = styled.label`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+
+  color: ${textColor.secondary};
+`;
+
+export const UserSelect = styled.select`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  width: 280px;
+  padding: 10px 12px 12px;
+  background: ${background.main};
+  border: none;
+  border-bottom: 1px solid rgba(24, 25, 31, 0.36);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+`;
