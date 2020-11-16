@@ -8,7 +8,7 @@ export const size = {
   desktop: '1280px',
 };
 
-const device = {
+export const device = {
   mobile: `(min-width: ${size.mobile}) and (max-width: ${size.beforeTablet})`,
   tablet: `(min-width: ${size.tablet}) and (max-width: ${size.beforeDesktop})`,
   desktop: `(min-width: ${size.desktop})`,
