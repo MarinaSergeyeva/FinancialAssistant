@@ -23,12 +23,9 @@ exports.createNewUser = async (req, res, next) => {
   });
 
   res.status(201).json({
-    status: 'success',
-    createdUser: {
       id: newUser._id,
       username: newUser.username,
       email: newUser.email,
-    },
   });
 };
 
@@ -55,14 +52,11 @@ exports.loginUser = async (req, res, next) => {
   existingUser.tokens.push(token);
   await existingUser.save();
   res.status(200).json({
-    status: 'success',
-    loginUser: {
       user: {
         username: existingUser.username,
         email: existingUser.email,
         id: existingUser._id,
       },
       token: token,
-    },
   });
 };

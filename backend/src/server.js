@@ -56,7 +56,7 @@ class CrudServer {
   }
 
   initMiddlewares() {
-    this.server.use(cors({ origin: `http://localhost:${PORT}` }));
+    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN}));
     if (process.env.NODE_ENV === 'development') {
       this.server.use(morgan('dev'));
     }
