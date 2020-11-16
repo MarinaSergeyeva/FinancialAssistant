@@ -1,5 +1,6 @@
 @import './fonts.css';
 /* @import './vars.css'; */
+@import './normalize.css';
 
 html {
   box-sizing: border-box;
@@ -13,10 +14,10 @@ html {
   padding: 0;
 }
 
-/* body {
+body {
   font-family: 'Roboto', Arial, sans-serif;
   font-weight: 400;
-} */
+}
 
 ​img {
   max-width: 100%;

@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import operation from '../../../redux/operations/authOperations'
-import {colors,fonts} from '../../../stylesheet/vars'
+import { colors } from '../../../stylesheet/vars'
 
 export const Registration = () => {
-  console.log('fonts.main', fonts.main)
   const dispatch = useDispatch();
   const [name, setHandleName] = useState('');
   const [email, setHandleEmail] = useState('');
@@ -115,7 +114,7 @@ const RegistrationInput = styled.input`
 `;
 
 const RegistrationInputTxt = styled.p`
-  font-family: ${fonts.main};
+  font-family: 'Gilroy';
   position: absolute;
   text-align: center;
   line-height: 14.06px;
