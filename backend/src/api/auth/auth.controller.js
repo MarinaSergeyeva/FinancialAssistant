@@ -23,7 +23,7 @@ exports.createNewUser = async (req, res, next) => {
   });
 
   res.status(201).json({
-    status: 'suсcess',
+    status: 'success',
     createdUser: {
       id: newUser._id,
       username: newUser.username,
