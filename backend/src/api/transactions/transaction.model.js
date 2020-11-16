@@ -26,7 +26,14 @@ const transactionSchema = new Schema(
   { timestamps: true },
 );
 
+transactionSchema.statics.createTransaction = createTransaction;
+
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
+
+async function createTransaction(info) {
+  return this.create(info);
+}
+
 
 module.exports = {
   TransactionModel,
