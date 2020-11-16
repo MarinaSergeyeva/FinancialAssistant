@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 // import { useMediaQuery } from 'react-responsive';
-// import device from '../common/deviceSizes';
+import device from '../common/deviceSizes';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`
@@ -13,6 +13,17 @@ export const AuthFormWrapper = styled.div`
   background: #fff;
   margin: 5px;
   box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14), 0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
+
+  @media ${device.mobile} {
+    box-shadow: none;
+    margin: 70px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 276px;
+
+  }
 `;
 
 export const AuthForm = styled.form`
@@ -25,6 +36,10 @@ export const AuthTxt = styled.p`
   font-weight: 800;
   text-align: center;
   margin-bottom: 30px;
+
+  @media ${device.mobile} {
+    font-size: 14px;
+  }
 `;
 
 export const AuthInputForm = styled.div``;
@@ -48,6 +63,15 @@ export const AuthInput = styled.input`
   &:active,
   &:focus {
     border: 1px solid #2196F3;
+  }
+
+  @media ${device.mobile} {
+    width: 279px;
+    height: 56px;
+  }
+
+  @media ${device.mobile} {
+    font-size: 14px;
   }
 `;
 

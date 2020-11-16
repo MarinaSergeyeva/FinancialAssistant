@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
@@ -6,9 +6,31 @@ import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.
 import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
 import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
 import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
-// import Registration from '../Auth/Registration/Registration';
+import Registration from '../Auth/Registration/Registration';
+import Login from '../Auth/Login/Login';
+import { useSelector } from 'react-redux';
 
 const MainPage = () => {
+  const userInfo = useSelector(state => state.auth.username);
+  const [showRegistration, setIsShowRegistration] = useState(false);
+  const [showLogin, setIsShowLogin] = useState(false);
+  // console.log(userInfo, 'userInfo');
+
+  const showModalAuth = (e) => {
+//  console.log(e.target.innerText, "e.target.innerText")
+ if(e.target.innerText === 'Войти'){
+  setIsShowRegistration(false)
+  setIsShowLogin(true)
+
+ }else if(e.target.innerText === 'Зарегистрироваться'){
+  setIsShowRegistration(true)
+  setIsShowLogin(false)
+ }
+   
+
+  };
+
+
   return (
     <MainPageContainer>
       <Mobile>
@@ -43,9 +65,30 @@ const MainPage = () => {
         ></FacebookAuthBtnImg>
         Sign up with Facebook
       </FacebookAuthBtn>
-      {/* <Mobile>
-        <Registration/>
-      </Mobile> */}
+
+      <Mobile>
+        <AuthContainer>
+          {(!userInfo || showRegistration) && 
+            (<>
+              <Registration />
+              <AuthParagraph>
+                Уже есть аккаунт? <span onClick={(e) => showModalAuth(e)}>Войти</span>
+              </AuthParagraph>
+            </>)}
+          
+          
+            {(userInfo || showLogin ) && 
+            <>
+            <Login />
+              <AuthParagraph>
+                Еще нет аккаунта? <span onClick={(e) => showModalAuth(e)}>Зарегистрироваться</span>
+              </AuthParagraph>
+            </>}
+            
+          
+        </AuthContainer>
+      </Mobile>
+
       <Mobile>
         <MainPageImg
           src={mainPictureMobile}
@@ -169,6 +212,7 @@ const FacebookAuthBtn = styled.button`
     margin: 0;
   }
 `;
+
 const FacebookAuthBtnImg = styled.img`
   position: absolute;
   left: 15px;
@@ -185,3 +229,17 @@ const MainPageImg = styled.img`
     z-index: -1;
   }
 `;
+
+//!Auth
+const AuthContainer = styled.div`
+`
+
+ const AuthParagraph = styled.p`
+    text-align: center;
+    color: rgba(24, 25, 31, 0.54);
+    font-size: 12px;
+    & span{
+      font-weight: 800;
+      color: #000;
+    }
+ `

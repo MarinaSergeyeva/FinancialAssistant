@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import device from '../../../common/deviceSizes';
-// import styled from 'styled-components';
+
 import {
   AuthFormWrapper,
   AuthForm,
@@ -13,17 +13,19 @@ import {
   AuthButtonBlock,
 } from '../../../common/globalStyleComponents';
 import operation from '../../../redux/operations/authOperations';
-import modalBackDrop from '../../ModalBackDrop/ModalBackDrop';
 
 
-const Registration = ({close}) => {
+
+const Registration = ({closeModal}) => {
+  
   const dispatch = useDispatch();
   const [username, setHandelName] = useState('');
   const [email, setHandelEmail] = useState('');
   const [password, setHandelPassword] = useState('');
 
-
- 
+  const isOnMobile = useMediaQuery({
+    query: device.mobile,
+  });
 
   const handelSubmit = e => {
     e.preventDefault();
@@ -37,13 +39,15 @@ const Registration = ({close}) => {
     setHandelName('');
     setHandelEmail('');
     setHandelPassword('');
-    close();
+    !isOnMobile && closeModal();
   };
+
  
+
   return (
     <AuthFormWrapper>
       <AuthForm onSubmit={handelSubmit}>
-        <AuthTxt>Регистрация</AuthTxt>
+        <AuthTxt>{isOnMobile ? 'Готовы подписаться?':'Регистрация'}</AuthTxt>
 
         <AuthInputForm>
           <AuthInputTxt>Name</AuthInputTxt>
@@ -88,9 +92,10 @@ const Registration = ({close}) => {
             <p>Зарегистрироваться</p>
           </button>
         </AuthButtonBlock>
+        
       </AuthForm>
     </AuthFormWrapper>
   );
 };
 
-export default modalBackDrop(Registration);
+export default Registration;

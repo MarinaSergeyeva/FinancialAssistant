@@ -5,6 +5,7 @@ import MainPage from '../../components/MainPage/MainPage';
 import Registration from '../../components/Auth/Registration/Registration';
 import Login from '../../components/Auth/Login/Login';
 import styled from 'styled-components';
+import Modal from '../../components/Modal/Modal';
 
 
 
@@ -43,8 +44,12 @@ const AuthPage = () => {
           </Button>
         </>
       )}
-      {isShowRegistration && <Registration close={closeRegistration} />}
-      {isShowLogin && <Login close={closeLogin} />}
+      {isShowRegistration && 
+      <Modal closeModal={closeRegistration}>
+        <Registration closeModal={closeRegistration} />
+      </Modal>}
+      {isShowLogin && <Modal closeModal={closeLogin} >
+        <Login closeModal={closeLogin} /></Modal>}
       <MainPage />
     </>
   );
