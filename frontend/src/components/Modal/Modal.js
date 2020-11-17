@@ -17,7 +17,7 @@ export default function Modal({ children, closeModal }) {
     }, [closeModal]);
 
   useEffect(() => {
-    console.log('refModal', refModal);
+    // console.log('refModal', refModal);
     window.addEventListener('keydown', closeModalKeydown);
     document.body.style.overflow = 'hidden';
 

@@ -6,8 +6,8 @@ import Registration from '../../components/Auth/Registration/Registration';
 import Login from '../../components/Auth/Login/Login';
 import styled from 'styled-components';
 import Calculator from '../../components/Calculator/Calculator';
+
 import Modal from '../../components/Modal/Modal';
-import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
 
 const AuthPage = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
@@ -26,7 +26,7 @@ const AuthPage = () => {
 
   const closeRegistration = () => {
     setIsShowRegistration(prev => !prev);
-    setIsShowLogin(prev => !prev);
+    // setIsShowLogin(prev => !prev);
   };
 
   const closeLogin = () => {
