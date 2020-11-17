@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 import { PlanFormStyled } from '../PlanForm/planFormStyled';
-
-
-import {
-  UserInput,
-  UserInputLabel,
-  UserSelect,
-} from '../../common/globalStyleComponents';
 
 const ExpenseForm = () => {
   const [expenseItem, setHandleExpenseItem] = useState('');
@@ -18,31 +10,43 @@ const ExpenseForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const newTransaction = {
-      expenseItem,
-      category,
-      amount,
-    };
+    // const newTransaction = {
+    //   expenseItem,
+    //   category,
+    //   amount,
+    // };
 
-    setHandleExpenseItem('');
-    setHandleCategory('');
-    setHandleAmount('');
+    // setHandleExpenseItem('');
+    // setHandleCategory('');
+    // setHandleAmount('');
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <UserInputLabel>
-        Название статьи
-        <UserInput value={expenseItem} type="text" />
-      </UserInputLabel>
-      <UserInputLabel>
-        На категорию
-        <UserSelect value={expenseItem} type="text" option="Развлечения" />
-      </UserInputLabel>
-      <UserInputLabel>
-        Сумма
-        <UserInput value={expenseItem} type="number" />
-      </UserInputLabel>
-    </form>
+    <PlanFormStyled>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <span>Со счета</span>
+          <select value='value' type="text">
+            <option value="value2" selected>Карта VISA (Ваня)</option>
+          </select>
+          <p>Остаток на счете: 80 000 UAH</p>
+        </label>
+        
+        <label>
+         <span>Название статьи</span>
+          <input type="text" />
+        </label>
+        <label>
+          <span>На категорию</span>
+          <select value='value' type="text">
+            <option value="value2" selected>Развлечения</option>
+          </select>
+        </label>
+        <label>
+         <span>Сумма</span> 
+          <input type="number" />
+        </label>
+      </form>
+    </PlanFormStyled>
   );
 };
 

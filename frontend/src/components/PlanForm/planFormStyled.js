@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 
+// padding: 34px 20px 0px;
 export const PlanFormStyled = styled.div`
-  padding: 34px 20px 0px;
 
   form,
   label {
@@ -13,6 +13,10 @@ export const PlanFormStyled = styled.div`
     position: relative;
     width: 280px;
     color: rgb(24, 25, 31, 0.54);
+  }
+
+  @media ${device.tablet} {
+     width: 330px;
   }
 
   label:not(:last-of-type) {
@@ -29,13 +33,21 @@ export const PlanFormStyled = styled.div`
     font-size: 12px;
     line-height: 14px;
   }
+  p {
+    position: absolute;
+    bottom: -16px;
+    left: 12px;
+    font-size: 12px;
+    line-height: 14px;
+  }
 
   label:hover,
   label:focus {
     color: rgb(33, 150, 243);
   }
 
-  input {
+  input,
+  select {
     background: rgba(0, 0, 0, 0.03);
     padding: 24px 12px 12px;
     color: rgba(24, 25, 31, 0.87);
@@ -63,6 +75,7 @@ export const PlanFormStyled = styled.div`
   @media ${device.tablet} {
     color: red;
   }
+  
 `;
 
 /* Rectangle */

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
+import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import PrognosisExpense from "../../components/PrognosisExpense/PrognosisExpense";
 import { size } from "../../common/deviceSizes";
 
@@ -9,12 +9,12 @@ const ExpensePage = () => {
     return (
       <ExpensePageContainer>
         <ExpenseFormWrapper>
-          <p style={{ textAlign: "center" }}>
+          {/* <p style={{ textAlign: "center" }}>
             <br />
             Место для формы расходов
             <br />
-          </p>
-          {/* <ExpenseForm /> */}
+          </p> */}
+          <ExpenseForm />
         </ExpenseFormWrapper>
         <PrognosisExpense />
       </ExpensePageContainer>
