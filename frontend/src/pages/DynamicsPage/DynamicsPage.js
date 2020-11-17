@@ -13,6 +13,7 @@ import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 const DynamicsPage = () => {
   return (
     <>
+      {/* delete this comment */}
       {/* <p>'DynamicsPage'</p> */}
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
