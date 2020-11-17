@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
+import { background, colors } from '../../stylesheet/vars';
 
 const PrognosisExpense = () => {
   const handleClick = () => {
@@ -30,7 +31,7 @@ export default PrognosisExpense;
 const PrognosisExpenseWrapper = styled.div`
   padding: 34px 40px;
   border-radius: 8px;
-  background: var(--secondary-background-color);
+  background: ${background.secondary}; // var(--secondary-background-color);
   color: #ffffff;
   .inner {
     margin-bottom: 18px;
@@ -52,7 +53,7 @@ const PrognosisExpenseWrapper = styled.div`
     width: 100%;
     padding: 18px;
     border: none;
-    background: var(--main-color);
+    background: ${colors.main}; // var(--main-color);
     border-radius: inherit;
     color: inherit;
   }
