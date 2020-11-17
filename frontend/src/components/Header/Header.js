@@ -5,6 +5,8 @@ import Navigation from '../Header/Navigation';
 import Logo from '../Header/Logo';
 
 const Header = () => {
+  // const [state, setstate] = useState(initialState)
+  // из глобального стейта  взять токен.
   return (
     <>
       <HeaderContainer>
