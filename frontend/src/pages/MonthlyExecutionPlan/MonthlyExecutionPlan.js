@@ -3,15 +3,17 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./MonthlyExecutionPlan.module.css";
 import ru from "date-fns/locale/ru";
+import styled from "styled-components";
+import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
 registerLocale("ru", ru);
 export const MonthlyExecutionPlan = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
     <>
-      <div className={styles.Monthly_main_wrapper}>
+      <MonthlyMainWrapper>
         {/* <input type="text" id="datepicker"></input> */}
-        <p className={styles.label}>Месяц </p>
+        <MonthlyLabel>Месяц </MonthlyLabel>
 
         <DatePicker
           //locale="ru"
@@ -26,29 +28,83 @@ export const MonthlyExecutionPlan = () => {
           isClearable
         />
 
-        <ul className={styles.Monthly_cards_wrapper}>
-          <li className={styles.Monthly_cards}>
-            <p className={styles.label}>Доходы, </p>
-            <p className={styles.value}>00 000</p>
-          </li>
-          <li className={styles.Monthly_cards}>
-            <p className={styles.label}>Расходы</p>
-            <p className={styles.value}>00 000</p>
-          </li>
-          <li className={styles.Monthly_cards}>
-            <p className={styles.label}>Накоплено</p>
-            <p className={styles.value}>00 000</p>
-          </li>
-          <li className={styles.Monthly_cards}>
-            <p className={styles.label}>План, </p>
-            <p className={styles.value}>00 000</p>
-          </li>
-          <li className={styles.Monthly_cards}>
-            <p className={styles.label}>План, %</p>
-            <p className={styles.value}>00 000</p>
-          </li>
-        </ul>
-      </div>
+        <MonthlyCardsWrapper>
+          <MonthlyCards>
+            <MonthlyLabel>Доходы,</MonthlyLabel>
+            <MonthlyValue>00 000</MonthlyValue>
+          </MonthlyCards>
+          <MonthlyCards>
+            <MonthlyLabel>Расходы</MonthlyLabel>
+            <MonthlyValue>00 000</MonthlyValue>
+          </MonthlyCards>
+          <MonthlyCards>
+            <MonthlyLabel>Накоплено</MonthlyLabel>
+            <MonthlyValue>00 000</MonthlyValue>
+          </MonthlyCards>
+          <MonthlyCards>
+            <MonthlyLabel>План, </MonthlyLabel>
+            <MonthlyValue>00 000</MonthlyValue>
+          </MonthlyCards>
+          <MonthlyCards>
+            <MonthlyLabel>План, %</MonthlyLabel>
+            <MonthlyValue>00 000</MonthlyValue>
+          </MonthlyCards>
+        </MonthlyCardsWrapper>
+      </MonthlyMainWrapper>
     </>
   );
 };
+const MonthlyMainWrapper = styled.div`
+  border: 1px solid black;
+  width: 280px;
+  @media ${device.tablet} {
+    width: 510px;
+  }
+  @media ${device.desktop} {
+    width: 468px;
+  }
+`;
+const MonthlyCardsWrapper = styled.ul`
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 280px;
+  justify-content: space-between;
+  @media ${device.tablet} {
+    width: 510px;
+  }
+  @media ${device.desktop} {
+    width: 480px;
+  }
+`;
+const MonthlyCards = styled.li`
+  font-size: 14px;
+  line-height: 18px;
+  width: 130px;
+  height: 48px;
+  background-color: #f3f3f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #b6c4d4;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  @media ${device.tablet} {
+    width: 94px;
+    height: 48px;
+  }
+  @media ${device.desktop} {
+    line-height: 18px;
+    width: 88px;
+    height: 48px;
+  }
+`;
+const MonthlyLabel = styled.p`
+  font-size: 12px;
+  color: rgba(24, 25, 31, 0.54);
+`;
+const MonthlyValue = styled.p`
+  font-size: 14px;
+  color: #18191f;
+`;

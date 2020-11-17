@@ -107,7 +107,7 @@ export const MyChart = () => {
             fontColor: "rgba(24, 25, 31, 0.54)",
             boxWidth: 20,
             boxHeight: 20,
-            padding: isOnMobile ? 30 : 30,
+            padding: isOnMobile ? 5 : 30,
           },
         },
         layout: {
@@ -115,7 +115,7 @@ export const MyChart = () => {
             left: isOnMobile ? 10 : 40,
             right: 10,
             top: 0,
-            bottom: 0,
+            bottom: isOnMobile ? 0 : 20,
           },
         },
         responsive: true,
@@ -139,7 +139,7 @@ export const MyChart = () => {
       <canvas
         id="myChart"
         //width={isOnMobile ? "180" : "50"}
-        height={isOnTablet ? "300" : isOnMobile ? "500" : "200"}
+        height={isOnTablet ? "200" : isOnMobile ? "570" : "100"}
         className="chartjs"
       ></canvas>
     </div>
