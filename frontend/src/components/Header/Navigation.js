@@ -5,7 +5,7 @@ import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 const Navigation = () => {
     return (
         <>
-            <NavigationContainer>
+            {/* <NavigationContainer> */}
                 <Tablet>
                     <ButtonWrapper>
                     <ButtonSignIn>Войти</ButtonSignIn>
@@ -19,29 +19,29 @@ const Navigation = () => {
                     <ButtonSignUp>Регистрация</ButtonSignUp>
                     </ButtonWrapper>
                 </Desktop>
-            </NavigationContainer>
+            {/* </NavigationContainer> */}
       </>
     );
 };
 
 export default Navigation;
 
-const NavigationContainer = styled.div`
+// const NavigationContainer = styled.div`
 
-  @media ${device.tablet} {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    width: 768px;
-    margin: 0 auto;
-  }
-  @media ${device.desktop} {
-    position: relative;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    width: 1280px;
-    margin: 0 auto;
-  }
-`;
+//   @media ${device.tablet} {
+//     padding-top: 16px;
+//     padding-bottom: 16px;
+//     width: 768px;
+//     margin: 0 auto;
+//   }
+//   @media ${device.desktop} {
+//     position: relative;
+//     padding-top: 16px;
+//     padding-bottom: 16px;
+//     width: 1280px;
+//     margin: 0 auto;
+//   }
+// `;
 
 const ButtonWrapper = styled.div`
   display: flex;
