@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 // import ExpenseForm from '../../components/expenseForm/ExpenseForm';
-import PrognosisExpense from "../../components/prognosisExpense/PrognosisExpense";
+import PrognosisExpense from "../../components/PrognosisExpense/PrognosisExpense";
 import { size } from "../../common/deviceSizes";
 
 const ExpensePage = () => {
