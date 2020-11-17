@@ -1,0 +1,11 @@
+.Month_input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.36);
+  font-size: 14px;
+  line-height: 20px;
+  color: #18191f;
+
+  /* margin:20px; */
+}

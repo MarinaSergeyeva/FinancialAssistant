@@ -1,53 +1,49 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
-import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
-import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
-import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
-import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
-import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
-import Registration from '../Auth/Registration/Registration';
-import Login from '../Auth/Login/Login';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import styled from "styled-components";
+import mainPictureMobile from "../../assets/images/mainPagePic/mainpagemobile.png";
+import mainPictureTablet from "../../assets/images/mainPagePic/mainpagetablet.png";
+import mainPictureDesktop from "../../assets/images/mainPagePic/mainpagedesktop.png";
+import googleLogo from "../../assets/images/mainPagePic/googlemobile.png";
+import facebookLogo from "../../assets/images/mainPagePic/facebookmobile.png";
+import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
+import Registration from "../Auth/Registration/Registration";
+import Login from "../Auth/Login/Login";
+import { useSelector } from "react-redux";
 
 const MainPage = () => {
-  const userInfo = useSelector(state => state.auth.username);
+  const userInfo = useSelector((state) => state.auth.username);
   const [showRegistration, setIsShowRegistration] = useState(false);
   const [showLogin, setIsShowLogin] = useState(false);
   // console.log(userInfo, 'userInfo');
 
   const showModalAuth = (e) => {
-//  console.log(e.target.innerText, "e.target.innerText")
- if(e.target.innerText === 'Войти'){
-  setIsShowRegistration(false)
-  setIsShowLogin(true)
-
- }else if(e.target.innerText === 'Зарегистрироваться'){
-  setIsShowRegistration(true)
-  setIsShowLogin(false)
- }
-   
-
+    //  console.log(e.target.innerText, "e.target.innerText")
+    if (e.target.innerText === "Войти") {
+      setIsShowRegistration(false);
+      setIsShowLogin(true);
+    } else if (e.target.innerText === "Зарегистрироваться") {
+      setIsShowRegistration(true);
+      setIsShowLogin(false);
+    }
   };
-
 
   return (
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
-          Планировщик для совместного{' '}
+          Планировщик для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
-          Планировщик для совместного{' '}
+          Планировщик для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
-          Планировщик <br /> для совместного{' '}
+          Планировщик <br /> для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
@@ -68,24 +64,27 @@ const MainPage = () => {
 
       <Mobile>
         <AuthContainer>
-          {(!userInfo || showRegistration) && 
-            (<>
+          {(!userInfo || showRegistration) && (
+            <>
               <Registration />
               <AuthParagraph>
-                Уже есть аккаунт? <span onClick={(e) => showModalAuth(e)}>Войти</span>
+                Уже есть аккаунт?{" "}
+                <span onClick={(e) => showModalAuth(e)}>Войти</span>
               </AuthParagraph>
-            </>)}
-          
-          
-            {(userInfo || showLogin ) && 
+            </>
+          )}
+
+          {(userInfo || showLogin) && (
             <>
-            <Login />
+              <Login />
               <AuthParagraph>
-                Еще нет аккаунта? <span onClick={(e) => showModalAuth(e)}>Зарегистрироваться</span>
+                Еще нет аккаунта?{" "}
+                <span onClick={(e) => showModalAuth(e)}>
+                  Зарегистрироваться
+                </span>
               </AuthParagraph>
-            </>}
-            
-          
+            </>
+          )}
         </AuthContainer>
       </Mobile>
 
@@ -212,7 +211,6 @@ const FacebookAuthBtn = styled.button`
     margin: 0;
   }
 `;
-
 const FacebookAuthBtnImg = styled.img`
   position: absolute;
   left: 15px;
@@ -231,15 +229,14 @@ const MainPageImg = styled.img`
 `;
 
 //!Auth
-const AuthContainer = styled.div`
-`
+const AuthContainer = styled.div``;
 
- const AuthParagraph = styled.p`
-    text-align: center;
-    color: rgba(24, 25, 31, 0.54);
-    font-size: 12px;
-    & span{
-      font-weight: 800;
-      color: #000;
-    }
- `
+const AuthParagraph = styled.p`
+  text-align: center;
+  color: rgba(24, 25, 31, 0.54);
+  font-size: 12px;
+  & span {
+    font-weight: 800;
+    color: #000;
+  }
+`;
