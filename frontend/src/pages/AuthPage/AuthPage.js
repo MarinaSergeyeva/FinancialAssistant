@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Test from '../test/Test';
 import MainPage from '../../components/MainPage/MainPage';
+import Header from "../../components/Header/Header"
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../../components/Modal/Modal';
 import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
@@ -22,6 +23,7 @@ const AuthPage = () => {
 
   return (
     <>
+      <Header/>
       <button type="button" onClick={() => showModal()}>
         click me
       </button>
@@ -34,7 +36,6 @@ const AuthPage = () => {
           <Test />
         </Modal>
       )}
-
       <MainPage />
     </>
   );

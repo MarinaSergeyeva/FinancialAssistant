@@ -10,7 +10,6 @@ export const Registration = () => {
   const [email, setHandleEmail] = useState('');
   const [password, setHandlePassword] = useState('');
 
-
   const hendleSubmit = e => {
     e.preventDefault();
     const newUser = {
