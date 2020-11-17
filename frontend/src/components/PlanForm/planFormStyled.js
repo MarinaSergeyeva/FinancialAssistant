@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 
 export const PlanFormStyled = styled.div`
-  padding: 34px 20px 0px;
+  /* padding: 34px 20px 0px; */
 
   form,
   label {

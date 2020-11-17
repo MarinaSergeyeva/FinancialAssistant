@@ -5,16 +5,17 @@ function PrognosisBuy() {
   return (
     <PrognosisBuyStyled>
       <div className="wrapper">
-        <span className="title">У вас будет квартира через:</span>
+        <h2>У вас будет квартира через:</h2>
         <form>
-          {/* <label>
-            Кол-во лет
-            <input type="text" name={} />
+          <label>
+            <input type="text" placeholder="0 лет" />
+            <span>Кол-во лет</span>
           </label>
           <label>
-            Кол-во месяцев
-            <input type="text" name={} />
-          </label> */}
+            <input type="text" placeholder="0 месяцев" />
+            <span>Кол-во месяцев</span>
+          </label>
+          <button type="submit">Подходит</button>
         </form>
       </div>
     </PrognosisBuyStyled>
