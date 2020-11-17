@@ -11,22 +11,35 @@ import Login from '../Auth/Login/Login';
 import { useSelector } from 'react-redux';
 
 const MainPage = () => {
-  // const userInfo = useSelector(state => state.auth.username);
-  const [showRegistration, setIsShowRegistration] = useState(false);
+  const userInfo = useSelector(state => state.auth.username);
+
+  const [showRegistration, setIsShowRegistration] = useState(true);
+
   const [showLogin, setIsShowLogin] = useState(false);
-  // console.log(userInfo, 'userInfo');
+  const [userInfoRegistr, setUserInfoRegistr] = useState(true);
+
+  console.log(userInfo, 'userInfo');
+
+  const getUserInfo = swich => {
+    swich ? setUserInfoRegistr(true) : setUserInfoRegistr(false);
+  };
 
   const showModalAuth = e => {
     console.log(e.target.innerText, 'e.target.innerText');
     if (e.target.innerText === 'Войти') {
-      setIsShowLogin(true);
       setIsShowRegistration(false);
+      setIsShowLogin(true);
+
+      {
+        console.log(showLogin, 'showLogin');
+      }
     } else if (e.target.innerText === 'Зарегистрироваться') {
-      setIsShowRegistration(true);
       setIsShowLogin(false);
+      setIsShowRegistration(true);
     }
   };
 
+  
   return (
     <MainPageContainer>
       <Mobile>
@@ -64,25 +77,38 @@ const MainPage = () => {
 
       <Mobile>
         <AuthContainer>
-          {
+          {(
             <>
               <Registration />
               <AuthParagraph>
-                Уже есть аккаунт?{' '}
-                <span onClick={e => showModalAuth(e)}>Войти</span>
+                Уже есть аккаунт?
+                <span
+                  onClick={e => {
+                    showModalAuth(e);
+                  }}
+                >
+                  Войти
+                </span>
               </AuthParagraph>
             </>
-          }
+          )}
 
-          {
+          {userInfo && (
             <>
+              {console.log(showLogin, 'showLogin')}
               <Login />
               <AuthParagraph>
-                Еще нет аккаунта?{' '}
-                <span onClick={e => showModalAuth(e)}>Зарегистрироваться</span>
+                Еще нет аккаунта?
+                <span
+                  onClick={e => {
+                    showModalAuth(e);
+                  }}
+                >
+                  Зарегистрироваться
+                </span>
               </AuthParagraph>
             </>
-          }
+          )}
         </AuthContainer>
       </Mobile>
 
