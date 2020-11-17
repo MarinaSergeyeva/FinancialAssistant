@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const authRouter = Router();
 const Joi = require('joi');
-const { validate } = require('../../utils.js/validate');
+const { validate } = require('../../utils/validate');
 const AuthController = require('./auth.controller');
-const catchAsync = require('../../utils.js/catchAsync');
+const catchAsync = require('../../utils/catchAsync');
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
