@@ -6,12 +6,15 @@ export const size = {
   tablet: '768px',
   beforeDesktop: '1279px',
   desktop: '1280px',
+
+  
 };
 
 export const device = {
   mobile: `(min-width: ${size.mobile}) and (max-width: ${size.beforeTablet})`,
   tablet: `(min-width: ${size.tablet}) and (max-width: ${size.beforeDesktop})`,
   desktop: `(min-width: ${size.desktop})`,
+  largeDevice:`(min-width: ${size.beforeTablet})`,
   largeTablet: `(min-width: ${size.beforeTablet})`,
   largeDesktop: `(min-width: ${size.beforeDesktop})`,
 };

@@ -2,11 +2,11 @@ const express = require('express');
 const transactionRouter = express.Router();
 const {
   createTransaction,
-    getTransactionCategories,
-    getTrans,
+  getTransactionCategories,
+  getTrans,
 } = require('./transaction.controller');
-const { authorize } = require('../../utils.js/authMiddleware');
-const { validate } = require('../../utils.js/validate');
+const { authorize } = require('../../utils/authMiddleware');
+const { validate } = require('../../utils/validate');
 const Joi = require('joi');
 
 const addTransactionSchema = Joi.object({
