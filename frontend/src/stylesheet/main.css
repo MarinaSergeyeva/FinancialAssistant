@@ -62,4 +62,10 @@ input:active,
 button:active,
 button:focus {
   outline: none;
+  /* color: rgb(40, 131, 161);
+   color: rgb(93, 119, 64);
+    color: rgb(65, 64, 119);
+        color: rgb(119, 64, 119);
+        color: rgb(119, 64, 85); */
+           
 }

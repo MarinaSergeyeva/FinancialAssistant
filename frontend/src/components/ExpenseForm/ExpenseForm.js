@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
+import { PlanFormStyled } from '../PlanForm/planFormStyled';
+
 
 import {
   UserInput,
