@@ -1,12 +1,9 @@
 const express = require('express');
-const path = require('path');
 const cors = require('cors');
+const path = require('path');
 const morgan = require('morgan');
-// const contactRouter = require('./api/contacts/contactRoutes');
-// const userRouter = require('./api/users/userRoutes');
-// const authRouter = require('./api/auth/authRoutes');
-const dotenv = require('dotenv');
-dotenv.config();
+const authRouter = require('./api/auth/auth.routers');
+require('dotenv').config({ path: path.join('./.env') });
 
 const AppError = require('./api/errors/appError');
 const PORT = process.env.PORT || 8080;
@@ -23,7 +20,7 @@ class CrudServer {
     this.initServer();
     await this.initDatabase();
     this.initMiddlewares();
-    // this.initServerRouters();
+    this.initServerRouters();
     this.initErrorHandling();
     this.startListening();
   }
@@ -66,12 +63,12 @@ class CrudServer {
     });
   }
 
-  // initServerRouters() {
+  initServerRouters() {
   //   this.server.use('/api/v1/contacts', contactRouter);
-  //   this.server.use('/api/v1/auth', authRouter);
+    this.server.use('/api/v1/auth', authRouter);
   //   this.server.use('/api/v1/users', userRouter);
   //   this.server.use('/', userRouter, express.static('public'));
-  // }
+  }
 
   initErrorHandling() {
     this.server.all('*', (req, res, next) => {

@@ -1,8 +1,11 @@
 import React from "react";
-import { MyChart } from "../../pages/ChartExpenseIncome/ChartExpenseIncome.js";
+//import { MyChart } from "../../pages/ChartExpenseIncome/ChartExpenseIncome.js";
 
 function App() {
-  return <MyChart />;
+  return (
+    <div>11111</div>
+    //<MyChart />;
+  );
 }
 
 export default App;

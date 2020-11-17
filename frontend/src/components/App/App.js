@@ -14,7 +14,7 @@ const App = () => {
               <PrivateRoute key={route.label} {...route} />
             ) : (
               <PublicRoute key={route.label} {...route} />
-            ),
+              ),
           )}
           {/* <Route component={NotFound} /> */}
         </Switch>

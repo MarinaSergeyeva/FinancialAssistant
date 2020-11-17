@@ -2,29 +2,71 @@ import React, { Component, useEffect } from "react";
 
 import moment from "moment";
 import Chart from "chart.js";
+import device from "../../common/deviceSizes.js";
+import { useMediaQuery } from "react-responsive";
 
 export const MyChart = () => {
-  let sData = {};
+  //let sData = {};
+  let sData = {
+    months: [],
+    totalSavings: [30, 45, 300, 59, 267, 254, 346, 346, 134, 188, 12, 124],
+    totalExpenses: [202, 415, 30, 79, 217, 24, 36, 36, 14, 18, 122, 14],
+    expectedSavings: [
+      450,
+      420,
+      380,
+      320,
+      217,
+      245,
+      318,
+      300,
+      200,
+      180,
+      122,
+      50,
+    ],
+  };
   sData.label = [];
-  sData.time = [];
-
+  //sData.time = [];
   const count = 12;
   for (let i = 0; i < count; i++) {
-    sData.label.push(
-      moment()
-        //.year(2020)
-        .month(i - 1)
-
-      //   .date(i * 1)
-      //   .startOf("day")
-    );
+    sData.label.push(moment().month(i - 1));
   }
 
   useEffect(() => {
     var ctx = document.getElementById("myChart").getContext("2d");
     ctx.lineCap = "round";
+    const yAxesConfig = {
+      gridLines: {
+        display: true,
+        borderDash: [10, 10],
+      },
+
+      ticks: {
+        //beginAtZero: true,
+        stepSize: 100,
+        // max: 500,
+        //   min: 0,
+        suggestedMin: 50,
+        suggestedMax: 500,
+      },
+    };
+    const xAxesConfig = {
+      gridLines: {
+        display: false,
+        offset: true,
+      },
+      type: "time",
+      time: {
+        unit: "month",
+        displayFormats: {
+          month: "MMM",
+        },
+      },
+    };
     var chart = new Chart(ctx, {
-      type: "bar",
+      type: isOnMobile ? "horizontalBar" : "bar",
+      // type: "bar",
       data: {
         labels: sData.label,
 
@@ -34,14 +76,14 @@ export const MyChart = () => {
             categoryPercentage: 0.6,
             label: "Доходы",
             backgroundColor: "#7C9AF2",
-            data: [30, 45, 300, 59, 267, 254, 346, 346, 134, 188, 12, 124],
+            data: sData.totalSavings,
           },
           {
             categoryPercentage: 0.6,
             barPercentage: 0.8,
             label: "Расходы",
             backgroundColor: "#FF6C00",
-            data: [202, 415, 30, 79, 217, 24, 36, 36, 14, 18, 122, 14],
+            data: sData.totalExpenses,
           },
           {
             categoryPercentage: 0.6,
@@ -51,17 +93,12 @@ export const MyChart = () => {
             // fontColor: "pink",
             // padding: 50,
             backgroundColor: "#D7D8DD",
-            data: [450, 420, 380, 320, 217, 245, 318, 300, 200, 180, 122, 50],
+            data: sData.expectedSavings,
           },
         ],
       },
 
       options: {
-        // title: {
-        //   display: true,
-        //   text: "Custom Chart Title",
-        // },
-
         legend: {
           display: true,
           align: "start",
@@ -70,12 +107,12 @@ export const MyChart = () => {
             fontColor: "rgba(24, 25, 31, 0.54)",
             boxWidth: 20,
             boxHeight: 20,
-            padding: 30,
+            padding: isOnMobile ? 30 : 30,
           },
         },
         layout: {
           padding: {
-            left: 40,
+            left: isOnMobile ? 10 : 40,
             right: 10,
             top: 0,
             bottom: 0,
@@ -83,52 +120,26 @@ export const MyChart = () => {
         },
         responsive: true,
         scales: {
-          xAxes: [
-            {
-              gridLines: {
-                display: false,
-                offset: true,
-              },
-              type: "time",
-              time: {
-                unit: "month",
-                displayFormats: {
-                  month: "MMM",
-                },
-              },
-              // barPercentage: 0.8,
-              // categoryPercentage: 0.6,
-            },
-          ],
-          yAxes: [
-            {
-              gridLines: {
-                display: true,
-                borderDash: [10, 10],
-              },
-
-              ticks: {
-                //beginAtZero: true,
-                stepSize: 100,
-                // max: 500,
-                //   min: 0,
-                suggestedMin: 50,
-                suggestedMax: 500,
-              },
-            },
-          ],
+          xAxes: [isOnMobile ? yAxesConfig : xAxesConfig],
+          yAxes: [isOnMobile ? xAxesConfig : yAxesConfig],
         },
       },
     });
 
     return () => chart.destroy();
   });
+  const isOnMobile = useMediaQuery({
+    query: device.mobile,
+  });
+  const isOnTablet = useMediaQuery({
+    query: device.tablet,
+  });
   return (
     <div className="chartjs-wrapper">
       <canvas
         id="myChart"
-        // width="418"
-        height="200"
+        //width={isOnMobile ? "180" : "50"}
+        height={isOnTablet ? "300" : isOnMobile ? "500" : "200"}
         className="chartjs"
       ></canvas>
     </div>
