@@ -23,28 +23,37 @@ const ExpenseForm = () => {
   return (
     <PlanFormStyled>
       <form onSubmit={handleSubmit}>
-        <label>
-          <span>Со счета</span>
-          <select value='value' type="text">
-            <option value="value2" selected>Карта VISA (Ваня)</option>
-          </select>
-          <p>Остаток на счете: 80 000 UAH</p>
-        </label>
-        
-        <label>
-         <span>Название статьи</span>
-          <input type="text" />
-        </label>
-        <label>
-          <span>На категорию</span>
-          <select value='value' type="text">
-            <option value="value2" selected>Развлечения</option>
-          </select>
-        </label>
-        <label>
-         <span>Сумма</span> 
-          <input type="number" />
-        </label>
+        <div className="formContainer">
+          <div className="leftFormContainer">
+            <label>
+              <span>Со счета</span>
+              <select value="value" type="text">
+                <option value="value2" defaultValue>
+                  Карта VISA (Ваня)
+                </option>
+              </select>
+              <p>Остаток на счете: 80 000 UAH</p>
+            </label>
+            <label>
+              <span>Название статьи</span>
+              <input type="text" />
+            </label>
+          </div>
+          <div className="rightFormContainer">
+            <label>
+              <span>На категорию</span>
+              <select value="value" type="text">
+                <option value="value2" defaultValue>
+                  Развлечения
+                </option>
+              </select>
+            </label>
+            <label>
+              <span>Сумма</span>
+              <input type="number" />
+            </label>
+          </div>
+        </div>
       </form>
     </PlanFormStyled>
   );

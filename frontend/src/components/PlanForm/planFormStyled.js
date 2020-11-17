@@ -3,27 +3,68 @@ import device from '../../common/deviceSizes';
 
 // padding: 34px 20px 0px;
 export const PlanFormStyled = styled.div`
-
   form,
   label {
     display: flex;
     flex-direction: column;
   }
+
   label {
     position: relative;
-    width: 280px;
     color: rgb(24, 25, 31, 0.54);
   }
 
-  @media ${device.tablet} {
-     width: 330px;
+  label:not(:last-of-type) {
+    @media ${device.mobile} {
+      margin-bottom: 35px;
+    }
+    @media ${device.tablet} {
+      margin-bottom: 50px;
+    }
+    @media ${device.desktop} {
+      margin-bottom: 50px;
+    }
   }
 
-  label:not(:last-of-type) {
+  /* label:not(:last-of-type) {
     margin-bottom: 35px;
-  }
-  label:last-of-type {
+  } */
+  /* label:last-of-type {
     margin-bottom: 109px;
+  } */
+
+  .formContainer {
+    @media ${device.mobile} {
+      width: 280px;
+    }
+    @media ${device.tablet} {
+      display: flex;
+    }
+    @media ${device.desktop} {
+      display: flex;
+    }
+  }
+
+  .leftFormContainer {
+    @media ${device.tablet} {
+      width: 330px;
+      margin-right: 30px;
+    }
+
+    @media ${device.desktop} {
+      width: 370px;
+      margin-right: 30px;
+    }
+  }
+
+  .rightFormContainer {
+    @media ${device.tablet} {
+      width: 330px;
+    }
+
+    @media ${device.desktop} {
+      width: 370px;
+    }
   }
 
   span {
@@ -75,7 +116,6 @@ export const PlanFormStyled = styled.div`
   @media ${device.tablet} {
     color: red;
   }
-  
 `;
 
 /* Rectangle */
