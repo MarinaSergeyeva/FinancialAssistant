@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
-import { colors } from "../../stylesheet/vars";
+import device, { size } from "../../common/deviceSizes";
+//import { colors } from "../../stylesheet/vars";
 import GiftCompleting from "../../components/GiftCompleting/GiftCompleting";
 import { MonthlyExecutionPlan } from "../MonthlyExecutionPlan/MonthlyExecutionPlan.js";
 import ChartWrapper from "../ChartExpenseIncome/ChartWrapper.js";
+import ProgressInfo from "../../components/ProgressInfo/ProgressInfo";
 
 const DynamicsPage = () => {
   return (
@@ -22,7 +23,7 @@ const DynamicsPage = () => {
         <ProgressPicturePresentWrapper>
           <ProgressPictureWrapper>
             <ProgressInfoWrapper>
-              <p>'ProgressInfo'</p>
+              <ProgressInfo />
             </ProgressInfoWrapper>
             <PictureWrapper>
               <p>'Picture'</p>
@@ -90,12 +91,13 @@ const ProgressPictureWrapper = styled.div`
 
 const ProgressInfoWrapper = styled.div`
   margin-bottom: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 280px;
 
-  @media ${device.tablet} {
-    margin-bottom: 0px;
-  }
-  @media ${device.desktop} {
-    margin-bottom: 0px;
+  @media (min-width: ${size.tablet}) {
+    margin: 0px;
+    width: 48%;
   }
 `;
 
@@ -104,9 +106,11 @@ const PictureWrapper = styled.div`
 
   @media ${device.tablet} {
     margin-bottom: 0px;
+    width: 48%;
   }
   @media ${device.desktop} {
     margin-bottom: 0px;
+    width: 48%;
   }
 `;
 
