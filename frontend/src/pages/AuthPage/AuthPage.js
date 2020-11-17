@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import device from '../../common/deviceSizes';
-import MainPage from '../../components/MainPage/MainPage';
-import Registration from '../../components/Auth/Registration/Registration';
-import Login from '../../components/Auth/Login/Login';
-import styled from 'styled-components';
-import Calculator from '../../components/Calculator/Calculator';
-import Modal from '../../components/Modal/Modal';
-import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
+import React, { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import device from "../../common/deviceSizes";
+import MainPage from "../../components/MainPage/MainPage";
+import Registration from "../../components/Auth/Registration/Registration";
+import Login from "../../components/Auth/Login/Login";
+import styled from "styled-components";
+import Calculator from "../../components/Calculator/Calculator";
+import Modal from "../../components/Modal/Modal";
+import GiftCompleting from "../../components/GiftCompleting/GiftCompleting";
 
 const AuthPage = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
   const [isShowLogin, setIsShowLogin] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
 
-  const showModalAuth = e => {
-    e.target.innerText === 'Рeгистрация'
+  const showModalAuth = (e) => {
+    e.target.innerText === "Рeгистрация"
       ? setIsShowRegistration(true)
       : setIsShowLogin(true);
   };
@@ -25,12 +25,12 @@ const AuthPage = () => {
   };
 
   const closeRegistration = () => {
-    setIsShowRegistration(prev => !prev);
-    setIsShowLogin(prev => !prev);
+    setIsShowRegistration((prev) => !prev);
+    setIsShowLogin((prev) => !prev);
   };
 
   const closeLogin = () => {
-    setIsShowLogin(prev => !prev);
+    setIsShowLogin((prev) => !prev);
   };
 
   const isOnBigDevice = useMediaQuery({
@@ -40,10 +40,10 @@ const AuthPage = () => {
     <>
       {isOnBigDevice && (
         <>
-          <Button type="button" onClick={e => showModalAuth(e)}>
+          <Button type="button" onClick={(e) => showModalAuth(e)}>
             Рeгистрация
           </Button>
-          <Button type="button" onClick={e => showModalAuth(e)}>
+          <Button type="button" onClick={(e) => showModalAuth(e)}>
             Вход
           </Button>
         </>

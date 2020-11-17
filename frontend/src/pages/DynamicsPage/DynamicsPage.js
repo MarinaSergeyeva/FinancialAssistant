@@ -1,14 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import device, {
-  Mobile,
-  Tablet,
-  Desktop,
-  size,
-} from '../../common/deviceSizes';
-import { colors } from '../../stylesheet/vars';
-import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
-import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
+import React from "react";
+import styled from "styled-components";
+import device, { size } from "../../common/deviceSizes";
+//import { colors } from "../../stylesheet/vars";
+import GiftCompleting from "../../components/GiftCompleting/GiftCompleting";
+import { MonthlyExecutionPlan } from "../MonthlyExecutionPlan/MonthlyExecutionPlan.js";
+import ChartWrapper from "../ChartExpenseIncome/ChartWrapper.js";
+import ProgressInfo from "../../components/ProgressInfo/ProgressInfo";
 
 const DynamicsPage = () => {
   return (
@@ -18,10 +15,10 @@ const DynamicsPage = () => {
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
           <GrafWrapper>
-            <p>'Graph'</p>
+            <ChartWrapper />
           </GrafWrapper>
           <AnnualWrapper>
-            <p>'Annual'</p>
+            <MonthlyExecutionPlan />
           </AnnualWrapper>
         </GraphAnnualWrapper>
         <ProgressPicturePresentWrapper>
