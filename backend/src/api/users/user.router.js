@@ -1,13 +1,10 @@
 const { Router } = require('express');
-const catchAsync = require('../../utils/catchAsync');
+// const catchAsync = require('../../utils/catchAsync');
 const { getCurrentUser, updateUsersController } = require('./user.controller');
 const { authorize } = require('../../utils/authMiddleware');
 const { validate } = require('../../utils/validate');
 const Joi = require('joi');
 const usersRouter = Router();
-
-// const { updateUsersController } = require('./users.controllers');
-// const usersRouter = Router();
 
 const DataUserSchema = Joi.object({
   balance: Joi.number().required(),
@@ -28,5 +25,3 @@ usersRouter.put(
 );
 
 module.exports = usersRouter;
-// module.exports = usersRouter;
-module.exports = { DataUserSchema };
