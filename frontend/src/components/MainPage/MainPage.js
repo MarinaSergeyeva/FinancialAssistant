@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
@@ -14,32 +14,38 @@ const MainPage = () => {
   const userInfo = useSelector(state => state.auth.username);
 
   const [showRegistration, setIsShowRegistration] = useState(true);
-
   const [showLogin, setIsShowLogin] = useState(false);
-  const [userInfoRegistr, setUserInfoRegistr] = useState(true);
 
-  console.log(userInfo, 'userInfo');
+  const [userInfoRegistr, setUserInfoRegistr] = useState(
+    userInfo ? true : false,
+  );
 
-  const getUserInfo = swich => {
-    swich ? setUserInfoRegistr(true) : setUserInfoRegistr(false);
-  };
+  useEffect(() => {
+    if(userInfo){
+      setUserInfoRegistr(true)
+    } else{
+      setUserInfoRegistr(false)
+    }
+    
+    console.log(userInfo, 'userInfo');
+  }, [userInfo]);
+  
+
+  // const getUserInfo = () => {
+  //   userInfo ? setUserInfoRegistr(true) : setUserInfoRegistr(false);
+  // };
 
   const showModalAuth = e => {
     console.log(e.target.innerText, 'e.target.innerText');
     if (e.target.innerText === 'Войти') {
-      setIsShowRegistration(false);
       setIsShowLogin(true);
-
-      {
-        console.log(showLogin, 'showLogin');
-      }
+      setIsShowRegistration(false);
     } else if (e.target.innerText === 'Зарегистрироваться') {
-      setIsShowLogin(false);
       setIsShowRegistration(true);
+      setIsShowLogin(false);
     }
   };
 
-  
   return (
     <MainPageContainer>
       <Mobile>
@@ -77,14 +83,14 @@ const MainPage = () => {
 
       <Mobile>
         <AuthContainer>
-          {(
+          {!userInfoRegistr && (
             <>
               <Registration />
               <AuthParagraph>
                 Уже есть аккаунт?
                 <span
-                  onClick={e => {
-                    showModalAuth(e);
+                  onClick={() => {
+                    setUserInfoRegistr(true);
                   }}
                 >
                   Войти
@@ -93,15 +99,15 @@ const MainPage = () => {
             </>
           )}
 
-          {userInfo && (
+          {userInfoRegistr && (
             <>
               {console.log(showLogin, 'showLogin')}
               <Login />
               <AuthParagraph>
                 Еще нет аккаунта?
                 <span
-                  onClick={e => {
-                    showModalAuth(e);
+                  onClick={() => {
+                    setUserInfoRegistr(false);
                   }}
                 >
                   Зарегистрироваться
