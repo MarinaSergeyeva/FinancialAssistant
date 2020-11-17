@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import device, { size } from "../../common/deviceSizes";
+import React from 'react';
+import styled from 'styled-components';
+import device, { size } from '../../common/deviceSizes';
 //import { colors } from "../../stylesheet/vars";
-import GiftCompleting from "../../components/GiftCompleting/GiftCompleting";
-import { MonthlyExecutionPlan } from "../MonthlyExecutionPlan/MonthlyExecutionPlan.js";
-import ChartWrapper from "../ChartExpenseIncome/ChartWrapper.js";
-import ProgressInfo from "../../components/ProgressInfo/ProgressInfo";
+import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
+import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPlan.js';
+import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
+import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 
 const DynamicsPage = () => {
   return (
