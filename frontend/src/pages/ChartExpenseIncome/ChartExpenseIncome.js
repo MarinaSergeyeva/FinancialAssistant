@@ -118,7 +118,7 @@ export const MyChart = () => {
             bottom: isOnMobile ? 0 : 20,
           },
         },
-        responsive: true,
+        //responsive: true,
         scales: {
           xAxes: [isOnMobile ? yAxesConfig : xAxesConfig],
           yAxes: [isOnMobile ? xAxesConfig : yAxesConfig],
@@ -139,7 +139,7 @@ export const MyChart = () => {
       <canvas
         id="myChart"
         //width={isOnMobile ? "180" : "50"}
-        height={isOnTablet ? "200" : isOnMobile ? "570" : "100"}
+        height={isOnTablet ? "200" : isOnMobile ? "480" : "200"}
         className="chartjs"
       ></canvas>
     </div>

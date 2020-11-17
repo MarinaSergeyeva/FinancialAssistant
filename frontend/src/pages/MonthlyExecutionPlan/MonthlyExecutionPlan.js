@@ -55,7 +55,7 @@ export const MonthlyExecutionPlan = () => {
   );
 };
 const MonthlyMainWrapper = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 280px;
   @media ${device.tablet} {
     width: 510px;
@@ -74,7 +74,7 @@ const MonthlyCardsWrapper = styled.ul`
     width: 510px;
   }
   @media ${device.desktop} {
-    width: 480px;
+    width: 465px;
   }
 `;
 const MonthlyCards = styled.li`
@@ -96,7 +96,7 @@ const MonthlyCards = styled.li`
   }
   @media ${device.desktop} {
     line-height: 18px;
-    width: 88px;
+    width: 80px;
     height: 48px;
   }
 `;

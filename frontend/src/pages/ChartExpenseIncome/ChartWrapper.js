@@ -5,10 +5,12 @@ import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
 
 export default function ChartWrapper() {
   return (
-    <ChartWrapperSC>
-      <ChartTitle />
-      <MyChart />
-    </ChartWrapperSC>
+    <>
+      <ChartWrapperSC>
+        <ChartTitle />
+        <MyChart />
+      </ChartWrapperSC>
+    </>
   );
 }
 const ChartWrapperSC = styled.div`
@@ -16,10 +18,10 @@ const ChartWrapperSC = styled.div`
   /* display: flex;
   flex-direction: column;
   align-items: center; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 527px;
-  width: 230px;
-  overflow: hidden;
+  width: 280px;
+  /* overflow: hidden; */
   @media ${device.tablet} {
     width: 510px;
     height: 390px;
