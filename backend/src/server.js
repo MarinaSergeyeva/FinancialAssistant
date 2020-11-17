@@ -4,10 +4,14 @@ const path = require('path');
 const morgan = require('morgan');
 const authRouter = require('./api/auth/auth.routers');
 <<<<<<< HEAD
+<<<<<<< HEAD
 const usersRouter = require('./api/users/users.router');
 =======
 const userRouter = require('./api/users/user.router');
 >>>>>>> 739d514c516392512d846334382f841485b8cd86
+=======
+const usersRouter = require('./api/users/user.router');
+>>>>>>> cb59b373243023ab8833ac4f744aff9a4171a7b8
 const transactionRouter = require('./api/transactions/transactionRouter');
 require('dotenv').config({ path: path.join('./.env') });
 
@@ -60,7 +64,7 @@ class CrudServer {
   }
 
   initMiddlewares() {
-    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN}));
+    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
     if (process.env.NODE_ENV === 'development') {
       this.server.use(morgan('dev'));
     }
@@ -79,6 +83,7 @@ class CrudServer {
 
   initServerRouters() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     //   this.server.use('/api/v1/contacts', contactRouter);
     this.server.use('/api/v1/transactions', transactionRouter);
     this.server.use('/api/v1/auth', authRouter);
@@ -90,6 +95,13 @@ class CrudServer {
     this.server.use('/api/v1/users', userRouter);
 >>>>>>> 739d514c516392512d846334382f841485b8cd86
     //   this.server.use('/', userRouter, express.static('public'));
+=======
+    this.server.use('/api/v1/transactions', transactionRouter);
+    //   this.server.use('/api/v1/contacts', contactRouter);
+    this.server.use('/api/v1/auth', authRouter);
+    this.server.use('/api/v1/users', usersRouter);
+    //   this.server.use('/', usersRouter, express.static('public'));
+>>>>>>> cb59b373243023ab8833ac4f744aff9a4171a7b8
   }
 
   initErrorHandling() {
