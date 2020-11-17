@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+<<<<<<< HEAD
 import styled from 'styled-components';
 import operation from '../../../redux/operations/authOperations'
 
@@ -30,11 +31,68 @@ export const Registration = () => {
           <RegistrationInput
             value={name}
             onChange={e => setHandleName(e.target.value )}
+=======
+import { useMediaQuery } from 'react-responsive';
+import device from '../../../common/deviceSizes';
+
+import {
+  AuthFormWrapper,
+  AuthForm,
+  AuthTxt,
+  AuthInputForm,
+  AuthInputTxt,
+  AuthInput,
+  AuthButtonBlock,
+} from '../../../common/globalStyleComponents';
+import operation from '../../../redux/operations/authOperations';
+
+
+
+const Registration = ({closeModal}) => {
+  
+  const dispatch = useDispatch();
+  const [username, setHandelName] = useState('');
+  const [email, setHandelEmail] = useState('');
+  const [password, setHandelPassword] = useState('');
+
+  const isOnMobile = useMediaQuery({
+    query: device.mobile,
+  });
+
+  const handelSubmit = e => {
+    e.preventDefault();
+    const newUser = {
+      username,
+      email,
+      password,
+    };
+    console.log(newUser, 'newUser');
+    dispatch(operation.userRegistration(newUser));
+    setHandelName('');
+    setHandelEmail('');
+    setHandelPassword('');
+    !isOnMobile && closeModal();
+  };
+
+ 
+
+  return (
+    <AuthFormWrapper>
+      <AuthForm onSubmit={handelSubmit}>
+        <AuthTxt>{isOnMobile ? 'Готовы подписаться?':'Регистрация'}</AuthTxt>
+
+        <AuthInputForm>
+          <AuthInputTxt>Name</AuthInputTxt>
+          <AuthInput
+            value={username}
+            onChange={e => setHandelName(e.target.value)}
+>>>>>>> 739d514c516392512d846334382f841485b8cd86
             type="name"
             placeholder="Введите ваше имя"
             name="name"
             required
           />
+<<<<<<< HEAD
         </RegistrationInputForm>
 
         <RegistrationInputForm>
@@ -42,11 +100,21 @@ export const Registration = () => {
           <RegistrationInput
             value={email}
             onChange={e => setHandleEmail(e.target.value )}
+=======
+        </AuthInputForm>
+
+        <AuthInputForm>
+          <AuthInputTxt>E-mail</AuthInputTxt>
+          <AuthInput
+            value={email}
+            onChange={e => setHandelEmail(e.target.value)}
+>>>>>>> 739d514c516392512d846334382f841485b8cd86
             type="email"
             placeholder="Введите ваш e-mail"
             name="email"
             required
           />
+<<<<<<< HEAD
         </RegistrationInputForm>
 
         <RegistrationInputForm>
@@ -54,11 +122,22 @@ export const Registration = () => {
           <RegistrationInput
             value={password}
             onChange={e => setHandlePassword(e.target.value)}
+=======
+       
+        </AuthInputForm>
+
+        <AuthInputForm>
+          <AuthInputTxt>Password</AuthInputTxt>
+          <AuthInput
+            value={password}
+            onChange={e => setHandelPassword(e.target.value)}
+>>>>>>> 739d514c516392512d846334382f841485b8cd86
             type="password"
             placeholder="Введите ваш пароль"
             name="password"
             required
           />
+<<<<<<< HEAD
         </RegistrationInputForm>
 
         <RegistrationButtonBlock>
@@ -144,3 +223,20 @@ const RegistrationButtonBlock = styled.div`
     color: #fff;
   }
 `;
+=======
+          
+        </AuthInputForm>
+
+        <AuthButtonBlock>
+          <button>
+            <p>Зарегистрироваться</p>
+          </button>
+        </AuthButtonBlock>
+        
+      </AuthForm>
+    </AuthFormWrapper>
+  );
+};
+
+export default Registration;
+>>>>>>> 739d514c516392512d846334382f841485b8cd86
