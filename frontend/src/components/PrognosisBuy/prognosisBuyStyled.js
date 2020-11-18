@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import device from '../../common/deviceSizes';
+import { size } from '../../common/deviceSizes';
 
 export const PrognosisBuyStyled = styled.div`
   display: flex;
@@ -12,7 +12,6 @@ export const PrognosisBuyStyled = styled.div`
     background: rgb(55, 59, 83);
     border-radius: 8px;
     padding: 34px 12px;
-    margin-bottom: 34px;
   }
 
   h2 {
@@ -71,13 +70,17 @@ export const PrognosisBuyStyled = styled.div`
     height: 99px;
   }
 
-  @media ${device.tablet} {
+  @media (max-width: ${size.beforeTablet}) {
+    .wrapper {
+      margin-bottom: 34px;
+    }
+  }
+  @media (min-width: ${size.tablet}) {
     text-align: left;
     .wrapper {
       width: 690px;
       height: 151px;
       padding: 24px 25px;
-      margin-bottom: 74px;
     }
     label {
       margin-right: 20px;
@@ -87,9 +90,24 @@ export const PrognosisBuyStyled = styled.div`
         margin-bottom: 0px;
       }
     }
+  }
+  @media (max-width: ${size.beforeDesktop}) {
+    .wrapper {
+      margin-bottom: 74px;
+    }
     img {
       width: 238px;
       height: 182px;
+    }
+  }
+  @media (min-width: ${size.desktop}) {
+    flex-direction: row;
+
+    .wrapper {
+      width: 770px;
+      padding-right: 65px;
+      padding-left: 65px;
+      margin-left: 127px;
     }
   }
 `;

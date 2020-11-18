@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import device from '../../common/deviceSizes';
+import { size } from '../../common/deviceSizes';
 
 export const PlanFormStyled = styled.div`
-  /* padding: 34px 20px 0px; */
-
   form,
   label {
     display: flex;
@@ -19,9 +17,6 @@ export const PlanFormStyled = styled.div`
   label:not(:last-of-type) {
     margin-bottom: 35px;
   }
-  /* label:last-of-type {
-    margin-bottom: 109px;
-  } */
 
   span {
     position: absolute;
@@ -54,7 +49,6 @@ export const PlanFormStyled = styled.div`
     padding-top: 44px;
   }
   .accumulation {
-    /* position: absolute; */
     top: 60px;
     color: rgba(24, 25, 31, 0.54);
     font-size: 12px;
@@ -68,7 +62,7 @@ export const PlanFormStyled = styled.div`
     border-bottom: 1px solid rgb(33, 150, 243);
   }
 
-  @media ${device.tablet} {
+  @media (min-width: ${size.tablet}) {
     form {
       flex-direction: row;
     }
@@ -87,6 +81,10 @@ export const PlanFormStyled = styled.div`
       padding-top: 30px;
     }
   }
-`;
 
-/* Rectangle */
+  @media (min-width: ${size.desktop}) {
+    label {
+      width: 370px;
+    }
+  }
+`;
