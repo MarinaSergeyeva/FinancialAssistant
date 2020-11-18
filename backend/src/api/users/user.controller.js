@@ -1,5 +1,6 @@
 const UserDB = require("./user.model");
 const catchAsync = require("../../utils/catchAsync");
+const AppError = require("../errors/appError");
 
 const getCurrentUser = (req, res, next) => {
   return res.status(200).json({
@@ -32,4 +33,60 @@ const updateUsersController = catchAsync(async (req, res, next) => {
   });
 });
 
-module.exports = { getCurrentUser, updateUsersController };
+//==== Flat Stats
+
+const calculateStats = (user) => {
+  const {
+    balance,
+    flatPrice,
+    flatSquareMeters,
+    totalSalary,
+    passiveIncome,
+    incomePercentageToSavings,
+  } = user;
+
+  const savingsPercentage = Math.round((balance / flatPrice) * 100) / 100;
+
+  const savingsValue = balance;
+
+  const savingsInSquareMeters = Math.floor(
+    savingsValue / (flatPrice / flatSquareMeters)
+  );
+
+  const totalSquareMeters = flatSquareMeters;
+
+  const monthsLeftToSaveForFlat =
+    (flatPrice - balance) /
+    ((totalSalary + passiveIncome) * (incomePercentageToSavings / 100));
+
+  const savingsForNextSquareMeterLeft =
+    balance - savingsInSquareMeters * (flatPrice / flatSquareMeters);
+
+  const giftsForUnpacking = 0;
+
+  const flatStats = {
+    savingsPercentage,
+    savingsValue,
+    savingsInSquareMeters,
+    totalSquareMeters,
+    monthsLeftToSaveForFlat,
+    savingsForNextSquareMeterLeft,
+    giftsForUnpacking,
+  };
+  return flatStats;
+};
+
+const getFlatStats = (req, res, next) => {
+  const { user } = req;
+
+  const { flatPrice } = user;
+  if (!flatPrice) {
+    return next(new AppError("Saving stats not initialized", 403));
+  }
+
+  const stats = calculateStats(user);
+
+  res.status(201).json(stats);
+};
+
+module.exports = { getCurrentUser, updateUsersController, getFlatStats };

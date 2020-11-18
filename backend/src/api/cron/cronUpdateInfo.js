@@ -8,7 +8,7 @@ const updateInfo = () => {
   cron.schedule("* * * * *", async () => {
     const cronUpdateUsers = await UserDB.updateMany(
       {},
-      { $sum: { balance: "200" } }
+      { $inc: { balance: "200" } }
     );
     //   const CronUpdateUsersController = catchAsync(async (req, res, next) => {
     //const cronUpdateUsers = await UserDB.updateMany({}, { $set: { "balance": "3500" } }, {multi:true})
