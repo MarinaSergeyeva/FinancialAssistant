@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import device from '../../common/deviceSizes';
 import { ExpenseFormStyled } from '../ExpenseForm/expenseFormStyled';
-// import calculatorIcon from '../../assets/icons/icon-calculator.png';
 import calculatorIcon from '../../assets/icons/icon-calculator.svg';
 
 const ExpenseForm = () => {
