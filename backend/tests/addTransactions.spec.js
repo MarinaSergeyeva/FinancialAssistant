@@ -4,6 +4,7 @@ const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
 const TransactionModel = require('../src/api/transactions/transaction.model');
+const User = require('../src/api/users/user.model');
 
 describe('addTransactions test suite', () => {
   let server;
@@ -30,20 +31,26 @@ describe('addTransactions test suite', () => {
     });
 
     context('when token was provided', () => {
-      let response, fakeTransaction;
+      let response, userDoc, fakeTransaction
       before(async () => {  
-        fakeTransaction = await TransactionModel.createTransaction({
+        userDoc = await User.create({
+          username: 'Test',
+          email: 'test@email.com',
+          passwordHash: 'password_hash',
+        });
+
+        fakeTransaction = {
           amount: 1500,
           transactionDate: 3434723423426,
           type: 'INCOME',
           category: 'Развлечения',
-        });
+        };
 
-        const token = jwt.sign({ id: fakeTransaction._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn: 2 * 24 * 60 * 60,
         });
-        fakeTransaction.tokens.push(token);
-        await fakeTransaction.save();
+        userDoc.tokens.push(token);
+        await userDoc.save();
 
         response = await request(server)
           .post('/api/v1/transactions')

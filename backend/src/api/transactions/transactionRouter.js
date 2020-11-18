@@ -4,9 +4,9 @@ const {
   createTransaction,
   getTransactionCategories,
 } = require('./transaction.controller');
-const { authorize } = require('../../utils.js/authMiddleware');
-const catchAsync = require('../../utils.js/catchAsync');
-const { validate } = require('../../utils.js/validate');
+const { authorize } = require('../../utils/authMiddleware');
+const catchAsync = require('../../utils/catchAsync');
+const { validate } = require('../../utils/validate');
 const Joi = require('joi');
 
 const addTransactionSchema = Joi.object({
