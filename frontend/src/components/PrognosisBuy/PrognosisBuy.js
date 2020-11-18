@@ -1,5 +1,6 @@
 import React from 'react';
 import { PrognosisBuyStyled } from './prognosisBuyStyled';
+import decor from '../../assets/images/planPage/decor.svg';
 
 function PrognosisBuy() {
   return (
@@ -18,6 +19,7 @@ function PrognosisBuy() {
           <button type="submit">Подходит</button>
         </form>
       </div>
+      <img src={decor} />
     </PrognosisBuyStyled>
   );
 }

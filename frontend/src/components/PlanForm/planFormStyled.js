@@ -13,20 +13,22 @@ export const PlanFormStyled = styled.div`
     position: relative;
     width: 280px;
     color: rgb(24, 25, 31, 0.54);
+    margin-bottom: 35px;
   }
 
   label:not(:last-of-type) {
     margin-bottom: 35px;
   }
-  label:last-of-type {
+  /* label:last-of-type {
     margin-bottom: 109px;
-  }
+  } */
 
   span {
     position: absolute;
     top: 10px;
     left: 12px;
     font-size: 12px;
+    font-weight: 400;
     line-height: 14px;
   }
 
@@ -37,22 +39,28 @@ export const PlanFormStyled = styled.div`
 
   input {
     background: rgba(0, 0, 0, 0.03);
-    padding: 24px 12px 12px;
+    padding: 30px 12px 12px;
     color: rgba(24, 25, 31, 0.87);
     font-size: 16px;
+    font-weight: 400;
     line-height: 19px;
     border: none;
     border-bottom: 1px solid rgba(24, 25, 31, 0.36);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
-
+  .secondColumn label:nth-of-type(1) input,
+  .secondColumn label:nth-of-type(2) input {
+    padding-top: 44px;
+  }
   .accumulation {
-    position: absolute;
+    /* position: absolute; */
     top: 60px;
     color: rgba(24, 25, 31, 0.54);
     font-size: 12px;
+    font-weight: 400;
     line-height: 14px;
+    padding-top: 4px;
   }
 
   input:hover,
@@ -61,7 +69,23 @@ export const PlanFormStyled = styled.div`
   }
 
   @media ${device.tablet} {
-    color: red;
+    form {
+      flex-direction: row;
+    }
+    .firstColumn {
+      margin-right: 30px;
+    }
+    label {
+      width: 330px;
+    }
+
+    label:not(:last-of-type) {
+      margin-bottom: 52px;
+    }
+    .secondColumn label:nth-of-type(1) input,
+    .secondColumn label:nth-of-type(2) input {
+      padding-top: 30px;
+    }
   }
 `;
 

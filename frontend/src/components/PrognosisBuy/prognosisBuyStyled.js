@@ -2,11 +2,19 @@ import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 
 export const PrognosisBuyStyled = styled.div`
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: center; */
-  /* padding: 0px 34px; */
-  /* text-align: center; */
+  align-items: center;
+  text-align: center;
+  .wrapper {
+    width: 280px;
+    height: 322px;
+    background: rgb(55, 59, 83);
+    border-radius: 8px;
+    padding: 34px 12px;
+    margin-bottom: 34px;
+  }
+
   h2 {
     font-size: 18px;
     line-height: 24px;
@@ -14,20 +22,13 @@ export const PrognosisBuyStyled = styled.div`
     color: rgb(255, 255, 255);
     margin-bottom: 23px;
   }
-  .wrapper {
-    width: 280px;
-    height: 322px;
-    background: rgb(55, 59, 83);
-    border-radius: 8px;
-    padding: 34px 12px;
-  }
   label {
     position: relative;
   }
   span {
     position: absolute;
     left: 13px;
-    bottom: 30px;
+    bottom: 24px;
     font-family: 'Roboto';
     font-size: 12px;
     line-height: 14px;
@@ -43,7 +44,6 @@ export const PrognosisBuyStyled = styled.div`
     border-radius: 8px;
     color: rgb(255, 255, 255);
     background: rgba(0, 0, 0, 0.03);
-    /* border: solid 1px rgba(0, 0, 0, 0); */
     padding: 12px 18px;
 
     &::placeholder {
@@ -64,5 +64,32 @@ export const PrognosisBuyStyled = styled.div`
     border-radius: 8px;
     color: rgb(255, 255, 255);
     background: rgb(255, 108, 0);
+    cursor: pointer;
+  }
+  img {
+    width: 130px;
+    height: 99px;
+  }
+
+  @media ${device.tablet} {
+    text-align: left;
+    .wrapper {
+      width: 690px;
+      height: 151px;
+      padding: 24px 25px;
+      margin-bottom: 74px;
+    }
+    label {
+      margin-right: 20px;
+    }
+    input {
+      &:first-of-type {
+        margin-bottom: 0px;
+      }
+    }
+    img {
+      width: 238px;
+      height: 182px;
+    }
   }
 `;
