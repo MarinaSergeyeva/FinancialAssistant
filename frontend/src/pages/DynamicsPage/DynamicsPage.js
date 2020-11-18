@@ -6,12 +6,11 @@ import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
 import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPlan.js';
 import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
+import ApartmentVisualization from "../../components/ApartmentVisualization/ApartmentVisualization"
 
 const DynamicsPage = () => {
   return (
     <>
-      {/* delete this comment */}
-      {/* <p>'DynamicsPage'</p> */}
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
           <GrafWrapper>
@@ -27,7 +26,7 @@ const DynamicsPage = () => {
               <ProgressInfo />
             </ProgressInfoWrapper>
             <PictureWrapper>
-              <p>'Picture'</p>
+              <ApartmentVisualization />
             </PictureWrapper>
           </ProgressPictureWrapper>
           <PresentWrapper>
