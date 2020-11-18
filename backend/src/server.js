@@ -1,3 +1,5 @@
+const cron = require("node-cron");
+
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -12,6 +14,7 @@ const PORT = process.env.PORT || 8080;
 const globalErrorHandler = require("./api/errors/error.controller");
 
 const mongoose = require("mongoose");
+const { updateInfo } = require("./api/cron/cronUpdateInfo");
 
 class CrudServer {
   constructor() {
@@ -78,6 +81,7 @@ class CrudServer {
     this.server.use("/api/v1/transactions", transactionRouter);
     this.server.use("/api/v1/auth", authRouter);
     this.server.use("/api/v1/users", usersRouter);
+    this.server.use(updateInfo());
   }
 
   initErrorHandling() {
