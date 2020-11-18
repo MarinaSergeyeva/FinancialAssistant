@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 // import PrognosisExpense from '../../components/PrognosisExpense/PrognosisExpense';
-import { device } from '../../common/deviceSizes';
+import { device, Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
 // import { size } from '../../common/deviceSizes';
+import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
+import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
+import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
 
 const ExpensePage = () => {
   {
@@ -19,6 +22,24 @@ const ExpensePage = () => {
           <ExpenseForm />
         </ExpenseFormWrapper>
         <ForecastExpense />
+        <Mobile>
+          <ExpensePageImg
+            src={expensePageMobile}
+            alt="expense page background"
+          />
+        </Mobile>
+        <Tablet>
+          <ExpensePageImg
+            src={expensePageTablet}
+            alt="expense page background"
+          />
+        </Tablet>
+        <Desktop>
+          <ExpensePageImg
+            src={expensePageDesktop}
+            alt="expense page background"
+          />
+        </Desktop>
       </ExpensePageContainer>
     );
   }
@@ -27,6 +48,7 @@ const ExpensePage = () => {
 export default ExpensePage;
 
 const ExpensePageContainer = styled.div`
+  position: relative;
   margin: 0 auto;
   padding-top: 40px;
   padding-bottom: 200px;
@@ -49,4 +71,18 @@ const ExpenseFormWrapper = styled.div`
   margin-bottom: 52px;
   /* width: 690px; */
   /* display: flex; */
+`;
+
+const ExpensePageImg = styled.img`
+  position: absolute;
+  bottom: 0px;
+  left: -20px;
+
+  @media ${device.tablet} {
+    left: -40px;
+  }
+
+  @media ${device.largeDesktop} {
+    left: -255px;
+  } ;
 `;
