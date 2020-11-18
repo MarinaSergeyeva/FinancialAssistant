@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useMediaQuery } from "react-responsive";
-import device from "../../common/deviceSizes";
-import MainPage from "../../components/MainPage/MainPage";
-import Registration from "../../components/Auth/Registration/Registration";
-import Login from "../../components/Auth/Login/Login";
-import styled from "styled-components";
-import Calculator from "../../components/Calculator/Calculator";
-import Modal from "../../components/Modal/Modal";
-import GiftCompleting from "../../components/GiftCompleting/GiftCompleting";
+import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import device from '../../common/deviceSizes';
+import MainPage from '../../components/MainPage/MainPage';
+import Registration from '../../components/Auth/Registration/Registration';
+import Login from '../../components/Auth/Login/Login';
+import styled from 'styled-components';
+import Calculator from '../../components/Calculator/Calculator';
+
+import Modal from '../../components/Modal/Modal';
 
 const AuthPage = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
@@ -25,8 +25,8 @@ const AuthPage = () => {
   };
 
   const closeRegistration = () => {
-    setIsShowRegistration((prev) => !prev);
-    setIsShowLogin((prev) => !prev);
+    setIsShowRegistration(prev => !prev);
+    // setIsShowLogin(prev => !prev);
   };
 
   const closeLogin = () => {
