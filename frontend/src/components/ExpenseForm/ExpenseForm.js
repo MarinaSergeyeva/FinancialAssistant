@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 import { ExpenseFormStyled } from '../ExpenseForm/expenseFormStyled';
+// import calculatorIcon from '../../assets/icons/icon-calculator.png';
+import calculatorIcon from '../../assets/icons/icon-calculator.svg';
 
 const ExpenseForm = () => {
   const [expenseItem, setHandleExpenseItem] = useState('');
@@ -44,13 +46,18 @@ const ExpenseForm = () => {
               <span>На категорию</span>
               <select value="value" type="text">
                 <option value="value2" defaultValue>
-                Развлечения
+                  Развлечения
                 </option>
               </select>
             </label>
             <label>
               <span>Сумма</span>
-              <input type="number" />
+              <input className="calc-input" type="number" />
+              <img
+                className="calc-icon"
+                src={calculatorIcon}
+                alt="calculator icon"
+              />
             </label>
           </div>
         </div>

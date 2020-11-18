@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
+import { colors, background, textColor } from '../../stylesheet/vars';
 
 export const ExpenseFormStyled = styled.div`
   form,
@@ -10,11 +11,11 @@ export const ExpenseFormStyled = styled.div`
 
   label {
     position: relative;
-    color: rgb(24, 25, 31, 0.54);
+    color: ${textColor.secondary};
   }
 
   label:not(:last-child) {
-      margin-bottom: 35px;
+    margin-bottom: 35px;
 
     @media ${device.largeDevice} {
       margin-bottom: 50px;
@@ -22,9 +23,9 @@ export const ExpenseFormStyled = styled.div`
   }
 
   .formContainer {
-      @media ${device.mobile} {
+    @media ${device.mobile} {
       width: 280px;
-      }
+    }
 
     @media ${device.largeDevice} {
       display: flex;
@@ -46,7 +47,19 @@ export const ExpenseFormStyled = styled.div`
   }
 
   .smallFormContainer_last {
-      margin-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  .calc-input {
+    position: relative;
+  }
+
+  .calc-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
   }
 
   span {
@@ -64,14 +77,9 @@ export const ExpenseFormStyled = styled.div`
     line-height: 14px;
   }
 
-  label:hover,
-  label:focus {
-    color: rgb(33, 150, 243);
-  }
-
   input,
   select {
-    background: rgba(0, 0, 0, 0.03);
+    background: ${background.main};
     padding: 24px 10px 12px;
     color: rgba(24, 25, 31, 0.87);
     font-size: 16px;
@@ -82,16 +90,15 @@ export const ExpenseFormStyled = styled.div`
     border-top-right-radius: 8px;
   }
 
-  .accumulation {
-    position: absolute;
-    top: 60px;
-    color: rgba(24, 25, 31, 0.54);
-    font-size: 12px;
-    line-height: 14px;
+  label:hover,
+  label:focus {
+    color: ${colors.formTextHover};
   }
 
   input:hover,
-  input:focus {
-    border-bottom: 1px solid rgb(33, 150, 243);
+  input:focus,
+  select:hover,
+  select:focus {
+    border-bottom: 1px solid ${colors.formTextHover};
   }
 `;
