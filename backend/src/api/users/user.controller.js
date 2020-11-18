@@ -86,7 +86,7 @@ const getFlatStats = (req, res, next) => {
 
   const stats = calculateStats(user);
 
-  res.status(201).json(stats);
+  res.status(200).json(stats);
 };
 
 module.exports = { getCurrentUser, updateUsersController, getFlatStats };
