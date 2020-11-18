@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import { useMediaQuery } from 'react-responsive';
 import device from '../common/deviceSizes';
 import { background, textColor } from '../stylesheet/vars';
 
@@ -27,8 +26,8 @@ export const AuthFormWrapper = styled.div`
   }
 `;
 
-export const AuthForm = styled.form`
-  position: relative;
+export const AuthForm = styled.div`
+  justify-content: center;
 `;
 
 export const AuthTxt = styled.p`
@@ -43,10 +42,16 @@ export const AuthTxt = styled.p`
   }
 `;
 
-export const AuthInputForm = styled.div``;
+export const AuthInputForm = styled.label`
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  flex-direction: column;
+  position: relative;
+  padding-top: 7px;
+`;
 
 export const AuthInput = styled.input`
-  position: relative;
   width: 316px;
   height: 56px;
   border: 1px solid rgba(0, 0, 0, 0.36);
@@ -76,8 +81,9 @@ export const AuthInput = styled.input`
 `;
 
 export const AuthInputTxt = styled.p`
-  font-family: 'Roboto';
   position: absolute;
+  top: 0px;
+  font-family: 'Roboto';
   text-align: center;
   line-height: 14.06px;
   color: rgba(24, 25, 31, 0.54);
@@ -85,6 +91,7 @@ export const AuthInputTxt = styled.p`
   font-size: 12px;
   font-weight: 400;
   padding: 0px 5px;
+  border-radius: 10%;
   background: #fff;
   z-index: 100;
 
@@ -114,47 +121,3 @@ export const AuthButtonBlock = styled.div`
 `;
 
 //!
-
-//!ExpenseForm
-
-export const UserInput = styled.input`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  width: 280px;
-  padding: 10px 12px 12px;
-  background: ${background.main};
-  border: none;
-  border-bottom: 1px solid rgba(24, 25, 31, 0.36);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-`;
-
-export const UserInputLabel = styled.label`
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  display: flex;
-  align-items: center;
-
-  color: ${textColor.secondary};
-`;
-
-export const UserSelect = styled.select`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  width: 280px;
-  padding: 10px 12px 12px;
-  background: ${background.main};
-  border: none;
-  border-bottom: 1px solid rgba(24, 25, 31, 0.36);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-`;
