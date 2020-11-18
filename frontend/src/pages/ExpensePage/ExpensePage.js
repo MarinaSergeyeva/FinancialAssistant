@@ -1,22 +1,22 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 // import ExpenseForm from '../../components/expenseForm/ExpenseForm';
-import PrognosisExpense from "../../components/PrognosisExpense/PrognosisExpense";
-import { size } from "../../common/deviceSizes";
+import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
+import { size } from '../../common/deviceSizes';
 
 const ExpensePage = () => {
   {
     return (
       <ExpensePageContainer>
         <ExpenseFormWrapper>
-          <p style={{ textAlign: "center" }}>
+          <p style={{ textAlign: 'center' }}>
             <br />
             Место для формы расходов
             <br />
           </p>
           {/* <ExpenseForm /> */}
         </ExpenseFormWrapper>
-        <PrognosisExpense />
+        <ForecastExpense />
       </ExpensePageContainer>
     );
   }
