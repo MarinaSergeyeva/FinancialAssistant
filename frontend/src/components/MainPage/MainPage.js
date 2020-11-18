@@ -29,24 +29,23 @@ const MainPage = () => {
   
 
 
-
   return (
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
-          Планировщик для совместного{' '}
+          Планировщик для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
-          Планировщик для совместного{' '}
+          Планировщик для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
-          Планировщик <br /> для совместного{' '}
+          Планировщик <br /> для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
@@ -224,7 +223,6 @@ const FacebookAuthBtn = styled.button`
     margin: 0;
   }
 `;
-
 const FacebookAuthBtnImg = styled.img`
   position: absolute;
   left: 15px;
