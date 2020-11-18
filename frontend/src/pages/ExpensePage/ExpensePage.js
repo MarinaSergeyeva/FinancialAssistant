@@ -14,11 +14,6 @@ const ExpensePage = () => {
     return (
       <ExpensePageContainer>
         <ExpenseFormWrapper>
-          {/* <p style={{ textAlign: "center" }}>
-            <br />
-            Место для формы расходов
-            <br />
-          </p> */}
           <ExpenseForm />
         </ExpenseFormWrapper>
         <ForecastExpense />
