@@ -90,7 +90,7 @@ function PlanForm() {
             />
             {/* {console.log(state.accumulation.helperText)}
             {state.accumulation.helperText && ( */}
-            <p className="accumulation">
+            <p>
               Укажите процент, который бы хотели накапливать в месяц от общей
               суммы доходов и вы увидите, когда достигните цели
             </p>

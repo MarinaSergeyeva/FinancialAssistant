@@ -9,17 +9,27 @@ export const PrognosisBuyStyled = styled.div`
   .wrapper {
     width: 280px;
     height: 322px;
-    background: rgb(55, 59, 83);
-    border-radius: 8px;
     padding: 34px 12px;
   }
-
+  .wrapper,
+  span {
+    background: rgb(55, 59, 83);
+  }
+  .wrapper,
+  input,
+  button {
+    border-radius: 8px;
+  }
   h2 {
     font-size: 18px;
     line-height: 24px;
     font-weight: 500;
-    color: rgb(255, 255, 255);
     margin-bottom: 23px;
+  }
+  h2,
+  input,
+  button {
+    color: rgb(255, 255, 255);
   }
   label {
     position: relative;
@@ -28,40 +38,31 @@ export const PrognosisBuyStyled = styled.div`
     position: absolute;
     left: 13px;
     bottom: 24px;
-    font-family: 'Roboto';
     font-size: 12px;
     line-height: 14px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.54);
-    background: rgb(55, 59, 83);
     padding: 0px 4px;
+  }
+  span,
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.54);
   }
   input {
     width: 200px;
-    height: 56px;
     border: 1px solid rgba(255, 255, 255, 0.36);
-    border-radius: 8px;
-    color: rgb(255, 255, 255);
     background: rgba(0, 0, 0, 0.03);
     padding: 12px 18px;
-
-    &::placeholder {
-      color: rgba(255, 255, 255, 0.54);
-    }
-    &:first-of-type {
-      margin-bottom: 23px;
-    }
+  }
+  input,
+  button {
+    height: 56px;
   }
   button {
     width: 200px;
-    height: 56px;
-    font-family: 'Roboto';
     font-size: 14px;
     line-height: 20px;
     font-weight: 700;
     border: none;
-    border-radius: 8px;
-    color: rgb(255, 255, 255);
     background: rgb(255, 108, 0);
     cursor: pointer;
   }
@@ -74,7 +75,11 @@ export const PrognosisBuyStyled = styled.div`
     .wrapper {
       margin-bottom: 34px;
     }
+    input {
+      margin-bottom: 23px;
+    }
   }
+
   @media (min-width: ${size.tablet}) {
     text-align: left;
     .wrapper {
@@ -85,12 +90,8 @@ export const PrognosisBuyStyled = styled.div`
     label {
       margin-right: 20px;
     }
-    input {
-      &:first-of-type {
-        margin-bottom: 0px;
-      }
-    }
   }
+
   @media (max-width: ${size.beforeDesktop}) {
     .wrapper {
       margin-bottom: 74px;
@@ -100,9 +101,9 @@ export const PrognosisBuyStyled = styled.div`
       height: 182px;
     }
   }
+
   @media (min-width: ${size.desktop}) {
     flex-direction: row;
-
     .wrapper {
       width: 770px;
       padding-right: 65px;
