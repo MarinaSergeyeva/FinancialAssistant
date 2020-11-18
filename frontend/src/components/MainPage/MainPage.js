@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
@@ -6,25 +6,46 @@ import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.
 import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
 import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
 import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
+import Registration from '../Auth/Registration/Registration';
+import Login from '../Auth/Login/Login';
+import { useSelector } from 'react-redux';
 
 const MainPage = () => {
+  const userInfo = useSelector(state => state.auth.username);
+
+  const [userInfoRegistr, setUserInfoRegistr] = useState(
+    userInfo ? true : false,
+  );
+
+  useEffect(() => {
+    if(userInfo){
+      setUserInfoRegistr(true)
+    } else{
+      setUserInfoRegistr(false)
+    }
+    
+    console.log(userInfo, 'userInfo');
+  }, [userInfo]);
+  
+
+
   return (
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
-          Планировщик для совместного{' '}
+          Планировщик для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
-          Планировщик для совместного{' '}
+          Планировщик для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
-          Планировщик <br /> для совместного{' '}
+          Планировщик <br /> для совместного{" "}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
@@ -42,6 +63,43 @@ const MainPage = () => {
         ></FacebookAuthBtnImg>
         Sign up with Facebook
       </FacebookAuthBtn>
+
+      <Mobile>
+        <AuthContainer>
+          {!userInfoRegistr && (
+            <>
+              <Registration />
+              <AuthParagraph>
+                Уже есть аккаунт?
+                <span
+                  onClick={() => {
+                    setUserInfoRegistr(true);
+                  }}
+                >
+                    Войти
+                </span>
+              </AuthParagraph>
+            </>
+          )}
+
+          {userInfoRegistr && (
+            <>
+              <Login />
+              <AuthParagraph>
+                Еще нет аккаунта?
+                <span
+                  onClick={() => {
+                    setUserInfoRegistr(false);
+                  }}
+                >
+                   Зарегистрироваться
+                </span>
+              </AuthParagraph>
+            </>
+          )}
+        </AuthContainer>
+      </Mobile>
+
       <Mobile>
         <MainPageImg
           src={mainPictureMobile}
@@ -179,5 +237,18 @@ const MainPageImg = styled.img`
     top: 110px;
     right: -100px;
     z-index: -1;
+  }
+`;
+
+//!Auth
+const AuthContainer = styled.div``;
+
+const AuthParagraph = styled.p`
+  text-align: center;
+  color: rgba(24, 25, 31, 0.54);
+  font-size: 12px;
+  & span {
+    font-weight: 800;
+    color: #000;
   }
 `;
