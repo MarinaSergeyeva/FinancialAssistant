@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-
+import React from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { useDispatch } from 'react-redux';
+import { Formik, Form } from 'formik';
+import styled from 'styled-components';
+import operation from '../../../redux/operations/authOperations';
+import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
+import ErrorValidation from '../utilsAuth/ErrorValidation';
+import funcMessage from '../utilsAuth/funcMessage';
+import device from '../../../common/deviceSizes';
 import {
   AuthForm,
   AuthTxt,
@@ -7,70 +15,80 @@ import {
   AuthInputTxt,
   AuthInput,
   AuthButtonBlock,
-} from "../../../common/globalStyleComponents";
-import operation from "../../../redux/operations/authOperations";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import device from "../../../common/deviceSizes";
-import { useMediaQuery } from "react-responsive";
+} from '../../../common/globalStyleComponents';
 
 const Login = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const [email, setHandelEmail] = useState("");
-  const [password, setHandelPassword] = useState("");
-
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
 
-  const handelSubmit = (e) => {
-    e.preventDefault();
-    const newUser = {
-      email,
-      password,
-    };
-    console.log(newUser, "newUser");
-    dispatch(operation.userLogin(newUser));
-    setHandelEmail("");
-    setHandelPassword("");
-    !isOnMobile && closeModal();
-  };
-
   return (
     <AuthFormWrapperLogin>
-      <AuthForm onSubmit={handelSubmit}>
-        <AuthTxt>Вход</AuthTxt>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        validationSchema={loginFrontSchema}
+        onSubmit={async values => {
+          console.log(values, 'values');
+          dispatch(await operation.userLogin({ ...values }));
+          !isOnMobile && closeModal();
+        }}
+      >
+        {({ values, errors, touched, handleChange, handleBlur }) => (
+          <Form>
+            <AuthForm>
+              <AuthTxt>Вход</AuthTxt>
 
-        <AuthInputForm>
-          <AuthInputTxt>E-mail</AuthInputTxt>
-          <AuthInput
-            value={email}
-            onChange={(e) => setHandelEmail(e.target.value)}
-            type="email"
-            placeholder="Введите ваш e-mail"
-            name="email"
-            required
-          />
-        </AuthInputForm>
+              <AuthInputForm>
+                <AuthInputTxt>E-mail</AuthInputTxt>
+                <AuthInput
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="email"
+                  placeholder="Введите ваш e-mail"
+                  name="email"
+                  id="email"
+                />
+                {(
+                  <ErrorValidation
+                    touched={touched.email}
+                    message={errors.email}
+                  />
+                ) && funcMessage(errors.email)}
+              </AuthInputForm>
 
-        <AuthInputForm>
-          <AuthInputTxt>Password</AuthInputTxt>
-          <AuthInput
-            value={password}
-            onChange={(e) => setHandelPassword(e.target.value)}
-            type="password"
-            placeholder="Введите ваш пароль"
-            name="password"
-            required
-          />
-        </AuthInputForm>
+              <AuthInputForm>
+                <AuthInputTxt>Password</AuthInputTxt>
+                <AuthInput
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  type="password"
+                  placeholder="Введите ваш пароль"
+                  name="password"
+                  id="password"
+                />
+                {(
+                  <ErrorValidation
+                    touched={touched.password}
+                    message={errors.password}
+                  />
+                ) && funcMessage(errors.password)}
+              </AuthInputForm>
 
-        <AuthButtonBlock>
-          <button>
-            <p>Вход</p>
-          </button>
-        </AuthButtonBlock>
-      </AuthForm>
+              <AuthButtonBlock>
+                <button type="submit">
+                  <p>Войти</p>
+                </button>
+              </AuthButtonBlock>
+            </AuthForm>
+          </Form>
+        )}
+      </Formik>
     </AuthFormWrapperLogin>
   );
 };
