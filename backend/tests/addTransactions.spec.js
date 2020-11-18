@@ -2,8 +2,7 @@ require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
 const { CrudServer } = require('../src/server');
 const request = require('supertest');
-const { assert, expect } = require('chai');
-const TransactionModel = require('../src/api/transactions/transaction.model');
+const { assert } = require('chai');
 const User = require('../src/api/users/user.model');
 
 describe('addTransactions test suite', () => {
@@ -30,12 +29,51 @@ describe('addTransactions test suite', () => {
       });
     });
 
+    context('Body validation', () => {
+      let response, userDoc, fakeTransaction
+      before(async () => {
+        userDoc = await User.create({
+          username: 'TestKostya',
+          email: 'testTestTestTest@email.com',
+          passwordHash: 'password_hash',
+        });
+
+        fakeTransaction = {
+          amount: "NotANumber",
+          transactionDate: 3434723423426,
+          type: '',
+          category: '',
+        };
+
+        const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
+          expiresIn: 2 * 24 * 60 * 60,
+        });
+        userDoc.tokens.push(token);
+        await userDoc.save();
+
+        response = await request(server)
+          .post('/api/v1/transactions')
+          .set('Authorization', `Bearer ${token}`).send(fakeTransaction)
+      });
+
+      after(async () => {
+        await User.deleteOne({ _id: userDoc._id });
+      });
+
+      it('should return response with 400', () => {
+        assert.equal(response.status, 400);
+      });
+    });
+  
+
+
+
     context('when token was provided', () => {
       let response, userDoc, fakeTransaction
       before(async () => {  
         userDoc = await User.create({
-          username: 'Test',
-          email: 'test@email.com',
+          username: 'TestKostya',
+          email: 'testTestTestTest@email.com',
           passwordHash: 'password_hash',
         });
 
@@ -54,11 +92,11 @@ describe('addTransactions test suite', () => {
 
         response = await request(server)
           .post('/api/v1/transactions')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`).send(fakeTransaction)
       });
 
       after(async () => {
-        await TransactionModel.deleteOne({ _id: fakeTransaction._id });
+        await User.deleteOne({ _id: userDoc._id });
       });
 
       it('should return response with 201', () => {
