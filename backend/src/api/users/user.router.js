@@ -1,9 +1,13 @@
 const { Router } = require('express');
-// const catchAsync = require('../../utils/catchAsync');
-const { getCurrentUser, updateUsersController } = require('./user.controller');
+const {
+  getCurrentUser,
+  updateUsersController,
+  getFlatStats,
+} = require('./user.controller');
 const { authorize } = require('../../utils/authMiddleware');
 const { validate } = require('../../utils/validate');
 const Joi = require('joi');
+const catchAsync = require('../../utils/catchAsync');
 const usersRouter = Router();
 
 const DataUserSchema = Joi.object({
@@ -16,6 +20,8 @@ const DataUserSchema = Joi.object({
 });
 
 usersRouter.get('/current', authorize, getCurrentUser);
+
+usersRouter.get('/stats/flat', authorize, catchAsync(getFlatStats));
 
 usersRouter.put(
   '/savings-info',
