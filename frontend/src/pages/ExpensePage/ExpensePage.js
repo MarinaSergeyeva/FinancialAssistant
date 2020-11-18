@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import PrognosisExpense from '../../components/PrognosisExpense/PrognosisExpense';
 import { device } from '../../common/deviceSizes';
+import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
+// import { size } from '../../common/deviceSizes';
 
 const ExpensePage = () => {
   {
@@ -16,7 +18,7 @@ const ExpensePage = () => {
           </p> */}
           <ExpenseForm />
         </ExpenseFormWrapper>
-        <PrognosisExpense />
+        <ForecastExpense />
       </ExpensePageContainer>
     );
   }
