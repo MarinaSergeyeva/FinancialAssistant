@@ -13,9 +13,6 @@ import { useSelector } from 'react-redux';
 const MainPage = () => {
   const userInfo = useSelector(state => state.auth.username);
 
-  const [showRegistration, setIsShowRegistration] = useState(true);
-  const [showLogin, setIsShowLogin] = useState(false);
-
   const [userInfoRegistr, setUserInfoRegistr] = useState(
     userInfo ? true : false,
   );
@@ -31,20 +28,7 @@ const MainPage = () => {
   }, [userInfo]);
   
 
-  // const getUserInfo = () => {
-  //   userInfo ? setUserInfoRegistr(true) : setUserInfoRegistr(false);
-  // };
 
-  const showModalAuth = e => {
-    console.log(e.target.innerText, 'e.target.innerText');
-    if (e.target.innerText === 'Войти') {
-      setIsShowLogin(true);
-      setIsShowRegistration(false);
-    } else if (e.target.innerText === 'Зарегистрироваться') {
-      setIsShowRegistration(true);
-      setIsShowLogin(false);
-    }
-  };
 
   return (
     <MainPageContainer>
@@ -93,7 +77,7 @@ const MainPage = () => {
                     setUserInfoRegistr(true);
                   }}
                 >
-                  Войти
+                    Войти
                 </span>
               </AuthParagraph>
             </>
@@ -101,7 +85,6 @@ const MainPage = () => {
 
           {userInfoRegistr && (
             <>
-              {console.log(showLogin, 'showLogin')}
               <Login />
               <AuthParagraph>
                 Еще нет аккаунта?
@@ -110,7 +93,7 @@ const MainPage = () => {
                     setUserInfoRegistr(false);
                   }}
                 >
-                  Зарегистрироваться
+                   Зарегистрироваться
                 </span>
               </AuthParagraph>
             </>
