@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-import { PlanFormStyled } from '../PlanForm/planFormStyled';
+import { ExpenseFormStyled } from '../ExpenseForm/expenseFormStyled';
 
 const ExpenseForm = () => {
   const [expenseItem, setHandleExpenseItem] = useState('');
@@ -21,7 +21,7 @@ const ExpenseForm = () => {
     // setHandleAmount('');
   };
   return (
-    <PlanFormStyled>
+    <ExpenseFormStyled>
       <form onSubmit={handleSubmit}>
         <div className="formContainer">
           <div className="leftFormContainer">
@@ -55,7 +55,7 @@ const ExpenseForm = () => {
           </div>
         </div>
       </form>
-    </PlanFormStyled>
+    </ExpenseFormStyled>
   );
 };
 
