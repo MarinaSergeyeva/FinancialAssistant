@@ -1,31 +1,33 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import mainPictureMobile from "../../assets/images/mainPagePic/mainpagemobile.png";
-import mainPictureTablet from "../../assets/images/mainPagePic/mainpagetablet.png";
-import mainPictureDesktop from "../../assets/images/mainPagePic/mainpagedesktop.png";
-import googleLogo from "../../assets/images/mainPagePic/googlemobile.png";
-import facebookLogo from "../../assets/images/mainPagePic/facebookmobile.png";
-import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
-import Registration from "../Auth/Registration/Registration";
-import Login from "../Auth/Login/Login";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
+import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
+import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
+import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
+import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
+import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
+import Registration from '../Auth/Registration/Registration';
+import Login from '../Auth/Login/Login';
+import { useSelector } from 'react-redux';
 
 const MainPage = () => {
-  const userInfo = useSelector((state) => state.auth.username);
-  const [showRegistration, setIsShowRegistration] = useState(false);
-  const [showLogin, setIsShowLogin] = useState(false);
-  // console.log(userInfo, 'userInfo');
+  const userInfo = useSelector(state => state.auth.username);
 
-  const showModalAuth = (e) => {
-    //  console.log(e.target.innerText, "e.target.innerText")
-    if (e.target.innerText === "Войти") {
-      setIsShowRegistration(false);
-      setIsShowLogin(true);
-    } else if (e.target.innerText === "Зарегистрироваться") {
-      setIsShowRegistration(true);
-      setIsShowLogin(false);
+  const [userInfoRegistr, setUserInfoRegistr] = useState(
+    userInfo ? true : false,
+  );
+
+  useEffect(() => {
+    if(userInfo){
+      setUserInfoRegistr(true)
+    } else{
+      setUserInfoRegistr(false)
     }
-  };
+    
+    console.log(userInfo, 'userInfo');
+  }, [userInfo]);
+  
+
 
   return (
     <MainPageContainer>
@@ -64,23 +66,33 @@ const MainPage = () => {
 
       <Mobile>
         <AuthContainer>
-          {(!userInfo || showRegistration) && (
+          {!userInfoRegistr && (
             <>
               <Registration />
               <AuthParagraph>
-                Уже есть аккаунт?{" "}
-                <span onClick={(e) => showModalAuth(e)}>Войти</span>
+                Уже есть аккаунт?
+                <span
+                  onClick={() => {
+                    setUserInfoRegistr(true);
+                  }}
+                >
+                    Войти
+                </span>
               </AuthParagraph>
             </>
           )}
 
-          {(userInfo || showLogin) && (
+          {userInfoRegistr && (
             <>
               <Login />
               <AuthParagraph>
-                Еще нет аккаунта?{" "}
-                <span onClick={(e) => showModalAuth(e)}>
-                  Зарегистрироваться
+                Еще нет аккаунта?
+                <span
+                  onClick={() => {
+                    setUserInfoRegistr(false);
+                  }}
+                >
+                   Зарегистрироваться
                 </span>
               </AuthParagraph>
             </>
