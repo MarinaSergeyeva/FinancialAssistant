@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 
-// padding: 34px 20px 0px;
 export const ExpenseFormStyled = styled.div`
   form,
   label {
@@ -14,70 +13,53 @@ export const ExpenseFormStyled = styled.div`
     color: rgb(24, 25, 31, 0.54);
   }
 
-  /* label:not(:last-of-type) {
-    @media ${device.mobile} {
+  label:not(:last-child) {
       margin-bottom: 35px;
-    }
-    @media ${device.tablet} {
-      margin-bottom: 50px;
-    }
-    @media ${device.desktop} {
-      margin-bottom: 50px;
-    }
-  } */
 
-   label:not(:last-of-type) {
-    margin-bottom: 35px;
-  } 
-   /* label:last-of-type {
-    margin-bottom: 109px;
-  }  */
+    @media ${device.largeDevice} {
+      margin-bottom: 50px;
+    }
+  }
 
   .formContainer {
-    @media ${device.mobile} {
+      @media ${device.mobile} {
       width: 280px;
-    }
-    @media ${device.tablet} {
+      }
+
+    @media ${device.largeDevice} {
       display: flex;
-    }
-    @media ${device.desktop} {
-      display: flex;
+      justify-content: space-between;
     }
   }
 
-  .leftFormContainer {
-    @media ${device.tablet} {
+  .smallFormContainer {
+    margin-bottom: 35px;
+
+    @media ${device.largeDevice} {
       width: 330px;
-      margin-right: 30px;
+      margin-bottom: 0px;
     }
 
-    @media ${device.desktop} {
+    @media ${device.largeDesktop} {
       width: 370px;
-      margin-right: 30px;
     }
   }
 
-  .rightFormContainer {
-    @media ${device.tablet} {
-      width: 330px;
-    }
-
-    @media ${device.desktop} {
-      width: 370px;
-    }
+  .smallFormContainer_last {
+      margin-bottom: 0px;
   }
 
   span {
     position: absolute;
     top: 10px;
-    left: 12px;
+    left: 14px;
     font-size: 12px;
     line-height: 14px;
   }
   p {
     position: absolute;
     bottom: -16px;
-    left: 12px;
+    left: 14px;
     font-size: 12px;
     line-height: 14px;
   }
@@ -90,7 +72,7 @@ export const ExpenseFormStyled = styled.div`
   input,
   select {
     background: rgba(0, 0, 0, 0.03);
-    padding: 24px 12px 12px;
+    padding: 24px 10px 12px;
     color: rgba(24, 25, 31, 0.87);
     font-size: 16px;
     line-height: 19px;
@@ -112,16 +94,4 @@ export const ExpenseFormStyled = styled.div`
   input:focus {
     border-bottom: 1px solid rgb(33, 150, 243);
   }
-
-  @media ${device.tablet} {
-    label:not(:last-of-type) {
-    margin-bottom: 0px;
-  } 
-   label:last-of-type {
-    margin-bottom: 0px;
-  } 
-  
-  }
 `;
-
-/* Rectangle */

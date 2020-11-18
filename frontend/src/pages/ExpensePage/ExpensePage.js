@@ -44,7 +44,7 @@ const ExpensePageContainer = styled.div`
 const ExpenseFormWrapper = styled.div`
   margin: 0 auto;
 
-  margin-bottom: 53px;
+  margin-bottom: 52px;
   /* width: 690px; */
   /* display: flex; */
 `;

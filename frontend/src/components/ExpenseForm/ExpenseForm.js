@@ -24,7 +24,7 @@ const ExpenseForm = () => {
     <ExpenseFormStyled>
       <form onSubmit={handleSubmit}>
         <div className="formContainer">
-          <div className="leftFormContainer">
+          <div className="smallFormContainer">
             <label>
               <span>Со счета</span>
               <select value="value" type="text">
@@ -39,12 +39,12 @@ const ExpenseForm = () => {
               <input type="text" />
             </label>
           </div>
-          <div className="rightFormContainer">
+          <div className="smallFormContainer smallFormContainer_last">
             <label>
               <span>На категорию</span>
               <select value="value" type="text">
                 <option value="value2" defaultValue>
-                  Развлечения
+                Развлечения
                 </option>
               </select>
             </label>
