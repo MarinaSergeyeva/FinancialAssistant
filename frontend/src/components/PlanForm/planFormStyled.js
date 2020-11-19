@@ -56,6 +56,7 @@ export const PlanFormStyled = styled.div`
   input:focus {
     border-bottom: 1px solid rgb(33, 150, 243);
   }
+
   @media (min-width: ${size.tablet}) {
     form {
       flex-direction: row;
@@ -74,6 +75,7 @@ export const PlanFormStyled = styled.div`
       padding-top: 30px;
     }
   }
+
   @media (min-width: ${size.desktop}) {
     label {
       width: 370px;
