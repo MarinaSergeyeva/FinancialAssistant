@@ -27,8 +27,8 @@ const AuthPage = () => {
   };
 
   const closeRegistration = () => {
-    setIsShowRegistration((prev) => !prev);
-    setIsShowLogin((prev) => !prev);
+    setIsShowRegistration(prev => !prev);
+    // setIsShowLogin(prev => !prev);
   };
 
   const closeLogin = () => {

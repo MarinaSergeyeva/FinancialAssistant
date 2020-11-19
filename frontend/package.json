@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "chart.js": "^2.9.4",
     "date-fns": "^2.16.1",
+    "formik": "^2.2.5",
     "mathjs": "^8.0.1",
     "react": "^17.0.1",
     "react-chartjs-2": "^2.11.1",
@@ -26,7 +27,8 @@
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.16",
     "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",
