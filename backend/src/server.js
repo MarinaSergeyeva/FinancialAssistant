@@ -51,6 +51,7 @@ class CrudServer {
         useFindAndModify: false,
         useCreateIndex: true,
       });
+      updateInfo();
       console.log("Database has been connected");
     } catch (err) {
       console.log("Something bad happend while connection to DB", err);
@@ -74,6 +75,9 @@ class CrudServer {
 
       next();
     });
+    // this.server.use((req, res, next) => {
+    //   updateInfo();
+    // });
   }
 
   initServerRouters() {
@@ -81,7 +85,6 @@ class CrudServer {
     this.server.use("/api/v1/transactions", transactionRouter);
     this.server.use("/api/v1/auth", authRouter);
     this.server.use("/api/v1/users", usersRouter);
-    this.server.use(updateInfo());
   }
 
   initErrorHandling() {
