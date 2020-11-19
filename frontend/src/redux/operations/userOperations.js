@@ -33,7 +33,7 @@ const createTransaction = transaction => async (dispatch, getState) => {
   token.set(persistedToken);
   dispatch(userActions.createTransactionRequest());
   try {
-    const res = await axios.post('/api/v1/transaction', transaction);
+    const res = await axios.post('/api/v1/transactions', transaction);
     console.log(res.data, 'createTransaction');
     dispatch(userActions.createTransactionSuccess(res.data));
   } catch (error) {
