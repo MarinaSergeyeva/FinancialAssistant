@@ -47,9 +47,7 @@ const calculateStats = user => {
   } = user;
 
   const savingsPercentage = Math.round((balance / flatPrice) * 100) / 100;
-  console.log('savingsPercentage', savingsPercentage);
-  console.log('balance', balance);
-  console.log('flatPrice', flatPrice);
+
   const savingsValue = balance;
 
   const savingsInSquareMeters = Math.floor(
@@ -64,7 +62,8 @@ const calculateStats = user => {
   );
 
   const savingsForNextSquareMeterLeft =
-    balance - savingsInSquareMeters * (flatPrice / flatSquareMeters);
+    flatPrice / flatSquareMeters -
+    (balance - savingsInSquareMeters * (flatPrice / flatSquareMeters));
 
   const flatStats = {
     savingsPercentage,

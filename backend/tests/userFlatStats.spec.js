@@ -72,7 +72,7 @@ describe('User flat stats test suite', () => {
           totalSalary: 800,
           passiveIncome: 150,
           incomePercentageToSavings: 5,
-          giftsForUnpacking: 0,
+          giftsForUnpacking: 4,
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
@@ -101,7 +101,7 @@ describe('User flat stats test suite', () => {
           savingsInSquareMeters: 4,
           totalSquareMeters: 40,
           monthsLeftToSaveForFlat: 190,
-          savingsForNextSquareMeterLeft: 0,
+          savingsForNextSquareMeterLeft: 250,
           giftsForUnpacking: 0,
         });
       });
