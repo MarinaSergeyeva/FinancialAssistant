@@ -7,8 +7,8 @@ const Header = () => {
   // const [token, setToken] = useState("")
   return (
     <>
-      {/* <Unauthorized /> */}
-      <Authorized />
+      <Unauthorized />
+      {/* <Authorized /> */}
     </>
   );
 };

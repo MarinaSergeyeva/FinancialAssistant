@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import Logo from './Logo';
-import Userinfo from './Userinfo';
+import Userinfo from './UserInfo';
 
 const Authorized = () => {
   return (
     <>
       <Mobile>
         <AuthorizedContainer>
-          <BurgerMenu>
           <StyleNavLInk to="/plan" exact>
             Персональный план
           </StyleNavLInk>
@@ -20,7 +19,6 @@ const Authorized = () => {
           <StyleNavLInk to="/dynamics" exact>
             Динамика
           </StyleNavLInk>
-          </BurgerMenu>
 
           <Userinfo />
         </AuthorizedContainer>
