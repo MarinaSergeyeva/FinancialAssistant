@@ -9,6 +9,7 @@ export default [
     private: false,
     restricted: true,
   },
+
   {
     path: '/dynamics',
     label: 'DynamicsPage',
@@ -17,6 +18,7 @@ export default [
     private: true,
     restricted: false,
   },
+
   {
     path: '/expense',
     label: 'ExpensePage',
@@ -25,6 +27,7 @@ export default [
     private: true,
     restricted: false,
   },
+
   {
     path: '/plan',
     label: 'PlanPage',
@@ -33,6 +36,7 @@ export default [
     private: true,
     restricted: false,
   },
+
   {
     path: '/notfound',
     label: 'NotFound',
