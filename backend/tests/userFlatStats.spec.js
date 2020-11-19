@@ -5,7 +5,7 @@ const request = require('supertest');
 const { assert, expect } = require('chai');
 const User = require('../src/api/users/user.model');
 
-describe('CurrentUser test suite', () => {
+describe('User flat stats test suite', () => {
   let server;
 
   before(async () => {
