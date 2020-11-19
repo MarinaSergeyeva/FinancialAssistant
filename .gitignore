@@ -16,6 +16,7 @@
 /build
 
 # misc
+.DS_Store
 /backend/.env
 /backend/.DS_Store
 /backend/.env.local
