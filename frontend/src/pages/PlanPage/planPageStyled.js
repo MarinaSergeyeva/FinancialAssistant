@@ -12,6 +12,7 @@ export const PlanPageStyled = styled.div`
   @media (min-width: ${size.tablet}) {
     padding: 74px 39px;
   }
+
   @media (min-width: ${size.desktop}) {
     padding: 64px 0px 74px;
   }
