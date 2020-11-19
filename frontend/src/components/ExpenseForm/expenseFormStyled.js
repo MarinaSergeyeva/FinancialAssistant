@@ -1,19 +1,36 @@
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-import { colors, background, textColor } from '../../stylesheet/vars';
+import {
+  colors,
+  background,
+  textColor,
+  boxShadow,
+} from '../../stylesheet/vars';
 
 export const CalcIconStyled = styled.svg`
   width: 20px;
   height: 20px;
-  position: relative;
-  left: 90%;
-  top: -38px;
+  position: absolute;
+  bottom: 0px;
   fill: #35363b;
   cursor: pointer;
+
+  @media ${device.largeDevice} {
+    bottom: 78px;
+    right: 5%;
+    transform: translateY(50%);
+  }
 
   &:hover .icon_hover {
     fill: ${colors.formTextHover};
   }
+`;
+
+export const CalcWrapper = styled.div`
+  position: absolute;
+  top: 56px;
+  right: 0px;
+  box-shadow: ${boxShadow.main};
 `;
 
 export const ExpenseFormStyled = styled.div`
@@ -21,6 +38,12 @@ export const ExpenseFormStyled = styled.div`
   label {
     display: flex;
     flex-direction: column;
+
+    @media ${device.largeDevice} {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
   }
 
   label {
@@ -28,12 +51,8 @@ export const ExpenseFormStyled = styled.div`
     color: ${textColor.secondary};
   }
 
-  label:not(:last-child) {
-    margin-bottom: 35px;
-
-    @media ${device.largeDevice} {
-      margin-bottom: 50px;
-    }
+  label:last-child {
+    color: red;
   }
 
   .formContainer {
@@ -61,11 +80,17 @@ export const ExpenseFormStyled = styled.div`
   }
 
   .smallFormContainer_last {
+    position: relative;
     margin-bottom: 0px;
   }
 
   .calc-input {
-    position: relative;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
   }
 
   /* .calc-icon {
@@ -106,6 +131,10 @@ export const ExpenseFormStyled = styled.div`
     border-bottom: 1px solid rgba(24, 25, 31, 0.36);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+
+    @media ${device.tablet} {
+      width: 330px;
+    }
   }
 
   label:hover,
