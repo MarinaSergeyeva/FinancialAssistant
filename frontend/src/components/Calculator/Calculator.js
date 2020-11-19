@@ -13,7 +13,21 @@ const Calculator = () => {
 
   const addToInput = val => {
     if (input === '0') {
+      if (val === '+/-') {
+        return;
+      }
       return setInput(val);
+    }
+
+    if (val === '+/-') {
+      const array = input.split(' ');
+
+      if (array[array.length - 2] === '+') {
+        array.splice(array.length - 2, 1, ' - ');
+        const newInput = array.join('');
+        setInput(newInput);
+      }
+      return;
     }
     setInput(input + val);
   };
@@ -38,26 +52,26 @@ const Calculator = () => {
           AC
         </ClearButton>
         <Button handleClick={addToInput}>+/-</Button>
-        <Button handleClick={addToInput}>%</Button>
-        <Button handleClick={addToInput}>/</Button>
+        <Button handleClick={addToInput}> % </Button>
+        <Button handleClick={addToInput}> / </Button>
       </Row>
       <Row>
         <Button handleClick={addToInput}>7</Button>
         <Button handleClick={addToInput}>8</Button>
         <Button handleClick={addToInput}>9</Button>
-        <Button handleClick={addToInput}>*</Button>
+        <Button handleClick={addToInput}> * </Button>
       </Row>
       <Row>
         <Button handleClick={addToInput}>4</Button>
         <Button handleClick={addToInput}>5</Button>
         <Button handleClick={addToInput}>6</Button>
-        <Button handleClick={addToInput}>+</Button>
+        <Button handleClick={addToInput}> + </Button>
       </Row>
       <Row>
         <Button handleClick={addToInput}>1</Button>
         <Button handleClick={addToInput}>2</Button>
         <Button handleClick={addToInput}>3</Button>
-        <Button handleClick={addToInput}>-</Button>
+        <Button handleClick={addToInput}> - </Button>
       </Row>
       <RowD>
         <Button radius={'22px'} handleClick={addToInput}>
