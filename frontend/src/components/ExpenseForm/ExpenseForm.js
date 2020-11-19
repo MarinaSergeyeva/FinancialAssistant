@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
+import Modal from '../Modal/Modal';
 import {
   ExpenseFormStyled,
   CalcIconStyled,
@@ -70,7 +71,13 @@ const ExpenseForm = () => {
             <CalcIcon className="icon_hover" />
           </CalcIconStyled>
           {isMobileDevice ? (
-            <Mobile>{showCalculator && <Calculator />}</Mobile>
+            <Mobile>
+              {showCalculator && (
+                <Modal closeModal={showCalculatorHandler}>
+                  <Calculator />
+                </Modal>
+              )}
+            </Mobile>
           ) : (
             <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
           )}
