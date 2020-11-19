@@ -48,7 +48,7 @@ export const PlanFormStyled = styled.div`
     padding-top: 44px;
   }
   p {
-    top: 60px;
+    height: 30px;
     color: rgba(24, 25, 31, 0.54);
     padding-top: 4px;
   }

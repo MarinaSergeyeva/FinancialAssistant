@@ -13,6 +13,7 @@ const field = {
 
 function PlanForm() {
   const [state, getState] = useState(field);
+  const [isFieldActive, setFieldActive] = useState(false);
 
   return (
     <PlanFormStyled>
@@ -83,18 +84,23 @@ function PlanForm() {
               name="accumulation"
               value={state.accumulation.inputValue}
               placeholder={placeHolder}
-              onClick={() => {}}
+              onFocus={() => setFieldActive(true)}
+              onBlur={() => setFieldActive(false)}
               onChange={e =>
-                getState({ ...state, accumulation: e.target.value })
+                getState({
+                  ...state,
+                  accumulation: {
+                    ...state.accumulation,
+                    inputValue: e.target.value,
+                  },
+                })
               }
             />
-            {/* {console.log(state.accumulation.helperText)}
-            {state.accumulation.helperText && ( */}
+            {/* {console.log(state.accumulation.helperText)} */}
             <p>
-              Укажите процент, который бы хотели накапливать в месяц от общей
-              суммы доходов и вы увидите, когда достигните цели
+              {!!isFieldActive &&
+                'Укажите процент, который бы хотели накапливать в месяц от общей суммы доходов и вы увидите, когда достигните цели'}
             </p>
-            {/* )} */}
           </label>
         </div>
       </form>
