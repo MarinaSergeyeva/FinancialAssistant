@@ -49,7 +49,11 @@ const ExpenseForm = () => {
             </label>
             <label>
               <span>Сумма</span>
-              <input className="calc-input" type="number" />
+              <input
+                className="calc-input"
+                type="number"
+                onChange={handleSubmit}
+              />
               <img
                 className="calc-icon"
                 src={calculatorIcon}

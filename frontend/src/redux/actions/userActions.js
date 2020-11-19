@@ -25,27 +25,39 @@ const updateUserError = () => ({
 });
 
 const getCurrentUserRequest = () => ({
-  type: userConstants.ADD_USER_REQUEST,
+  type: userConstants.GET_CURRENT_USER_REQUEST,
 });
 
 const getCurrentUserSuccess = () => ({
-  type: userConstants.ADD_USER_SUCCESS,
+  type: userConstants.GET_CURRENT_USER_SUCCESS,
 });
 
 const getCurrentUserError = () => ({
-  type: userConstants.ADD_USER_ERROR,
+  type: userConstants.GET_CURRENT_USER_ERROR,
+});
+
+const changeTransactionRequest = () => ({
+  type: userConstants.CHANGE_TRANSACTION_REQUEST,
+});
+
+const changeTransactionSuccess = () => ({
+  type: userConstants.CHANGE_TRANSACTION_SUCCESS,
+});
+
+const changeTransactionError = () => ({
+  type: userConstants.CHANGE_TRANSACTION_ERROR,
 });
 
 const createTransactionRequest = () => ({
-  type: userConstants.ADD_USER_REQUEST,
+  type: userConstants.CREATE_TRANSACTION_REQUEST,
 });
 
 const createTransactionSuccess = () => ({
-  type: userConstants.ADD_USER_SUCCESS,
+  type: userConstants.CREATE_TRANSACTION_SUCCESS,
 });
 
 const createTransactionError = () => ({
-  type: userConstants.ADD_USER_ERROR,
+  type: userConstants.CREATE_TRANSACTION_ERROR,
 });
 
 export default {
@@ -58,6 +70,9 @@ export default {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
+  changeTransactionRequest,
+  changeTransactionSuccess,
+  changeTransactionError,
   createTransactionRequest,
   createTransactionSuccess,
   createTransactionError,
