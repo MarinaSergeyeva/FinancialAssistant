@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
+import operation from '../../redux/operations/userOperations';
 import {
   ExpenseFormStyled,
   CalcIconStyled,
@@ -16,22 +18,28 @@ const ExpenseForm = () => {
   const [expenseItem, setHandleExpenseItem] = useState('');
   const [category, setHandleCategory] = useState('');
   const [amount, setHandleAmount] = useState('');
+  const dispatch = useDispatch();
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    // const newTransaction = {
-    //   expenseItem,
-    //   category,
-    //   amount,
-    // };
+  // const handleChange = e => {
+  //   console.log('hi');
+  //   console.log('e.target', e.target.value);
+  //   setHandleExpenseItem(e.target);
+  // };
 
-    // setHandleExpenseItem('');
-    // setHandleCategory('');
-    // setHandleAmount('');
+  const handleSubmit = e => {
+    console.log('handleSubmit');
+    e.preventDefault();
+    const newTransaction = {
+      expenseItem,
+      category,
+      amount,
+    };
+
+    dispatch(operation.createTransaction(newTransaction));
   };
 
   const isMobileDevice = useMediaQuery({
@@ -52,7 +60,13 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Название статьи</span>
-            <input type="text" />
+            <input
+              type="text"
+              onChange={e => {
+                console.log('e.target.value', e.target.value);
+                setHandleExpenseItem(e.target.value);
+              }}
+            />
           </label>
 
           <label>
@@ -81,13 +95,6 @@ const ExpenseForm = () => {
           ) : (
             <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
           )}
-          {/* <Mobile></Mobile> */}
-          {/* <Tablet>
-            <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
-          </Tablet>
-          <Desktop>
-            <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
-          </Desktop> */}
         </div>
       </form>
     </ExpenseFormStyled>

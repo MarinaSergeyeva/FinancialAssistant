@@ -51,10 +51,10 @@ const AuthPage = () => {
         </>
       )}
 
-      <button type="button" onClick={() => showCalculatorHandler()}>
+      {/* <button type="button" onClick={() => showCalculatorHandler()}>
         calculator
       </button>
-      {showCalculator && <Calculator />}
+      {showCalculator && <Calculator />} */}
 
       {isShowRegistration && (
         <Modal closeModal={closeRegistration}>
