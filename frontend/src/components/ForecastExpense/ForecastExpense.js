@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { background, colors } from '../../stylesheet/vars';
 
-const PrognosisExpense = () => {
+const ForecastExpense = () => {
   const handleClick = () => {
     console.log('Отправка запроса - транзакция по расходам');
   };
   return (
-    <PrognosisExpenseWrapper>
+    <ForecastExpenseWrapper>
       <div className="inner">
         <p className="value">-600 &#x20B4;</p>
         <p className="small">Лимит на день</p>
@@ -22,13 +22,13 @@ const PrognosisExpense = () => {
       <button className="btn" onClick={handleClick} type="button">
         Готово
       </button>
-    </PrognosisExpenseWrapper>
+    </ForecastExpenseWrapper>
   );
 };
 
-export default PrognosisExpense;
+export default ForecastExpense;
 
-const PrognosisExpenseWrapper = styled.div`
+const ForecastExpenseWrapper = styled.div`
   padding: 34px 40px;
   border-radius: 8px;
   background: ${background.secondary}; // var(--secondary-background-color);

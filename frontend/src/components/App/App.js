@@ -1,10 +1,17 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import PublicRoute from '../CustomRoutes/PublicRoute';
+import userOperations from '../../redux/operations/userOperations';
+// import isAuth from '../../redux/selectors/authSelector';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userOperations.getCurrentUser());
+  }, []);
   return (
     <>
       <Suspense fallback={null}>
@@ -14,7 +21,7 @@ const App = () => {
               <PrivateRoute key={route.label} {...route} />
             ) : (
               <PublicRoute key={route.label} {...route} />
-              ),
+            ),
           )}
           {/* <Route component={NotFound} /> */}
         </Switch>
