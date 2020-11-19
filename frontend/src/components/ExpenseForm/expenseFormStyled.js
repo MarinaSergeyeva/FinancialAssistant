@@ -38,9 +38,9 @@ export const ExpenseFormStyled = styled.div`
   label {
     display: flex;
     flex-direction: column;
+    /* margin-bottom: 35px; */
 
     @media ${device.largeDevice} {
-      flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-between;
     }
@@ -49,40 +49,52 @@ export const ExpenseFormStyled = styled.div`
   label {
     position: relative;
     color: ${textColor.secondary};
-  }
 
-  label:last-child {
-    color: red;
-  }
-
-  .formContainer {
-    @media ${device.mobile} {
-      width: 280px;
+    @media ${device.tablet} {
+      &:nth-of-type(2) {
+        order: 3;
+      }
+      &:nth-of-type(3) {
+        order: 2;
+      }
+      &:nth-of-type(4) {
+        order: 4;
+      }
+    }
     }
 
-    @media ${device.largeDevice} {
-      display: flex;
-      justify-content: space-between;
+    label:not(:last-of-type) {
+      margin-bottom: 35px;
+    }
+
+    .formContainer {
+      @media ${device.mobile} {
+        width: 280px;
+      }
+
+      @media ${device.largeDevice} {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    .smallFormContainer {
+      /* margin-bottom: 35px; */
+
+      @media ${device.tablet} {
+        /* width: 330px; */
+        margin-bottom: 0px;
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 
-  .smallFormContainer {
-    margin-bottom: 35px;
-
-    @media ${device.largeDevice} {
-      width: 330px;
-      margin-bottom: 0px;
-    }
-
-    @media ${device.largeDesktop} {
-      width: 370px;
-    }
-  }
-
-  .smallFormContainer_last {
+  /* .smallFormContainer_last {
     position: relative;
     margin-bottom: 0px;
-  }
+  } */
 
   .calc-input {
     &::-webkit-outer-spin-button,
@@ -134,6 +146,10 @@ export const ExpenseFormStyled = styled.div`
 
     @media ${device.tablet} {
       width: 330px;
+    }
+
+    @media ${device.largeDesktop} {
+      width: 370px;
     }
   }
 
