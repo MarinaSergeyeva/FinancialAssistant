@@ -10,6 +10,7 @@ const Authorized = () => {
     <>
       <Mobile>
         <AuthorizedContainer>
+          <BurgerMenu>
           <StyleNavLInk to="/plan" exact>
             Персональный план
           </StyleNavLInk>
@@ -19,6 +20,8 @@ const Authorized = () => {
           <StyleNavLInk to="/dynamics" exact>
             Динамика
           </StyleNavLInk>
+          </BurgerMenu>
+
           <Userinfo />
         </AuthorizedContainer>
       </Mobile>
