@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import {
   ExpenseFormStyled,
@@ -6,6 +7,7 @@ import {
   CalcWrapper,
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
+import device, { Desktop, Mobile, Tablet } from '../../common/deviceSizes';
 
 const ExpenseForm = () => {
   const [showCalculator, setShowCalculator] = useState(false);
@@ -30,6 +32,10 @@ const ExpenseForm = () => {
     // setHandleCategory('');
     // setHandleAmount('');
   };
+
+  const isMobileDevice = useMediaQuery({
+    query: device.mobile,
+  });
   return (
     <ExpenseFormStyled>
       <form onSubmit={handleSubmit}>
@@ -63,7 +69,18 @@ const ExpenseForm = () => {
           <CalcIconStyled onClick={showCalculatorHandler}>
             <CalcIcon className="icon_hover" />
           </CalcIconStyled>
-          <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
+          {isMobileDevice ? (
+            <Mobile>{showCalculator && <Calculator />}</Mobile>
+          ) : (
+            <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
+          )}
+          {/* <Mobile></Mobile> */}
+          {/* <Tablet>
+            <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
+          </Tablet>
+          <Desktop>
+            <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
+          </Desktop> */}
         </div>
       </form>
     </ExpenseFormStyled>
