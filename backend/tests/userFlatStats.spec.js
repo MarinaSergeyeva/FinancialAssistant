@@ -63,16 +63,23 @@ describe('CurrentUser test suite', () => {
 
       before(async () => {
         userDoc = await User.create({
-          username: 'Test2',
-          email: 'test2@email.com',
+          username: 'Test3',
+          email: 'test3@email.com',
           passwordHash: 'password_hash',
+          balance: 1000,
+          flatPrice: 10000,
+          flatSquareMeters: 40,
+          totalSalary: 800,
+          passiveIncome: 150,
+          incomePercentageToSavings: 5,
+          giftsForUnpacking: 0,
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn: 2 * 24 * 60 * 60,
         });
         userDoc.tokens.push(token);
-        userDoc.flatPrice = 1;
+
         await userDoc.save();
 
         response = await request(server)
@@ -87,18 +94,16 @@ describe('CurrentUser test suite', () => {
       it('should return response with 200', () => {
         assert.equal(response.status, 200);
       });
-
       it('should return expected response body', () => {
-        assert.containsAllKeys(
-          response.body,
-          'savingsPercentage',
-          'savingsValue',
-          'savingsInSquareMeters',
-          'totalSquareMeters',
-          'monthsLeftToSaveForFlat',
-          'savingsForNextSquareMeterLeft',
-          'giftsForUnpacking',
-        );
+        expect(response.body).to.include({
+          savingsPercentage: 0.1,
+          savingsValue: 1000,
+          savingsInSquareMeters: 4,
+          totalSquareMeters: 40,
+          monthsLeftToSaveForFlat: 190,
+          savingsForNextSquareMeterLeft: 0,
+          giftsForUnpacking: 0,
+        });
       });
     });
   });

@@ -43,10 +43,13 @@ const calculateStats = user => {
     totalSalary,
     passiveIncome,
     incomePercentageToSavings,
+    giftsForUnpacking,
   } = user;
 
   const savingsPercentage = Math.round((balance / flatPrice) * 100) / 100;
-
+  console.log('savingsPercentage', savingsPercentage);
+  console.log('balance', balance);
+  console.log('flatPrice', flatPrice);
   const savingsValue = balance;
 
   const savingsInSquareMeters = Math.floor(
@@ -55,14 +58,13 @@ const calculateStats = user => {
 
   const totalSquareMeters = flatSquareMeters;
 
-  const monthsLeftToSaveForFlat =
+  const monthsLeftToSaveForFlat = Math.ceil(
     (flatPrice - balance) /
-    ((totalSalary + passiveIncome) * (incomePercentageToSavings / 100));
+      ((totalSalary + passiveIncome) * (incomePercentageToSavings / 100)),
+  );
 
   const savingsForNextSquareMeterLeft =
     balance - savingsInSquareMeters * (flatPrice / flatSquareMeters);
-
-  const giftsForUnpacking = 0;
 
   const flatStats = {
     savingsPercentage,
