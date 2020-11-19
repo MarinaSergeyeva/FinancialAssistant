@@ -81,7 +81,7 @@ describe('addTransactions test suite', () => {
           amount: 1500,
           transactionDate: testDate,
           category: 'Развлечения',
-          type: "EXPENSE",
+          type: 'EXPENSE',
         };
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
@@ -109,7 +109,7 @@ describe('addTransactions test suite', () => {
           amount: fakeTransaction.amount,
           category: fakeTransaction.category,
           transactionDate: new Date(testDate).toISOString(),
-          type: "EXPENSE",
+          type: 'EXPENSE',
         });
         assert.equal(response.body.transaction.userId, userDoc._id);
       });
