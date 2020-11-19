@@ -8,7 +8,6 @@ import { userOperations } from '../../redux/operations';
 
 const ForecastExpense = () => {
   const transaction = useSelector(state => userSelectors.getTransaction(state));
-  console.log('transaction', transaction);
   const userData = useSelector(state => userSelectors.getCurrentUser(state));
   const { balance, incomePercentageToSavings } = userData;
   const freeMoney = balance * (1 - incomePercentageToSavings / 100);
@@ -22,10 +21,17 @@ const ForecastExpense = () => {
     Number(transaction.amount)
   ).toFixed(2);
   const monthLimit = (freeMoney - Number(transaction.amount)).toFixed(2);
+
   const dispatch = useDispatch();
   const handleClick = async () => {
     if (transaction.amount) {
-      await dispatch(userOperations.createTransaction(transaction));
+      const newTransaction = {
+        ...transaction,
+        transactionDate: Date.now(),
+        type: 'EXPENSE',
+      };
+      console.log('newTransaction', newTransaction);
+      await dispatch(userOperations.createTransaction(newTransaction));
       console.log('Запрос на бэк выполнен');
     } else {
       console.log('Введите сумму транзакции');

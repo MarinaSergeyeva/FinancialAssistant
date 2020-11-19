@@ -10,9 +10,7 @@ const GET_CURRENT_USER_REQUEST = '@user/getCurrentUserRequest';
 const GET_CURRENT_USER_SUCCESS = '@auth/getCurrentUserSuccess';
 const GET_CURRENT_USER_ERROR = '@auth/getCurrentUserError';
 
-const CHANGE_TRANSACTION_REQUEST = '@user/createTransactionRequest';
 const CHANGE_TRANSACTION_SUCCESS = '@auth/createTransactionSuccess';
-const CHANGE_TRANSACTION_ERROR = '@auth/createTransactionError';
 
 const CREATE_TRANSACTION_REQUEST = '@user/createTransactionRequest';
 const CREATE_TRANSACTION_SUCCESS = '@auth/createTransactionSuccess';
@@ -28,9 +26,9 @@ export default {
   GET_CURRENT_USER_REQUEST,
   GET_CURRENT_USER_SUCCESS,
   GET_CURRENT_USER_ERROR,
-  CHANGE_TRANSACTION_REQUEST,
+
   CHANGE_TRANSACTION_SUCCESS,
-  CHANGE_TRANSACTION_ERROR,
+
   CREATE_TRANSACTION_REQUEST,
   CREATE_TRANSACTION_SUCCESS,
   CREATE_TRANSACTION_ERROR,

@@ -25,7 +25,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
   }
 };
 
-const createTransaction = transaction => async dispatch => {
+const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {
     return;

@@ -4,24 +4,28 @@ const addUserRequest = () => ({
   type: userConstants.ADD_USER_REQUEST,
 });
 
-const addUserSuccess = () => ({
+const addUserSuccess = user => ({
   type: userConstants.ADD_USER_SUCCESS,
+  payload: user,
 });
 
-const addUserError = () => ({
+const addUserError = error => ({
   type: userConstants.ADD_USER_ERROR,
+  payload: error,
 });
 
 const updateUserRequest = () => ({
   type: userConstants.UPDATE_USER_REQUEST,
 });
 
-const updateUserSuccess = () => ({
+const updateUserSuccess = user => ({
   type: userConstants.UPDATE_USER_SUCCESS,
+  payload: user,
 });
 
-const updateUserError = () => ({
+const updateUserError = error => ({
   type: userConstants.UPDATE_USER_ERROR,
+  payload: error,
 });
 
 const getCurrentUserRequest = () => ({
@@ -32,32 +36,28 @@ const getCurrentUserSuccess = () => ({
   type: userConstants.GET_CURRENT_USER_SUCCESS,
 });
 
-const getCurrentUserError = () => ({
+const getCurrentUserError = error => ({
   type: userConstants.GET_CURRENT_USER_ERROR,
+  payload: error,
 });
 
-const changeTransactionRequest = () => ({
-  type: userConstants.CHANGE_TRANSACTION_REQUEST,
-});
-
-const changeTransactionSuccess = () => ({
+const changeTransactionSuccess = transaction => ({
   type: userConstants.CHANGE_TRANSACTION_SUCCESS,
-});
-
-const changeTransactionError = () => ({
-  type: userConstants.CHANGE_TRANSACTION_ERROR,
+  payload: transaction,
 });
 
 const createTransactionRequest = () => ({
   type: userConstants.CREATE_TRANSACTION_REQUEST,
 });
 
-const createTransactionSuccess = () => ({
+const createTransactionSuccess = transaction => ({
   type: userConstants.CREATE_TRANSACTION_SUCCESS,
+  payload: transaction,
 });
 
-const createTransactionError = () => ({
+const createTransactionError = error => ({
   type: userConstants.CREATE_TRANSACTION_ERROR,
+  payload: error,
 });
 
 export default {
@@ -70,9 +70,9 @@ export default {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
-  changeTransactionRequest,
+
   changeTransactionSuccess,
-  changeTransactionError,
+
   createTransactionRequest,
   createTransactionSuccess,
   createTransactionError,
