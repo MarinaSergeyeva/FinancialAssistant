@@ -2,7 +2,7 @@ require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
 const { CrudServer } = require('../src/server');
 const request = require('supertest');
-const { assert } = require('chai');
+const { assert, expect } = require('chai');
 const User = require('../src/api/users/user.model');
 
 describe('addTransactions test suite', () => {
@@ -30,7 +30,7 @@ describe('addTransactions test suite', () => {
     });
 
     context('Body validation', () => {
-      let response, userDoc, fakeTransaction
+      let response, userDoc, fakeTransaction;
       before(async () => {
         userDoc = await User.create({
           username: 'TestKostya',
@@ -39,7 +39,7 @@ describe('addTransactions test suite', () => {
         });
 
         fakeTransaction = {
-          amount: "NotANumber",
+          amount: 'NotANumber',
           transactionDate: 3434723423426,
           type: '',
           category: '',
@@ -53,7 +53,8 @@ describe('addTransactions test suite', () => {
 
         response = await request(server)
           .post('/api/v1/transactions')
-          .set('Authorization', `Bearer ${token}`).send(fakeTransaction)
+          .set('Authorization', `Bearer ${token}`)
+          .send(fakeTransaction);
       });
 
       after(async () => {
@@ -64,13 +65,12 @@ describe('addTransactions test suite', () => {
         assert.equal(response.status, 400);
       });
     });
-  
-
-
 
     context('when token was provided', () => {
-      let response, userDoc, fakeTransaction
-      before(async () => {  
+      let response, userDoc, fakeTransaction;
+      const testDate = Date.now();
+
+      before(async () => {
         userDoc = await User.create({
           username: 'TestKostya',
           email: 'testTestTestTest@email.com',
@@ -79,9 +79,9 @@ describe('addTransactions test suite', () => {
 
         fakeTransaction = {
           amount: 1500,
-          transactionDate: 3434723423426,
-          type: 'INCOME',
+          transactionDate: testDate,
           category: 'Развлечения',
+          type: "EXPENSE",
         };
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
@@ -92,7 +92,8 @@ describe('addTransactions test suite', () => {
 
         response = await request(server)
           .post('/api/v1/transactions')
-          .set('Authorization', `Bearer ${token}`).send(fakeTransaction)
+          .set('Authorization', `Bearer ${token}`)
+          .send(fakeTransaction);
       });
 
       after(async () => {
@@ -101,6 +102,16 @@ describe('addTransactions test suite', () => {
 
       it('should return response with 201', () => {
         assert.equal(response.status, 201);
+      });
+
+      it('should return expected response body', () => {
+        expect(response.body.transaction).to.include({
+          amount: fakeTransaction.amount,
+          category: fakeTransaction.category,
+          transactionDate: new Date(testDate).toISOString(),
+          type: "EXPENSE",
+        });
+        assert.equal(response.body.transaction.userId, userDoc._id);
       });
     });
   });
