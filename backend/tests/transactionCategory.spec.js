@@ -2,7 +2,7 @@ require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
 const { CrudServer } = require('../src/server');
 const request = require('supertest');
-const { assert } = require('chai');
+const { assert, expect } = require('chai');
 const User = require('../src/api/users/user.model');
 
 describe('transactions/categories test suite', () => {
@@ -26,9 +26,9 @@ describe('transactions/categories test suite', () => {
       it('should return 401 error', () => {
         assert.equal(response.status, 401);
       });
-     
+
       context('when good token was provided', () => {
-          let response, userDoc, categories
+        let response, userDoc, categories;
 
         before(async () => {
           userDoc = await User.create({
@@ -65,8 +65,8 @@ describe('transactions/categories test suite', () => {
           assert.equal(response.status, 200);
         });
 
-          it('should return expected categories array', () => {
-          categories;
+        it('should return expected categories array', () => {
+          expect(categories);
         });
       });
     });
