@@ -22,7 +22,7 @@ export const PrognosisBuyStyled = styled.div`
   span {
     position: absolute;
     left: 13px;
-    bottom: 21px;
+    bottom: 26px;
     font-size: 12px;
     line-height: 14px;
     padding: 0px 4px;
