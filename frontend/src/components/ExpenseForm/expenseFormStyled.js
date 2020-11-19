@@ -11,15 +11,10 @@ export const CalcIconStyled = styled.svg`
   width: 20px;
   height: 20px;
   position: absolute;
-  bottom: 0px;
+  bottom: 18px;
+  right: 12px;
   fill: #35363b;
   cursor: pointer;
-
-  @media ${device.largeDevice} {
-    bottom: 78px;
-    right: 5%;
-    transform: translateY(50%);
-  }
 
   &:hover .icon_hover {
     fill: ${colors.formTextHover};
@@ -28,8 +23,8 @@ export const CalcIconStyled = styled.svg`
 
 export const CalcWrapper = styled.div`
   position: absolute;
-  top: 56px;
-  right: 0px;
+  top: 100%;
+  right: 0;
   box-shadow: ${boxShadow.main};
 `;
 
@@ -38,7 +33,6 @@ export const ExpenseFormStyled = styled.div`
   label {
     display: flex;
     flex-direction: column;
-    /* margin-bottom: 35px; */
 
     @media ${device.largeDevice} {
       flex-wrap: wrap;
@@ -46,11 +40,15 @@ export const ExpenseFormStyled = styled.div`
     }
   }
 
+  form {
+    position:relative;
+  }
+
   label {
     position: relative;
     color: ${textColor.secondary};
 
-    @media ${device.tablet} {
+    @media ${device.largeDevice} {
       &:nth-of-type(2) {
         order: 3;
       }
@@ -64,7 +62,15 @@ export const ExpenseFormStyled = styled.div`
     }
 
     label:not(:last-of-type) {
+      @media ${device.mobile} {
       margin-bottom: 35px;
+      }
+    }
+
+    label:nth-of-type(odd){
+      @media ${device.largeDevice} {
+      margin-bottom: 50px;
+      }
     }
 
     .formContainer {
@@ -79,22 +85,13 @@ export const ExpenseFormStyled = styled.div`
     }
 
     .smallFormContainer {
-      /* margin-bottom: 35px; */
-
-      @media ${device.tablet} {
-        /* width: 330px; */
-        margin-bottom: 0px;
+      @media ${device.largeDevice} {
         flex-wrap: wrap;
         display: flex;
         justify-content: space-between;
       }
     }
   }
-
-  /* .smallFormContainer_last {
-    position: relative;
-    margin-bottom: 0px;
-  } */
 
   .calc-input {
     &::-webkit-outer-spin-button,
@@ -104,18 +101,6 @@ export const ExpenseFormStyled = styled.div`
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
   }
-
-  /* .calc-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  } */
-
-  /* .svg:hover {
-    color: ${colors.formTextHover};
-  } */
 
   span {
     position: absolute;

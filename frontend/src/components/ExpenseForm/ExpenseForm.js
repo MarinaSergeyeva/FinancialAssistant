@@ -33,7 +33,6 @@ const ExpenseForm = () => {
   return (
     <ExpenseFormStyled>
       <form onSubmit={handleSubmit}>
-        {/* <div className="formContainer"> */}
         <div className="smallFormContainer">
           <label className="">
             <span>Со счета</span>
@@ -64,9 +63,7 @@ const ExpenseForm = () => {
           <CalcIconStyled onClick={showCalculatorHandler}>
             <CalcIcon className="icon_hover" />
           </CalcIconStyled>
-
           <CalcWrapper>{showCalculator && <Calculator />}</CalcWrapper>
-          {/* </div> */}
         </div>
       </form>
     </ExpenseFormStyled>
