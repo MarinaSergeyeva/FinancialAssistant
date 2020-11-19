@@ -1,21 +1,45 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { background, colors } from '../../stylesheet/vars';
+import { userSelectors } from '../../redux/selectors';
+import { userOperations } from '../../redux/operations';
 
 const ForecastExpense = () => {
-  const handleClick = () => {
-    console.log('Отправка запроса - транзакция по расходам');
+  const transaction = useSelector(state => userSelectors.getTransaction(state));
+  console.log('transaction', transaction);
+  const userData = useSelector(state => userSelectors.getCurrentUser(state));
+  const { balance, incomePercentageToSavings } = userData;
+  const freeMoney = balance * (1 - incomePercentageToSavings / 100);
+  const todayDate = new Date();
+  const restDays =
+    daysInMonth(todayDate.getMonth(), todayDate.getFullYear()) -
+    todayDate.getDate() +
+    1;
+  const dailyLimit = (
+    freeMoney / restDays -
+    Number(transaction.amount)
+  ).toFixed(2);
+  const monthLimit = (freeMoney - Number(transaction.amount)).toFixed(2);
+  const dispatch = useDispatch();
+  const handleClick = async () => {
+    if (transaction.amount) {
+      await dispatch(userOperations.createTransaction(transaction));
+      console.log('Запрос на бэк выполнен');
+    } else {
+      console.log('Введите сумму транзакции');
+    }
   };
   return (
     <ForecastExpenseWrapper>
       <div className="inner">
-        <p className="value">-600 &#x20B4;</p>
+        <p className="value">{dailyLimit} &#x20B4;</p>
         <p className="small">Лимит на день</p>
       </div>
 
       <div className="inner">
-        <p className="value">-5000 &#x20B4;</p>
+        <p className="value">{monthLimit > 0 ? 0 : monthLimit} &#x20B4;</p>
         <p className="small">Отклонение от плановой суммы накопления</p>
       </div>
 
@@ -27,6 +51,10 @@ const ForecastExpense = () => {
 };
 
 export default ForecastExpense;
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}
 
 const ForecastExpenseWrapper = styled.div`
   padding: 34px 40px;

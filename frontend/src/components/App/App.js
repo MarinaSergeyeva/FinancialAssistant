@@ -5,7 +5,6 @@ import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import PublicRoute from '../CustomRoutes/PublicRoute';
 import userOperations from '../../redux/operations/userOperations';
-// import isAuth from '../../redux/selectors/authSelector';
 
 const App = () => {
   const dispatch = useDispatch();
