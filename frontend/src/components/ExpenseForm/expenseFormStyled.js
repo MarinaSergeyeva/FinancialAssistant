@@ -2,6 +2,20 @@ import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 import { colors, background, textColor } from '../../stylesheet/vars';
 
+export const CalcIconStyled = styled.svg`
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 90%;
+  top: -38px;
+  fill: #35363b;
+  cursor: pointer;
+
+  &:hover .icon_hover {
+    fill: ${colors.formTextHover};
+  }
+`;
+
 export const ExpenseFormStyled = styled.div`
   form,
   label {
@@ -54,13 +68,17 @@ export const ExpenseFormStyled = styled.div`
     position: relative;
   }
 
-  .calc-icon {
+  /* .calc-icon {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-  }
+  } */
+
+  /* .svg:hover {
+    color: ${colors.formTextHover};
+  } */
 
   span {
     position: absolute;

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { ExpenseFormStyled } from '../ExpenseForm/expenseFormStyled';
+import {
+  ExpenseFormStyled,
+  CalcIconStyled,
+} from '../ExpenseForm/expenseFormStyled';
 import calculatorIcon from '../../assets/icons/icon-calculator.svg';
+import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 
 const ExpenseForm = () => {
   const [expenseItem, setHandleExpenseItem] = useState('');
@@ -50,11 +54,9 @@ const ExpenseForm = () => {
             <label>
               <span>Сумма</span>
               <input className="calc-input" type="number" />
-              <img
-                className="calc-icon"
-                src={calculatorIcon}
-                alt="calculator icon"
-              />
+              <CalcIconStyled>
+                <CalcIcon className="icon_hover" />
+              </CalcIconStyled>
             </label>
           </div>
         </div>
