@@ -10,6 +10,7 @@ const sessionSchema = new Schema(
     timestamps: true
   }
 );
+
 sessionSchema.virtual("user", {
   ref: "User",
   localField: "userId",

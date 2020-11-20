@@ -5,8 +5,9 @@ const morgan = require("morgan");
 const authRouter = require("./api/auth/auth.routers");
 const usersRouter = require("./api/users/user.router");
 const transactionRouter = require("./api/transactions/transactionRouter");
-const { passportStrategies } = require('./api/auth/passport.google');
+const { initGoogleOauthStrategy } = require('./api/auth/strategies/google.strategy');
 const passport =  require('passport');
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config({ path: path.join("./.env") });
 
@@ -18,10 +19,11 @@ const globalErrorHandler = require("./api/errors/error.controller");
 const mongoose = require("mongoose");
 
 
+
 class CrudServer {
-  constructor(config) {
+  constructor() {
     this.server = null;
-    this.config = config;
+    // this.config = config;
   }
 
   async start() {
@@ -39,7 +41,6 @@ class CrudServer {
   }
 
   async initDatabase() {
-    console.log(process.env.DB_URI, "DB_URI")
     try {
       mongoose.set("debug", true);
       await mongoose.connect(process.env.DB_URI, {
@@ -56,9 +57,26 @@ class CrudServer {
   }
 
   initMiddlewares() {
+    this.server.use(cookieParser());
     this.server.use(passport.initialize());
-    passportStrategies.initGoogleOAuthStrategy();
+    this.server.use(passport.session());
+    initGoogleOauthStrategy();
+
+    passport.serializeUser((user, done) => {
+      done(null, user._id);
+    });
+    passport.deserializeUser(async (id, done) => {
+      const user = await UserModel.findById(id);
+      if (!user) {
+        done(new Error("User not authorized"));
+      }
+
+      done(null, user);
+    });
+
+
     this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+
     if (process.env.NODE_ENV === "development") {
       this.server.use(morgan("dev"));
     }
@@ -104,4 +122,5 @@ class CrudServer {
 }
 
 exports.CrudServer = CrudServer;
+exports.crudServer = new CrudServer();
 
