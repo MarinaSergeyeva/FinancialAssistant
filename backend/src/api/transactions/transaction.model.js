@@ -39,6 +39,7 @@ async function createTransaction(info) {
 async function getCurrentMonthExpenses(userId) {
   const date = new Date();
   const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  console.log('startMonth', startMonth);
   const expenseGroup = await this.aggregate([
     {
       $match: {

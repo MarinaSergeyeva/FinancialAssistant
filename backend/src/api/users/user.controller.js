@@ -5,6 +5,7 @@ const AppError = require('../errors/appError');
 
 const getCurrentUser = async (req, res, next) => {
   const expenses = await TransactionModel.getCurrentMonthExpenses(req.user._id);
+  console.log('expenses', expenses);
   return res.status(200).json({
     id: req.user._id,
     username: req.user.username,

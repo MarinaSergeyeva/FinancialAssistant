@@ -4,6 +4,9 @@ const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
 const User = require('../src/api/users/user.model');
+const {
+  TransactionModel,
+} = require('../src/api/transactions/transaction.model');
 
 describe('CurrentUser test suite', () => {
   let server;
@@ -30,13 +33,14 @@ describe('CurrentUser test suite', () => {
     });
 
     context('when good token was provided', () => {
-      let response, userDoc;
+      let response, userDoc, transactionDoc;
 
       before(async () => {
         userDoc = await User.create({
           username: 'Test1',
           email: 'test1@email.com',
           passwordHash: 'password_hash',
+          balance: 2575,
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
@@ -44,7 +48,12 @@ describe('CurrentUser test suite', () => {
         });
         userDoc.tokens.push(token);
         await userDoc.save();
-
+        transactionDoc = await TransactionModel.create({
+          amount: 75,
+          type: 'EXPENSE',
+          transactionDate: Date.now(),
+          userId: userDoc._id,
+        });
         response = await request(server)
           .get('/api/v1/users/current')
           .set('Authorization', `Bearer ${token}`);
@@ -52,6 +61,7 @@ describe('CurrentUser test suite', () => {
 
       after(async () => {
         await User.deleteOne({ _id: userDoc._id });
+        await TransactionModel.deleteOne({ _id: transactionDoc._id });
       });
 
       it('should return response with 200', () => {
@@ -62,7 +72,7 @@ describe('CurrentUser test suite', () => {
         expect(response.body).to.include({
           username: userDoc.username,
           email: userDoc.email,
-          balance: userDoc.balance,
+          balance: 2500,
           flatPrice: userDoc.flatPrice,
           flatSquareMeters: userDoc.flatSquareMeters,
           totalSalary: userDoc.totalSalary,
