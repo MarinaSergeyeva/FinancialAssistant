@@ -7,7 +7,7 @@ const PlanPage = () => {
   return (
     <PlanPageStyled>
       <PlanForm />
-      <PrognosisBuy />
+      {/* <PrognosisBuy /> */}
     </PlanPageStyled>
   );
 };
