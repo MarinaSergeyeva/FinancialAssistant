@@ -17,7 +17,7 @@ const UserSchema = new Schema(
     passiveIncome: { type: Number, default: 0, required: true },
     incomePercentageToSavings: { type: Number, default: 0, required: true },
     giftsUnpacked: { type: Number, default: 0 },
-    giftsForUnpacking: { type: Number, default: 0 },
+    giftsForUnpacking: { type: Number, default: 0 },//
     tokens: [{ type: String }],
   },
   { timestamps: true },
