@@ -15,37 +15,124 @@ const updateInfo = () => {
   cron.schedule("*/10 * * * * *", async () => {
     //const userTransactions = TransactionModel.find({ userId: user._id });
     const users = await UserDB.find();
+
     //await TransactionModel.deleteMany({ type: "INCOME" });
     //await monthReportModel.deleteMany();
     //await TransactionModel.insertMany({ type: "INCOME" });
     // console.log("users", users);
+
     await Promise.all(
       users.map(async (user) => {
         const income = user.totalSalary + user.passiveIncome;
         user.balance += income;
         await user.save();
 
-        await TransactionModel.create({
-          amount: income,
-          userId: user._id,
-          transactionDate: Date.now(),
-          type: "INCOME",
-        });
+        // await TransactionModel.create({
+        //   amount: income,
+        //   userId: user._id,
+        //   transactionDate: Date.now(),
+        //   type: "INCOME",
+        // });
 
         let now = new Date();
         const currentMonth = now.getMonth();
-        await TransactionModel.find({
-          type: "EXPENSES",
-          $expr: {
-            $eq: [{ $month: "$transactionDate" }, currentMonth],
-          },
-        });
-      })
-    );
 
-    //console.log("totalAmountOfEx", totalAmountOfEx);
-  });
-};
+        const showResult = catchAsync(async (req, res, next) => {
+          const result = await TransactionModel.aggregate([
+            {
+              $match: {
+                userId: user._id,
+             
+              },
+              $match: {
+                type: "EXPENSES",
+              },
+              $match: {
+                $expr: {
+                  $eq: [{ $month: "$transactionDate" }, currentMonth],
+                },
+              },
+            },
+            {
+              $group: {
+                _id: { $month: "$transactionDate" },
+                total: { $sum: "$amount" },
+              },
+            },
+          ]);
+          const [{ total }] = result;
+          return total;
+        });
+
+        showResult();
+    
+     module.exports = { updateInfo };
+         // type: "EXPENSES",
+                // $expr: {
+                //   $eq: [{ $month: "$transactionDate" }, currentMonth],
+                // },
+          // const result = await TransactionModel.aggregate([
+          //   {
+          //     userId: "5fb524d2665c1830649c3687",
+          //     $expr: {
+          //       $eq: [{ $month: "$transactionDate" }, currentMonth],
+          //     },
+          //     type: "EXPENSES",
+          //   },
+          // ]);
+          // res.status(201).json({
+          //   result,
+          // });
+        // });
+      //Result = async () => {
+        //   const result = await TransactionModel.aggregate({
+        //     userId: "5fb524d2665c1830649c3687",
+        //     $expr: {
+        //       $eq: [{ $month: "$transactionDate" }, currentMonth],
+        //     },
+        //     type: "EXPENSES",
+        //   });
+        //   console.log("result", result);
+        // };
+        // showResult();
+        // await TransactionModel.aggregate([
+        //   {
+        //     $match: {
+        //       userId: user._id,
+        //       type: "EXPENSES",
+        //       $expr: {
+        //         $eq: [{ $month: "$transactionDate" }, currentMonth ],
+        //       },
+        //     },
+        //   },
+        //   {
+        //     $group: {
+        //       _id: { $month: "$transactionDate" },
+        //       total: { $sum: "$amount" },
+        //     },
+        //   },
+        // ]);
+
+        // await TransactionModel.find(
+        //   {
+        //     userId: user._id,
+        //     type: "EXPENSES",
+        //     $expr: {
+        //       $eq: [{ $month: "$transactionDate" }, currentMonth],
+        //     },
+        //     totalAmount: { $sum: "$amount" },
+        //   }
+        //   //{ totalAmount: { $sum: "$amount" } }
+        // );
+        //   })
+        // );
+
+        //console.log("totalAmountOfEx", totalAmountOfEx);
+     // })
+    //);
+//   });
+// };
+
 //         user.balance += income;
 //         await user.save();
 // await TransactionModel.create({
@@ -65,7 +152,7 @@ const updateInfo = () => {
 //   });
 //   });
 // };
-module.exports = { updateInfo };
+
 
 // await monthReportModel.create({
 //   totalExpenses: { monthlyExpanses },
