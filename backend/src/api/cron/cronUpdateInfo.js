@@ -1,10 +1,8 @@
 const cron = require("node-cron");
 const express = require("express");
-//const { getCurrentUser } = require("../users/user.controller");
+
 const UserDB = require("../users/user.model");
-// const { db } = require("../users/user.model");
-// const TransactionModel = require("./Trans.model");
-// TransactionModel
+
 const mongoose = require("mongoose");
 const objectId = require("mongoose").objectId;
 const catchAsync = require("../../utils/catchAsync");
@@ -13,13 +11,12 @@ const monthReportModel = require("./monthReport.model");
 
 const updateInfo = () => {
   cron.schedule("*/10 * * * * *", async () => {
-    //const userTransactions = TransactionModel.find({ userId: user._id });
     const users = await UserDB.find();
 
     //await TransactionModel.deleteMany({ type: "INCOME" });
     //await monthReportModel.deleteMany();
     //await TransactionModel.insertMany({ type: "INCOME" });
-    // console.log("users", users);
+   
 
     await Promise.all(
       users.map(async (user) => {
@@ -27,43 +24,62 @@ const updateInfo = () => {
         user.balance += income;
         await user.save();
 
-        // await TransactionModel.create({
-        //   amount: income,
-        //   userId: user._id,
-        //   transactionDate: Date.now(),
-        //   type: "INCOME",
-        // });
+        await TransactionModel.create({
+          amount: income,
+          userId: user._id,
+          transactionDate: Date.now(),
+          type: "INCOME",
+        });
 
         let now = new Date();
         const currentMonth = now.getMonth();
 
-        const showResult = catchAsync(async (req, res, next) => {
-          const result = await TransactionModel.aggregate([
+        
+        const result = await TransactionModel.aggregate([
             {
               $match: {
                 userId: user._id,
-              },
-              $match: {
-                type: "EXPENSES",
-              },
-              $match: {
-                $expr: {
-                  $eq: [{ $month: "$transactionDate" }, currentMonth],
+                 $expr: {
+                   $eq: [{ $month: "$transactionDate" }, currentMonth+1],
+                   
                 },
+                  type: "EXPENSE",
               },
             },
+  
             {
               $group: {
-                _id: { $month: "$transactionDate" },
+                _id: null,
+                  // { $month: "$transactionDate" },
                 total: { $sum: "$amount" },
               },
             },
           ]);
+        // console.log('result', result)
+        let totalExpenses;
+        if (result.length === 0) {
+          totalExpenses = 0;
+        } else {
           const [{ total }] = result;
-          return total;
+          totalExpenses = total;
+        };
+           await monthReportModel.create({
+          totalExpenses: totalExpenses,//
+          totalSavings: income,
+          totalIncome: income - totalExpenses,//
+          expectedSavingsPercentage: user.incomePercentageToSavings,
+          expectedSavings: income * user.incomePercentageToSavings/100,//
         });
-         showResult();
-    ))})};
+//          totalIncome: income - totalAm,//
+ (income/sqm.price )-giftsUnpacked =giftsForUnpacking
+        //});
+       // showResult();
+      }
+     )
+    )
+  })
+};
+
      module.exports = { updateInfo };
          // type: "EXPENSES",
    
@@ -141,7 +157,7 @@ const updateInfo = () => {
 //   type: "INCOME",
 // });
 //         await monthReportModel.create({
-//           totalExpenses: totalAmountOfEx.totalExpenses,
+//           totalExpenses: total,
 //           totalSavings: 200,
 //           totalIncome: 200,
 //           expectedSavingsPercentage: 5,
