@@ -1,0 +1,37 @@
+// STORE
+
+loading: spinnerReducers.loadingReducer,
+auth: persistReducer(persistConfig, authReducer),
+user: {
+  info:{
+    balance: 0,
+    totalSalary: 0,
+    passiveIncome: 0,
+    incomePercentageToSavings: 0,
+    flatPrice: 0,
+    flatSquareMeters: 0,
+  },
+  transaction:{
+    category: '',
+    amount: 0,
+    comment: '',
+  },
+  calculator:{},
+},
+error: {},
+
+
+// ROOT - authReducer
+
+const root = combineReducers({
+    loading: spinnerReducers.loadingReducer,
+    auth: persistReducer(persistConfig, authReducer),
+    user: {
+      combineReducers({
+        info: infoReducer,
+        transaction: transactionReducer,
+        calculator: calculatorReducer,
+      })
+    },
+    error: {},
+});
