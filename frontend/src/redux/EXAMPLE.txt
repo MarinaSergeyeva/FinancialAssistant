@@ -16,7 +16,17 @@ user: {
     amount: 0,
     comment: '',
   },
-  calculator:{},
+  calculator: 0,
+  stats: {
+    savingsPercentage: 0,
+    savingsValue: 0,
+    savingsInSquareMeters: 0,
+    totalSquareMeters: 0,
+    monthsLeftToSaveForFlat: 0,
+    savingsForNextSquareMeterLeft: 0,
+    giftsUnpacked: 0,
+    giftsForUnpacking: 0,
+  },
 },
 error: {},
 
@@ -31,6 +41,7 @@ const root = combineReducers({
         info: infoReducer,
         transaction: transactionReducer,
         calculator: calculatorReducer,
+        stats: statsReducer,
       })
     },
     error: {},
