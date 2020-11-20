@@ -28,7 +28,7 @@ const transactionSchema = new Schema(
 );
 
 transactionSchema.statics.createTransaction = createTransaction;
-transactionSchema.statics.getCurrentMonthBalance = getCurrentMonthBalance;
+transactionSchema.statics.getCurrentMonthExpenses = getCurrentMonthExpenses;
 
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
 
@@ -36,7 +36,7 @@ async function createTransaction(info) {
   return this.create(info);
 }
 
-async function getCurrentMonthBalance(userId) {
+async function getCurrentMonthExpenses(userId) {
   const date = new Date();
   const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
   console.log('startMonth', startMonth);
@@ -45,30 +45,19 @@ async function getCurrentMonthBalance(userId) {
       $match: {
         userId,
         transactionDate: { $gte: startMonth },
-      },
-    },
-    {
-      $addFields: {
-        expense: {
-          $cond: [{ $eq: ['$type', 'EXPENSE'] }, '$amount', 0],
-        },
-        income: {
-          $cond: [{ $eq: ['$type', 'INCOME'] }, '$amount', 0],
-        },
+        type: 'EXPENSE',
       },
     },
     {
       $group: {
         _id: null,
-        expense: { $sum: '$expense' },
-        income: { $sum: '$income' },
-        monthBalance: { $sum: { $subtract: ['$income', '$expense'] } },
+        expenses: { $sum: '$amount' },
       },
     },
   ]);
   if (expenseGroup.length) {
-    const [{ monthBalance }] = expenseGroup;
-    return monthBalance;
+    const [{ expenses }] = expenseGroup;
+    return expenses;
   } else return 0;
 }
 

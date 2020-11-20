@@ -4,9 +4,11 @@ const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../errors/appError');
 
 const getCurrentUser = async (req, res, next) => {
-  const currentBalance = await TransactionModel.getCurrentMonthBalance(
+  const currentExpenses = await TransactionModel.getCurrentMonthExpenses(
     req.user._id,
   );
+  const currentBalance =
+    req.user.totalSalary + req.user.passiveIncome - currentExpenses;
   return res.status(200).json({
     id: req.user._id,
     username: req.user.username,
