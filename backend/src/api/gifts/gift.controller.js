@@ -1,7 +1,7 @@
 const AppError = require('../errors/appError');
 const userModel = require('../users/user.model');
 
-exports.unpackGifst = async (req, res, next) => {
+exports.unpackGifts = async (req, res, next) => {
   const { user } = req;
 
   const { flatPrice } = user;
@@ -14,8 +14,8 @@ exports.unpackGifst = async (req, res, next) => {
     return next(new AppError('Not any gifts for unpacking', 403));
   }
   const updatedGifts = {
-    giftsUnpacked: giftsUnpacked - 1,
-    giftsForUnpacking: giftsForUnpacking + 1,
+    giftsUnpacked: giftsUnpacked + 1,
+    giftsForUnpacking: giftsForUnpacking - 1,
   };
   const updatedGiftUser = await userModel.findByIdAndUpdate(
     req.user._id,

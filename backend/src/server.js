@@ -51,7 +51,7 @@ class CrudServer {
       });
       console.log('Database has been connected');
     } catch (err) {
-      console.log('Something bad happend while connection to DB', err);
+      console.log('Something bad happened while connection to DB', err);
       process.exit(1);
     }
   }

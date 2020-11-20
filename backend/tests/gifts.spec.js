@@ -92,7 +92,7 @@ describe('Gifts test suite', () => {
 
       it('should return expected response body', () => {
         expect(response.body).to.include({
-          giftsForUnpacking: 6,
+          giftsForUnpacking: 4,
         });
       });
     });
