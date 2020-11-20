@@ -3,12 +3,12 @@ import { PlanFormStyled } from './planFormStyled';
 
 const placeHolder = 'Введите сумму';
 const field = {
-  salary: '',
-  passiveIncome: '',
-  saving: '',
-  apartmentCost: '',
-  apartmentArea: '',
-  accumulation: { inputValue: '', helperText: false },
+  totalSalary: 0,
+  passiveIncome: 0,
+  saving: 0,
+  flatPrice: 0,
+  flatSquareMeters: 0,
+  incomePercentageToSavings: 0,
 };
 
 function PlanForm() {
@@ -17,16 +17,18 @@ function PlanForm() {
 
   return (
     <PlanFormStyled>
-      <form onSubmit={() => {}}>
+      <form>
         <div className="firstColumn">
           <label>
             <span>1. ЗП обоих супругов</span>
             <input
               type="text"
-              name="salary"
-              value={state.salary}
+              name="totalSalary"
+              value={state.totalSalary}
               placeholder={placeHolder}
-              onChange={e => getState({ ...state, salary: e.target.value })}
+              onChange={e =>
+                getState({ ...state, totalSalary: e.target.value })
+              }
             />
           </label>
           <label>
@@ -57,23 +59,21 @@ function PlanForm() {
             <span>4. Укажите стоимость вашей будущей квартиры</span>
             <input
               type="text"
-              name="apartmentCost"
-              value={state.apartmentCost}
+              name="flatPrice"
+              value={state.flatPrice}
               placeholder={placeHolder}
-              onChange={e =>
-                getState({ ...state, apartmentCost: e.target.value })
-              }
+              onChange={e => getState({ ...state, flatPrice: e.target.value })}
             />
           </label>
           <label>
             <span>5. Укажите кол-во кв. м вашей будущей квартиры</span>
             <input
               type="text"
-              name="apartmentArea"
-              value={state.apartmentArea}
+              name="flatSquareMeters"
+              value={state.flatSquareMeters}
               placeholder={placeHolder}
               onChange={e =>
-                getState({ ...state, apartmentArea: e.target.value })
+                getState({ ...state, flatSquareMeters: e.target.value })
               }
             />
           </label>
@@ -81,22 +81,18 @@ function PlanForm() {
             <span>6. Накопление, %</span>
             <input
               type="text"
-              name="accumulation"
-              value={state.accumulation.inputValue}
+              name="incomePercentageToSavings"
+              value={state.incomePercentageToSavings}
               placeholder={placeHolder}
               onFocus={() => setFieldActive(true)}
               onBlur={() => setFieldActive(false)}
               onChange={e =>
                 getState({
                   ...state,
-                  accumulation: {
-                    ...state.accumulation,
-                    inputValue: e.target.value,
-                  },
+                  incomePercentageToSavings: e.target.value,
                 })
               }
             />
-            {/* {console.log(state.accumulation.helperText)} */}
             <p>
               {!!isFieldActive &&
                 'Укажите процент, который бы хотели накапливать в месяц от общей суммы доходов и вы увидите, когда достигните цели'}

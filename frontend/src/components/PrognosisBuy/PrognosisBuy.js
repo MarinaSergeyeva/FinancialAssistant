@@ -19,7 +19,7 @@ function PrognosisBuy() {
           <button type="submit">Подходит</button>
         </form>
       </div>
-      <img src={decor} />
+      <img src={decor} alt="элемент декора" />
     </PrognosisBuyStyled>
   );
 }
