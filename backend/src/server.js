@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8080;
 const globalErrorHandler = require('./api/errors/error.controller');
 
 const mongoose = require('mongoose');
+const giftsRouter = require('./api/gifts/gifts.router');
 
 class CrudServer {
   constructor() {
@@ -50,7 +51,7 @@ class CrudServer {
       });
       console.log('Database has been connected');
     } catch (err) {
-      console.log('Something bad happend while connection to DB', err);
+      console.log('Something bad happened while connection to DB', err);
       process.exit(1);
     }
   }
@@ -78,6 +79,7 @@ class CrudServer {
     this.server.use('/api/v1/transactions', transactionRouter);
     this.server.use('/api/v1/auth', authRouter);
     this.server.use('/api/v1/users', usersRouter);
+    this.server.use('/api/v1', giftsRouter);
   }
 
   initErrorHandling() {
