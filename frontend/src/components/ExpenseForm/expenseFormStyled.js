@@ -1,65 +1,105 @@
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-import { colors, background, textColor } from '../../stylesheet/vars';
+import {
+  colors,
+  background,
+  textColor,
+  boxShadow,
+} from '../../stylesheet/vars';
+
+export const CalcIconStyled = styled.svg`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 18px;
+  right: 12px;
+  fill: #35363b;
+  cursor: pointer;
+
+  &:hover .icon_hover {
+    fill: ${colors.formTextHover};
+  }
+`;
+
+export const CalcWrapper = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  box-shadow: ${boxShadow.main};
+`;
 
 export const ExpenseFormStyled = styled.div`
   form,
   label {
     display: flex;
     flex-direction: column;
+
+    @media ${device.largeDevice} {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+
+  form {
+    position:relative;
   }
 
   label {
     position: relative;
     color: ${textColor.secondary};
-  }
-
-  label:not(:last-child) {
-    margin-bottom: 35px;
 
     @media ${device.largeDevice} {
+      &:nth-of-type(2) {
+        order: 3;
+      }
+      &:nth-of-type(3) {
+        order: 2;
+      }
+      &:nth-of-type(4) {
+        order: 4;
+      }
+    }
+    }
+
+    label:not(:last-of-type) {
+      @media ${device.mobile} {
+      margin-bottom: 35px;
+      }
+    }
+
+    label:nth-of-type(odd){
+      @media ${device.largeDevice} {
       margin-bottom: 50px;
-    }
-  }
-
-  .formContainer {
-    @media ${device.mobile} {
-      width: 280px;
+      }
     }
 
-    @media ${device.largeDevice} {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
+    .formContainer {
+      @media ${device.mobile} {
+        width: 280px;
+      }
 
-  .smallFormContainer {
-    margin-bottom: 35px;
-
-    @media ${device.largeDevice} {
-      width: 330px;
-      margin-bottom: 0px;
+      @media ${device.largeDevice} {
+        display: flex;
+        justify-content: space-between;
+      }
     }
 
-    @media ${device.largeDesktop} {
-      width: 370px;
+    .smallFormContainer {
+      @media ${device.largeDevice} {
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: space-between;
+      }
     }
-  }
-
-  .smallFormContainer_last {
-    margin-bottom: 0px;
   }
 
   .calc-input {
-    position: relative;
-  }
-
-  .calc-icon {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
   }
 
   span {
@@ -88,6 +128,14 @@ export const ExpenseFormStyled = styled.div`
     border-bottom: 1px solid rgba(24, 25, 31, 0.36);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+
+    @media ${device.tablet} {
+      width: 330px;
+    }
+
+    @media ${device.largeDesktop} {
+      width: 370px;
+    }
   }
 
   label:hover,
