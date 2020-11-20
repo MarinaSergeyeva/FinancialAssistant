@@ -8,7 +8,7 @@ const Logo = () => {
     <>
       <LogoContainer>
         <Link to="/">
-          <LogoContainerImg src={logoImg} alt="logo img"/>
+          <LogoContainerImg src={logoImg} alt="logo img" />
         </Link>
       </LogoContainer>
     </>
