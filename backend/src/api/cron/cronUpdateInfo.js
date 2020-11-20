@@ -42,7 +42,6 @@ const updateInfo = () => {
             {
               $match: {
                 userId: user._id,
-             
               },
               $match: {
                 type: "EXPENSES",
@@ -63,12 +62,13 @@ const updateInfo = () => {
           const [{ total }] = result;
           return total;
         });
-
-        showResult();
-    
+         showResult();
+    ))})};
      module.exports = { updateInfo };
          // type: "EXPENSES",
-                // $expr: {
+   
+    
+           // $expr: {
                 //   $eq: [{ $month: "$transactionDate" }, currentMonth],
                 // },
           // const result = await TransactionModel.aggregate([
