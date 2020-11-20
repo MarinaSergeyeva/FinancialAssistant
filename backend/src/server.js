@@ -5,7 +5,11 @@ const morgan = require("morgan");
 const authRouter = require("./api/auth/auth.routers");
 const usersRouter = require("./api/users/user.router");
 const transactionRouter = require("./api/transactions/transactionRouter");
+const { passportStrategies } = require('./api/auth/passport.google');
+const passport =  require('passport');
+
 require("dotenv").config({ path: path.join("./.env") });
+
 
 const AppError = require("./api/errors/appError");
 const PORT = process.env.PORT || 8080;
@@ -13,9 +17,11 @@ const globalErrorHandler = require("./api/errors/error.controller");
 
 const mongoose = require("mongoose");
 
+
 class CrudServer {
-  constructor() {
+  constructor(config) {
     this.server = null;
+    this.config = config;
   }
 
   async start() {
@@ -27,19 +33,13 @@ class CrudServer {
     this.startListening();
   }
 
-  async startForTest() {
-    this.initServer();
-    await this.initDatabase();
-    this.initMiddlewares();
-    this.initServerRouters();
-    this.initErrorHandling();
-  }
 
   initServer() {
     this.server = express();
   }
 
   async initDatabase() {
+    console.log(process.env.DB_URI, "DB_URI")
     try {
       mongoose.set("debug", true);
       await mongoose.connect(process.env.DB_URI, {
@@ -56,6 +56,8 @@ class CrudServer {
   }
 
   initMiddlewares() {
+    this.server.use(passport.initialize());
+    passportStrategies.initGoogleOAuthStrategy();
     this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
     if (process.env.NODE_ENV === "development") {
       this.server.use(morgan("dev"));
@@ -71,6 +73,7 @@ class CrudServer {
 
       next();
     });
+   
   }
 
   initServerRouters() {
@@ -78,8 +81,10 @@ class CrudServer {
     this.server.use("/api/v1/transactions", transactionRouter);
     this.server.use("/api/v1/auth", authRouter);
     this.server.use("/api/v1/users", usersRouter);
+  
   }
 
+ 
   initErrorHandling() {
     this.server.all("*", (req, res, next) => {
       next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
@@ -99,4 +104,4 @@ class CrudServer {
 }
 
 exports.CrudServer = CrudServer;
-exports.crudServer = new CrudServer();
+

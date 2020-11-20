@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+// import gapi from 'gapi';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
@@ -10,6 +11,9 @@ import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
 import { useSelector } from 'react-redux';
 
+const path = require("path")
+require("dotenv").config({ path: path.join("../../../../backend/.env") });
+
 const MainPage = () => {
   const userInfo = useSelector(state => state.auth.username);
 
@@ -18,38 +22,63 @@ const MainPage = () => {
   );
 
   useEffect(() => {
-    if(userInfo){
-      setUserInfoRegistr(true)
-    } else{
-      setUserInfoRegistr(false)
+    if (userInfo) {
+      setUserInfoRegistr(true);
+    } else {
+      setUserInfoRegistr(false);
     }
-    
+
     console.log(userInfo, 'userInfo');
   }, [userInfo]);
+
+  //!Auth2.0
+  // useEffect(() => {
+  //   console.log(process.env.GOOGLE_OAUTH_CLIENT_ID,"process.env.GOOGLE_OAUTH_CLIENT_ID")
+  //   console.log(process.env,"process.env")
+
   
+  //   window.gapi.load('auth2', function () {
+  //     window.gapi.auth2
+  //       .init({
+  //         // client_id: process.env.GOOGLE_OAUTH_CLIENT_ID
+  //         client_id:'990109383642-u2uca33kaqjg92optvu2kmos3as66nbv.apps.googleusercontent.com'
+  //       })
+  //       .than(
+  //         () => console.log('init OK'))
+  //       .catch(() => console.log('init error'))
+  
+  //   });
+ 
+  // });
+
+  const googleSignIn = () => {
+    const GoogleAuth =  window.gapi.auth2.getAuthInstance();
+    GoogleAuth.signIn()
+  }
+
 
 
   return (
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
-          Планировщик для совместного{" "}
+          Планировщик для совместного{' '}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
-          Планировщик для совместного{" "}
+          Планировщик для совместного{' '}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
-          Планировщик <br /> для совместного{" "}
+          Планировщик <br /> для совместного{' '}
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
-      <GoogleAuthBtn>
+      <GoogleAuthBtn href="http://localhost:8080/api/v1/auth/google">
         <GoogleAuthBtnImg
           src={googleLogo}
           alt="google auth picture"
@@ -76,7 +105,7 @@ const MainPage = () => {
                     setUserInfoRegistr(true);
                   }}
                 >
-                    Войти
+                  Войти
                 </span>
               </AuthParagraph>
             </>
@@ -92,7 +121,7 @@ const MainPage = () => {
                     setUserInfoRegistr(false);
                   }}
                 >
-                   Зарегистрироваться
+                  Зарегистрироваться
                 </span>
               </AuthParagraph>
             </>
@@ -170,7 +199,7 @@ const MainPageTitileOrange = styled.span`
   color: #ff6c00;
 `;
 
-const GoogleAuthBtn = styled.button`
+const GoogleAuthBtn = styled.a`
   display: block;
   position: relative;
   width: 216px;

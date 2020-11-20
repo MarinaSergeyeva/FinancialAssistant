@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const UserModel = require("../users/user.model");
 const AppError = require("../errors/appError");
+const { sessionModel } = require ("./session/session.model");
+const{ config } = require("../../config");
 const jwt = require("jsonwebtoken");
 
 exports.createNewUser = async (req, res, next) => {
@@ -59,3 +61,18 @@ exports.loginUser = async (req, res, next) => {
     token: token,
   });
 };
+
+exports.createSession = async(req, res, next) => {
+  try {
+    const user = req.user;
+    const session = await sessionModel.createSession(user._id);
+    const sessionToken = await this.createToken(session._id);
+
+    return res.status(201).json({
+      token: sessionToken
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+

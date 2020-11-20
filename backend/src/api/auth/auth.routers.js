@@ -4,6 +4,7 @@ const Joi = require('joi');
 const { validate } = require('../../utils/validate');
 const AuthController = require('./auth.controller');
 const catchAsync = require('../../utils/catchAsync');
+const passport =  require('passport');
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
@@ -26,6 +27,23 @@ authRouter.post(
   '/sign-in',
   validate(loginSchema),
   catchAsync(AuthController.loginUser),
+);
+
+authRouter.get(
+  "/google",
+  passport.authenticate("google", {
+    session: false,
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/plus.login",
+    ],
+  })
+);
+
+authRouter.get(
+  "/google/callback",
+  passport.authenticate("google", { session: false }),
+  AuthController.createSession
 );
 
 module.exports = authRouter;
