@@ -13,7 +13,7 @@ const createTransaction = catchAsync(async (req, res, next) => {
   });
 });
 
-const getTransactionCategories = catchAsync((req, res) => {
+const getTransactionCategories = ((req, res) => {
   const categories = Object.values(expensesCategories);
   res.json({
     categories,
