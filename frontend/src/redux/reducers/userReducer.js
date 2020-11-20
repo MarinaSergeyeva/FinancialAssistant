@@ -24,6 +24,9 @@ const info = (state = initialState.user.info, { type, payload }) => {
     case userConstants.GET_CURRENT_USER_SUCCESS:
       return { ...state, ...payload };
 
+    case userConstants.UPDATE_USER_SUCCESS:
+      return { ...state, ...payload };
+
     default:
       return state;
   }

@@ -26,6 +26,23 @@ const getCurrentUser = () => async (dispatch, getState) => {
   }
 };
 
+const updateUserInfo = info => async (dispatch, getState) => {
+  const persistedToken = authSelector.isAuthenticated(getState());
+  if (!persistedToken) {
+    return;
+  }
+  token.set(persistedToken);
+  dispatch(userActions.updateUserRequest());
+  try {
+    const result = await axios.put('/api/v1/users/savings-info', info);
+    console.log('update User_Info', result.data);
+    dispatch(userActions.updateUserSuccess(result.data));
+  } catch (err) {
+    console.log(err.message);
+    dispatch(userActions.updateUserError(err));
+  }
+};
+
 const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {
@@ -45,5 +62,6 @@ const createTransaction = transaction => async (dispatch, getState) => {
 
 export default {
   getCurrentUser,
+  updateUserInfo,
   createTransaction,
 };

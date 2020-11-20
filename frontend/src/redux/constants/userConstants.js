@@ -3,8 +3,8 @@ const ADD_USER_SUCCESS = '@auth/addUserSuccess';
 const ADD_USER_ERROR = '@auth/addUserError';
 
 const UPDATE_USER_REQUEST = '@user/updateUserRequest';
-const UPDATE_USER_SUCCESS = '@auth/updateUserSuccess';
-const UPDATE_USER_ERROR = '@auth/updateUserError';
+const UPDATE_USER_SUCCESS = '@user/updateUserSuccess';
+const UPDATE_USER_ERROR = '@user/updateUserError';
 
 const GET_CURRENT_USER_REQUEST = '@user/getCurrentUserRequest';
 const GET_CURRENT_USER_SUCCESS = '@auth/getCurrentUserSuccess';
