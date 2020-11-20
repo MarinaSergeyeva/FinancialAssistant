@@ -4,18 +4,20 @@ const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../errors/appError');
 
 const getCurrentUser = async (req, res, next) => {
-  const expenses = await TransactionModel.getCurrentMonthExpenses(req.user._id);
-  console.log('expenses', expenses);
+  const currentBalance = await TransactionModel.getCurrentMonthBalance(
+    req.user._id,
+  );
   return res.status(200).json({
     id: req.user._id,
     username: req.user.username,
     email: req.user.email,
-    balance: req.user.balance - expenses,
+    balance: req.user.balance,
     flatPrice: req.user.flatPrice,
     flatSquareMeters: req.user.flatSquareMeters,
     totalSalary: req.user.totalSalary,
     passiveIncome: req.user.passiveIncome,
     incomePercentageToSavings: req.user.incomePercentageToSavings,
+    monthBalance: currentBalance,
   });
 };
 

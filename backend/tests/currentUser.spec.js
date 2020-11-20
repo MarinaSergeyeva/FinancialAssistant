@@ -40,7 +40,6 @@ describe('CurrentUser test suite', () => {
           username: 'Test1',
           email: 'test1@email.com',
           passwordHash: 'password_hash',
-          balance: 2575,
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
@@ -49,8 +48,14 @@ describe('CurrentUser test suite', () => {
         userDoc.tokens.push(token);
         await userDoc.save();
         transactionDoc = await TransactionModel.create({
-          amount: 75,
+          amount: 5000,
           type: 'EXPENSE',
+          transactionDate: Date.now(),
+          userId: userDoc._id,
+        });
+        transactionDoc = await TransactionModel.create({
+          amount: 20000,
+          type: 'INCOME',
           transactionDate: Date.now(),
           userId: userDoc._id,
         });
@@ -72,12 +77,13 @@ describe('CurrentUser test suite', () => {
         expect(response.body).to.include({
           username: userDoc.username,
           email: userDoc.email,
-          balance: 2500,
+          balance: userDoc.balance,
           flatPrice: userDoc.flatPrice,
           flatSquareMeters: userDoc.flatSquareMeters,
           totalSalary: userDoc.totalSalary,
           passiveIncome: userDoc.passiveIncome,
           incomePercentageToSavings: userDoc.incomePercentageToSavings,
+          monthBalance: 15000,
         });
         expect(response.body).to.not.have.key('passwordHash');
         assert.containsAllKeys(response.body, 'id');
