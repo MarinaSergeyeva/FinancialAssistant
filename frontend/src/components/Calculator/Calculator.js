@@ -7,6 +7,17 @@ import Input from './CalcInput/CalcInput';
 import { ClearButton } from './CalcButton/ClearButton';
 import device from '../../common/deviceSizes';
 
+// export const TestCalculator = () => {
+//   const [inputValue, setInputValue] = useState('');
+
+//   return (
+//     <>
+//       <input placeholder="00.00" />
+//       <Calculator />
+//     </>
+//   );
+// };
+
 const Calculator = () => {
   const [input, setInput] = useState('0');
   // const [result, setResult] = useState(''); /// Will be used in connecting component
