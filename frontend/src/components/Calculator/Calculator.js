@@ -20,6 +20,11 @@ const Calculator = () => {
     }
 
     if (val === '+/-') {
+      console.log('input', input);
+      if (!input.includes(' ')) {
+        setInput(` - ${input}`);
+      }
+
       const array = input.split(' ');
 
       if (array[array.length - 2] === '+') {
@@ -27,13 +32,22 @@ const Calculator = () => {
         const newInput = array.join('');
         setInput(newInput);
       }
+
+      if (array[array.length - 2] === '-') {
+        array.splice(array.length - 2, 1, ' + ');
+        const newInput = array.join('');
+        setInput(newInput);
+      }
+
       return;
     }
+
     setInput(input + val);
   };
 
   const handleEqual = () => {
-    setInput(Math.round(math.evaluate(input) * 100) / 100);
+    setInput(String(Math.round(math.evaluate(input) * 100) / 100));
+
     // setResult(math.evaluate(input));/// Will be used in connecting component
   };
 

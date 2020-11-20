@@ -13,7 +13,12 @@ const Input = props => {
 export default Input;
 
 const InputWrapper = styled.div`
-  overflow: hidden;
+  overflow-y: hidden;
+  /* overflow-x: scroll;
+  ::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+  } */
   display: flex;
   justify-content: flex-end;
   align-items: center;
