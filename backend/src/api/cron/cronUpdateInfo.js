@@ -13,56 +13,67 @@ const monthReportModel = require("./monthReport.model");
 
 const updateInfo = () => {
   cron.schedule("*/10 * * * * *", async () => {
-    // let t = UserDB.find({ [id]: _id });
     //const userTransactions = TransactionModel.find({ userId: user._id });
-
     const users = await UserDB.find();
-
+    //await TransactionModel.deleteMany({ type: "INCOME" });
+    //await monthReportModel.deleteMany();
+    //await TransactionModel.insertMany({ type: "INCOME" });
+    // console.log("users", users);
     await Promise.all(
       users.map(async (user) => {
         const income = user.totalSalary + user.passiveIncome;
-        let now = new Date();
-        const currentMonth = now.getMonth();
-        const userTransactions = TransactionModel.find({
-          userId: user._id,
-          $expr: {
-            $eq: [{ $month: "$transactionDate" }, currentMonth],
-          },
-        });
-
-        const getAmount = userTransactions.reduce(function (sum, transaction) {
-          return sum + transaction.amount;
-        }, 0);
-
         user.balance += income;
         await user.save();
 
         await TransactionModel.create({
           amount: income,
-          transactionDate: new Date(),
+          userId: user._id,
+          transactionDate: Date.now(),
           type: "INCOME",
         });
 
-        await monthReportModel.create({
-          totalExpenses: getAmount(),
-          totalSavings: 200,
-          totalIncome: 200,
-          expectedSavingsPercentage: 5,
-          expectedSavings: 100,
+        let now = new Date();
+        const currentMonth = now.getMonth();
+        await TransactionModel.find({
+          type: "EXPENSES",
+          $expr: {
+            $eq: [{ $month: "$transactionDate" }, currentMonth],
+          },
         });
-        // await monthReportModel.create({
-        //   totalExpenses: { monthlyExpanses },
-        //   totalSavings: monthlyIncome - monthlyExpanses,
-        //   totalIncome: { income }, //DONE
-        //   expectedSavingsPercentage: user.incomePercentageToSavings,
-        //   expectedSavings: user.flatPrice - user.totalSavings,
-        // });
       })
     );
+
+    //console.log("totalAmountOfEx", totalAmountOfEx);
   });
 };
+//         user.balance += income;
+//         await user.save();
+// await TransactionModel.create({
+//   amount: income,
+//   transactionDate: Date.now(),
+//   type: "INCOME",
+// });
+//         await monthReportModel.create({
+//           totalExpenses: totalAmountOfEx.totalExpenses,
+//           totalSavings: 200,
+//           totalIncome: 200,
+//           expectedSavingsPercentage: 5,
+//           expectedSavings: 100,
+//         });
+//       })
+//     );
+//   });
+//   });
+// };
 module.exports = { updateInfo };
 
+// await monthReportModel.create({
+//   totalExpenses: { monthlyExpanses },
+//   totalSavings: monthlyIncome - monthlyExpanses,
+//   totalIncome: { income }, //DONE
+//   expectedSavingsPercentage: user.incomePercentageToSavings,
+//   expectedSavings: user.flatPrice - user.totalSavings,
+// });
 // const totalExpansesMonthly = userTransactions.amount;
 // console.log("userTransactions", userTransactions);
 //=======
@@ -111,3 +122,21 @@ module.exports = { updateInfo };
 //   },
 // ]);
 // })
+//==============
+//const userTransactions = TransactionModel.find({
+//   userId: user._id,
+//   $expr: {
+//     $eq: [{ $month: "$transactionDate" }, currentMonth],
+//   },
+// });
+
+// const getAmount = userTransactions.reduce(function (sum, transaction) {
+//   return sum + transaction.amount;
+// }, 0);
+//======
+// { $type: "EXPENSE" },
+//  { $userId: user._id }
+
+// {
+
+// { $group: { _id: null, totalAmount: { $sum: "$amount" } } }

@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const {
   Schema,
   Types: { ObjectId },
 } = mongoose;
-const { expensesCategories } = require('../dataset');
+const { expensesCategories } = require("../dataset");
 
 const transactionSchema = new Schema(
   {
@@ -11,30 +11,29 @@ const transactionSchema = new Schema(
     transactionDate: { type: Date, required: true },
     type: {
       type: String,
-      enum: ['INCOME', 'EXPENSE'],
-      default: 'EXPENSE',
+      enum: ["INCOME", "EXPENSE"],
+      default: "EXPENSE",
       required: true,
     },
-    comment: { type: String, default: '' },
+    comment: { type: String, default: "" },
     category: {
       type: String,
       enum: Object.values(expensesCategories),
       default: expensesCategories.OTHER,
       required: true,
     },
-    userId: { type: ObjectId, ref: 'User' },
+    userId: { type: ObjectId, ref: "User" },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 transactionSchema.statics.createTransaction = createTransaction;
 
-const TransactionModel = mongoose.model('Transaction', transactionSchema);
+const TransactionModel = mongoose.model("Transaction", transactionSchema);
 
 async function createTransaction(info) {
   return this.create(info);
 }
-
 
 module.exports = {
   TransactionModel,
