@@ -18,34 +18,32 @@ const MainPage = () => {
   );
 
   useEffect(() => {
-    if(userInfo){
-      setUserInfoRegistr(true)
-    } else{
-      setUserInfoRegistr(false)
+    if (userInfo) {
+      setUserInfoRegistr(true);
+    } else {
+      setUserInfoRegistr(false);
     }
-    
+
     console.log(userInfo, 'userInfo');
   }, [userInfo]);
-  
-
 
   return (
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
-          Планировщик для совместного{" "}
+          Планировщик для совместного
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
-          Планировщик для совместного{" "}
+          Планировщик для совместного
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
-          Планировщик <br /> для совместного{" "}
+          Планировщик <br /> для совместного
           <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
@@ -76,7 +74,7 @@ const MainPage = () => {
                     setUserInfoRegistr(true);
                   }}
                 >
-                    Войти
+                  Войти
                 </span>
               </AuthParagraph>
             </>
@@ -92,7 +90,7 @@ const MainPage = () => {
                     setUserInfoRegistr(false);
                   }}
                 >
-                   Зарегистрироваться
+                  Зарегистрироваться
                 </span>
               </AuthParagraph>
             </>

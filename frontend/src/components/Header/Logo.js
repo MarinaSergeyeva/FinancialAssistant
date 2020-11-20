@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImg from '../../assets/images/Logo/logo.png';
+import logoImg from '../../assets/images/logo/logo.png';
 import { Link } from 'react-router-dom';
 
 const Logo = () => {
@@ -8,7 +8,7 @@ const Logo = () => {
     <>
       <LogoContainer>
         <Link to="/">
-          <LogoContainerImg src={logoImg} alt="logo img"></LogoContainerImg>
+          <LogoContainerImg src={logoImg} alt="logo img" />
         </Link>
       </LogoContainer>
     </>
