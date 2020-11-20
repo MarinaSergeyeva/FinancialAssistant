@@ -1,13 +1,15 @@
 const UserDB = require('./user.model');
+const { TransactionModel } = require('../transactions/transaction.model');
 const catchAsync = require('../../utils/catchAsync');
 const AppError = require('../errors/appError');
 
-const getCurrentUser = (req, res, next) => {
+const getCurrentUser = async (req, res, next) => {
+  const expenses = await TransactionModel.getCurrentMonthExpenses(req.user._id);
   return res.status(200).json({
     id: req.user._id,
     username: req.user.username,
     email: req.user.email,
-    balance: req.user.balance,
+    balance: req.user.balance - expenses,
     flatPrice: req.user.flatPrice,
     flatSquareMeters: req.user.flatSquareMeters,
     totalSalary: req.user.totalSalary,
