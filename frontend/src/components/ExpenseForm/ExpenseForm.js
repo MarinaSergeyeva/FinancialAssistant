@@ -12,34 +12,43 @@ import {
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import device, { Desktop, Mobile, Tablet } from '../../common/deviceSizes';
 
+const useInput = initialValue => {
+  const [value, setValue] = useState(initialValue);
+
+  const onChange = e => {
+    setValue(e.target.value);
+  };
+
+  const clear = () => setValue('');
+
+  return {
+    bind: { value, onChange },
+    value,
+    clear,
+  };
+};
+
 const ExpenseForm = () => {
   const [showCalculator, setShowCalculator] = useState(false);
+  const comment = useInput();
+  const amount = useInput();
 
-  const [expenseItem, setHandleExpenseItem] = useState('');
-  const [category, setHandleCategory] = useState('');
-  const [amount, setHandleAmount] = useState('');
   const dispatch = useDispatch();
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
   };
 
-  // const handleChange = e => {
-  //   console.log('hi');
-  //   console.log('e.target', e.target.value);
-  //   setHandleExpenseItem(e.target);
-  // };
-
   const handleSubmit = e => {
     console.log('handleSubmit');
     e.preventDefault();
-    const newTransaction = {
-      expenseItem,
-      category,
-      amount,
-    };
+    // const newTransaction = {
+    //   expenseItem,
+    //   category,
+    //   amount,
+    // };
 
-    dispatch(operation.createTransaction(newTransaction));
+    // dispatch(operation.createTransaction(newTransaction));
   };
 
   const isMobileDevice = useMediaQuery({
@@ -60,13 +69,7 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Название статьи</span>
-            <input
-              type="text"
-              onChange={e => {
-                console.log('e.target.value', e.target.value);
-                setHandleExpenseItem(e.target.value);
-              }}
-            />
+            <input type="text" {...comment.bind} />
           </label>
 
           <label>
@@ -79,7 +82,7 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Сумма</span>
-            <input className="calc-input" type="number" />
+            <input className="calc-input" type="number" {...amount.bind} />
           </label>
           <CalcIconStyled onClick={showCalculatorHandler}>
             <CalcIcon className="icon_hover" />
