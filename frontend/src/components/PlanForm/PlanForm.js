@@ -2,21 +2,17 @@ import React, { useState } from 'react';
 import { PlanFormStyled } from './planFormStyled';
 import PrognosisBuy from '../PrognosisBuy/PrognosisBuy';
 
-const fields = {
-  totalSalary: 0,
-  passiveIncome: 0,
-  balance: 0,
-  flatPrice: 0,
-  flatSquareMeters: 0,
-  incomePercentageToSavings: 0,
-};
 const placeHolder = 'Введите сумму';
 
-// const useUserInfo =
-
-function PlanForm() {
-  const [state, getState] = useState(fields);
+function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
+
+  const onHandleChange = e => {
+    getState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const onHandleFocus = () => setFieldActive(true);
+  const onHandleBlur = () => setFieldActive(false);
 
   return (
     <>
@@ -28,11 +24,9 @@ function PlanForm() {
               <input
                 type="number"
                 name="totalSalary"
-                value={state.totalSalary}
+                value={!state.totalSalary ? '' : state.totalSalary}
                 placeholder={placeHolder}
-                onChange={e =>
-                  getState({ ...state, totalSalary: e.target.value })
-                }
+                onChange={onHandleChange}
               />
             </label>
             <label>
@@ -40,11 +34,9 @@ function PlanForm() {
               <input
                 type="number"
                 name="passiveIncome"
-                value={state.passiveIncome}
+                value={!state.passiveIncome ? '' : state.passiveIncome}
                 placeholder={placeHolder}
-                onChange={e =>
-                  getState({ ...state, passiveIncome: e.target.value })
-                }
+                onChange={onHandleChange}
               />
             </label>
             <label>
@@ -52,9 +44,9 @@ function PlanForm() {
               <input
                 type="number"
                 name="balance"
-                value={state.balance}
+                value={!state.balance ? '' : state.balance}
                 placeholder={placeHolder}
-                onChange={e => getState({ ...state, balance: e.target.value })}
+                onChange={onHandleChange}
               />
             </label>
           </div>
@@ -64,11 +56,9 @@ function PlanForm() {
               <input
                 type="number"
                 name="flatPrice"
-                value={state.flatPrice}
+                value={!state.flatPrice ? '' : state.flatPrice}
                 placeholder={placeHolder}
-                onChange={e =>
-                  getState({ ...state, flatPrice: e.target.value })
-                }
+                onChange={onHandleChange}
               />
             </label>
             <label>
@@ -76,11 +66,9 @@ function PlanForm() {
               <input
                 type="number"
                 name="flatSquareMeters"
-                value={state.flatSquareMeters}
+                value={!state.flatSquareMeters ? '' : state.flatSquareMeters}
                 placeholder={placeHolder}
-                onChange={e =>
-                  getState({ ...state, flatSquareMeters: e.target.value })
-                }
+                onChange={onHandleChange}
               />
             </label>
             <label>
@@ -88,16 +76,15 @@ function PlanForm() {
               <input
                 type="number"
                 name="incomePercentageToSavings"
-                value={state.incomePercentageToSavings}
-                placeholder={placeHolder}
-                onFocus={() => setFieldActive(true)}
-                onBlur={() => setFieldActive(false)}
-                onChange={e =>
-                  getState({
-                    ...state,
-                    incomePercentageToSavings: e.target.value,
-                  })
+                value={
+                  !state.incomePercentageToSavings
+                    ? ''
+                    : state.incomePercentageToSavings
                 }
+                placeholder={placeHolder}
+                onFocus={onHandleFocus}
+                onBlur={onHandleBlur}
+                onChange={onHandleChange}
               />
               <p>
                 {!!isFieldActive &&
@@ -107,7 +94,6 @@ function PlanForm() {
           </div>
         </form>
       </PlanFormStyled>
-      <PrognosisBuy fields={{ ...state }} />
     </>
   );
 }
