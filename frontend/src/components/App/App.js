@@ -1,9 +1,10 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import PublicRoute from '../CustomRoutes/PublicRoute';
+import NotFound from '../../pages/NotFound/NotFound';
 import userOperations from '../../redux/operations/userOperations';
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
               <PublicRoute key={route.label} {...route} />
             ),
           )}
-          {/* <Route component={NotFound} /> */}
+          <Route component={NotFound} />
         </Switch>
       </Suspense>
     </>

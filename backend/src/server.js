@@ -37,7 +37,7 @@ class CrudServer {
   }
 
   initServer() {
-    this.server = express();
+    this.server = express('');
   }
 
   async initDatabase() {

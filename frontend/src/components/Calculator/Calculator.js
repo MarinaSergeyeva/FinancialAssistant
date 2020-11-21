@@ -20,7 +20,7 @@ import device from '../../common/deviceSizes';
 
 const Calculator = () => {
   const [input, setInput] = useState('0');
-  // const [result, setResult] = useState(''); /// Will be used in connecting component
+  const [result, setResult] = useState('');
 
   const addToInput = val => {
     if (input === '0') {
