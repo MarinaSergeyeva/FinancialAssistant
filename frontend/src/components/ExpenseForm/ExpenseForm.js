@@ -28,6 +28,7 @@ const useInput = initialValue => {
 };
 
 const ExpenseForm = () => {
+  const [categories, setCategories] = useState([]);
   const [showCalculator, setShowCalculator] = useState(false);
   const dispatch = useDispatch();
 
@@ -35,16 +36,28 @@ const ExpenseForm = () => {
     setShowCalculator(!showCalculator);
   };
 
+  useEffect(() => {
+    transactionOperations.getTransactionCategories().then(result => {
+      return setCategories(result.categories);
+    });
+  }, []);
+
   const comment = useInput();
   const amount = useInput();
-  const category = [];
-  const categories = transactionOperations.getTransactionCategories;
-  console.log('categories', categories);
-  // const category = useInput();
+  // const categories = [
+  //   'Другое',
+  //   'Развлечения',
+  //   'Продукты',
+  //   'Товары',
+  //   'Транспорт',
+  //   'ЖКХ',
+  // ];
+  const category = useInput();
 
   const transactionInfo = {
     comment: comment.bind.value,
     amount: amount.bind.value,
+    category: category.bind.value,
   };
   dispatch(transactionOperations.changeTransaction(transactionInfo));
 
@@ -53,7 +66,6 @@ const ExpenseForm = () => {
   });
   return (
     <ExpenseFormStyled>
-      <button onClick={'getCategories'}>Click Me</button>
       <form>
         <div className="smallFormContainer">
           <label className="">
@@ -70,16 +82,16 @@ const ExpenseForm = () => {
 
           <label>
             <span>На категорию</span>
-            <select value="value" type="text">
-              {/* {categories.map(
-                elem =>
-                  `<option value="value2" defaultValue>
-                  ${elem}
-                </option>`,
-              )} */}
-              <option value="value2" defaultValue>
-                Развлечения
+            <select type="text" {...category.bind}>
+              <option value="Без категории" defaultValue>
+                -- Выберите категорию --
               </option>
+              {categories.map(elem => (
+                <option value={elem}>{elem}</option>
+              ))}
+              {/* <option value="value2" defaultValue>
+                Развлечения
+              </option> */}
             </select>
           </label>
           <label>
