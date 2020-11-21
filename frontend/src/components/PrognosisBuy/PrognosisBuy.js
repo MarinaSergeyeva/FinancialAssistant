@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import operation from '../../redux/operations/userOperations';
+import operation from '../../redux/operations/userInfoOperation';
 import decor from '../../assets/images/planPage/decor.svg';
 import { PrognosisBuyStyled } from './prognosisBuyStyled';
 
 function PrognosisBuy({ fields }) {
-  // const [state, getState] = useState(time);
   const [years, setYears] = useState(0);
   const [monthes, setMonthes] = useState(0);
 
@@ -22,7 +21,6 @@ function PrognosisBuy({ fields }) {
         100;
       const requiredAmount = Number(fields.flatPrice) - Number(fields.balance);
       const yearsResult = Math.floor(requiredAmount / incomeToSavings / 12);
-      // const monthesResult = Math.ceil(requiredAmount % incomeToSavings);
       const monthesResult = Math.ceil(
         requiredAmount / incomeToSavings - yearsResult * 12,
       );
@@ -33,14 +31,28 @@ function PrognosisBuy({ fields }) {
       setYears(0);
       setMonthes(0);
     }
-    // const reg = /\s/;
-    // const yearsArray = years.toLocaleString().split('');
-    // const monthesArray = monthes.toString().split('');
   };
+
+  // const reg = /\s/;
+  // const yearsArray = yearsResult.toLocaleString().split('');
+  // const yearsArray = years.toString().split('');
+  // const lastIndexOfYearsArray = yearsArray[yearsArray.length - 1];
+  // const monthesArray = monthes.toString().split('');
+  // const lastIndexOfMonthesArray = monthes[monthes.length - 1];
+
+  function declOfNum(number, words) {
+    return words[
+      number % 100 > 4 && number % 100 < 20
+        ? 2
+        : [2, 0, 1, 1, 1, 2][number % 10 < 5 ? number % 10 : 5]
+    ];
+  }
 
   useEffect(() => {
     getResult();
+    // changeWord();
   }, [fields]);
+
   const dispatch = useDispatch();
 
   const onHandleSubmit = e => {
@@ -60,17 +72,17 @@ function PrognosisBuy({ fields }) {
         <h2>У вас будет квартира через:</h2>
         <form onSubmit={onHandleSubmit}>
           <label>
+            {/* {console.log(yearsArray)} */}
+            {/* {console.log(yearsArray[yearsArray.length - 1])} */}
+            {/* {console.log(lastIndexOfYearsArray)} */}
             <input
               type="text"
               name="years"
-              value={`${years} ${
-                'лет'
-                // yearsArray.length - 1 === '1' && 'год'
-                //   ? (yearsArray.length - 1 === '2' && 'года') ||
-                //     (yearsArray.length - 1 === '3' && 'года') ||
-                //     (yearsArray.length - 1 === '4' && 'года')
-                //   : 'лет'
-              }`}
+              value={
+                !years
+                  ? ''
+                  : years + ' ' + declOfNum(years, ['год', 'года', 'лет'])
+              }
               onChange={() => {}}
               placeholder="0 лет"
             />
@@ -80,7 +92,13 @@ function PrognosisBuy({ fields }) {
             <input
               type="text"
               name="monthes"
-              value={`${monthes} месяцев`}
+              value={
+                !monthes
+                  ? ''
+                  : monthes +
+                    ' ' +
+                    declOfNum(monthes, ['месяц', 'месяца', 'месяцев'])
+              }
               onChange={() => {}}
               placeholder="0 месяцев"
             />
