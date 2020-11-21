@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import userConstants from '../constants/userConstants';
 
 const initialState = {
-  // user: {
   info: {
     balance: 0,
     totalSalary: 0,
@@ -11,12 +10,6 @@ const initialState = {
     flatPrice: 0,
     flatSquareMeters: 0,
   },
-  // transaction: {
-  //   category: '',
-  //   amount: 0,
-  //   comment: '',
-  // },
-  // },
 };
 
 const info = (state = initialState.info, { type, payload }) => {
