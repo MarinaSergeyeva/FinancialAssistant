@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
-import operation from '../../redux/operations/userOperations';
 import {
   ExpenseFormStyled,
   CalcIconStyled,
@@ -11,9 +10,11 @@ import {
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import device, { Mobile } from '../../common/deviceSizes';
+import transactionOperations from '../../redux/operations/transactionOperations';
 
 const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
+
   const onChange = e => {
     setValue(e.target.value);
   };
@@ -21,6 +22,7 @@ const useInput = initialValue => {
   return {
     bind: { value, onChange },
     value,
+    // onChange,
     clear,
   };
 };
@@ -35,19 +37,29 @@ const ExpenseForm = () => {
 
   const comment = useInput();
   const amount = useInput();
+  const category = [];
+  const categories = transactionOperations.getTransactionCategories;
+  console.log('categories', categories);
+  // const category = useInput();
+
+  const transactionInfo = {
+    comment: comment.bind.value,
+    amount: amount.bind.value,
+  };
+  dispatch(transactionOperations.changeTransaction(transactionInfo));
+
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
   return (
     <ExpenseFormStyled>
+      <button onClick={'getCategories'}>Click Me</button>
       <form>
         <div className="smallFormContainer">
           <label className="">
             <span>Со счета</span>
-            <select value="value" type="text">
-              <option value="value2" defaultValue>
-                Карта VISA (Ваня)
-              </option>
+            <select type="text">
+              <option defaultValue>Карта VISA (Ваня)</option>
             </select>
             <p>Остаток на счете: 80 000 UAH</p>
           </label>
@@ -59,6 +71,12 @@ const ExpenseForm = () => {
           <label>
             <span>На категорию</span>
             <select value="value" type="text">
+              {/* {categories.map(
+                elem =>
+                  `<option value="value2" defaultValue>
+                  ${elem}
+                </option>`,
+              )} */}
               <option value="value2" defaultValue>
                 Развлечения
               </option>

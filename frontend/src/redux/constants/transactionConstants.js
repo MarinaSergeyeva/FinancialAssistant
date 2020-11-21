@@ -1,8 +1,8 @@
-const CHANGE_TRANSACTION_SUCCESS = '@auth/createTransactionSuccess';
+const CHANGE_TRANSACTION_SUCCESS = '@transaction/changeTransactionSuccess';
 
-const CREATE_TRANSACTION_REQUEST = '@user/createTransactionRequest';
-const CREATE_TRANSACTION_SUCCESS = '@auth/createTransactionSuccess';
-const CREATE_TRANSACTION_ERROR = '@auth/createTransactionError';
+const CREATE_TRANSACTION_REQUEST = '@transaction/createTransactionRequest';
+const CREATE_TRANSACTION_SUCCESS = '@transaction/createTransactionSuccess';
+const CREATE_TRANSACTION_ERROR = '@transaction/createTransactionError';
 
 export default {
   CHANGE_TRANSACTION_SUCCESS,

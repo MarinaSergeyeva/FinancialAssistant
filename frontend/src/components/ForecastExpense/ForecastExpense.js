@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { background, colors } from '../../stylesheet/vars';
 import { userSelectors, transactionSelectors } from '../../redux/selectors';
-import { userOperations } from '../../redux/operations';
+import { transactionOperations } from '../../redux/operations';
 
 const ForecastExpense = () => {
   const transaction = useSelector(state =>
@@ -33,7 +33,7 @@ const ForecastExpense = () => {
         type: 'EXPENSE',
       };
       console.log('newTransaction', newTransaction);
-      await dispatch(userOperations.createTransaction(newTransaction));
+      await dispatch(transactionOperations.createTransaction(newTransaction));
       console.log('Запрос на бэк выполнен');
     } else {
       console.log('Введите сумму транзакции');
