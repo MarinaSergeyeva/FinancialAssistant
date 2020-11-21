@@ -10,17 +10,14 @@ import {
   CalcWrapper,
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
-import device, { Desktop, Mobile, Tablet } from '../../common/deviceSizes';
+import device, { Mobile } from '../../common/deviceSizes';
 
 const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
-
   const onChange = e => {
     setValue(e.target.value);
   };
-
   const clear = () => setValue('');
-
   return {
     bind: { value, onChange },
     value,
@@ -30,33 +27,20 @@ const useInput = initialValue => {
 
 const ExpenseForm = () => {
   const [showCalculator, setShowCalculator] = useState(false);
-  const comment = useInput();
-  const amount = useInput();
-
   const dispatch = useDispatch();
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
   };
 
-  const handleSubmit = e => {
-    console.log('handleSubmit');
-    e.preventDefault();
-    // const newTransaction = {
-    //   expenseItem,
-    //   category,
-    //   amount,
-    // };
-
-    // dispatch(operation.createTransaction(newTransaction));
-  };
-
+  const comment = useInput();
+  const amount = useInput();
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
   return (
     <ExpenseFormStyled>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="smallFormContainer">
           <label className="">
             <span>Со счета</span>

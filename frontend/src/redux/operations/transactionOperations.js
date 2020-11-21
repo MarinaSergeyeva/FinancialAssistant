@@ -1,4 +1,3 @@
-// import { useSelector } from 'react-redux';
 import axios from 'axios';
 import userActions from '../actions/userActions';
 import { authSelector } from '../selectors';
@@ -7,25 +6,23 @@ import { token } from './authOperations';
 // axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
-const getCurrentUser = () => async (dispatch, getState) => {
-  // const isAuth = useSelector(state => authSelector.isAuthenticated(state));
+const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {
     return;
   }
   token.set(persistedToken);
-  dispatch(userActions.getCurrentUserRequest());
+  dispatch(userActions.createTransactionRequest());
   try {
-    console.log(axios);
-    const res = await axios.get('/api/v1/users/current');
-    console.log(res.data, 'CurrentUser');
-    dispatch(userActions.getCurrentUserSuccess(res.data));
+    const res = await axios.post('/api/v1/transactions', transaction);
+    console.log(res.data, 'createTransaction');
+    dispatch(userActions.createTransactionSuccess(res.data));
   } catch (error) {
     console.log(error.message);
-    dispatch(userActions.getCurrentUserError(error));
+    dispatch(userActions.createTransactionError(error));
   }
 };
 
 export default {
-  getCurrentUser,
+  createTransaction,
 };
