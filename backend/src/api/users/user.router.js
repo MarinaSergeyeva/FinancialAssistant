@@ -4,8 +4,7 @@ const {
   updateUsersController,
   getFlatStats,
 } = require('./user.controller');
-const { authorize } = require('../../utils/authMiddleware');
-const { validate } = require('../../utils/validate');
+const { authorize, validate } = require('../../utils');
 const Joi = require('joi');
 const catchAsync = require('../../utils/catchAsync');
 const usersRouter = Router();
@@ -19,9 +18,9 @@ const DataUserSchema = Joi.object({
   incomePercentageToSavings: Joi.number().required(),
 });
 
-usersRouter.get('/current', authorize, getCurrentUser);
+usersRouter.get('/current', catchAsync(authorize), catchAsync(getCurrentUser));
 
-usersRouter.get('/stats/flat', authorize, catchAsync(getFlatStats));
+usersRouter.get('/stats/flat', catchAsync(authorize), catchAsync(getFlatStats));
 
 usersRouter.put(
   '/savings-info',

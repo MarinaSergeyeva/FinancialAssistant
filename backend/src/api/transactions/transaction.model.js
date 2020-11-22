@@ -28,11 +28,37 @@ const transactionSchema = new Schema(
 );
 
 transactionSchema.statics.createTransaction = createTransaction;
+transactionSchema.statics.getCurrentMonthExpenses = getCurrentMonthExpenses;
 
 const TransactionModel = mongoose.model("Transaction", transactionSchema);
 
 async function createTransaction(info) {
   return this.create(info);
+}
+
+async function getCurrentMonthExpenses(userId) {
+  const date = new Date();
+  const startMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  console.log('startMonth', startMonth);
+  const expenseGroup = await this.aggregate([
+    {
+      $match: {
+        userId,
+        transactionDate: { $gte: startMonth },
+        type: 'EXPENSE',
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        expenses: { $sum: '$amount' },
+      },
+    },
+  ]);
+  if (expenseGroup.length) {
+    const [{ expenses }] = expenseGroup;
+    return expenses;
+  } else return 0;
 }
 
 module.exports = {
