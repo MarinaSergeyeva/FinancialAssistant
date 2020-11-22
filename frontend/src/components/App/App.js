@@ -6,6 +6,7 @@ import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import PublicRoute from '../CustomRoutes/PublicRoute';
 import NotFound from '../../pages/NotFound/NotFound';
 import userOperations from '../../redux/operations/userOperations';
+import Header from '../Header/Header';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const App = () => {
   return (
     <>
       <Suspense fallback={null}>
+        <Header />
         <Switch>
           {routes.map(route =>
             route.private ? (

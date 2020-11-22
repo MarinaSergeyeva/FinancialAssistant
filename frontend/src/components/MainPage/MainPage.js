@@ -24,7 +24,7 @@ const MainPage = () => {
       setUserInfoRegistr(false);
     }
 
-    console.log(userInfo, 'userInfo');
+    // console.log(userInfo, 'userInfo');
   }, [userInfo]);
 
   return (

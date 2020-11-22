@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../../components/Modal/Modal';
 import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
-import Header from '../../components/Header/Header';
 
 const AuthPage = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
@@ -39,7 +38,6 @@ const AuthPage = () => {
   });
   return (
     <>
-      {/* <Header /> Раскомментировать, чтобы продолжить работу над хэдэром*/}
       {isOnBigDevice && (
         <>
           <Button type="button" onClick={e => showModalAuth(e)}>
@@ -50,18 +48,15 @@ const AuthPage = () => {
           </Button>
         </>
       )}
-
       {/* <button type="button" onClick={() => showCalculatorHandler()}>
         calculator
       </button>
       {showCalculator && <Calculator />} */}
-
       {isShowRegistration && (
         <Modal closeModal={closeRegistration}>
           <Registration closeModal={closeRegistration} />
         </Modal>
       )}
-
       {isShowLogin && (
         <Modal closeModal={closeLogin}>
           <Login closeModal={closeLogin} />
