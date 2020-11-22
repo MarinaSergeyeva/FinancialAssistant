@@ -25,7 +25,7 @@ const getTotalExpenses = async user => {
       $match: {
         userId: user._id,
         $expr: {
-          $eq: [{ $month: '$transactionDate' }, previousMonth],
+          $eq: [{ $month: '$transactionDate' }, previousMonth + 1],
         },
         type: 'EXPENSE',
       },
@@ -39,31 +39,27 @@ const getTotalExpenses = async user => {
     },
   ]);
 
-  let totalExpenses;
   if (result.length === 0) {
     totalExpenses = 0;
   } else {
     const [{ total }] = result;
     totalExpenses = total;
   }
-    return totalExpenses;
+  createMonthReport(user, totalExpenses);
+  //   return totalExpenses;
 };
-
-
-
 
 const createMonthReport = async (user, totalExpenses) => {
-    const income = user.totalSalary + user.passiveIncome;
-    await monthReportModel.create({
-        userId: user._id,
-        totalExpenses: totalExpenses, //
-        totalSavings: income - totalExpenses, //
-        totalIncome: income,
-        expectedSavingsPercentage: user.incomePercentageToSavings,
-        expectedSavings: (income * user.incomePercentageToSavings) / 100, //
-    });
+  const income = user.totalSalary + user.passiveIncome;
+  await monthReportModel.create({
+    userId: user._id,
+    totalExpenses: totalExpenses, //
+    totalSavings: income - totalExpenses, //
+    totalIncome: income,
+    expectedSavingsPercentage: user.incomePercentageToSavings,
+    expectedSavings: (income * user.incomePercentageToSavings) / 100, //
+  });
 };
-
 
 module.exports = {
   incrementUserBalance,
