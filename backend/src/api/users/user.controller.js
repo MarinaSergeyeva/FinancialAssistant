@@ -27,6 +27,13 @@ const updateUsersController = catchAsync(async (req, res, next) => {
   const updatedUser = await UserDB.findByIdAndUpdate(req.user._id, req.body, {
     new: true,
   });
+
+  if (req.user.balance > 0 && req.body.balance) {
+    return res
+      .status(409)
+      .json({ message: 'user balance already initialized' });
+  }
+
   return res.send({
     id: updatedUser._id,
     username: updatedUser.username,
