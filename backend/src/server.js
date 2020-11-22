@@ -11,8 +11,8 @@ const AppError = require('./api/errors/appError');
 const PORT = process.env.PORT || 8080;
 const globalErrorHandler = require('./api/errors/error.controller');
 
-const mongoose = require("mongoose");
-const { updateInfo } = require("./api/cron/cronUpdateInfo");
+const mongoose = require('mongoose');
+const { updateInfo } = require('./api/cron/cronUpdateInfo');
 
 const giftsRouter = require('./api/gifts/gifts.router');
 
@@ -51,8 +51,8 @@ class CrudServer {
         useFindAndModify: false,
         useCreateIndex: true,
       });
-    updateInfo();
-      console.log("Database has been connected");
+      updateInfo();
+      console.log('Database has been connected');
     } catch (err) {
       console.log('Something bad happened while connection to DB', err);
       process.exit(1);
@@ -75,9 +75,9 @@ class CrudServer {
 
       next();
     });
-    // this.server.use((req, res, next) => {
-    //   updateInfo();
-    // });
+    this.server.use((req, res, next) => {
+      updateInfo();
+    });
   }
 
   initServerRouters() {
