@@ -75,9 +75,8 @@ class CrudServer {
 
       next();
     });
-    this.server.use((req, res, next) => {
-      updateInfo();
-    });
+
+    updateInfo();
   }
 
   initServerRouters() {
