@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./MonthlyExecutionPlan.module.css";
 import ru from "date-fns/locale/ru";
 import styled from "styled-components";
-import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
+import device from "../../common/deviceSizes";
+import { connect } from "react-redux";
+import getCurrentUser from "../../redux/selectors/userSelectors"
 registerLocale("ru", ru);
-export const MonthlyExecutionPlan = () => {
+
+
+
+export const MonthlyExecutionPlan = (props) => {
   const [startDate, setStartDate] = useState(new Date());
+  console.log('props', props)
+  useEffect(
+  () => {
+  console.log('startDate', startDate)
+  },
+  [startDate],
+);
 
   return (
     <>
@@ -30,8 +42,8 @@ export const MonthlyExecutionPlan = () => {
 
         <MonthlyCardsWrapper>
           <MonthlyCards>
-            <MonthlyLabel>Доходы,</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>Доходы</MonthlyLabel>
+            <MonthlyValue>{props.income}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Расходы</MonthlyLabel>
@@ -46,14 +58,23 @@ export const MonthlyExecutionPlan = () => {
             <MonthlyValue>00 000</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>План, %</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>План %</MonthlyLabel>
+            <MonthlyValue>{props.incomePercentageToSavings}</MonthlyValue>
           </MonthlyCards>
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
     </>
   );
 };
+
+const mapStateToProps = state => ({
+  income: state.user.info.balance,
+  incomePercentageToSavings: state.user.info.incomePercentageToSavings(state),
+
+
+})
+export default connect(mapStateToProps)(MonthlyExecutionPlan)
+//========
 const MonthlyMainWrapper = styled.div`
   /* border: 1px solid black; */
   width: 280px;
