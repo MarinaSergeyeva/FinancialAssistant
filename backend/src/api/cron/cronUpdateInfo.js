@@ -10,7 +10,7 @@ const { TransactionModel } = require("../transactions/transaction.model");
 const monthReportModel = require("./monthReport.model");
 
 const updateInfo = () => {
-  cron.schedule("*/10 * * * * *", async () => {
+  cron.schedule("*/50 * * * * *", async () => {
     const users = await UserDB.find();
 
     //await TransactionModel.deleteMany({ type: "INCOME" });

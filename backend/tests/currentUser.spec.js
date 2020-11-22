@@ -34,8 +34,8 @@ describe('CurrentUser test suite', () => {
 
       before(async () => {
         userDoc = await User.create({
-          username: 'Test',
-          email: 'test@email.com',
+          username: 'Test1',
+          email: 'test1@email.com',
           passwordHash: 'password_hash',
         });
 

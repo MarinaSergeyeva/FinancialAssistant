@@ -43,6 +43,7 @@ const calculateStats = (user) => {
     totalSalary,
     passiveIncome,
     incomePercentageToSavings,
+    giftsForUnpacking,
   } = user;
 
   const savingsPercentage = Math.round((balance / flatPrice) * 100) / 100;
@@ -55,14 +56,14 @@ const calculateStats = (user) => {
 
   const totalSquareMeters = flatSquareMeters;
 
-  const monthsLeftToSaveForFlat =
+  const monthsLeftToSaveForFlat = Math.ceil(
     (flatPrice - balance) /
-    ((totalSalary + passiveIncome) * (incomePercentageToSavings / 100));
+      ((totalSalary + passiveIncome) * (incomePercentageToSavings / 100)),
+  );
 
   const savingsForNextSquareMeterLeft =
-    balance - savingsInSquareMeters * (flatPrice / flatSquareMeters);
-
-  const giftsForUnpacking = 0;
+    flatPrice / flatSquareMeters -
+    (balance - savingsInSquareMeters * (flatPrice / flatSquareMeters));
 
   const flatStats = {
     savingsPercentage,
@@ -86,7 +87,7 @@ const getFlatStats = (req, res, next) => {
 
   const stats = calculateStats(user);
 
-  res.status(201).json(stats);
+  res.status(200).json(stats);
 };
 
 module.exports = { getCurrentUser, updateUsersController, getFlatStats };
