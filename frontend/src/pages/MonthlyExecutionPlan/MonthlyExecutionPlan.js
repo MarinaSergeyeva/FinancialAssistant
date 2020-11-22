@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "./MonthlyExecutionPlan.module.css";
-import ru from "date-fns/locale/ru";
-import styled from "styled-components";
-import device from "../../common/deviceSizes";
-import { connect } from "react-redux";
-import getCurrentUser from "../../redux/selectors/userSelectors"
-registerLocale("ru", ru);
+import React, { useState, useEffect } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import styles from './MonthlyExecutionPlan.module.css';
+import ru from 'date-fns/locale/ru';
+import styled from 'styled-components';
+import device from '../../common/deviceSizes';
+import { connect, useSelector } from 'react-redux';
+//import getCurrentUser from "../../redux/selectors/userSelectors";
+import userSelectors from '../../redux/selectors/userSelectors';
+registerLocale('ru', ru);
+//console.log('userSelectors', userSelectors)
 
-
-
-export const MonthlyExecutionPlan = (props) => {
+export const MonthlyExecutionPlan = () => {
   const [startDate, setStartDate] = useState(new Date());
-  console.log('props', props)
-  useEffect(
-  () => {
-  console.log('startDate', startDate)
-  },
-  [startDate],
-);
+  //.log('state', state)
 
+  const userBalance = useSelector(state => {
+    return userSelectors.getCurrentUser(state);
+  });
+  console.log('userBalance', userBalance);
+  const { balance } = userBalance;
   return (
     <>
       <MonthlyMainWrapper>
@@ -32,7 +31,7 @@ export const MonthlyExecutionPlan = (props) => {
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={date => setStartDate(date)}
           dateFormat="MMMM YYY"
           showMonthYearPicker
           showFullMonthYearPicker
@@ -43,7 +42,7 @@ export const MonthlyExecutionPlan = (props) => {
         <MonthlyCardsWrapper>
           <MonthlyCards>
             <MonthlyLabel>Доходы</MonthlyLabel>
-            <MonthlyValue>{props.income}</MonthlyValue>
+            <MonthlyValue>{balance}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Расходы</MonthlyLabel>
@@ -59,7 +58,7 @@ export const MonthlyExecutionPlan = (props) => {
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План %</MonthlyLabel>
-            <MonthlyValue>{props.incomePercentageToSavings}</MonthlyValue>
+            <MonthlyValue>incomePercentageToSavings</MonthlyValue>
           </MonthlyCards>
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
@@ -67,13 +66,18 @@ export const MonthlyExecutionPlan = (props) => {
   );
 };
 
-const mapStateToProps = state => ({
-  income: state.user.info.balance,
-  incomePercentageToSavings: state.user.info.incomePercentageToSavings(state),
+// function mapStateToProps(state, ownProps) {
+// console.log(state)
 
+//}
+// const mapStateToProps = state => ({
+//   //return console.log('state', state);
+//    state: state,
+//    //incomePercentageToSavings: getCurrentUser.incomePercentageToSavings(state),
 
-})
-export default connect(mapStateToProps)(MonthlyExecutionPlan)
+// });
+
+// export default MonthlyExecutionPlan;
 //========
 const MonthlyMainWrapper = styled.div`
   /* border: 1px solid black; */

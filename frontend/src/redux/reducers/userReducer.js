@@ -4,7 +4,7 @@ import userConstants from '../constants/userConstants';
 const initialState = {
   user: {
     info: {
-      balance: 0,
+      balance: 100,
       totalSalary: 0,
       passiveIncome: 0,
       incomePercentageToSavings: 0,
