@@ -8,18 +8,53 @@ import device from '../../common/deviceSizes';
 import { connect, useSelector } from 'react-redux';
 //import getCurrentUser from "../../redux/selectors/userSelectors";
 import userSelectors from '../../redux/selectors/userSelectors';
+import chartSelector from '../../redux/selectors/chartSelector';
+import chartOperation from '../../redux/operations/chartOperations';
 registerLocale('ru', ru);
 //console.log('userSelectors', userSelectors)
 
 export const MonthlyExecutionPlan = () => {
   const [startDate, setStartDate] = useState(new Date());
-  //.log('state', state)
 
-  const userBalance = useSelector(state => {
-    return userSelectors.getCurrentUser(state);
+  function getDate(startDate) {
+    const data = new Date(startDate);
+    //startDate.getFullYear(),
+    const month = data.getMonth() + 1;
+    const year = data.getFullYear();
+    //startDate.getDate(),
+    const dataForRequest = { month, year };
+    return dataForRequest;
+  }
+
+  console.log('getDate()', getDate(startDate));
+  // const userBalance = useSelector(state => {
+  //   return userSelectors.getCurrentUser(state);
+  // });
+  // console.log('userBalance', userBalance);
+  // const { balance, totalSalary, flatPrice } = userBalance;
+  const monthlyReport = useSelector(state => {
+    return chartSelector.getMonthlyReport(state);
   });
-  console.log('userBalance', userBalance);
-  const { balance, totalSalary, flatPrice } = userBalance;
+
+  useEffect(() => {
+    // const patientListUrl = `${baseUrl}api/patient/list?date=${getDate(d)}`;
+    // fetchPatientsStartAsync(patientListUrl);
+    //dispatch(chartOperation.getMonthReport(startDate));
+  }, [startDate]);
+
+  const onChange = dt => {
+    console.log('startDate', dt);
+    setStartDate(dt);
+  };
+  //console.log('monthlyReport', monthlyReport);
+  // const {
+  //   totalExpenses,
+  //   totalSavings,
+  //   totalIncome,
+  //   expectedSavingsPercentage,
+  //   expectedSavings,
+  //   reportDate,
+  // } = monthlyReport;
   return (
     <>
       <MonthlyMainWrapper>
@@ -31,7 +66,8 @@ export const MonthlyExecutionPlan = () => {
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
           selected={startDate}
-          onChange={date => setStartDate(date)}
+          // onChange={reportDate => setStartDate(reportDate)}
+          onChange={onChange}
           dateFormat="MMMM YYY"
           showMonthYearPicker
           showFullMonthYearPicker
@@ -40,44 +76,32 @@ export const MonthlyExecutionPlan = () => {
         />
 
         <MonthlyCardsWrapper>
-          <MonthlyCards>
+          {/* <MonthlyCards>
             <MonthlyLabel>Доходы, &#8372;</MonthlyLabel>
-            <MonthlyValue>{balance}</MonthlyValue>
+            <MonthlyValue>{totalIncome}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Расходы, &#8372;</MonthlyLabel>
-            <MonthlyValue></MonthlyValue>
+            <MonthlyValue>{totalExpenses}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Накоплено, &#8372;</MonthlyLabel>
-            <MonthlyValue></MonthlyValue>
+            <MonthlyValue>{totalSavings}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План, &#8372; </MonthlyLabel>
-            <MonthlyValue>{flatPrice}</MonthlyValue>
+            <MonthlyValue>{expectedSavings}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План %</MonthlyLabel>
-            <MonthlyValue></MonthlyValue>
-          </MonthlyCards>
+            <MonthlyValue>{expectedSavingsPercentage}</MonthlyValue>
+          </MonthlyCards> */}
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
     </>
   );
 };
 
-// function mapStateToProps(state, ownProps) {
-// console.log(state)
-
-//}
-// const mapStateToProps = state => ({
-//   //return console.log('state', state);
-//    state: state,
-//    //incomePercentageToSavings: getCurrentUser.incomePercentageToSavings(state),
-
-// });
-
-// export default MonthlyExecutionPlan;
 //========
 const MonthlyMainWrapper = styled.div`
   /* border: 1px solid black; */

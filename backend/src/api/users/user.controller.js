@@ -42,7 +42,7 @@ const updateUsersController = catchAsync(async (req, res, next) => {
 
 //==== Flat Stats
 
-const calculateStats = (user) => {
+const calculateStats = user => {
   const {
     balance,
     flatPrice,
@@ -58,7 +58,7 @@ const calculateStats = (user) => {
   const savingsValue = balance;
 
   const savingsInSquareMeters = Math.floor(
-    savingsValue / (flatPrice / flatSquareMeters)
+    savingsValue / (flatPrice / flatSquareMeters),
   );
 
   const totalSquareMeters = flatSquareMeters;
@@ -89,7 +89,7 @@ const getFlatStats = (req, res, next) => {
 
   const { flatPrice } = user;
   if (!flatPrice) {
-    return next(new AppError("Saving stats not initialized", 403));
+    return next(new AppError('Saving stats not initialized', 403));
   }
 
   const stats = calculateStats(user);
