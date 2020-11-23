@@ -9,6 +9,7 @@ const initialState = {
     incomePercentageToSavings: 0,
     flatPrice: 0,
     flatSquareMeters: 0,
+    monthBalance: 0,
   },
 };
 
