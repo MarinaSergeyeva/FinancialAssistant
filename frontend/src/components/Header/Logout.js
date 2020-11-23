@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { background } from '../../stylesheet/vars';
-import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import logoutImg from '../../assets/icons/Header/icon-logout.svg';
 
 const Logout = () => {

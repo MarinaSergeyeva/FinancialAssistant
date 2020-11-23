@@ -14,11 +14,11 @@ const AuthPage = () => {
   const [isShowLogin, setIsShowLogin] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
 
-  const showModalAuth = e => {
-    e.target.innerText === 'Рeгистрация'
-      ? setIsShowRegistration(true)
-      : setIsShowLogin(true);
-  };
+  // const showModalAuth = e => {
+  //   e.target.innerText === 'Рeгистрация'
+  //     ? setIsShowRegistration(true)
+  //     : setIsShowLogin(true);
+  // };
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
@@ -38,7 +38,7 @@ const AuthPage = () => {
   });
   return (
     <>
-      {isOnBigDevice && (
+      {/* {isOnBigDevice && (
         <>
           <Button type="button" onClick={e => showModalAuth(e)}>
             Рeгистрация
@@ -47,12 +47,12 @@ const AuthPage = () => {
             Вход
           </Button>
         </>
-      )}
+      )} */}
       {/* <button type="button" onClick={() => showCalculatorHandler()}>
         calculator
       </button>
       {showCalculator && <Calculator />} */}
-      {isShowRegistration && (
+      {/* {isShowRegistration && (
         <Modal closeModal={closeRegistration}>
           <Registration closeModal={closeRegistration} />
         </Modal>
@@ -61,7 +61,7 @@ const AuthPage = () => {
         <Modal closeModal={closeLogin}>
           <Login closeModal={closeLogin} />
         </Modal>
-      )}
+      )} */}
       <MainPage />
     </>
   );

@@ -10,11 +10,15 @@ import { authSelector } from '../../redux/selectors';
 import Logout from './Logout';
 import Navigation from './Navigation';
 import { useMediaQuery } from 'react-responsive';
+import LoginHeader from './LoginHeader';
 
 const Header = () => {
   const isUserAuth = useSelector(state => state.auth.token);
 
   // console.log('showMobileNavigation', showMobileNavigation);
+  const isMobileDevice = useMediaQuery({
+    query: device.mobile,
+  });
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
   });
@@ -22,9 +26,10 @@ const Header = () => {
   return (
     <>
       <HeaderContainer>
-        {isDesktopDevice && <Navigation />}
+        {isUserAuth && isDesktopDevice && <Navigation />}
         <Logo />
         {isUserAuth && <Userinfo />}
+        {!isUserAuth && !isMobileDevice && <LoginHeader />}
       </HeaderContainer>
       <MobileNavigationContainer></MobileNavigationContainer>
     </>

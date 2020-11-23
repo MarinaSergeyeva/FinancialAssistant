@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
@@ -18,6 +18,8 @@ const App = () => {
     setShowMobileNavigation(!showNavigation);
   };
 
+  const isUserAuth = useSelector(state => state.auth.token);
+
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
@@ -34,9 +36,9 @@ const App = () => {
       <Suspense fallback={null}>
         <Header />
         <button onClick={showNavigationHandler}>Navigation</button>
-        {!showNavigation && (isMobileDevice || isTabletDevice) && (
-          <Navigation />
-        )}
+        {isUserAuth &&
+          !showNavigation &&
+          (isMobileDevice || isTabletDevice) && <Navigation />}
         {showNavigation && (
           <Switch>
             {routes.map(route =>
