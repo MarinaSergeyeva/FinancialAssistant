@@ -3,8 +3,6 @@ import { useMediaQuery } from 'react-responsive';
 import { useLocation } from "react-router-dom";
 import device from '../../common/deviceSizes';
 import MainPage from '../../components/MainPage/MainPage';
-import Registration from '../../components/Auth/Registration/Registration';
-import Login from '../../components/Auth/Login/Login';
 import styled from 'styled-components';
 import Calculator from '../../components/Calculator/Calculator';
 import action from '../../redux/actions/authAction'

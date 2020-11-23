@@ -4,11 +4,8 @@ const Joi = require('joi');
 const { validate } = require('../../utils/validate');
 const AuthController = require('./auth.controller');
 const catchAsync = require('../../utils/catchAsync');
-const passport =  require('passport');
-const { sessionModel } = require('../session/session.model');
-const uuid4  = require("uuid4");
+const passport = require('passport');
 const jwt = require('jsonwebtoken');
-
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
@@ -20,7 +17,6 @@ const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
-
 
 authRouter.post(
   '/sign-up',
@@ -35,8 +31,8 @@ authRouter.post(
 );
 
 authRouter.get(
-  "/google",
-  passport.authenticate("google", { scope: ["email", "profile"] }),
+  '/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }),
   // {
   //   session: false,
   //   scope: [
@@ -45,43 +41,20 @@ authRouter.get(
   //   ],
   // }
 );
+
 authRouter.get(
-  "/google/callback",
+  '/google/callback',
 
-  passport.authenticate("google", { session: false }),
-  // AuthController.createSession,
-  ((req, res, next) => {
-      console.log(req.user)
-
-      const sessionToken =  jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-          expiresIn: 2 * 24 * 60 * 60,
-        });
-     return res.redirect(`http://localhost:3000?token=${sessionToken}`)
-          }),
-
-       
-  
-  
-
-  // passport.authenticate("google", { 
-  // successRedirect: `http://localhost:3000?token=${uuid4()}`,
-  // AuthController.createSession,
-  // // `http://localhost:3000?token=${AuthController.createSession}`,
-  // ((req, res, next) => {
-  //   console.log(req.user)
-  //   // const session =  sessionModel.createSession(user._id);
-  //   const sessionToken =  jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-  //       expiresIn: 2 * 24 * 60 * 60,
-  //     });
-
-  //    return `http://localhost:3000?token=${sessionToken}`
-  //   //  console.log(await AuthController.createSession(), "FFFFFFFFFFFFFFFFFFFFFFF")
-  //   }),
-  // // failureRedirect: "http://localhost:8080/error",
-   
-  // }),
-  
- 
+  passport.authenticate('google', { session: false }),
+  (req, res, next) => {
+    const sessionToken = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
+      expiresIn: 2 * 24 * 60 * 60,
+    });
+    return res.redirect(`http://localhost:3000?token=${sessionToken}`);
+  },
+  (req, res, next) => {
+    return res.redirect(`http://localhost:3000/notfound`);
+  },
 );
 
 module.exports = authRouter;

@@ -1,12 +1,8 @@
 const bcrypt = require('bcrypt');
 const UserModel = require('../users/user.model');
 const AppError = require('../errors/appError');
-// import { sessionModel } from '../session/session.model';
-// const { sessionModel } = require ("./session/session.model");
 
 const { sessionModel } = require('../session/session.model');
-
-
 const jwt = require('jsonwebtoken');
 
 
@@ -55,6 +51,7 @@ exports.loginUser = async (req, res, next) => {
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
     expiresIn: 2 * 24 * 60 * 60,
   });
+  
   existingUser.tokens.push(token);
   await existingUser.save();
   res.status(200).json({
