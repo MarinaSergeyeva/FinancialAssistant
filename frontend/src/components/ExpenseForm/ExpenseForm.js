@@ -60,6 +60,7 @@ const ExpenseForm = () => {
     amount: Number(amount.bind.value),
     category: category.bind.value,
   };
+  console.log('transactionInfo', transactionInfo);
   // dispatch(transactionOperations.changeTransaction(transactionInfo));
 
   const isMobileDevice = useMediaQuery({
@@ -96,9 +97,7 @@ const ExpenseForm = () => {
                 -- Выберите категорию --
               </option>
               {categories.map(elem => (
-                <option value={elem} key={elem}>
-                  {elem}
-                </option>
+                <option value={elem}>{elem}</option>
               ))}
               {/* <option value="value2" defaultValue>
                 Развлечения
