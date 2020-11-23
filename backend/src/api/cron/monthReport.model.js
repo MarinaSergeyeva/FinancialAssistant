@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema ,  Types: { ObjectId },} = mongoose;
 
 const monthReportSchema = new Schema({
+  userId: { type: ObjectId, ref: "User" },
   totalExpenses: { type: Number, default: 0, required: true },
   totalSavings: { type: Number, default: 0, required: true },
   totalIncome: { type: Number, default: 0, required: true },

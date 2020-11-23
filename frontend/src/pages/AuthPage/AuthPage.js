@@ -7,17 +7,18 @@ import Login from '../../components/Auth/Login/Login';
 import styled from 'styled-components';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../../components/Modal/Modal';
+import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
 
 const AuthPage = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
   const [isShowLogin, setIsShowLogin] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
 
-  const showModalAuth = e => {
-    e.target.innerText === 'Рeгистрация'
-      ? setIsShowRegistration(true)
-      : setIsShowLogin(true);
-  };
+  // const showModalAuth = e => {
+  //   e.target.innerText === 'Рeгистрация'
+  //     ? setIsShowRegistration(true)
+  //     : setIsShowLogin(true);
+  // };
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
@@ -37,8 +38,7 @@ const AuthPage = () => {
   });
   return (
     <>
-      {/* <Header /> Раскомментировать, чтобы продолжить работу над хэдэром*/}
-      {isOnBigDevice && (
+      {/* {isOnBigDevice && (
         <>
           <Button type="button" onClick={e => showModalAuth(e)}>
             Рeгистрация
@@ -47,24 +47,21 @@ const AuthPage = () => {
             Вход
           </Button>
         </>
-      )}
-
+      )} */}
       {/* <button type="button" onClick={() => showCalculatorHandler()}>
         calculator
       </button>
       {showCalculator && <Calculator />} */}
-
-      {isShowRegistration && (
+      {/* {isShowRegistration && (
         <Modal closeModal={closeRegistration}>
           <Registration closeModal={closeRegistration} />
         </Modal>
       )}
-
       {isShowLogin && (
         <Modal closeModal={closeLogin}>
           <Login closeModal={closeLogin} />
         </Modal>
-      )}
+      )} */}
       <MainPage />
     </>
   );

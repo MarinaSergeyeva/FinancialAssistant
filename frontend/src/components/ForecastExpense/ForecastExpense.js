@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { background, colors } from '../../stylesheet/vars';
-import { userSelectors } from '../../redux/selectors';
-import { userOperations } from '../../redux/operations';
+import { userSelectors, transactionSelectors } from '../../redux/selectors';
+import { transactionOperations } from '../../redux/operations';
 
 const ForecastExpense = () => {
-  const transaction = useSelector(state => userSelectors.getTransaction(state));
+  const transaction = useSelector(state =>
+    transactionSelectors.getTransaction(state),
+  );
   const userData = useSelector(state => userSelectors.getCurrentUser(state));
   const { balance, incomePercentageToSavings } = userData;
   const freeMoney = balance * (1 - incomePercentageToSavings / 100);
@@ -31,7 +33,7 @@ const ForecastExpense = () => {
         type: 'EXPENSE',
       };
       console.log('newTransaction', newTransaction);
-      await dispatch(userOperations.createTransaction(newTransaction));
+      await dispatch(transactionOperations.createTransaction(newTransaction));
       console.log('Запрос на бэк выполнен');
     } else {
       console.log('Введите сумму транзакции');
