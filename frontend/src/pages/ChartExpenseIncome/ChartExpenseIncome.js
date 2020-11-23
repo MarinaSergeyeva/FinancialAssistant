@@ -1,41 +1,40 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect } from 'react';
 
-import moment from "moment";
-import Chart from "chart.js";
-import device from "../../common/deviceSizes.js";
-import { useMediaQuery } from "react-responsive";
+import moment from 'moment';
+import Chart from 'chart.js';
+import device from '../../common/deviceSizes.js';
+import { useMediaQuery } from 'react-responsive';
 
 export const MyChart = () => {
-  //let sData = {};
-  let sData = {
-    months: [],
-    totalSavings: [30, 45, 300, 59, 267, 254, 346, 346, 134, 188, 12, 124],
-    totalExpenses: [202, 415, 30, 79, 217, 24, 36, 36, 14, 18, 122, 14],
-    expectedSavings: [
-      450,
-      420,
-      380,
-      320,
-      217,
-      245,
-      318,
-      300,
-      200,
-      180,
-      122,
-      50,
-    ],
-  };
-  sData.label = [];
-  //sData.time = [];
-  const count = 12;
-  for (let i = 0; i < count; i++) {
-    sData.label.push(moment().month(i - 1));
+  const monthlyReportArray = useSelector(state => {
+    return chartSelector.getMonthlyReport(state);
+  });
+
+  let arrayOfTotalSavings = [];
+  let arrayOfTotalExpenses = [];
+  let arrayOfExpectedSavings = [];
+  let arrayOfReportDate = [];
+  if (monthlyReportArray.length > 0) {
+    arrayOfTotalSavings = monthlyReportArray.map(item => item.totalSavings);
+    arrayOfTotalExpenses = monthlyReportArray.map(item => item.totalExpenses);
+    arrayOfExpectedSavings = monthlyReportArray.map(
+      item => item.expectedSavings,
+    );
+    arrayOfReportDate = monthlyReportArray.map(item => {
+      const data = new Date(item.reportDate);
+      reportMonth = month[data.getMonth()];
+      return reportMonth;
+    });
+  } else {
+    arrayOfTotalSavings = [0];
+    arrayOfTotalExpenses = [0];
+    arrayOfExpectedSavings = [0];
+    arrayOfReportDate = [0];
   }
 
   useEffect(() => {
-    var ctx = document.getElementById("myChart").getContext("2d");
-    ctx.lineCap = "round";
+    var ctx = document.getElementById('myChart').getContext('2d');
+    ctx.lineCap = 'round';
     const yAxesConfig = {
       gridLines: {
         display: true,
@@ -56,44 +55,44 @@ export const MyChart = () => {
         display: false,
         offset: true,
       },
-      type: "time",
+      type: 'time',
       time: {
-        unit: "month",
+        unit: 'month',
         displayFormats: {
-          month: "MMM",
+          month: 'MMM',
         },
       },
     };
     var chart = new Chart(ctx, {
-      type: isOnMobile ? "horizontalBar" : "bar",
+      type: isOnMobile ? 'horizontalBar' : 'bar',
       // type: "bar",
       data: {
-        labels: sData.label,
+        labels: arrayOfReportDate,
 
         datasets: [
           {
             barPercentage: 0.8,
             categoryPercentage: 0.6,
-            label: "Доходы",
-            backgroundColor: "#7C9AF2",
-            data: sData.totalSavings,
+            label: 'Доходы',
+            backgroundColor: '#7C9AF2',
+            data: arrayOfTotalSavings,
           },
           {
             categoryPercentage: 0.6,
             barPercentage: 0.8,
-            label: "Расходы",
-            backgroundColor: "#FF6C00",
-            data: sData.totalExpenses,
+            label: 'Расходы',
+            backgroundColor: '#FF6C00',
+            data: arrayOfTotalExpenses,
           },
           {
             categoryPercentage: 0.6,
             barPercentage: 0.8,
-            label: "План",
+            label: 'План',
             // lineHeight: 1.2,
             // fontColor: "pink",
             // padding: 50,
-            backgroundColor: "#D7D8DD",
-            data: sData.expectedSavings,
+            backgroundColor: '#D7D8DD',
+            data: arrayOfExpectedSavings,
           },
         ],
       },
@@ -101,10 +100,10 @@ export const MyChart = () => {
       options: {
         legend: {
           display: true,
-          align: "start",
+          align: 'start',
 
           labels: {
-            fontColor: "rgba(24, 25, 31, 0.54)",
+            fontColor: 'rgba(24, 25, 31, 0.54)',
             boxWidth: 20,
             boxHeight: 20,
             padding: isOnMobile ? 5 : 30,
@@ -139,7 +138,7 @@ export const MyChart = () => {
       <canvas
         id="myChart"
         //width={isOnMobile ? "180" : "50"}
-        height={isOnTablet ? "200" : isOnMobile ? "480" : "200"}
+        height={isOnTablet ? '200' : isOnMobile ? '480' : '200'}
         className="chartjs"
       ></canvas>
     </div>
