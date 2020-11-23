@@ -32,8 +32,9 @@ const getCurrentUserRequest = () => ({
   type: userConstants.GET_CURRENT_USER_REQUEST,
 });
 
-const getCurrentUserSuccess = () => ({
+const getCurrentUserSuccess = (user) => ({
   type: userConstants.GET_CURRENT_USER_SUCCESS,
+  payload: user
 });
 
 const getCurrentUserError = error => ({
