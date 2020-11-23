@@ -7,6 +7,7 @@ import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
 import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
 import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
+import LogoutModal from '../../components/Logout/LogoutModal';
 
 const ExpensePage = () => {
   {

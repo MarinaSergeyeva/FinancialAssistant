@@ -12,7 +12,7 @@ import Navigation from './Navigation';
 import { useMediaQuery } from 'react-responsive';
 import LoginHeader from './LoginHeader';
 
-const Header = () => {
+const Header = ({ showNavigation }) => {
   const isUserAuth = useSelector(state => state.auth.token);
 
   // console.log('showMobileNavigation', showMobileNavigation);
@@ -28,7 +28,7 @@ const Header = () => {
       <HeaderContainer>
         {isUserAuth && isDesktopDevice && <Navigation />}
         <Logo />
-        {isUserAuth && <Userinfo />}
+        {isUserAuth && <Userinfo showNavigation={showNavigation} />}
         {!isUserAuth && !isMobileDevice && <LoginHeader />}
       </HeaderContainer>
       <MobileNavigationContainer></MobileNavigationContainer>

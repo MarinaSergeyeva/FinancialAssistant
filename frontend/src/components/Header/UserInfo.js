@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { authSelector } from '../../redux/selectors';
 import { useMediaQuery } from 'react-responsive';
 
-const Userinfo = () => {
+const Userinfo = ({ showNavigation }) => {
   const isUserAuth = useSelector(state => state.auth.token);
 
   const isMobileDevice = useMediaQuery({
@@ -25,7 +25,11 @@ const Userinfo = () => {
         <AvatarImg src={avatarImg} alt="avatar img"></AvatarImg>
         {isUserAuth && !isMobileDevice && <p className="userName">Nickname</p>}
         {!isDesktopDevice && (
-          <BurgerMenu src={burgerMenu} alt="menu icon"></BurgerMenu>
+          <BurgerMenu
+            src={burgerMenu}
+            alt="menu icon"
+            onClick={showNavigation}
+          ></BurgerMenu>
         )}
         {isDesktopDevice && <Logout />}
       </UserinfoContainer>

@@ -12,7 +12,7 @@ import device from '../../common/deviceSizes';
 import { useMediaQuery } from 'react-responsive';
 
 const App = () => {
-  const [showNavigation, setShowMobileNavigation] = useState('false');
+  const [showNavigation, setShowMobileNavigation] = useState(false);
   // console.log('showNavigation', showNavigation);
   const showNavigationHandler = () => {
     setShowMobileNavigation(!showNavigation);
@@ -34,12 +34,12 @@ const App = () => {
   return (
     <>
       <Suspense fallback={null}>
-        <Header />
-        <button onClick={showNavigationHandler}>Navigation</button>
-        {isUserAuth &&
-          !showNavigation &&
-          (isMobileDevice || isTabletDevice) && <Navigation />}
-        {showNavigation && (
+        <Header showNavigation={showNavigationHandler} />
+        {/* <button onClick={showNavigationHandler}>Navigation</button> */}
+        {isUserAuth && showNavigation && (isMobileDevice || isTabletDevice) && (
+          <Navigation showNavigation={showNavigationHandler} />
+        )}
+        {!showNavigation && (
           <Switch>
             {routes.map(route =>
               route.private ? (

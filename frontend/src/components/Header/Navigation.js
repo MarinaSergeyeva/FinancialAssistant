@@ -7,7 +7,7 @@ import Logout from './Logout';
 import { useMediaQuery } from 'react-responsive';
 import navigationBackgroundTablet from '../../assets/images/Navigation/navigation_bg-tablet.png';
 
-const Navigation = () => {
+const Navigation = ({ showNavigation }) => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
@@ -17,9 +17,15 @@ const Navigation = () => {
   return (
     <>
       <NavigationContainer>
-        <StyleNavLInk to="/plan">Персональный план</StyleNavLInk>
-        <StyleNavLInk to="/expense">Расходы</StyleNavLInk>
-        <StyleNavLInk to="/dynamics">Динамика</StyleNavLInk>
+        <StyleNavLInk to="/plan" onClick={showNavigation}>
+          Персональный план
+        </StyleNavLInk>
+        <StyleNavLInk to="/expense" onClick={showNavigation}>
+          Расходы
+        </StyleNavLInk>
+        <StyleNavLInk to="/dynamics" onClick={showNavigation}>
+          Динамика
+        </StyleNavLInk>
         {(isMobileDevice || isTabletDevice) && <Logout />}
         {isTabletDevice && (
           <NavigationBgImg
@@ -47,6 +53,7 @@ const NavigationContainer = styled.div`
     width: 768px;
     padding-top: 74px;
     padding-left: 316px;
+    padding-right: 296px;
   }
   @media ${device.desktop} {
     flex-direction: row;
@@ -104,4 +111,5 @@ const NavigationBgImg = styled.img`
   position: absolute;
   bottom: 0px;
   right: 0px;
+  z-index: -1;
 `;

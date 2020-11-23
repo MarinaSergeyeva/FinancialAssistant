@@ -32,19 +32,19 @@ const MainPage = () => {
       <Mobile>
         <MainPageTitile>
           Планировщик для совместного
-          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
           Планировщик для совместного
-          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
           Планировщик <br /> для совместного
-          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
       <GoogleAuthBtn>
@@ -125,19 +125,19 @@ export default MainPage;
 const MainPageContainer = styled.div`
   padding-top: 34px;
   padding-bottom: 34px;
+  width: 290px;
+  margin: 0 auto;
 
   @media ${device.tablet} {
     padding-top: 122px;
     padding-bottom: 122px;
     width: 545px;
-    margin: 0 auto;
   }
   @media ${device.desktop} {
     position: relative;
     padding-top: 70px;
     padding-bottom: 43px;
     width: 968px;
-    margin: 0 auto;
   }
 `;
 
