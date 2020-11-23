@@ -27,7 +27,21 @@ user: {
     giftsUnpacked: 0,
     giftsForUnpacking: 0,
   },
+  userReport:[
+    {
+      totalExpenses: 0,
+      totalSavings: 50,
+      totalIncome: 50,
+      expectedSavingsPercentage: 5,
+      expectedSavings: 2.5,
+      reportDate: 2020-11-23T07:11:07.058+00:00,
+      userId: 5fb7df4441f76630fcc6d93e,
+    },
+    {},
+    ...
+  ]
 },
+categories:[],
 error: {},
 
 
