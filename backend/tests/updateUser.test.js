@@ -23,7 +23,6 @@ describe('UpdateUserInfo test suite', () => {
           email: 'test400userUpdate@email.com',
           passwordHash: 'password_hash',
         });
-
         fakeUserBD = {
           balance: 'string',
           flatPrice: null,
