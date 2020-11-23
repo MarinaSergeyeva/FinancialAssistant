@@ -26,24 +26,6 @@ const getCurrentUser = () => async (dispatch, getState) => {
   }
 };
 
-const createTransaction = transaction => async (dispatch, getState) => {
-  const persistedToken = authSelector.isAuthenticated(getState());
-  if (!persistedToken) {
-    return;
-  }
-  token.set(persistedToken);
-  dispatch(userActions.createTransactionRequest());
-  try {
-    const res = await axios.post('/api/v1/transactions', transaction);
-    console.log(res.data, 'createTransaction');
-    dispatch(userActions.createTransactionSuccess(res.data));
-  } catch (error) {
-    console.log(error.message);
-    dispatch(userActions.createTransactionError(error));
-  }
-};
-
 export default {
   getCurrentUser,
-  createTransaction,
 };

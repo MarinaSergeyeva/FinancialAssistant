@@ -9,11 +9,13 @@ const background = {
   main: 'rgba(0, 0, 0, 0.03)',
   secondary: '#373b53',
   third: 'rgba(55, 59, 83, 0.2)',
+  logout: '#E3EAFF',
 };
 
 const textColor = {
   main: '#18191f',
   secondary: 'rgba(24, 25, 31, 0.56)',
+  third: 'rgba(24, 25, 31, 0.87)',
 };
 
 const boxShadow = {
