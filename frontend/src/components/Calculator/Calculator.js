@@ -6,24 +6,12 @@ import styled from 'styled-components';
 import Input from './CalcInput/CalcInput';
 import { ClearButton } from './CalcButton/ClearButton';
 import device from '../../common/deviceSizes';
-import { connect } from 'react-redux';
-import calculatorSelector from '../../redux/selectors/calculatorSelector';
+import { useDispatch } from 'react-redux';
 import calculatorActions from '../../redux/actions/calculatorActions';
 
-// export const TestCalculator = () => {
-//   const [inputValue, setInputValue] = useState('');
-
-//   return (
-//     <>
-//       <input placeholder="00.00" />
-//       <Calculator />
-//     </>
-//   );
-// };
-
-const Calculator = ({ setCalcResult }) => {
+const Calculator = () => {
+  const dispatch = useDispatch();
   const [input, setInput] = useState('0');
-  const [result, setResult] = useState('');
 
   const addToInput = val => {
     if (input === '0') {
@@ -60,9 +48,12 @@ const Calculator = ({ setCalcResult }) => {
   };
 
   const handleEqual = () => {
-    setInput(String(Math.round(math.evaluate(input) * 100) / 100));
-    setCalcResult(String(Math.round(math.evaluate(input) * 100) / 100));
-    // setResult(math.evaluate(input));/// Will be used in connecting component
+    setInput(0);
+    dispatch(
+      calculatorActions.calcResultSuccess(
+        Math.round(math.evaluate(input) * 100) / 100,
+      ),
+    );
   };
 
   return (
@@ -114,19 +105,7 @@ const Calculator = ({ setCalcResult }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    calcResult: calculatorSelector.calcResult,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setCalcResult: data => dispatch(calculatorActions.calcResultSuccess(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calculator);
+export default Calculator;
 
 const RowD = styled.div`
   display: flex;
