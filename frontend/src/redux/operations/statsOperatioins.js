@@ -20,5 +20,20 @@ const getStatsFlat = () => async (dispatch, getState) => {
     dispatch(statsActions.getStatsError());
   }
 };
+const updateGifts = () => async (dispatch, getState) => {
+  const tokenNow = authSelector.isAuthenticated(getState());
+  if (!tokenNow) return;
 
-export default getStatsFlat;
+  token.set(tokenNow);
+
+  dispatch(statsActions.updateGiftsForUnpackingRequest());
+  try {
+    const res = await axios.put('api/v1/gifts/unpack');
+    dispatch(statsActions.updateGiftsForUnpackingSuccess(res.data));
+  } catch (error) {
+    console.log(error.message);
+    dispatch(statsActions.updateGiftsForUnpackingError(error.message));
+  }
+};
+
+export default { getStatsFlat, updateGifts };

@@ -2,4 +2,11 @@ const getGiftsForUnpacking = state => state.user.stats.giftsForUnpacking;
 
 const getSavingsPercentage = state => state.user.stats.savingsPercentage;
 
-export default { getGiftsForUnpacking, getSavingsPercentage };
+const getSavingsForNextSquareMeterLeft = state =>
+  state.user.stats.savingsForNextSquareMeterLeft;
+
+export default {
+  getGiftsForUnpacking,
+  getSavingsPercentage,
+  getSavingsForNextSquareMeterLeft,
+};
