@@ -6,7 +6,7 @@ import ru from "date-fns/locale/ru";
 import styled from "styled-components";
 import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
 registerLocale("ru", ru);
-export const MonthlyExecutionPlan = () => {
+export const MonthlyExecutionPlan = (props) => {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
