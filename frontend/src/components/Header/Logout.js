@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { background } from '../../stylesheet/vars';
 import logoutImg from '../../assets/icons/Header/icon-logout.svg';
+import Modal from '../Modal/Modal';
+import LogoutModal from '../Logout/LogoutModal';
 
 const Logout = () => {
+  const [showExitModal, setShowExitModal] = useState(false);
+
+  const showExitModalHandler = () => {
+    setShowExitModal(!showExitModal);
+  };
   return (
     <>
-      <ButtonLogout>
+      <ButtonLogout onClick={showExitModalHandler}>
         Выйти
         <LogoutImg src={logoutImg} alt={'Logout img'}></LogoutImg>
       </ButtonLogout>
+      {showExitModal && (
+        <Modal closeModal={showExitModalHandler}>
+          <LogoutModal closeModal={showExitModalHandler} />
+        </Modal>
+      )}
     </>
   );
 };

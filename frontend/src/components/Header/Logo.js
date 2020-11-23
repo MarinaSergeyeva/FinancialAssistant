@@ -8,10 +8,10 @@ const Logo = () => {
   return (
     <>
       <LogoContainer>
-        <Link to="/">
+        <Link to="/" className="logoIcon">
           <LogoImg src={logoImg} alt="logo img" />
+          <p className="logoText">Finance</p>
         </Link>
-        <p className="logoText">Finance</p>
       </LogoContainer>
     </>
   );
@@ -23,7 +23,11 @@ const LogoContainer = styled.div`
   height: 52px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
+  .logoIcon {
+    display: flex;
+  }
   .logoText {
     font-family: 'Gilroy';
     font-style: normal;
