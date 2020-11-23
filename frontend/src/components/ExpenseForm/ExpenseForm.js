@@ -23,7 +23,6 @@ const useInput = initialValue => {
   return {
     bind: { value, onChange },
     value,
-    // onChange,
     clear,
   };
 };
@@ -100,9 +99,6 @@ const ExpenseForm = () => {
                   {elem}
                 </option>
               ))}
-              {/* <option value="value2" defaultValue>
-                Развлечения
-              </option> */}
             </select>
           </label>
           <label>

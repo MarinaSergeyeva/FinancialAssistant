@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import userConstants from '../constants/userConstants';
 import userInfoConstants from '../constants/userInfoConstants';
 
