@@ -1,22 +1,26 @@
 const colors = {
-    main: '#ff6c00',
-    secondary: '#7c9af2',
-    third:'#d7d8dd',
-}
+  main: '#ff6c00',
+  secondary: '#7c9af2',
+  third: '#d7d8dd',
+  formTextHover: '#2196F3',
+};
 
 const background = {
-    main: 'rgba(0, 0, 0, 0.03)',
-    secondary: '#373b53',
-    third:'rgba(55, 59, 83, 0.2)'
-}
+  main: 'rgba(0, 0, 0, 0.03)',
+  secondary: '#373b53',
+  third: 'rgba(55, 59, 83, 0.2)',
+  logout: '#E3EAFF',
+};
 
 const textColor = {
-    main: '#18191f',
-    secondary:'rgba(24, 25, 31, 0.56)'
-}
+  main: '#18191f',
+  secondary: 'rgba(24, 25, 31, 0.56)',
+  third: 'rgba(24, 25, 31, 0.87)',
+};
 
 const boxShadow = {
-    main:'0px 24px 38px rgba(0, 0, 0, 0.14),0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2)'
-}
+  main:
+    '0px 24px 38px rgba(0, 0, 0, 0.14),0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2)',
+};
 
-export {colors,background,textColor,boxShadow}
+export { colors, background, textColor, boxShadow };

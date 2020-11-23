@@ -1,0 +1,48 @@
+// STORE
+
+loading: spinnerReducers.loadingReducer,
+auth: persistReducer(persistConfig, authReducer),
+user: {
+  info:{
+    balance: 0,
+    totalSalary: 0,
+    passiveIncome: 0,
+    incomePercentageToSavings: 0,
+    flatPrice: 0,
+    flatSquareMeters: 0,
+  },
+  transaction:{
+    category: '',
+    amount: 0,
+    comment: '',
+  },
+  calculator: 0,
+  stats: {
+    savingsPercentage: 0,
+    savingsValue: 0,
+    savingsInSquareMeters: 0,
+    totalSquareMeters: 0,
+    monthsLeftToSaveForFlat: 0,
+    savingsForNextSquareMeterLeft: 0,
+    giftsUnpacked: 0,
+    giftsForUnpacking: 0,
+  },
+},
+error: {},
+
+
+// ROOT - authReducer
+
+const root = combineReducers({
+    loading: spinnerReducers.loadingReducer,
+    auth: persistReducer(persistConfig, authReducer),
+    user: {
+      combineReducers({
+        info: infoReducer,
+        transaction: transactionReducer,
+        calculator: calculatorReducer,
+        stats: statsReducer,
+      })
+    },
+    error: {},
+});

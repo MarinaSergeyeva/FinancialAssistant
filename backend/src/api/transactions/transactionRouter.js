@@ -3,9 +3,9 @@ const transactionRouter = express.Router();
 const {
   createTransaction,
   getTransactionCategories,
-  getTrans,
 } = require('./transaction.controller');
 const { authorize } = require('../../utils/authMiddleware');
+const catchAsync = require('../../utils/catchAsync');
 const { validate } = require('../../utils/validate');
 const Joi = require('joi');
 
@@ -19,10 +19,14 @@ const addTransactionSchema = Joi.object({
 
 transactionRouter.post(
   '/',
-  authorize,
+  catchAsync(authorize),
   validate(addTransactionSchema),
   createTransaction,
 );
-transactionRouter.get('/categories', authorize, getTransactionCategories);
+transactionRouter.get(
+  '/categories',
+  catchAsync(authorize),
+  getTransactionCategories,
+);
 
 module.exports = transactionRouter;

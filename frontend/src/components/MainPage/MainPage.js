@@ -28,54 +28,28 @@ const MainPage = () => {
       setUserInfoRegistr(false);
     }
 
-    console.log(userInfo, 'userInfo');
+    // console.log(userInfo, 'userInfo');
   }, [userInfo]);
-
-  //!Auth2.0
-  // useEffect(() => {
-  //   console.log(process.env.GOOGLE_OAUTH_CLIENT_ID,"process.env.GOOGLE_OAUTH_CLIENT_ID")
-  //   console.log(process.env,"process.env")
-
-  
-  //   window.gapi.load('auth2', function () {
-  //     window.gapi.auth2
-  //       .init({
-  //         // client_id: process.env.GOOGLE_OAUTH_CLIENT_ID
-  //         client_id:'990109383642-u2uca33kaqjg92optvu2kmos3as66nbv.apps.googleusercontent.com'
-  //       })
-  //       .than(
-  //         () => console.log('init OK'))
-  //       .catch(() => console.log('init error'))
-  
-  //   });
- 
-  // });
-
-  const googleSignIn = () => {
-    const GoogleAuth =  window.gapi.auth2.getAuthInstance();
-    GoogleAuth.signIn()
-  }
-
 
 
   return (
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
-          Планировщик для совместного{' '}
-          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+          Планировщик для совместного
+          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Mobile>
       <Tablet>
         <MainPageTitile>
-          Планировщик для совместного{' '}
-          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+          Планировщик для совместного
+          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Tablet>
       <Desktop>
         <MainPageTitile>
-          Планировщик <br /> для совместного{' '}
-          <MainPageTitileOrange>накопления</MainPageTitileOrange> на квартиру
+          Планировщик <br /> для совместного
+          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
       <GoogleAuthBtn href="http://localhost:8080/api/v1/auth/google">
@@ -156,19 +130,19 @@ export default MainPage;
 const MainPageContainer = styled.div`
   padding-top: 34px;
   padding-bottom: 34px;
+  width: 290px;
+  margin: 0 auto;
 
   @media ${device.tablet} {
     padding-top: 122px;
     padding-bottom: 122px;
     width: 545px;
-    margin: 0 auto;
   }
   @media ${device.desktop} {
     position: relative;
     padding-top: 70px;
     padding-bottom: 43px;
     width: 968px;
-    margin: 0 auto;
   }
 `;
 

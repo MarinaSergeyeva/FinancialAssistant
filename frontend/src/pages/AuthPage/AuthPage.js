@@ -8,9 +8,9 @@ import Login from '../../components/Auth/Login/Login';
 import styled from 'styled-components';
 import Calculator from '../../components/Calculator/Calculator';
 import action from '../../redux/actions/authAction'
-
 import Modal from '../../components/Modal/Modal';
 import { useDispatch } from 'react-redux';
+import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
 
 const AuthPage = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
@@ -27,14 +27,14 @@ const AuthPage = () => {
   }, [location.search]);
 
 
-  const showModalAuth = (e) => {
-    e.target.innerText === "Рeгистрация"
-      ? setIsShowRegistration(true)
-      : setIsShowLogin(true);
-  };
+  // const showModalAuth = e => {
+  //   e.target.innerText === 'Рeгистрация'
+  //     ? setIsShowRegistration(true)
+  //     : setIsShowLogin(true);
+  // };
 
   const showCalculatorHandler = () => {
-    setShowCalculator(true);
+    setShowCalculator(!showCalculator);
   };
 
   const closeRegistration = () => {
@@ -43,7 +43,7 @@ const AuthPage = () => {
   };
 
   const closeLogin = () => {
-    setIsShowLogin((prev) => !prev);
+    setIsShowLogin(prev => !prev);
   };
 
   const isOnBigDevice = useMediaQuery({
@@ -51,33 +51,30 @@ const AuthPage = () => {
   });
   return (
     <>
-      {isOnBigDevice && (
+      {/* {isOnBigDevice && (
         <>
-          <Button type="button" onClick={(e) => showModalAuth(e)}>
+          <Button type="button" onClick={e => showModalAuth(e)}>
             Рeгистрация
           </Button>
-          <Button type="button" onClick={(e) => showModalAuth(e)}>
+          <Button type="button" onClick={e => showModalAuth(e)}>
             Вход
           </Button>
         </>
-      )}
-
-      <button type="button" onClick={() => showCalculatorHandler()}>
+      )} */}
+      {/* <button type="button" onClick={() => showCalculatorHandler()}>
         calculator
       </button>
-      {showCalculator && <Calculator />}
-
-      {isShowRegistration && (
+      {showCalculator && <Calculator />} */}
+      {/* {isShowRegistration && (
         <Modal closeModal={closeRegistration}>
           <Registration closeModal={closeRegistration} />
         </Modal>
       )}
-
       {isShowLogin && (
         <Modal closeModal={closeLogin}>
           <Login closeModal={closeLogin} />
         </Modal>
-      )}
+      )} */}
       <MainPage />
     </>
   );

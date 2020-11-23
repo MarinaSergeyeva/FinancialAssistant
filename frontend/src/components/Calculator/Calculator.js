@@ -9,7 +9,7 @@ import device from '../../common/deviceSizes';
 
 const Calculator = () => {
   const [input, setInput] = useState('0');
-  // const [result, setResult] = useState(''); /// Will be used in connecting component
+  const [result, setResult] = useState('');
 
   const addToInput = val => {
     if (input === '0') {
@@ -19,8 +19,8 @@ const Calculator = () => {
   };
 
   const handleEqual = () => {
-    setInput(Math.round(math.evaluate(input) * 100) / 100);
-    // setResult(math.evaluate(input));/// Will be used in connecting component
+    // setInput(Math.round(math.evaluate(input) * 100) / 100);
+    setResult(math.evaluate(input));
   };
 
   return (
