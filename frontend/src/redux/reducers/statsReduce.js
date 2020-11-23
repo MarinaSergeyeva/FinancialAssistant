@@ -17,6 +17,8 @@ const stats = (state = initialState.stats, { type, payload }) => {
   switch (type) {
     case statsConstants.GET_STATS_SUCCESS:
       return { ...state, ...payload };
+    case statsConstants.UPDATE_UNPACK_GIFT_SUCCESS:
+      return { ...state, ...payload };
 
     default:
       return state;
