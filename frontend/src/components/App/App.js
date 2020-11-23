@@ -13,7 +13,7 @@ import { useMediaQuery } from 'react-responsive';
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState('false');
-  console.log('showNavigation', showNavigation);
+  // console.log('showNavigation', showNavigation);
   const showNavigationHandler = () => {
     setShowMobileNavigation(!showNavigation);
   };
