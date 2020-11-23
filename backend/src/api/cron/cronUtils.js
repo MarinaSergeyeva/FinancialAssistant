@@ -15,9 +15,8 @@ const createIncomeTransaction = async user => {
     type: 'INCOME',
   });
 };
-
 let totalExpenses;
-const getTotalExpenses = async user => {
+const getTotalExpensesAndSendReport = async user => {
   let now = new Date();
   const previousMonth = now.getMonth();
   const result = await TransactionModel.aggregate([
@@ -25,7 +24,7 @@ const getTotalExpenses = async user => {
       $match: {
         userId: user._id,
         $expr: {
-          $eq: [{ $month: '$transactionDate' }, previousMonth + 1],
+          $eq: [{ $month: '$transactionDate' }, previousMonth],
         },
         type: 'EXPENSE',
       },
@@ -46,24 +45,23 @@ const getTotalExpenses = async user => {
     totalExpenses = total;
   }
   createMonthReport(user, totalExpenses);
-  //   return totalExpenses;
 };
 
 const createMonthReport = async (user, totalExpenses) => {
   const income = user.totalSalary + user.passiveIncome;
   await monthReportModel.create({
     userId: user._id,
-    totalExpenses: totalExpenses, //
-    totalSavings: income - totalExpenses, //
+    totalExpenses: totalExpenses,
+    totalSavings: income - totalExpenses,
     totalIncome: income,
     expectedSavingsPercentage: user.incomePercentageToSavings,
-    expectedSavings: (income * user.incomePercentageToSavings) / 100, //
+    expectedSavings: (income * user.incomePercentageToSavings) / 100,
   });
 };
 
 module.exports = {
   incrementUserBalance,
   createIncomeTransaction,
-  getTotalExpenses,
+  getTotalExpensesAndSendReport,
   createMonthReport,
 };
