@@ -16,9 +16,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
   token.set(persistedToken);
   dispatch(userActions.getCurrentUserRequest());
   try {
-    console.log(axios);
     const res = await axios.get('/api/v1/users/current');
-    console.log(res.data, 'CurrentUser');
     dispatch(userActions.getCurrentUserSuccess(res.data));
   } catch (error) {
     console.log(error.message);
