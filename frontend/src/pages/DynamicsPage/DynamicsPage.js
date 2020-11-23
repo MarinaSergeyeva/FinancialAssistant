@@ -13,7 +13,6 @@ import getStatsFlat from '../../redux/operations/statsOperatioins';
 const DynamicsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch()
     dispatch(getStatsFlat());
   }, []);
 
