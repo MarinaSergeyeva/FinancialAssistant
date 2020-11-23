@@ -48,15 +48,19 @@ const DynamicsPage = () => {
 export default DynamicsPage;
 
 const DynamicsPageWrapper = styled.div`
-  padding: 38px 20px 56px;
+  width: 280px;
+  padding: 38px 0px 56px;
+  margin: 0 auto;
 
   @media ${device.tablet} {
+    width: 690px;
     padding: 74px 130px;
   }
   @media ${device.desktop} {
+    width: 1170px;
     display: flex;
     justify-content: space-between;
-    padding: 60px 56px 64px;
+    padding: 60px 0px 64px;
   }
 `;
 

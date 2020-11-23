@@ -41,25 +41,6 @@ const getCurrentUserError = error => ({
   payload: error,
 });
 
-const changeTransactionSuccess = transaction => ({
-  type: userConstants.CHANGE_TRANSACTION_SUCCESS,
-  payload: transaction,
-});
-
-const createTransactionRequest = () => ({
-  type: userConstants.CREATE_TRANSACTION_REQUEST,
-});
-
-const createTransactionSuccess = transaction => ({
-  type: userConstants.CREATE_TRANSACTION_SUCCESS,
-  payload: transaction,
-});
-
-const createTransactionError = error => ({
-  type: userConstants.CREATE_TRANSACTION_ERROR,
-  payload: error,
-});
-
 export default {
   addUserRequest,
   addUserSuccess,
@@ -70,10 +51,4 @@ export default {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
-
-  changeTransactionSuccess,
-
-  createTransactionRequest,
-  createTransactionSuccess,
-  createTransactionError,
 };
