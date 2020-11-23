@@ -3,8 +3,14 @@ import styled from 'styled-components';
 import apartmentImg from '../../assets/images/VisualizationApartment/flat_plan-min.jpg';
 import { useMediaQuery } from 'react-responsive';
 import device from '../../common/deviceSizes';
+import { useSelector } from 'react-redux';
+import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
 
 const ApartmentVisualization = () => {
+  const savingPercentage = useSelector(state =>
+    statsFlatSelectors.getSavingsPercentage(state),
+  );
+
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
@@ -21,7 +27,7 @@ const ApartmentVisualization = () => {
         width={isOnTablet ? '240' : isOnMobile ? '280' : '269'}
         height="166"
       />
-      <Overlay></Overlay>
+      <Overlay savingPercentage={savingPercentage}></Overlay>
     </ApartmentWrapper>
   );
 };
@@ -48,11 +54,13 @@ const Overlay = styled.div`
   top: 0px;
   left: 0px;
   text-align: center;
-  background: linear-gradient(
+  background: ${props => {
+    return ` linear-gradient(
     to right,
-    rgba(124, 154, 242, 0.2) 70%,
-    rgba(255, 255, 255, 0) 70%,
+    rgba(124, 154, 242, 0.2) ${props.savingPercentage * 100}%,
+    rgba(255, 255, 255, 0) ${props.savingPercentage * 100}%,
     rgba(255, 255, 255, 0) 100%,
     rgb(4, 120, 21) 100%
-  );
+  )`;
+  }};
 `;
