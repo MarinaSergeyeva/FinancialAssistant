@@ -5,11 +5,11 @@ const initialState = {
   user: {
     info: {
       balance: 100,
-      totalSalary: 0,
-      passiveIncome: 0,
-      incomePercentageToSavings: 0,
-      flatPrice: 0,
-      flatSquareMeters: 0,
+      totalSalary: 200,
+      passiveIncome: 150,
+      incomePercentageToSavings: 3,
+      flatPrice: 30000,
+      flatSquareMeters: 200,
     },
     transaction: {
       category: '',

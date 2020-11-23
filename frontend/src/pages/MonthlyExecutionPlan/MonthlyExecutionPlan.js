@@ -19,7 +19,7 @@ export const MonthlyExecutionPlan = () => {
     return userSelectors.getCurrentUser(state);
   });
   console.log('userBalance', userBalance);
-  const { balance } = userBalance;
+  const { balance, totalSalary, flatPrice } = userBalance;
   return (
     <>
       <MonthlyMainWrapper>
@@ -41,24 +41,24 @@ export const MonthlyExecutionPlan = () => {
 
         <MonthlyCardsWrapper>
           <MonthlyCards>
-            <MonthlyLabel>Доходы</MonthlyLabel>
+            <MonthlyLabel>Доходы, &#8372;</MonthlyLabel>
             <MonthlyValue>{balance}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>Расходы</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>Расходы, &#8372;</MonthlyLabel>
+            <MonthlyValue></MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>Накоплено</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>Накоплено, &#8372;</MonthlyLabel>
+            <MonthlyValue></MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>План, </MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>План, &#8372; </MonthlyLabel>
+            <MonthlyValue>{flatPrice}</MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План %</MonthlyLabel>
-            <MonthlyValue>incomePercentageToSavings</MonthlyValue>
+            <MonthlyValue></MonthlyValue>
           </MonthlyCards>
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
