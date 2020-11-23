@@ -10,9 +10,10 @@ import Modal from '../Modal/Modal';
 const ForecastExpense = () => {
   const transaction = useSelector(transactionSelectors.getTransaction);
   const userData = useSelector(userSelectors.getCurrentUser);
-  console.log('userData', userData);
+
   const { monthBalance, incomePercentageToSavings } = userData;
   const freeMoney = monthBalance * (1 - incomePercentageToSavings / 100);
+
   const todayDate = new Date();
   const restDays =
     daysInMonth(todayDate.getMonth(), todayDate.getFullYear()) -
@@ -22,10 +23,13 @@ const ForecastExpense = () => {
     freeMoney / restDays -
     Number(transaction.amount)
   ).toFixed(2);
+
   const monthLimit = (freeMoney - Number(transaction.amount)).toFixed(2);
+
   const [isShowModal, setIsShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
+
   const handleClick = async () => {
     if (transaction.amount) {
       const newTransaction = {
@@ -35,7 +39,6 @@ const ForecastExpense = () => {
       };
       console.log('newTransaction', newTransaction);
       await dispatch(transactionOperations.createTransaction(newTransaction));
-
       setMessage('Ваши данные по расходам сохранены!');
     } else {
       setMessage('Введите сумму транзакции больше нуля');
@@ -46,6 +49,7 @@ const ForecastExpense = () => {
   const closeForm = () => {
     setIsShowModal(prev => !prev);
   };
+
   return (
     <>
       <ForecastExpenseWrapper>
@@ -81,7 +85,7 @@ function daysInMonth(month, year) {
 const ForecastExpenseWrapper = styled.div`
   padding: 34px 40px;
   border-radius: 8px;
-  background: ${background.secondary}; // var(--secondary-background-color);
+  background: ${background.secondary}; 
   color: #ffffff;
   .inner {
     margin-bottom: 18px;
@@ -103,7 +107,7 @@ const ForecastExpenseWrapper = styled.div`
     width: 100%;
     padding: 18px;
     border: none;
-    background: ${colors.main}; // var(--main-color);
+    background: ${colors.main}; 
     border-radius: inherit;
     color: inherit;
   }
