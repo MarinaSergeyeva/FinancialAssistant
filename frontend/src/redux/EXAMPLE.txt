@@ -16,7 +16,6 @@ user: {
     amount: 0,
     comment: '',
   },
-  calculator: 0,
   stats: {
     savingsPercentage: 0,
     savingsValue: 0,
@@ -27,7 +26,22 @@ user: {
     giftsUnpacked: 0,
     giftsForUnpacking: 0,
   },
+  userReport:[
+    {
+      totalExpenses: 0,
+      totalSavings: 50,
+      totalIncome: 50,
+      expectedSavingsPercentage: 5,
+      expectedSavings: 2.5,
+      reportDate: 2020-11-23T07:11:07.058+00:00,
+      userId: 5fb7df4441f76630fcc6d93e,
+    },
+    {},
+    ...
+  ]
 },
+calculator: 0,
+categories:[],
 error: {},
 
 
