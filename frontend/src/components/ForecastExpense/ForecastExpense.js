@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { background, colors } from '../../stylesheet/vars';
 import { userSelectors, transactionSelectors } from '../../redux/selectors';
 import { transactionOperations } from '../../redux/operations';
+import Modal from '../Modal/Modal';
 
 const ForecastExpense = () => {
-  const transaction = useSelector(state =>
-    transactionSelectors.getTransaction(state),
-  );
-  const userData = useSelector(state => userSelectors.getCurrentUser(state));
-  const { balance, incomePercentageToSavings } = userData;
-  const freeMoney = balance * (1 - incomePercentageToSavings / 100);
+  const transaction = useSelector(transactionSelectors.getTransaction);
+  const userData = useSelector(userSelectors.getCurrentUser);
+
+  const { monthBalance, incomePercentageToSavings } = userData;
+  const freeMoney = monthBalance * (1 - incomePercentageToSavings / 100);
+
   const todayDate = new Date();
   const restDays =
     daysInMonth(todayDate.getMonth(), todayDate.getFullYear()) -
@@ -22,9 +23,13 @@ const ForecastExpense = () => {
     freeMoney / restDays -
     Number(transaction.amount)
   ).toFixed(2);
+
   const monthLimit = (freeMoney - Number(transaction.amount)).toFixed(2);
 
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
+
   const handleClick = async () => {
     if (transaction.amount) {
       const newTransaction = {
@@ -34,27 +39,40 @@ const ForecastExpense = () => {
       };
       console.log('newTransaction', newTransaction);
       await dispatch(transactionOperations.createTransaction(newTransaction));
-      console.log('Запрос на бэк выполнен');
+      setMessage('Ваши данные по расходам сохранены!');
     } else {
-      console.log('Введите сумму транзакции');
+      setMessage('Введите сумму транзакции больше нуля');
     }
+    setIsShowModal(true);
   };
+
+  const closeForm = () => {
+    setIsShowModal(prev => !prev);
+  };
+
   return (
-    <ForecastExpenseWrapper>
-      <div className="inner">
-        <p className="value">{dailyLimit} &#x20B4;</p>
-        <p className="small">Лимит на день</p>
-      </div>
+    <>
+      <ForecastExpenseWrapper>
+        <div className="inner">
+          <p className="value">{dailyLimit} &#x20B4;</p>
+          <p className="small">Лимит на день</p>
+        </div>
 
-      <div className="inner">
-        <p className="value">{monthLimit > 0 ? 0 : monthLimit} &#x20B4;</p>
-        <p className="small">Отклонение от плановой суммы накопления</p>
-      </div>
+        <div className="inner">
+          <p className="value">{monthLimit > 0 ? 0 : monthLimit} &#x20B4;</p>
+          <p className="small">Отклонение от плановой суммы накопления</p>
+        </div>
 
-      <button className="btn" onClick={handleClick} type="button">
-        Готово
-      </button>
-    </ForecastExpenseWrapper>
+        <button className="btn" onClick={handleClick} type="button">
+          Готово
+        </button>
+      </ForecastExpenseWrapper>
+      {isShowModal && (
+        <Modal closeModal={closeForm}>
+          <Message>{message}</Message>
+        </Modal>
+      )}
+    </>
   );
 };
 
@@ -67,7 +85,7 @@ function daysInMonth(month, year) {
 const ForecastExpenseWrapper = styled.div`
   padding: 34px 40px;
   border-radius: 8px;
-  background: ${background.secondary}; // var(--secondary-background-color);
+  background: ${background.secondary}; 
   color: #ffffff;
   .inner {
     margin-bottom: 18px;
@@ -89,7 +107,7 @@ const ForecastExpenseWrapper = styled.div`
     width: 100%;
     padding: 18px;
     border: none;
-    background: ${colors.main}; // var(--main-color);
+    background: ${colors.main}; 
     border-radius: inherit;
     color: inherit;
   }
@@ -107,4 +125,12 @@ const ForecastExpenseWrapper = styled.div`
   @media (min-width: ${size.desktop}) {
     padding: 32px 65px;
   }
+`;
+
+const Message = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 100px;
+  background-color: #ffffff;
 `;
