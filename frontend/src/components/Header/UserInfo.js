@@ -10,7 +10,7 @@ import { authSelector } from '../../redux/selectors';
 import { useMediaQuery } from 'react-responsive';
 
 const Userinfo = ({ showNavigation }) => {
-  const isUserAuth = useSelector(state => state.auth.token);
+  const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,

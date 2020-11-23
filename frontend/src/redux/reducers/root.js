@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './authReducer';
+import stats from './statsReduce';
 import userReducer from './userReducer';
 import transactionReducer from './transactionReducer';
 import monthlyReportReducer from './chartReducer';
@@ -19,6 +20,7 @@ const root = combineReducers({
     transaction: transactionReducer,
     monthlyReport: monthlyReportReducer,
   }),
+  calculator: calculatorReduce,
   error: {},
 });
 
