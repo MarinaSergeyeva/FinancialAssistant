@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import device, { size } from '../../common/deviceSizes';
 //import { colors } from "../../stylesheet/vars";
@@ -6,9 +6,16 @@ import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
 import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPlan.js';
 import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
-import ApartmentVisualization from "../../components/ApartmentVisualization/ApartmentVisualization"
+import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
+import { useDispatch } from 'react-redux';
+import getStatsFlat from '../../redux/operations/statsOperatioins';
 
 const DynamicsPage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getStatsFlat());
+  }, []);
+
   return (
     <>
       <DynamicsPageWrapper>

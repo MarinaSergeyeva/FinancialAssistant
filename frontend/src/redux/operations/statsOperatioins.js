@@ -1,15 +1,16 @@
 import axios from 'axios';
 import statsActions from '../actions/statsActions';
 import { authSelector } from '../selectors';
+import { token } from './authOperations';
 
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getStatsFlat = () => async (dispatch, getState) => {
-  const persistedToken = authSelector.isAuthenticated(getState());
-  if (!persistedToken) {
-    return;
-  }
-  token.set(persistedToken);
+  const tokenNow = authSelector.isAuthenticated(getState());
+  if (!tokenNow) return;
+
+  token.set(tokenNow);
+
   dispatch(statsActions.getStatsRequest());
   try {
     const res = await axios.get('/api/v1/users/stats/flat');
