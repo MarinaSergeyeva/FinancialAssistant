@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from './authReducer';
 import stats from './statsReduce';
 import userReducer from './userReducer';
+import calculatorReduce from './calculatorReduces';
 
 export const persistConfig = {
   key: 'auth',
@@ -15,6 +16,7 @@ const root = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
   user: userReducer,
   stats: stats,
+  calculator: calculatorReduce,
   error: {},
 });
 
