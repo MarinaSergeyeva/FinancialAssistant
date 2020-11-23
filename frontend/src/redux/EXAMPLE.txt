@@ -16,7 +16,6 @@ user: {
     amount: 0,
     comment: '',
   },
-  calculator: 0,
   stats: {
     savingsPercentage: 0,
     savingsValue: 0,
@@ -41,6 +40,7 @@ user: {
     ...
   ]
 },
+calculator: 0,
 categories:[],
 error: {},
 

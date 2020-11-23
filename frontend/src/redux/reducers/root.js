@@ -18,8 +18,8 @@ const root = combineReducers({
   user: combineReducers({
     info: userReducer,
     transaction: transactionReducer,
+    stats: stats,
   }),
-  stats: stats,
   calculator: calculatorReduce,
   error: {},
 });
