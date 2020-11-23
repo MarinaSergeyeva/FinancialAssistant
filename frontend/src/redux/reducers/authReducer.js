@@ -5,6 +5,7 @@ const initialState = {
 };
 
 const auth = (state = initialState, { type, payload }) => {
+  console.log(payload, "reducer")
   switch (type) {
     case authConstants.REGISTER_SUCCESS:
       return payload;

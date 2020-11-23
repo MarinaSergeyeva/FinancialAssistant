@@ -19,6 +19,7 @@ const loginRequest = () => ({
 });
 
 const loginSuccess = credential => {
+  console.log(credential, "credential")
   return {
     type: constants.LOGIN_SUCCESS,
     payload: credential,

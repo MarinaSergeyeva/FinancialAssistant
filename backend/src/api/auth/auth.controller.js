@@ -67,28 +67,49 @@ exports.loginUser = async (req, res, next) => {
   });
 };
 
+exports.authorize = async (req, res, next) => {
+  try {
+
+    const authorizationHeader = req.get("Authorization");
+    const token = authorizationHeader.replace("Bearer ", "");
+
+    try {
+      const { sessionId } = await jwt.verify(token, config.jwtSecret);
+
+      const sessionWithUser = await sessionModel.getSessionByIdWithUser(
+        sessionId
+      );
+
+      console.log("sessionWithUser", sessionWithUser);
+
+      if (!sessionWithUser || sessionWithUser.status === "disabled") {
+        throw new UnauthorizedError();
+      }
+
+      req.user = sessionWithUser.user;
+      req.session = sessionWithUser;
+
+      next();
+    } catch (err) {
+      console.log(err);
+      next(new UnauthorizedError("User not authorized"));
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
  exports.createSession = async (req, res, next) => {
     try {
-      // 1. take user from req.user (passport put it there)
-      // 2. create session for authenticated user
-      // 3. create token for this session
-
-      // const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
-      //   expiresIn: 2 * 24 * 60 * 60,
-      // });
 
       const user = req.user;
-
-      console.log(user, '>>>>>>>>>>>>>>>>>>>user');
-
+      // console.log(user, '>>>>>>>>>>>>>>>>>>>user');
       const session = await sessionModel.createSession(user._id);
-      const sessionToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      const sessionToken = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
           expiresIn: 2 * 24 * 60 * 60,
         });
 
-      return res.status(201).json({
-        token: sessionToken,
-      });
+      return res.status(201).json(sessionToken);
     } catch (err) {
       next(err);
     }

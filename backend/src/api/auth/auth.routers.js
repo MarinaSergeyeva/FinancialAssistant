@@ -5,6 +5,8 @@ const { validate } = require('../../utils/validate');
 const AuthController = require('./auth.controller');
 const catchAsync = require('../../utils/catchAsync');
 const passport =  require('passport');
+const { sessionModel } = require('../session/session.model');
+const uuid4  = require("uuid4");
 
 
 
@@ -18,6 +20,19 @@ const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
+
+const userData = (req, res, next) => {
+  const user = req.user;
+  // console.log(user, '>>>>>>>>>>>>>>>>>>>user');
+  const session =  sessionModel.createSession(user._id);
+  const sessionToken =  jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: 2 * 24 * 60 * 60,
+    });
+
+    return sessionToken
+}
+
+
 
 authRouter.post(
   '/sign-up',
@@ -33,24 +48,37 @@ authRouter.post(
 
 authRouter.get(
   "/google",
-  passport.authenticate("google", { scope: ["email", "profile"] })
+  passport.authenticate("google", { scope: ["email", "profile"] }),
+  // {
+  //   session: false,
+  //   scope: [
+  //     "https://www.googleapis.com/auth/userinfo.email",
+  //     "https://www.googleapis.com/auth/plus.login",
+  //   ],
+  // }
 );
 authRouter.get(
   "/google/callback",
 
-  passport.authenticate("google", { session: false }),
-  AuthController.createSession,
+  // passport.authenticate("google", { session: false }),
+  // AuthController.createSession,
+  
 
-  // passport.authenticate("google", {
-    
-    // successRedirect: "http://localhost:8080/success",
-    // failureRedirect: "http://localhost:8080/error",
+  passport.authenticate("google", {
+
+  successRedirect: `http://localhost:3000?token=${uuid4()}`,
+  failureRedirect: "http://localhost:8080/error",
    
-  // }),
+  }),
 
-  (req, res, next) => {
-  console.log(req.user)
-  }
+  ((req, res, next) => {
+    console.log(req.user)
+    const session =  sessionModel.createSession(user._id);
+    const sessionToken =  jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: 2 * 24 * 60 * 60,
+      });
+    //  console.log(await AuthController.createSession(), "FFFFFFFFFFFFFFFFFFFFFFF")
+    }),
 );
 
 module.exports = authRouter;
