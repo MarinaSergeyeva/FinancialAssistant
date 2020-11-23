@@ -11,6 +11,7 @@ import {
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import device, { Mobile } from '../../common/deviceSizes';
 import transactionOperations from '../../redux/operations/transactionOperations';
+import transactionActions from '../../redux/actions/transactionActions';
 
 const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
@@ -28,7 +29,7 @@ const useInput = initialValue => {
 };
 
 const ExpenseForm = () => {
-  // const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [showCalculator, setShowCalculator] = useState(false);
   const dispatch = useDispatch();
 
@@ -36,34 +37,43 @@ const ExpenseForm = () => {
     setShowCalculator(!showCalculator);
   };
 
-  // useEffect(() => {
-  //   transactionOperations.getTransactionCategories().then(result => {
-  //     return setCategories(result.categories);
-  //   });
-  // }, []);
+  useEffect(() => {
+    transactionOperations.getTransactionCategories().then(result => {
+      return setCategories(result.categories);
+    });
+  }, []);
 
-  const comment = useInput();
-  const amount = useInput();
-  const categories = [
-    'Другое',
-    'Развлечения',
-    'Продукты',
-    'Товары',
-    'Транспорт',
-    'ЖКХ',
-  ];
-  const category = useInput();
+  const comment = useInput('');
+  const amount = useInput('');
+  // const categories = [
+  //   'Другое',
+  //   'Развлечения',
+  //   'Продукты',
+  //   'Товары',
+  //   'Транспорт',
+  //   'ЖКХ',
+  // ];
+  const category = useInput('');
 
   const transactionInfo = {
     comment: comment.bind.value,
-    amount: amount.bind.value,
+    amount: Number(amount.bind.value),
     category: category.bind.value,
   };
-  dispatch(transactionOperations.changeTransaction(transactionInfo));
+  console.log('transactionInfo', transactionInfo);
+  // dispatch(transactionOperations.changeTransaction(transactionInfo));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
+
+  useEffect(() => {
+    // dispatch(transactionOperations.changeTransaction(transactionInfo));
+    if (amount !== '') {
+      dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+    }
+  }, [amount]);
+
   return (
     <ExpenseFormStyled>
       <form>

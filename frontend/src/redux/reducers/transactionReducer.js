@@ -15,8 +15,8 @@ const transaction = (state = initialState.transaction, { type, payload }) => {
 
     case transactionConstants.CREATE_TRANSACTION_SUCCESS:
       console.log('payload', payload);
-      const { amount, category, comment } = payload;
-      return { ...state, amount, category, comment };
+      // const { amount, category, comment } = payload;
+      return { ...state, ...initialState.transaction };
 
     default:
       return state;

@@ -7,7 +7,6 @@ import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPl
 import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
-import Calculator from '../../components/Calculator/Calculator';
 
 const DynamicsPage = () => {
   return (
