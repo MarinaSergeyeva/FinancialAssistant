@@ -1,9 +1,19 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { textColor, colors } from '../../stylesheet/vars';
+import { statsFlatSelectors } from '../../redux/selectors';
 
 const ProgressInfo = () => {
+  const statsFlat = useSelector(statsFlatSelectors.getStatsFlat);
+  const {
+    savingsPercentage,
+    savingsValue,
+    savingsInSquareMeters,
+    totalSquareMeters,
+    monthsLeftToSaveForFlat,
+  } = statsFlat;
   return (
     <>
       <TotalInfo>
@@ -98,3 +108,15 @@ const ProgressBar = styled.div`
     background: linear-gradient(90deg, #fad961 17.16%, #ff6c00 103.41%);
   }
 `;
+
+const declOfNum = (number, titles) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return titles[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
+  ];
+};
+
+const YEARS_TITLE = ['год', 'года', 'лет'];
+const MONTHS_TITLE = ['месяц', 'месяца', 'месяцев'];

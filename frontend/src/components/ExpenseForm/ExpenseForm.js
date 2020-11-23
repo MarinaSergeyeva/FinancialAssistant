@@ -92,7 +92,7 @@ const ExpenseForm = () => {
           <label>
             <span>На категорию</span>
             <select type="text" {...category.bind}>
-              <option value="Без категории" defaultValue>
+              <option key="Без категории" value="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
               {categories.map(elem => (
