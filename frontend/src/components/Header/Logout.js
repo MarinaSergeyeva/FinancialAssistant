@@ -11,52 +11,11 @@ const Logout = () => {
         Выйти
         <LogoutImg src={logoutImg} alt={'Logout img'}></LogoutImg>
       </ButtonLogout>
-
-      {/* <Mobile>
-        <ButtonWrapper>
-          <ButtonLogout>
-            Выйти
-            <LogoutImg src={logoutImg} alt={'Logout img'}></LogoutImg>
-          </ButtonLogout>
-        </ButtonWrapper>
-      </Mobile>
-
-      <Tablet>
-        <ButtonWrapper>
-          <ButtonLogout>
-            Выйти
-            <LogoutImg src={logoutImg} alt={'Logout img'}></LogoutImg>
-          </ButtonLogout>
-        </ButtonWrapper>
-      </Tablet>
-
-      <Desktop>
-        <ButtonWrapper>
-          <ButtonLogout>
-            Выйти
-            <LogoutImg src={logoutImg} alt={'Logout img'}></LogoutImg>
-          </ButtonLogout>
-        </ButtonWrapper>
-      </Desktop> */}
     </>
   );
 };
 
 export default Logout;
-
-// const ButtonWrapper = styled.div`
-//   display: flex;
-//   position: relative;
-//   justify-content: flex-end;
-//   margin: 0 auto;
-//   padding-top: 16px;
-
-//   @media ${device.tablet} {
-//   }
-
-//   @media ${device.desktop} {
-//   }
-// `;
 
 const ButtonLogout = styled.button`
   width: 100px;

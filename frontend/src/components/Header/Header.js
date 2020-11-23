@@ -14,6 +14,7 @@ import { useMediaQuery } from 'react-responsive';
 const Header = () => {
   const isUserAuth = useSelector(state => state.auth.token);
 
+  // console.log('showMobileNavigation', showMobileNavigation);
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
   });
@@ -21,12 +22,11 @@ const Header = () => {
   return (
     <>
       <HeaderContainer>
-        {/* <Unauthorized /> */}
-        {/* <Authorized /> */}
         {isDesktopDevice && <Navigation />}
         <Logo />
         {isUserAuth && <Userinfo />}
       </HeaderContainer>
+      <MobileNavigationContainer></MobileNavigationContainer>
     </>
   );
 };
@@ -40,6 +40,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0px 1px 0px #e5e9f2;
 
   @media ${device.tablet} {
     width: 690px;
@@ -48,4 +49,9 @@ const HeaderContainer = styled.div`
   @media ${device.desktop} {
     width: 1170px;
   } ;
+`;
+
+const MobileNavigationContainer = styled.div`
+  width: 280px;
+  margin: 0 auto;
 `;

@@ -20,7 +20,6 @@ const Logo = () => {
 export default Logo;
 
 const LogoContainer = styled.div`
-  /* width: 280px; */
   height: 52px;
   display: flex;
   align-items: center;
