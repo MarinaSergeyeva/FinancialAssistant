@@ -12,6 +12,11 @@ import calculatorActions from '../../redux/actions/calculatorActions';
 const Calculator = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState('0');
+  const [isCalcShow, setIsCalcShow] = useState(true);
+
+  const closeCalc = () => {
+    setIsCalcShow(false);
+  };
 
   const addToInput = val => {
     if (input === '0') {
@@ -49,6 +54,7 @@ const Calculator = () => {
 
   const handleEqual = () => {
     setInput(0);
+    setIsCalcShow(false);
     dispatch(
       calculatorActions.calcResultSuccess(
         Math.round(math.evaluate(input) * 100) / 100,
@@ -57,51 +63,55 @@ const Calculator = () => {
   };
 
   return (
-    <CalculatorWrapper>
-      <Row justifyContent={'flex-end'}>
-        <Input input={input} />
-      </Row>
-      <Row>
-        <ClearButton
-          handleClear={() => {
-            setInput('0');
-          }}
-          handleClick={addToInput}
-        >
-          AC
-        </ClearButton>
-        <Button handleClick={addToInput}>+/-</Button>
-        <Button handleClick={addToInput}> % </Button>
-        <Button handleClick={addToInput}> / </Button>
-      </Row>
-      <Row>
-        <Button handleClick={addToInput}>7</Button>
-        <Button handleClick={addToInput}>8</Button>
-        <Button handleClick={addToInput}>9</Button>
-        <Button handleClick={addToInput}> * </Button>
-      </Row>
-      <Row>
-        <Button handleClick={addToInput}>4</Button>
-        <Button handleClick={addToInput}>5</Button>
-        <Button handleClick={addToInput}>6</Button>
-        <Button handleClick={addToInput}> + </Button>
-      </Row>
-      <Row>
-        <Button handleClick={addToInput}>1</Button>
-        <Button handleClick={addToInput}>2</Button>
-        <Button handleClick={addToInput}>3</Button>
-        <Button handleClick={addToInput}> - </Button>
-      </Row>
-      <RowD>
-        <Button radius={'22px'} handleClick={addToInput}>
-          0
-        </Button>
-        <RowL>
-          <Button handleClick={addToInput}>.</Button>
-          <Button handleClick={() => handleEqual()}>=</Button>
-        </RowL>
-      </RowD>
-    </CalculatorWrapper>
+    <>
+      {isCalcShow && (
+        <CalculatorWrapper>
+          <Row justifyContent={'flex-end'}>
+            <Input input={input} />
+          </Row>
+          <Row>
+            <ClearButton
+              handleClear={() => {
+                setInput('0');
+              }}
+              handleClick={addToInput}
+            >
+              AC
+            </ClearButton>
+            <Button handleClick={addToInput}>+/-</Button>
+            <Button handleClick={addToInput}> % </Button>
+            <Button handleClick={addToInput}> / </Button>
+          </Row>
+          <Row>
+            <Button handleClick={addToInput}>7</Button>
+            <Button handleClick={addToInput}>8</Button>
+            <Button handleClick={addToInput}>9</Button>
+            <Button handleClick={addToInput}> * </Button>
+          </Row>
+          <Row>
+            <Button handleClick={addToInput}>4</Button>
+            <Button handleClick={addToInput}>5</Button>
+            <Button handleClick={addToInput}>6</Button>
+            <Button handleClick={addToInput}> + </Button>
+          </Row>
+          <Row>
+            <Button handleClick={addToInput}>1</Button>
+            <Button handleClick={addToInput}>2</Button>
+            <Button handleClick={addToInput}>3</Button>
+            <Button handleClick={addToInput}> - </Button>
+          </Row>
+          <RowD>
+            <Button radius={'22px'} handleClick={addToInput}>
+              0
+            </Button>
+            <RowL>
+              <Button handleClick={addToInput}>.</Button>
+              <Button handleClick={() => handleEqual()}>=</Button>
+            </RowL>
+          </RowD>
+        </CalculatorWrapper>
+      )}
+    </>
   );
 };
 
