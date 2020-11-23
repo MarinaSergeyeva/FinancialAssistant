@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import userConstants from '../constants/userConstants';
 import userInfoConstants from '../constants/userInfoConstants';
 
@@ -10,6 +9,7 @@ const initialState = {
     incomePercentageToSavings: 0,
     flatPrice: 0,
     flatSquareMeters: 0,
+    monthBalance: 0,
   },
 };
 
