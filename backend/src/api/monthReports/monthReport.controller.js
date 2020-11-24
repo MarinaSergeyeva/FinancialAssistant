@@ -1,63 +1,52 @@
-const mongoose = require('mongoose');
 const catchAsync = require('../../utils/catchAsync');
 const MonthReportModel = require('../cron/monthReport.model');
+const AppError = require('../errors/appError');
 
 const getMonthReport = catchAsync(async (req, res, next) => {
-  const { startMonth, startYear } = req.query;
+  let { startMonth, startYear } = req.query;
 
-  const date = new Date();
+  if (Object.keys(req.query).length === 0) {
+    return next(new AppError('Required query params are not provided', 400));
+  }
+  if (!req.user) {
+    return next(new AppError('Not authorized', 401));
+  }
+  if (!req.user.flatPrice) {
+    return next(new AppError('Initialize your saving stats, please', 403));
+  }
 
-  const presentMonth = new Date(date.getFullYear(), date.getMonth() + 1);
-  const presentMonth2 = new Date(startYear, startMonth);
-  console.log('presentMonth', presentMonth);
-  console.log('presentMonth2', presentMonth2);
-
-  const endMonth = new Date(date.getFullYear() - 1, date.getMonth());
-  console.log('endMonth', endMonth);
-
+  let endDate;
+  let monthReports;
   const userId = req.user._id;
-  const monthReports = await MonthReportModel.aggregate([
+
+  if (startMonth === '' && startYear === '') {
+    const date = new Date();
+    req.query.startMonth = date.getMonth() + 1;
+    req.query.startYear = date.getFullYear();
+    const presentDate = new Date(req.query.startYear, req.query.startMonth);
+    endDate = new Date(date.getFullYear() - 1, date.getMonth());
+
+    return (monthReports = await MonthReportModel.aggregate([
+      {
+        $match: {
+          userId,
+          reportDate: { $lte: presentDate, $gte: endDate },
+        },
+      },
+    ]));
+  }
+  const startDate = new Date(startYear, startMonth);
+  endDate = new Date(startYear - 1, startMonth);
+
+  monthReports = await MonthReportModel.aggregate([
     {
       $match: {
         userId,
-        // reportDate: { $lte: startMonth },
-        reportDate: { $lte: presentMonth, $gte: endMonth },
-        //   reportDate: { $gte: endMonth },
+        reportDate: { $lte: startDate, $gte: endDate },
       },
     },
-    // {
-    //   $group: {
-    //     _id: null,
-    //     expenses: { $sum: '$amount' },
-    //   },
-    // },
-
-    db.test.aggregate([
-      {
-        $group: {
-          _id: {
-            $let: {
-              vars: {
-                local_time: { $subtract: ['$date', 10800000] },
-              },
-              in: {
-                $concat: [
-                  { $substr: [{ $year: '$$local_time' }, 0, 4] },
-                  '-',
-                  { $substr: [{ $month: '$$local_time' }, 0, 2] },
-                  '-',
-                  { $substr: [{ $dayOfMonth: '$$local_time' }, 0, 2] },
-                ],
-              },
-            },
-          },
-          count: { $sum: 1 },
-        },
-      },
-    ]),
   ]);
-  console.log('monthReports.length', monthReports.length);
-  res.status(201).json({
+  return res.status(201).json({
     status: 'success',
     monthReports,
   });
