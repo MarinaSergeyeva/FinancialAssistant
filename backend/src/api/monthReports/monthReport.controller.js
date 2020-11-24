@@ -1,13 +1,36 @@
+const mongoose = require('mongoose');
 const catchAsync = require('../../utils/catchAsync');
 const MonthReportModel = require('../cron/monthReport.model');
 
 const getMonthReport = catchAsync(async (req, res, next) => {
-  console.log('Hi from getReport');
-  console.log('req.query', req.query);
   const { startMonth, startYear } = req.query;
 
+  const date = new Date();
+
+  const presentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+  console.log('presentMonth', presentMonth);
+  const presentMonthInMS = Date.parse(presentMonth);
+  console.log('presentMonthInMS', presentMonthInMS);
+  const endMonth = Date(presentMonthInMS - 24 * 60 * 60 * 1000 * 365);
+  console.log('endMonth', endMonth);
+
   const userId = req.user._id;
-  const monthReports = await MonthReportModel.find({ userId });
+  const monthReports = await MonthReportModel.aggregate([
+    {
+      $match: {
+        userId,
+        // reportDate: { $lte: startMonth },
+        reportDate: { $lte: presentMonth },
+        //   reportDate: { $gte: endMonth },
+      },
+    },
+    // {
+    //   $group: {
+    //     _id: null,
+    //     expenses: { $sum: '$amount' },
+    //   },
+    // },
+  ]);
   console.log('monthReports.length', monthReports.length);
   res.status(201).json({
     status: 'success',
