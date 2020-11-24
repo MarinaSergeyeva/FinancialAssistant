@@ -1,8 +1,8 @@
-require('dotenv').config({ path: './.env' });
+require('dotenv').config({ path: '../.env' });
 const jwt = require('jsonwebtoken');
 const { CrudServer } = require('../src/server');
 const request = require('supertest');
-const { assert } = require('joi');
+const { assert, expect } = require('chai');
 
 describe('getMonthReports test suite', () => {
   let server;
@@ -15,13 +15,15 @@ describe('getMonthReports test suite', () => {
 
   describe('GET /annual', () => {
     context('wrong token provided', () => {
-        let response;
-        let startMonth;
-        let startYear;
+      let response;
+      let startMonth;
+      let startYear;
 
       before(async () => {
         response = await request(server)
-          .get(`/api/v1/month-reports/annual?startMonth=${startMonth}&startYear=${startYear}`
+          .get(
+            `/api/v1/month-reports/annual?startMonth=${startMonth}&startYear=${startYear}`,
+          )
           .set('Authorization', 'Bearer wrong token');
       });
 
@@ -30,14 +32,14 @@ describe('getMonthReports test suite', () => {
       });
     });
 
-      context('when good token was provided', () => {
-        let response;
-        let startMonth='';
-          let startYear = '';
-          
-          before(async () => {
-              
-          })
+    context('when good token was provided', () => {
+      let response;
+      let startMonth = '';
+      let startYear = '';
+
+      before(async () => {
+        console.log('startMonth', startMonth);
+      });
     });
   });
 });
