@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/notFound/dribbble_1.gif';
+import isAuth from '../../redux/selectors/authSelector'
 
 const NotFound = () => {
   return (
@@ -12,7 +13,7 @@ const NotFound = () => {
         <h2>Look like you're lost...</h2>
         <p>The page you are looking for not avaible!</p>
         <button>
-          <LinkNotFound to="/">Go to Home</LinkNotFound>
+          <LinkNotFound to={isAuth? "/plan" : "/"}>Go to Home</LinkNotFound>
         </button>
       </SectionNotFound>
     </>
