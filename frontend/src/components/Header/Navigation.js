@@ -14,16 +14,31 @@ const Navigation = ({ showNavigation }) => {
   const isTabletDevice = useMediaQuery({
     query: device.tablet,
   });
+  const isDesktopDevice = useMediaQuery({
+    query: device.desktop,
+  });
   return (
     <>
       <NavigationContainer>
-        <StyleNavLInk to="/plan" onClick={showNavigation}>
+        <StyleNavLInk
+          to="/plan"
+          activeClassName="active"
+          onClick={showNavigation}
+        >
           Персональный план
         </StyleNavLInk>
-        <StyleNavLInk to="/expense" onClick={showNavigation}>
+        <StyleNavLInk
+          to="/expense"
+          activeClassName="active"
+          onClick={showNavigation}
+        >
           Расходы
         </StyleNavLInk>
-        <StyleNavLInk to="/dynamics" onClick={showNavigation}>
+        <StyleNavLInk
+          to="/dynamics"
+          activeClassName="active"
+          onClick={showNavigation}
+        >
           Динамика
         </StyleNavLInk>
         {(isMobileDevice || isTabletDevice) && <Logout />}
@@ -74,6 +89,10 @@ const StyleNavLInk = styled(NavLink)`
   &:hover,
   :focus {
     color: ${colors.main};
+  }
+
+  &.active {
+    color:${colors.main}
   }
   
   &:not(:last-child) {

@@ -67,10 +67,10 @@ describe('User flat stats test suite', () => {
           email: 'test3@email.com',
           passwordHash: 'password_hash',
           balance: 1000,
-          flatPrice: 10000,
+          flatPrice: 40000,
           flatSquareMeters: 40,
-          totalSalary: 800,
-          passiveIncome: 150,
+          totalSalary: 900,
+          passiveIncome: 400,
           incomePercentageToSavings: 5,
           giftsForUnpacking: 4,
         });
@@ -96,13 +96,13 @@ describe('User flat stats test suite', () => {
       });
       it('should return expected response body', () => {
         expect(response.body).to.include({
-          savingsPercentage: 0.1,
+          savingsPercentage: 0.03,
           savingsValue: 1000,
-          savingsInSquareMeters: 4,
+          savingsInSquareMeters: 1,
           totalSquareMeters: 40,
-          monthsLeftToSaveForFlat: 190,
-          savingsForNextSquareMeterLeft: 250,
-          giftsForUnpacking: 0,
+          monthsLeftToSaveForFlat: 600,
+          savingsForNextSquareMeterLeft: 1000,
+          giftsForUnpacking: 4,
         });
       });
     });

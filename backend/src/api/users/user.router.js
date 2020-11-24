@@ -10,11 +10,11 @@ const catchAsync = require('../../utils/catchAsync');
 const usersRouter = Router();
 
 const DataUserSchema = Joi.object({
-  balance: Joi.number().required(),
+  balance: Joi.number(),
   flatPrice: Joi.number().required(),
   flatSquareMeters: Joi.number().required(),
-  totalSalary: Joi.number().required(),
-  passiveIncome: Joi.number().required(),
+  totalSalary: Joi.number(),
+  passiveIncome: Joi.number(),
   incomePercentageToSavings: Joi.number().required(),
 });
 

@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
 import userConstants from '../constants/userConstants';
+import userInfoConstants from '../constants/userInfoConstants';
 
 const initialState = {
   info: {
@@ -9,12 +9,16 @@ const initialState = {
     incomePercentageToSavings: 0,
     flatPrice: 0,
     flatSquareMeters: 0,
+    monthBalance: 0,
   },
 };
 
 const info = (state = initialState.info, { type, payload }) => {
   switch (type) {
     case userConstants.GET_CURRENT_USER_SUCCESS:
+      return { ...state, ...payload };
+
+    case userInfoConstants.UPDATE_USER_INFO_SUCCESS:
       return { ...state, ...payload };
 
     default:

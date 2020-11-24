@@ -7,23 +7,17 @@ import { token } from './authOperations';
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getTransactionCategories = async () => {
-  //   const res = await axios.get('/api/v1/transactions/categories');
-  //     return res.data.categories;
-
   try {
     const res = await axios.get('/api/v1/transactions/categories');
-    // console.log(res.data, 'createTransaction');
-    //   dispatch(transactionActions.createTransactionSuccess(res.data));
     return res.data;
   } catch (error) {
     console.log(error.message);
-    //   dispatch(transactionActions.createTransactionError(error));
   }
 };
 
-const changeTransaction = transaction => (dispatch, getState) => {
-  dispatch(transactionActions.changeTransactionSuccess(transaction));
-};
+// const changeTransaction = transaction => (dispatch, getState) => {
+//   dispatch(transactionActions.changeTransactionSuccess(transaction));
+// };
 
 const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
@@ -44,6 +38,6 @@ const createTransaction = transaction => async (dispatch, getState) => {
 
 export default {
   createTransaction,
-  changeTransaction,
+  // changeTransaction,
   getTransactionCategories,
 };
