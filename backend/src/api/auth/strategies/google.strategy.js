@@ -17,12 +17,24 @@ exports.initGoogleOauthStrategy = function () {
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
-        console.log(profile.displayName, ">>>profile<<<<")
+        console.log(profile, ">>>profile<<<<")
         console.log(userModel, ">>> accessToken <<<<")
        
           const user = await userModel.findOneAndUpdate(
             { email: profile.email },
-            { $setOnInsert: { username: profile.displayName} }, 
+            { $setOnInsert: { 
+              username: profile.displayName,
+              picture: profile.picture,
+              balance: 0,
+              flatPrice: 0,
+              flatSquareMeters: 0,
+              totalSalary: 0,
+              passiveIncome: 0,
+              incomePercentageToSavings: 0,
+              giftsUnpacked: 0,
+              giftsForUnpacking: 0,
+              
+            }}, 
             // profile.name
             { upsert: true, new: true },
           )

@@ -28,7 +28,6 @@ const MainPage = () => {
       setUserInfoRegistr(false);
     }
 
-    // console.log(userInfo, 'userInfo');
   }, [userInfo]);
 
 
@@ -174,7 +173,10 @@ const MainPageTitileOrange = styled.span`
 `;
 
 const GoogleAuthBtn = styled.a`
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
   position: relative;
   width: 216px;
   height: 62px;

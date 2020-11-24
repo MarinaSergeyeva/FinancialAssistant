@@ -33,13 +33,6 @@ authRouter.post(
 authRouter.get(
   '/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }),
-  // {
-  //   session: false,
-  //   scope: [
-  //     "https://www.googleapis.com/auth/userinfo.email",
-  //     "https://www.googleapis.com/auth/plus.login",
-  //   ],
-  // }
 );
 
 authRouter.get(
@@ -47,9 +40,13 @@ authRouter.get(
 
   passport.authenticate('google', { session: false }),
   (req, res, next) => {
-    const sessionToken = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
-      expiresIn: 2 * 24 * 60 * 60,
-    });
+    const sessionToken = jwt.sign(
+      { id: req.user._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: 2 * 24 * 60 * 60,
+      },
+    );
     return res.redirect(`http://localhost:3000?token=${sessionToken}`);
   },
   (req, res, next) => {

@@ -5,7 +5,6 @@ const AppError = require('../errors/appError');
 const { sessionModel } = require('../session/session.model');
 const jwt = require('jsonwebtoken');
 
-
 exports.createNewUser = async (req, res, next) => {
   const { username, email, password } = req.body;
   const existingUser = await UserModel.findOne({ email });
@@ -51,7 +50,7 @@ exports.loginUser = async (req, res, next) => {
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
     expiresIn: 2 * 24 * 60 * 60,
   });
-  
+
   existingUser.tokens.push(token);
   await existingUser.save();
   res.status(200).json({
@@ -66,20 +65,19 @@ exports.loginUser = async (req, res, next) => {
 
 exports.authorize = async (req, res, next) => {
   try {
-
-    const authorizationHeader = req.get("Authorization");
-    const token = authorizationHeader.replace("Bearer ", "");
+    const authorizationHeader = req.get('Authorization');
+    const token = authorizationHeader.replace('Bearer ', '');
 
     try {
       const { sessionId } = await jwt.verify(token, config.jwtSecret);
 
       const sessionWithUser = await sessionModel.getSessionByIdWithUser(
-        sessionId
+        sessionId,
       );
 
-      console.log("sessionWithUser", sessionWithUser);
+      console.log('sessionWithUser', sessionWithUser);
 
-      if (!sessionWithUser || sessionWithUser.status === "disabled") {
+      if (!sessionWithUser || sessionWithUser.status === 'disabled') {
         throw new UnauthorizedError();
       }
 
@@ -89,25 +87,28 @@ exports.authorize = async (req, res, next) => {
       next();
     } catch (err) {
       console.log(err);
-      next(new UnauthorizedError("User not authorized"));
+      next(new UnauthorizedError('User not authorized'));
     }
   } catch (err) {
     next(err);
   }
-}
+};
 
- exports.createSession = async (req, res, next) => {
-    try {
+exports.createSession = async (req, res, next) => {
+  try {
+    const user = req.user;
+    // console.log(user, '>>>>>>>>>>>>>>>>>>>user');
+    const session = await sessionModel.createSession(user._id);
+    const sessionToken = await jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: 2 * 24 * 60 * 60,
+      },
+    );
 
-      const user = req.user;
-      // console.log(user, '>>>>>>>>>>>>>>>>>>>user');
-      const session = await sessionModel.createSession(user._id);
-      const sessionToken = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-          expiresIn: 2 * 24 * 60 * 60,
-        });
-
-      return res.status(201).json(sessionToken);
-    } catch (err) {
-      next(err);
-    }
-  };
+    return res.status(201).json(sessionToken);
+  } catch (err) {
+    next(err);
+  }
+};
