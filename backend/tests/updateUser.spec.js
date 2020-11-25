@@ -1,9 +1,9 @@
+require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
-const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
+const { CrudServer } = require('../src/server');
 const User = require('../src/api/users/user.model');
-require('dotenv').config({ path: './.env' });
 
 const expiresIn = 2 * 24 * 60 * 60;
 

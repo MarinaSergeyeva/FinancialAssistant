@@ -73,5 +73,4 @@ exports.logoutUser = async (req, res, next) => {
 
 function removeExpiredTokens(array) {
   return array.filter(item => item.expires > Date.now());
-  //{ $pull: { votes: { $gte: 6 } } },
 }

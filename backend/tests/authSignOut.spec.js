@@ -4,9 +4,6 @@ const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
 const User = require('../src/api/users/user.model');
-const {
-  TransactionModel,
-} = require('../src/api/transactions/transaction.model');
 
 describe('Test for request from auth suite', () => {
   let server;
@@ -33,7 +30,7 @@ describe('Test for request from auth suite', () => {
     });
 
     context('when good token was provided', () => {
-      let response, userDoc, token, tokenObj;
+      let response, userDoc, token;
 
       before(async () => {
         userDoc = await User.create({
@@ -45,8 +42,7 @@ describe('Test for request from auth suite', () => {
         token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn,
         });
-        tokenObj = { token, expires: Date.now() + expiresIn };
-        userDoc.tokens.push(tokenObj);
+        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
         await userDoc.save();
 
         response = await request(server)

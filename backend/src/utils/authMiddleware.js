@@ -25,5 +25,5 @@ exports.authorize = async (req, res, next) => {
   }
   req.user = user;
   req.token = userToken;
-  next();
+  return next();
 };

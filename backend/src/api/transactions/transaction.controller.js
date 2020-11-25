@@ -7,18 +7,18 @@ const createTransaction = catchAsync(async (req, res, next) => {
   const userId = user._id;
   const info = { ...body, userId };
   const newTransaction = await TransactionModel.createTransaction(info);
-  res.status(201).json({
+  return res.status(201).json({
     status: 'success',
     transaction: newTransaction,
   });
 });
 
-const getTransactionCategories = ((req, res) => {
+const getTransactionCategories = (req, res) => {
   const categories = Object.values(expensesCategories);
-  res.json({
+  return res.json({
     categories,
   });
-});
+};
 
 module.exports = {
   createTransaction,
