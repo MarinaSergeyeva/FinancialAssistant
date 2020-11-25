@@ -8,15 +8,19 @@ exports.authorize = async (req, res, next) => {
     return next(new AppError('Unauthorized', 401));
   }
 
-  const token = authHeader.replace('Bearer ', '');
+  const userToken = authHeader.replace('Bearer ', '');
   let userId;
   try {
-    userId = jwt.verify(token, process.env.JWT_SECRET).id;
+    userId = jwt.verify(userToken, process.env.JWT_SECRET).id;
   } catch (error) {
     next(new AppError('Unauthorized', 401));
   }
-  const user = await userModel.findOne({ _id: userId, tokens: token });
-  if (!user) {
+  const user = await userModel.findOne({ _id: userId });
+  let idxToken;
+  if (user) {
+    idxToken = user.tokens.findIndex(({ token }) => token === userToken);
+  }
+  if (!user || idxToken === -1) {
     next(new AppError('Unauthorized', 401));
   }
   req.user = user;

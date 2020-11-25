@@ -45,11 +45,11 @@ describe('transactions/categories test suite', () => {
             'Транспорт',
             'ЖКХ',
           ];
-
+          const expiresIn = 2 * 24 * 60 * 60;
           const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
-            expiresIn: 2 * 24 * 60 * 60,
+            expiresIn,
           });
-          userDoc.tokens.push(token);
+          userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
           await userDoc.save();
 
           response = await request(server)
