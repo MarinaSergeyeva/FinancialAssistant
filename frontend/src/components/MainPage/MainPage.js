@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+// import gapi from 'gapi';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
@@ -9,6 +10,9 @@ import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
 import { useSelector } from 'react-redux';
+
+const path = require("path")
+require("dotenv").config({ path: path.join("../../../../backend/.env") });
 
 const MainPage = () => {
   const userInfo = useSelector(state => state.auth.username);
@@ -24,8 +28,8 @@ const MainPage = () => {
       setUserInfoRegistr(false);
     }
 
-    // console.log(userInfo, 'userInfo');
   }, [userInfo]);
+
 
   return (
     <MainPageContainer>
@@ -47,14 +51,14 @@ const MainPage = () => {
           <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
-      <GoogleAuthBtn>
+      <GoogleAuthBtn href="http://localhost:8080/api/v1/auth/google">
         <GoogleAuthBtnImg
           src={googleLogo}
           alt="google auth picture"
         ></GoogleAuthBtnImg>
         Sign up with Google
       </GoogleAuthBtn>
-      <FacebookAuthBtn>
+      <FacebookAuthBtn href="http://localhost:8080/api/v1/auth/facebook">
         <FacebookAuthBtnImg
           src={facebookLogo}
           alt="facebook auth picture"
@@ -168,8 +172,11 @@ const MainPageTitileOrange = styled.span`
   color: #ff6c00;
 `;
 
-const GoogleAuthBtn = styled.button`
-  display: block;
+const GoogleAuthBtn = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
   position: relative;
   width: 216px;
   height: 62px;
@@ -195,9 +202,12 @@ const GoogleAuthBtnImg = styled.img`
   left: 15px;
 `;
 
-const FacebookAuthBtn = styled.button`
-  display: block;
+const FacebookAuthBtn = styled.a`
+   display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  color: black;
   width: 216px;
   height: 62px;
   background: #e3eaff;
