@@ -1,9 +1,8 @@
 const { Router } = require('express');
 const authRouter = Router();
 const Joi = require('joi');
-const { validate } = require('../../utils/validate');
+const { validate, authorize, catchAsync } = require('../../utils');
 const AuthController = require('./auth.controller');
-const catchAsync = require('../../utils/catchAsync');
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
@@ -26,6 +25,12 @@ authRouter.post(
   '/sign-in',
   validate(loginSchema),
   catchAsync(AuthController.loginUser),
+);
+
+authRouter.delete(
+  '/sign-out',
+  catchAsync(authorize),
+  catchAsync(AuthController.logoutUser),
 );
 
 module.exports = authRouter;
