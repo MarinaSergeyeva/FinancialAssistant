@@ -49,13 +49,7 @@ exports.loginUser = async (req, res, next) => {
     expiresIn,
   });
   existingUser.tokens.push({ token, expires: Date.now() + expiresIn });
-  const indexesExpiredTokens = [];
-  existingUser.tokens.forEach((token, idx) => {
-    if (token.expires < Date.now()) {
-      indexesExpiredTokens.push(idx);
-    }
-  });
-  indexesExpiredTokens.forEach(idx => existingUser.tokens.splice(idx, 1));
+  existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
   return res.status(200).json({
     user: {
@@ -68,11 +62,16 @@ exports.loginUser = async (req, res, next) => {
 };
 
 exports.logoutUser = async (req, res, next) => {
-  const tokenUser = req.get('Authorization').replace('Bearer ', '');
-  const user = await UserModel.findById(req.user._id);
-  const idxToken = user.tokens.findIndex(({ token }) => token === tokenUser);
-  user.tokens.splice(idxToken, 1);
-  await user.save();
+  const tokenUser = req.token;
+  await UserModel.updateOne(
+    { _id: req.user._id },
+    { $pull: { tokens: { token: tokenUser } } },
+  );
   req.user = null;
   return res.sendStatus(204);
 };
+
+function removeExpiredTokens(array) {
+  return array.filter(item => item.expires > Date.now());
+  //{ $pull: { votes: { $gte: 6 } } },
+}

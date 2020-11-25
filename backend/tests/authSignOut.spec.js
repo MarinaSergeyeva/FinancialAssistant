@@ -33,7 +33,7 @@ describe('Test for request from auth suite', () => {
     });
 
     context('when good token was provided', () => {
-      let response, userDoc, transactionDoc;
+      let response, userDoc, token, tokenObj;
 
       before(async () => {
         userDoc = await User.create({
@@ -42,10 +42,11 @@ describe('Test for request from auth suite', () => {
           passwordHash: 'password_hash',
         });
         const expiresIn = 2 * 24 * 60 * 60;
-        const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
+        token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn,
         });
-        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
+        tokenObj = { token, expires: Date.now() + expiresIn };
+        userDoc.tokens.push(tokenObj);
         await userDoc.save();
 
         response = await request(server)
@@ -59,6 +60,13 @@ describe('Test for request from auth suite', () => {
 
       it('should return response with 204', () => {
         assert.equal(response.status, 204);
+      });
+
+      it('should remove corresponding token from user document', async () => {
+        const updatedUser = await User.findById(userDoc._id);
+        updatedUser.tokens.forEach(item =>
+          expect(item).to.not.have.property('token', token),
+        );
       });
     });
   });

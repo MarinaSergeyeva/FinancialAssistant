@@ -24,5 +24,6 @@ exports.authorize = async (req, res, next) => {
     next(new AppError('Unauthorized', 401));
   }
   req.user = user;
+  req.token = userToken;
   next();
 };
