@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './.env' });
+require('dotenv').config({ path: '../.env' });
 const jwt = require('jsonwebtoken');
 const { CrudServer } = require('../src/server');
 const request = require('supertest');
@@ -19,7 +19,7 @@ describe('transactions/categories test suite', () => {
 
       before(async () => {
         response = await request(server)
-          .post('/api/v1/transactions')
+          .get('/api/v1/transactions/categories')
           .set('Authorization', 'Bearer wrong_token');
       });
 
@@ -53,7 +53,7 @@ describe('transactions/categories test suite', () => {
           await userDoc.save();
 
           response = await request(server)
-            .get('/api/v1/users/current')
+            .get('/api/v1/transactions/categories')
             .set('Authorization', `Bearer ${token}`);
         });
 
@@ -66,7 +66,9 @@ describe('transactions/categories test suite', () => {
         });
 
         it('should return expected categories array', () => {
-          expect(categories);
+          // expect(categories);
+          console.log('response.body', response.body);
+          expect(response.body).to.include(categories);
         });
       });
     });

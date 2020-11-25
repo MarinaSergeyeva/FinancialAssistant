@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
-const User = require('../api/users/user.model');
-require('dotenv').config({ path: './.env' });
+const User = require('../src/api/users/user.model');
+require('dotenv').config({ path: '../.env' });
 
 describe('UpdateUserInfo test suite', () => {
   let server;
@@ -149,14 +149,14 @@ describe('UpdateUserInfo test suite', () => {
 
       it('should return expected response body', () => {
         expect(response.body).to.include({
-          balance: userDoc.balance,
-          flatPrice: userDoc.flatPrice,
-          flatSquareMeters: userDoc.flatSquareMeters,
-          totalSalary: userDoc.totalSalary,
-          passiveIncome: userDoc.passiveIncome,
-          incomePercentageToSavings: userDoc.incomePercentageToSavings,
+          balance: fakeUserBD.balance,
+          flatPrice: fakeUserBD.flatPrice,
+          flatSquareMeters: fakeUserBD.flatSquareMeters,
+          totalSalary: fakeUserBD.totalSalary,
+          passiveIncome: fakeUserBD.passiveIncome,
+          incomePercentageToSavings: fakeUserBD.incomePercentageToSavings,
         });
-        assert.equal(response.body, userDoc._id);
+        assert.containsAllKeys(response.body, 'id');
       });
     });
   });
