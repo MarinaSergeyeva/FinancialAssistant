@@ -6,6 +6,7 @@ const AuthController = require('./auth.controller');
 const catchAsync = require('../../utils/catchAsync');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const userModel = require('../users/user.model');
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
@@ -40,18 +41,26 @@ authRouter.get(
 
   passport.authenticate('google', { session: false }),
   (req, res, next) => {
-    const sessionToken = jwt.sign(
-      { id: req.user._id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: 2 * 24 * 60 * 60,
-      },
-    );
-    return res.redirect(`http://localhost:3000?token=${sessionToken}`);
+    // const user = req.user;
+    //  const existingUser = await userModel.findById( user._id );
+
+    // const sessionToken = jwt.sign(
+    
+    //   { id: user._id },
+    //   process.env.JWT_SECRET,
+    //   {
+    //     expiresIn: 2 * 24 * 60 * 60,
+    //   },
+    // );
+
+//     // existingUser.tokens.push(sessionToken);
+//     // await existingUser.save();
+
+
+//     return res.redirect(`http://localhost:3000?token=${sessionToken}`);
   },
-  (req, res, next) => {
-    return res.redirect(`http://localhost:3000/notfound`);
-  },
+ `http://localhost:3000/notfound`
+  
 );
 
 module.exports = authRouter;

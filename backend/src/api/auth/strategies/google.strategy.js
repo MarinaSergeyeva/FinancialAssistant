@@ -1,9 +1,7 @@
 const passport = require("passport");
-// const userModel = require('../../users/user.model');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const userModel = require('../../users/user.model');
-// const { UserModel } = require("../../users/user.model");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 
@@ -17,9 +15,6 @@ exports.initGoogleOauthStrategy = function () {
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
-        console.log(profile, ">>>profile<<<<")
-        console.log(userModel, ">>> accessToken <<<<")
-       
           const user = await userModel.findOneAndUpdate(
             { email: profile.email },
             { $setOnInsert: { 

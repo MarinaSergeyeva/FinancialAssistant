@@ -1,9 +1,9 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const UserModel = require('../users/user.model');
 const AppError = require('../errors/appError');
 
 const { sessionModel } = require('../session/session.model');
-const jwt = require('jsonwebtoken');
 
 exports.createNewUser = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -74,9 +74,6 @@ exports.authorize = async (req, res, next) => {
       const sessionWithUser = await sessionModel.getSessionByIdWithUser(
         sessionId,
       );
-
-      console.log('sessionWithUser', sessionWithUser);
-
       if (!sessionWithUser || sessionWithUser.status === 'disabled') {
         throw new UnauthorizedError();
       }
@@ -97,7 +94,6 @@ exports.authorize = async (req, res, next) => {
 exports.createSession = async (req, res, next) => {
   try {
     const user = req.user;
-    // console.log(user, '>>>>>>>>>>>>>>>>>>>user');
     const session = await sessionModel.createSession(user._id);
     const sessionToken = await jwt.sign(
       { id: user._id },
@@ -106,7 +102,7 @@ exports.createSession = async (req, res, next) => {
         expiresIn: 2 * 24 * 60 * 60,
       },
     );
-
+ 
     return res.status(201).json(sessionToken);
   } catch (err) {
     next(err);
