@@ -112,7 +112,7 @@ const ExpenseForm = () => {
             <Mobile>
               {showCalculator && (
                 <Modal closeModal={showCalculatorHandler}>
-                  <Calculator />
+                  <Calculator closeModal={showCalculatorHandler} />
                 </Modal>
               )}
             </Mobile>

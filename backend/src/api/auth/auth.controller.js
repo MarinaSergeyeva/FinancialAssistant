@@ -21,7 +21,7 @@ exports.createNewUser = async (req, res, next) => {
     passwordHash,
   });
 
-  res.status(201).json({
+  return res.status(201).json({
     id: newUser._id,
     username: newUser.username,
     email: newUser.email,
@@ -44,13 +44,14 @@ exports.loginUser = async (req, res, next) => {
   if (!validPassword) {
     return next(new AppError('Password is wrong', 403));
   }
-
+  const expiresIn = 2 * 24 * 60 * 60;
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
-    expiresIn: 2 * 24 * 60 * 60,
+    expiresIn,
   });
-  existingUser.tokens.push(token);
+  existingUser.tokens.push({ token, expires: Date.now() + expiresIn });
+  existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
-  res.status(200).json({
+  return res.status(200).json({
     user: {
       username: existingUser.username,
       email: existingUser.email,
@@ -59,3 +60,17 @@ exports.loginUser = async (req, res, next) => {
     token: token,
   });
 };
+
+exports.logoutUser = async (req, res, next) => {
+  const tokenUser = req.token;
+  await UserModel.updateOne(
+    { _id: req.user._id },
+    { $pull: { tokens: { token: tokenUser } } },
+  );
+  req.user = null;
+  return res.sendStatus(204);
+};
+
+function removeExpiredTokens(array) {
+  return array.filter(item => item.expires > Date.now());
+}
