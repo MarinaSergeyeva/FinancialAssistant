@@ -1,9 +1,6 @@
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const passport = require('passport');
 const userModel = require('../../users/user.model');
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
-
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 exports.initGoogleOauthStrategy = function () {
   passport.use(
@@ -15,9 +12,10 @@ exports.initGoogleOauthStrategy = function () {
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
-          const user = await userModel.findOneAndUpdate(
-            { email: profile.email },
-            { $setOnInsert: { 
+        const user = await userModel.findOneAndUpdate(
+          { email: profile.email },
+          {
+            $setOnInsert: {
               username: profile.displayName,
               picture: profile.picture,
               balance: 0,
@@ -28,15 +26,13 @@ exports.initGoogleOauthStrategy = function () {
               incomePercentageToSavings: 0,
               giftsUnpacked: 0,
               giftsForUnpacking: 0,
-              
-            }}, 
-            // profile.name
-            { upsert: true, new: true },
-          )
- 
+            },
+          },
+          { upsert: true, new: true },
+        );
 
         done(null, user);
-      }
-    )
+      },
+    ),
   );
 };

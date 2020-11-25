@@ -1,12 +1,9 @@
 const { Router } = require('express');
-const authRouter = Router();
-const Joi = require('joi');
-const { validate } = require('../../utils/validate');
-const AuthController = require('./auth.controller');
-const catchAsync = require('../../utils/catchAsync');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const userModel = require('../users/user.model');
+const Joi = require('joi');
+const authRouter = Router();
+const { validate, authorize, catchAsync } = require('../../utils');
+const AuthController = require('./auth.controller');
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
@@ -38,29 +35,15 @@ authRouter.get(
 
 authRouter.get(
   '/google/callback',
-
   passport.authenticate('google', { session: false }),
-  (req, res, next) => {
-    // const user = req.user;
-    //  const existingUser = await userModel.findById( user._id );
+  catchAsync(AuthController.AuthGoogle),
+  catchAsync(AuthController.AuthGoogleCallbackErr),
+);
 
-    // const sessionToken = jwt.sign(
-    
-    //   { id: user._id },
-    //   process.env.JWT_SECRET,
-    //   {
-    //     expiresIn: 2 * 24 * 60 * 60,
-    //   },
-    // );
-
-//     // existingUser.tokens.push(sessionToken);
-//     // await existingUser.save();
-
-
-//     return res.redirect(`http://localhost:3000?token=${sessionToken}`);
-  },
- `http://localhost:3000/notfound`
-  
+authRouter.delete(
+  '/sign-out',
+  catchAsync(authorize),
+  catchAsync(AuthController.logoutUser),
 );
 
 module.exports = authRouter;

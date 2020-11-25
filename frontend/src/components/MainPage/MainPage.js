@@ -242,6 +242,7 @@ const MainPageImg = styled.img`
     top: 110px;
     right: -100px;
     z-index: -1;
+    max-height: calc(100vh - 196px);
   }
 `;
 
