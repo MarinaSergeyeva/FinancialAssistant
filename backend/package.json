@@ -21,6 +21,7 @@
   "homepage": "https://github.com/MarinaSergeyeva/FinancialAssistant#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "husky": "^4.3.0",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
     "prettier": "2.1.2",
@@ -43,5 +44,11 @@
     "morgan": "^1.10.0",
     "node-cron": "^2.0.3",
     "uuidv4": "^6.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
   }
 }
