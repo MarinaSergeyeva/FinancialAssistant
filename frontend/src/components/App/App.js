@@ -11,7 +11,6 @@ import Navigation from '../Header/Navigation';
 import device from '../../common/deviceSizes';
 import Spinner from '../Spinner/Spinner';
 import { useMediaQuery } from 'react-responsive';
-import ModalCongratulation from "../ModalCongratulation/ModalCongratulation"
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
@@ -34,8 +33,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <ModalCongratulation />
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner />}>
         <Header showNavigation={showNavigationHandler} />
         {isUserAuth && showNavigation && (isMobileDevice || isTabletDevice) && (
           <Navigation showNavigation={showNavigationHandler} />
