@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const UserModel = require('../users/user.model');
 const AppError = require('../errors/appError');
 const jwt = require('jsonwebtoken');
+const { createToken } = require('../../utils/createToken');
 
 exports.createNewUser = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -32,11 +33,9 @@ exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   const existingUser = await UserModel.findOne({ email });
-
   if (!existingUser) {
     return next(new AppError('Email is wrong', 404));
   }
-
   const validPassword = await bcrypt.compare(
     password,
     existingUser.passwordHash,
@@ -45,9 +44,8 @@ exports.loginUser = async (req, res, next) => {
     return next(new AppError('Password is wrong', 403));
   }
   const expiresIn = 2 * 24 * 60 * 60;
-  const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
-    expiresIn,
-  });
+  const token = createToken(existingUser, expiresIn);
+
   existingUser.tokens.push({ token, expires: Date.now() + expiresIn });
   existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
@@ -75,21 +73,15 @@ function removeExpiredTokens(array) {
   return array.filter(item => item.expires > Date.now());
 }
 
-exports.AuthGoogle = async (req, res, next) => {
-  const user = req.user;
-  const existingUser = await UserModel.findById(user._id);
+exports.AuthGoogle_FB = async (req, res, next) => {
+  const existingUser = req.user;
   const expiresIn = 2 * 24 * 60 * 60;
-  console.log(existingUser, 'existingUser))))))))))))');
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn,
-  });
+  const token = createToken(existingUser, expiresIn);
 
   existingUser.tokens.push({ token, expires: Date.now() + expiresIn });
   existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
+
   return res.redirect(`http://localhost:3000?token=${token}`);
 };
 
-exports.AuthGoogleCallbackErr = async (req, res, next) => {
-  return res.redirect(`http://localhost:3000/notfound`);
-};

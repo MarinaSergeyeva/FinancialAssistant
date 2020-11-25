@@ -12,26 +12,30 @@ exports.initGoogleOauthStrategy = function () {
         passReqToCallback: true,
       },
       async (request, accessToken, refreshToken, profile, done) => {
-        const user = await userModel.findOneAndUpdate(
-          { email: profile.email },
-          {
-            $setOnInsert: {
-              username: profile.displayName,
-              picture: profile.picture,
-              balance: 0,
-              flatPrice: 0,
-              flatSquareMeters: 0,
-              totalSalary: 0,
-              passiveIncome: 0,
-              incomePercentageToSavings: 0,
-              giftsUnpacked: 0,
-              giftsForUnpacking: 0,
+        try {
+          const user = await userModel.findOneAndUpdate(
+            { email: profile.email },
+            {
+              $setOnInsert: {
+                username: profile.displayName,
+                picture: profile.picture,
+                balance: 0,
+                flatPrice: 0,
+                flatSquareMeters: 0,
+                totalSalary: 0,
+                passiveIncome: 0,
+                incomePercentageToSavings: 0,
+                giftsUnpacked: 0,
+                giftsForUnpacking: 0,
+              },
             },
-          },
-          { upsert: true, new: true },
-        );
+            { upsert: true, new: true },
+          );
 
-        done(null, user);
+          done(null, user);
+        } catch (error) {
+          done(error, false);
+        }
       },
     ),
   );

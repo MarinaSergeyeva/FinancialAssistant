@@ -58,7 +58,7 @@ const MainPage = () => {
         ></GoogleAuthBtnImg>
         Sign up with Google
       </GoogleAuthBtn>
-      <FacebookAuthBtn>
+      <FacebookAuthBtn href="http://localhost:8080/api/v1/auth/facebook">
         <FacebookAuthBtnImg
           src={facebookLogo}
           alt="facebook auth picture"
@@ -202,9 +202,12 @@ const GoogleAuthBtnImg = styled.img`
   left: 15px;
 `;
 
-const FacebookAuthBtn = styled.button`
-  display: block;
+const FacebookAuthBtn = styled.a`
+   display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  color: black;
   width: 216px;
   height: 62px;
   background: #e3eaff;

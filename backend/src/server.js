@@ -11,6 +11,9 @@ const transactionRouter = require('./api/transactions/transactionRouter');
 const {
   initGoogleOauthStrategy,
 } = require('./api/auth/strategies/google.strategy');
+const {
+  initFacebookOauthStrategy,
+} = require('./api/auth/strategies/google.strategy');
 
 const AppError = require('./api/errors/appError');
 const globalErrorHandler = require('./api/errors/error.controller');
@@ -64,33 +67,10 @@ class CrudServer {
   initMiddlewares() {
     this.server.use(passport.initialize());
     initGoogleOauthStrategy();
-
-    passport.serializeUser((user, done) => {
-      done(null, user._id);
-    });
-    passport.deserializeUser(async (id, done) => {
-      const user = await UserModel.findById(id);
-      if (!user) {
-        done(new Error('User not authorized'));
-      }
-
-      done(null, user);
-    });
-
-    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
-
-    if (process.env.NODE_ENV === 'development') {
-      this.server.use(morgan('dev'));
-    }
-
-    if (process.env.NODE_ENV !== 'development') {
-      this.server.use(morgan('combined'));
-    }
     this.server.use(express.json());
 
     this.server.use((req, res, next) => {
       req.requestTime = new Date().toISOString();
-
       next();
     });
 

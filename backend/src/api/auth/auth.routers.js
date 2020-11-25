@@ -36,8 +36,16 @@ authRouter.get(
 authRouter.get(
   '/google/callback',
   passport.authenticate('google', { session: false }),
-  catchAsync(AuthController.AuthGoogle),
-  catchAsync(AuthController.AuthGoogleCallbackErr),
+  catchAsync(AuthController.AuthGoogle_FB),
+);
+
+authRouter.get('/facebook',
+passport.authenticate('facebook', { scope: ['email', 'profile'] }));
+
+authRouter.get(
+  '/facebook/callback',
+  passport.authenticate('facebook',{ session: false }),
+  catchAsync(AuthController.AuthGoogle_FB),
 );
 
 authRouter.delete(
