@@ -1,9 +1,11 @@
 require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
-const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
+const { CrudServer } = require('../src/server');
 const User = require('../src/api/users/user.model');
+
+const expiresIn = 2 * 24 * 60 * 60;
 
 describe('User flat stats test suite', () => {
   let server;
@@ -39,9 +41,9 @@ describe('User flat stats test suite', () => {
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
-          expiresIn: 2 * 24 * 60 * 60,
+          expiresIn,
         });
-        userDoc.tokens.push(token);
+        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
         await userDoc.save();
 
         response = await request(server)
@@ -76,9 +78,9 @@ describe('User flat stats test suite', () => {
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
-          expiresIn: 2 * 24 * 60 * 60,
+          expiresIn,
         });
-        userDoc.tokens.push(token);
+        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
 
         await userDoc.save();
 
