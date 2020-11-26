@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import styled from 'styled-components';
 import operation from '../../../redux/operations/authOperations';
 import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
+// import { getError } from '../../../redux/selectors/errorSelector'
 import device from '../../../common/deviceSizes';
 import {
   AuthForm,
@@ -16,12 +17,16 @@ import {
   AuthInput,
   AuthButtonBlock,
 } from '../../../common/globalStyleComponents';
+import { getError } from '../../../redux/selectors/errorSelector';
 
 const Login = ({ closeModal }) => {
   const dispatch = useDispatch();
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
+
+  const errState = useSelector(state => getError(state));
+
 
   return (
     <AuthFormWrapperLogin>
@@ -41,7 +46,7 @@ const Login = ({ closeModal }) => {
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-
+              {errState && <ErrMessage>{errState}</ErrMessage>}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>
                 <AuthInput
@@ -114,4 +119,14 @@ const AuthFormWrapperLogin = styled.div`
     height: 276px;
   }
 `;
+
+
+const ErrMessage = styled.p`
+color: red;
+font-size: 13px;
+text-align: center;
+margin-bottom: 10px;
+/* position: absolute;
+top: 60%; */
+`
 export default Login;

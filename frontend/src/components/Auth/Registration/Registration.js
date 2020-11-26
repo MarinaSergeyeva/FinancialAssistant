@@ -34,7 +34,6 @@ const Registration = ({ closeModal }) => {
         }}
         validationSchema={registrationFrontSchema}
         onSubmit={async values => {
-          console.log(values, 'values');
           dispatch(await operation.userRegistration({ ...values }));
           !isOnMobile && closeModal();
         }}

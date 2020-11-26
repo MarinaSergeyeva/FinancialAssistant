@@ -9,14 +9,10 @@ import device from '../../common/deviceSizes';
 import { useDispatch } from 'react-redux';
 import calculatorActions from '../../redux/actions/calculatorActions';
 
-const Calculator = () => {
+const Calculator = ({ closeModal }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState('0');
   const [isCalcShow, setIsCalcShow] = useState(true);
-
-  const closeCalc = () => {
-    setIsCalcShow(false);
-  };
 
   const addToInput = val => {
     if (input === '0') {
@@ -54,7 +50,7 @@ const Calculator = () => {
 
   const handleEqual = () => {
     setInput(0);
-    setIsCalcShow(false);
+    closeModal ? closeModal() : setIsCalcShow(false);
     dispatch(
       calculatorActions.calcResultSuccess(
         Math.round(math.evaluate(input) * 100) / 100,

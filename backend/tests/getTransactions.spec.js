@@ -1,13 +1,14 @@
 require('dotenv').config({ path: './.env' });
 const jwt = require('jsonwebtoken');
+const { CrudServer } = require('../src/server');
 const request = require('supertest');
 const { assert, expect } = require('chai');
-const { CrudServer } = require('../src/server');
 const User = require('../src/api/users/user.model');
+const {
+  TransactionModel,
+} = require('../src/api/transactions/transaction.model');
 
-const expiresIn = 2 * 24 * 60 * 60;
-
-describe('Gifts test suite', () => {
+describe('CurrentUser test suite', () => {
   let server;
 
   before(async () => {
@@ -16,13 +17,13 @@ describe('Gifts test suite', () => {
     server = crudServer.server;
   });
 
-  describe('PUT /api/v1/gifts/unpack', () => {
+  describe('GET /transactions/expenses', () => {
     context('when bad token was provided', () => {
       let response;
 
       before(async () => {
         response = await request(server)
-          .put('/api/v1/gifts/unpack')
+          .get('/api/v1/transactions/expenses?month=10&year=2020')
           .set('Authorization', 'Bearer bad_token');
       });
 
@@ -30,62 +31,40 @@ describe('Gifts test suite', () => {
         assert.equal(response.status, 401);
       });
     });
-    context('when stats not initialized', () => {
-      let response, userDoc;
-
-      before(async () => {
-        userDoc = await User.create({
-          username: 'Test5',
-          email: 'test5@email.com',
-          passwordHash: 'password_hash',
-        });
-
-        const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
-          expiresIn,
-        });
-        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
-        await userDoc.save();
-
-        response = await request(server)
-          .put('/api/v1/gifts/unpack')
-          .set('Authorization', `Bearer ${token}`);
-      });
-
-      after(async () => {
-        await User.deleteOne({ _id: userDoc._id });
-      });
-
-      it('should return 403 error', () => {
-        assert.equal(response.status, 403);
-      });
-    });
 
     context('when good token was provided', () => {
-      let response, userDoc;
+      let response, userDoc, transactionDoc, testDate;
 
       before(async () => {
         userDoc = await User.create({
-          username: 'Test5',
-          email: 'test5@email.com',
+          username: 'Test1',
+          email: 'test1@email.com',
           passwordHash: 'password_hash',
-          flatPrice: 10000,
-          giftsUnpacked: 2,
-          giftsForUnpacking: 5,
         });
-
+        const expiresIn = 2 * 24 * 60 * 60;
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn,
         });
         userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
         await userDoc.save();
+        testDate = new Date(2020, 9, 15);
+        console.log('Date', testDate);
+        console.log('ms', Date.parse(testDate));
+        transactionDoc = await TransactionModel.create({
+          amount: 1000,
+          type: 'EXPENSE',
+          transactionDate: Date.parse(testDate),
+          userId: userDoc._id,
+        });
 
         response = await request(server)
-          .put('/api/v1/gifts/unpack')
+          .get('/api/v1/transactions/expenses?month=10&year=2020')
           .set('Authorization', `Bearer ${token}`);
       });
 
       after(async () => {
         await User.deleteOne({ _id: userDoc._id });
+        await TransactionModel.deleteOne({ _id: transactionDoc._id });
       });
 
       it('should return response with 200', () => {
@@ -93,8 +72,11 @@ describe('Gifts test suite', () => {
       });
 
       it('should return expected response body', () => {
-        expect(response.body).to.include({
-          giftsForUnpacking: 4,
+        expect(response.body[0]).to.include({
+          amount: transactionDoc.amount,
+          category: transactionDoc.category,
+          comment: transactionDoc.comment,
+          transactionDate: testDate.toISOString(),
         });
       });
     });
