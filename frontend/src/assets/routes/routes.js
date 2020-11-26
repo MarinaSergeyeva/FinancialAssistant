@@ -32,7 +32,9 @@ export default [
     path: '/expense/list',
     label: 'ExpenseList',
     exact: true,
-    component: lazy(() => 'ExpenseList'),
+    component: lazy(() =>
+      import('../../components/Expense/ExpenseList/ExpenseList'),
+    ),
     private: true,
     restricted: false,
   },
