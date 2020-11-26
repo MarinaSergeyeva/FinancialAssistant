@@ -1,43 +1,35 @@
-const mongoose = require('mongoose');
 const catchAsync = require('../../utils/catchAsync');
 const MonthReportModel = require('../cron/monthReport.model');
+const AppError = require('../errors/appError');
 
 const getMonthReport = catchAsync(async (req, res, next) => {
-  const { startMonth, startYear } = req.query;
+  let { endMonth, endYear } = req.query;
+
+  if (!req.user) {
+    return next(new AppError('Not authorized', 401));
+  }
+  if (!req.user.flatPrice) {
+    return next(new AppError('Initialize your saving stats, please', 403));
+  }
+
+  let startDate;
+  let monthReports;
+  const userId = req.user._id;
 
   const date = new Date();
+  startDate = new Date(date.getFullYear() - 1, date.getMonth());
+  const endDate = new Date(endYear, endMonth);
 
-  const presentMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
-  console.log('presentMonth', presentMonth);
-  const presentMonthInMS = Date.parse(presentMonth);
-  console.log('presentMonthInMS', presentMonthInMS);
-  const endMonth = new Date(date.getFullYear() - 1, date.getMonth() - 12, 1);
-  console.log('endMonth', endMonth);
-
-  let now = new Date();
-  const previousMonth = now.getMonth();
-
-  const userId = req.user._id;
-  const monthReports = await MonthReportModel.aggregate([
+  monthReports = await MonthReportModel.aggregate([
     {
       $match: {
         userId,
-        // reportDate: { $lte: startMonth },
-        reportDate: { $lte: presentMonth },
-        $eq: [{ $month: '$reportDate' }, previousMonth],
-
-        //   reportDate: { $gte: endMonth },
+        reportDate: { $gte: startDate, $lte: endDate },
       },
     },
-    // {
-    //   $group: {
-    //     _id: null,
-    //     expenses: { $sum: '$amount' },
-    //   },
-    // },
   ]);
-  console.log('monthReports.length', monthReports.length);
-  res.status(201).json({
+
+  return res.status(200).json({
     status: 'success',
     monthReports,
   });
