@@ -62,97 +62,97 @@ describe('getMonthReports test suite', () => {
         assert.equal(response.status, 401);
       });
     });
-  });
 
-  context('user have not initialized his saving stats yet', () => {
-    let response, userDoc;
+    context('user have not initialized his saving stats yet', () => {
+      let response, userDoc;
 
-    before(async () => {
-      userDoc = await User.create({
-        username: 'test403getMonthReports',
-        email: 'test403getMonthReports@email.com',
-        passwordHash: 'password_hash',
-        balance: 0,
-        flatPrice: 0,
-        flatSquareMeters: 0,
-        totalSalary: 0,
-        passiveIncome: 0,
-        incomePercentageToSavings: 0,
+      before(async () => {
+        userDoc = await User.create({
+          username: 'test403getMonthReports',
+          email: 'test403getMonthReports@email.com',
+          passwordHash: 'password_hash',
+          balance: 0,
+          flatPrice: 0,
+          flatSquareMeters: 0,
+          totalSalary: 0,
+          passiveIncome: 0,
+          incomePercentageToSavings: 0,
+        });
+
+        const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
+          expiresIn,
+        });
+        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
+        await userDoc.save();
+
+        response = await request(server)
+          .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
+          .set('Authorization', `Bearer ${token}`);
       });
 
-      const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
-        expiresIn,
-      });
-      userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
-      await userDoc.save();
-
-      response = await request(server)
-        .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
-        .set('Authorization', `Bearer ${token}`);
-    });
-
-    after(async () => {
-      await User.deleteOne({ _id: userDoc._id });
-    });
-
-    it('should return 403 error', () => {
-      assert.equal(response.status, 403);
-    });
-  });
-
-  context('when everything ok', () => {
-    let response, userDoc, fakeReport;
-
-    before(async () => {
-      userDoc = await User.create({
-        username: 'test200getMonthReports',
-        email: 'test200getMonthReports2@email.com',
-        passwordHash: 'password_hash',
-        balance: 1000,
-        flatPrice: 40000,
-        flatSquareMeters: 40,
-        totalSalary: 900,
-        passiveIncome: 400,
-        incomePercentageToSavings: 5,
+      after(async () => {
+        await User.deleteOne({ _id: userDoc._id });
       });
 
-      fakeReport = await monthReport.create({
-        totalExpenses: 100,
-        totalSavings: 103,
-        totalIncome: 103,
-        expectedSavingsPercentage: 3,
-        expectedSavings: 3.09,
-        userId: userDoc._id,
+      it('should return 403 error', () => {
+        assert.equal(response.status, 403);
       });
-
-      const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
-        expiresIn,
-      });
-      userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
-      await userDoc.save();
-
-      response = await request(server)
-        .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
-        .set('Authorization', `Bearer ${token}`);
     });
 
-    after(async () => {
-      await User.deleteOne({ _id: userDoc._id });
-    });
+    context('when everything ok', () => {
+      let response, userDoc, fakeReport;
 
-    it('should return status 200', () => {
-      assert.equal(response.status, 200);
-    });
+      before(async () => {
+        userDoc = await User.create({
+          username: 'test200getMonthReports',
+          email: 'test200getMonthReports2@email.com',
+          passwordHash: 'password_hash',
+          balance: 1000,
+          flatPrice: 40000,
+          flatSquareMeters: 40,
+          totalSalary: 900,
+          passiveIncome: 400,
+          incomePercentageToSavings: 5,
+        });
 
-    it('should return expected response body', () => {
-      expect(response.body.monthReports[0]).to.include({
-        totalExpenses: fakeReport.totalExpenses,
-        totalSavings: fakeReport.totalSavings,
-        totalIncome: fakeReport.totalIncome,
-        expectedSavingsPercentage: fakeReport.expectedSavingsPercentage,
-        expectedSavings: fakeReport.expectedSavings,
+        fakeReport = await monthReport.create({
+          totalExpenses: 100,
+          totalSavings: 103,
+          totalIncome: 103,
+          expectedSavingsPercentage: 3,
+          expectedSavings: 3.09,
+          userId: userDoc._id,
+        });
+
+        const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
+          expiresIn,
+        });
+        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
+        await userDoc.save();
+
+        response = await request(server)
+          .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
+          .set('Authorization', `Bearer ${token}`);
       });
-      assert.equal(response.body.monthReports[0].userId, userDoc._id);
+
+      after(async () => {
+        await User.deleteOne({ _id: userDoc._id });
+      });
+
+      it('should return status 200', () => {
+        assert.equal(response.status, 200);
+      });
+
+      it('should return expected response body', () => {
+        expect(response.body.monthReports[0]).to.include({
+          totalExpenses: fakeReport.totalExpenses,
+          totalSavings: fakeReport.totalSavings,
+          totalIncome: fakeReport.totalIncome,
+          expectedSavingsPercentage: fakeReport.expectedSavingsPercentage,
+          expectedSavings: fakeReport.expectedSavings,
+        });
+        assert.equal(response.body.monthReports[0].userId, userDoc._id);
+      });
     });
   });
 });
