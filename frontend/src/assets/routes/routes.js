@@ -28,23 +28,23 @@ export default [
     restricted: false,
   },
 
-  {
-    path: '/expense/list',
-    label: 'ExpenseList',
-    exact: true,
-    component: lazy(() => 'ExpenseList'),
-    private: true,
-    restricted: false,
-  },
+  // {
+  //   path: '/expense/list',
+  //   label: 'ExpenseList',
+  //   exact: true,
+  //   component: lazy(() => 'ExpenseList'),
+  //   private: true,
+  //   restricted: false,
+  // },
 
-  {
-    path: '/expense/categories',
-    label: 'ExpenseCategories',
-    exact: true,
-    component: lazy(() => 'ExpenseCategories'),
-    private: true,
-    restricted: false,
-  },
+  // {
+  //   path: '/expense/categories',
+  //   label: 'ExpenseCategories',
+  //   exact: true,
+  //   component: lazy(() => 'ExpenseCategories'),
+  //   private: true,
+  //   restricted: false,
+  // },
 
   {
     path: '/plan',
