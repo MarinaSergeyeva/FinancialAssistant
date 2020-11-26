@@ -66,9 +66,9 @@ describe('transactions/categories test suite', () => {
         });
 
         it('should return expected categories array', () => {
-          // expect(categories);
-          console.log('response.body', response.body);
-          expect(response.body).to.include(categories);
+          console.log('response.body', response.body.categories);
+          console.log('categories', categories);
+          expect(response.body.categories).to.include.members(categories);
         });
       });
     });

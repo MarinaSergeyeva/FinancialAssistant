@@ -18,7 +18,7 @@ describe('getMonthReports test suite', () => {
     server = crudServer.server;
   });
 
-  describe('GET /api/month-reports/annual?startMonth&startYear', () => {
+  describe('GET /api/month-reports/annual?endMonth&endYear', () => {
     context('required query params are not provided', () => {
       let response, userDoc;
 
@@ -54,7 +54,7 @@ describe('getMonthReports test suite', () => {
 
       before(async () => {
         response = await request(server)
-          .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
+          .get('/api/v1/month-reports/annual?endMonth=11&endYear=2020')
           .set('Authorization', '');
       });
 
@@ -86,7 +86,7 @@ describe('getMonthReports test suite', () => {
         await userDoc.save();
 
         response = await request(server)
-          .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
+          .get('/api/v1/month-reports/annual?endMonth=11&endYear=2020')
           .set('Authorization', `Bearer ${token}`);
       });
 
@@ -131,7 +131,7 @@ describe('getMonthReports test suite', () => {
         await userDoc.save();
 
         response = await request(server)
-          .get('/api/v1/month-reports/annual?startMonth=11&startYear=2020')
+          .get('/api/v1/month-reports/annual?endMonth=11&endYear=2020')
           .set('Authorization', `Bearer ${token}`);
       });
 
