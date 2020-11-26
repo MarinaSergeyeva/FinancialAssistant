@@ -9,6 +9,7 @@ import userOperations from '../../redux/operations/userOperations';
 import Header from '../Header/Header';
 import Navigation from '../Header/Navigation';
 import device from '../../common/deviceSizes';
+import Spinner from '../Spinner/Spinner';
 import { useMediaQuery } from 'react-responsive';
 
 const App = () => {
@@ -32,7 +33,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Spinner />}>
         <Header showNavigation={showNavigationHandler} />
         {isUserAuth && showNavigation && (isMobileDevice || isTabletDevice) && (
           <Navigation showNavigation={showNavigationHandler} />

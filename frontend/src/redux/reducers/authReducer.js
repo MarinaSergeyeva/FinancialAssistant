@@ -1,7 +1,7 @@
-import authConstants from "../constants/authConstants";
+import authConstants from '../constants/authConstants';
 
 const initialState = {
-  token: "",
+  token: null,
 };
 
 const auth = (state = initialState, { type, payload }) => {
@@ -13,7 +13,7 @@ const auth = (state = initialState, { type, payload }) => {
       return payload;
 
     case authConstants.LOGOUT:
-      return "";
+      return '';
 
     default:
       return state;

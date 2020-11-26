@@ -1,9 +1,7 @@
 require('dotenv').config({ path: './.env' });
-
-const jwt = require('jsonwebtoken');
-const { CrudServer } = require('../src/server');
 const request = require('supertest');
-const { assert, expect } = require('chai');
+const { assert } = require('chai');
+const { CrudServer } = require('../src/server');
 const UserModel = require('../src/api/users/user.model');
 const faker = require('faker');
 

@@ -10,6 +10,7 @@ const UserSchema = new Schema(
       required: true,
     },
     passwordHash: { type: String },
+    picture: { type: String },
     balance: { type: Number, default: 0, required: true },
     flatPrice: { type: Number, default: 0, required: true },
     flatSquareMeters: { type: Number, default: 0, required: true },
@@ -18,7 +19,12 @@ const UserSchema = new Schema(
     incomePercentageToSavings: { type: Number, default: 0, required: true },
     giftsUnpacked: { type: Number, default: 0 },
     giftsForUnpacking: { type: Number, default: 0 },
-    tokens: [{ type: String }],
+    tokens: [
+      {
+        token: { type: String },
+        expires: { type: Date },
+      },
+    ],
   },
   { timestamps: true },
 );
