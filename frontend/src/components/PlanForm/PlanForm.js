@@ -20,8 +20,8 @@ function PlanForm({ state, getState }) {
         <div className="firstColumn">
           <label>
             <span>1. ЗП обоих супругов</span>
-            {console.log('getCurrentUser', getCurrentUser)}
-            {console.log('state', state)}
+            {/* {console.log('getCurrentUser', getCurrentUser)}
+            {console.log('state', state)} */}
             <input
               type="number"
               name="totalSalary"

@@ -100,7 +100,7 @@ const getFlatStats = (req, res, next) => {
 
   const stats = calculateStats(user);
 
-  res.status(200).json(stats);
+  return res.status(200).json(stats);
 };
 
 module.exports = { getCurrentUser, updateUsersController, getFlatStats };
