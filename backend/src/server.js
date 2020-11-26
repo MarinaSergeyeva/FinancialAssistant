@@ -1,20 +1,26 @@
-const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
+const express = require('express');
+const passport = require('passport');
+const mongoose = require('mongoose');
 const authRouter = require('./api/auth/auth.routers');
 const usersRouter = require('./api/users/user.router');
-const transactionRouter = require('./api/transactions/transactionRouter');
 const giftsRouter = require('./api/gifts/gifts.router');
+const transactionRouter = require('./api/transactions/transactionRouter');
 const monthReportRouter = require('./api/monthReports/monthReport.router');
-require('dotenv').config({ path: path.join('./.env') });
+const {
+  initGoogleOauthStrategy,
+} = require('./api/auth/strategies/google.strategy');
+const {
+  initFacebookOauthStrategy,
+} = require('./api/auth/strategies/google.strategy');
 
 const AppError = require('./api/errors/appError');
-const PORT = process.env.PORT || 8080;
 const globalErrorHandler = require('./api/errors/error.controller');
-
-const mongoose = require('mongoose');
 const { updateInfo } = require('./api/cron/cronUpdateInfo');
+require('dotenv').config({ path: path.join('./.env') });
+const PORT = process.env.PORT || 8080;
 
 class CrudServer {
   constructor() {
@@ -60,19 +66,12 @@ class CrudServer {
   }
 
   initMiddlewares() {
-    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
-    if (process.env.NODE_ENV === 'development') {
-      this.server.use(morgan('dev'));
-    }
-
-    if (process.env.NODE_ENV !== 'development') {
-      this.server.use(morgan('combined'));
-    }
+    this.server.use(passport.initialize());
+    initGoogleOauthStrategy();
     this.server.use(express.json());
 
     this.server.use((req, res, next) => {
       req.requestTime = new Date().toISOString();
-
       next();
     });
 

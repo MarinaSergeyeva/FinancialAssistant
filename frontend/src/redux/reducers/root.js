@@ -5,7 +5,9 @@ import authReducer from './authReducer';
 import stats from './statsReduce';
 import userReducer from './userReducer';
 import transactionReducer from './transactionReducer';
+import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
+import categoriesReducer from './categoriesReducer';
 
 export const persistConfig = {
   key: 'auth',
@@ -21,7 +23,8 @@ const root = combineReducers({
     stats: stats,
   }),
   calculator: calculatorReduce,
-  error: {},
+  categories: categoriesReducer,
+  error: errorReducer,
 });
 
 export default root;

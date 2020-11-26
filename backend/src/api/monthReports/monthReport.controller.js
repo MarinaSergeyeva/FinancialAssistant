@@ -31,7 +31,6 @@ const getMonthReport = catchAsync(async (req, res, next) => {
 
   return res.status(200).json({
     status: 'success',
-    hi: monthReports.length,
     monthReports,
   });
 });
