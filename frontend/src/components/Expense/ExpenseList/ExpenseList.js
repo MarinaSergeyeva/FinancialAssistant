@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpenseListItem from './ExpenseListItem/ExpenseListItem';
+import ExpenseListItem from '../ExpenseListItem/ExpenseListItem';
 
 const ExpenseList = () => {
   return <ExpenseListItem />;

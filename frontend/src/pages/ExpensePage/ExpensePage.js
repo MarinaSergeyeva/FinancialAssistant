@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Link, useRouteMatch, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import { device, Mobile, Tablet, Desktop } from '../../common/deviceSizes';
@@ -8,34 +9,73 @@ import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mo
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
 import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
 import LogoutModal from '../../components/Logout/LogoutModal';
+import ExpenseCategories from '../../components/ExpenseCategories/ExpenseCategories';
+import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
   {
+    const match = useRouteMatch();
+    const location = useLocation();
+    console.log('location', location);
+    console.log('match', match); // '/expense'
     return (
-      <ExpensePageContainer>
-        <ExpenseFormWrapper>
-          <ExpenseForm />
-        </ExpenseFormWrapper>
-        <ForecastExpense />
-        <Mobile>
-          <ExpensePageImg
-            src={expensePageMobile}
-            alt="expense page background"
-          />
-        </Mobile>
-        <Tablet>
-          <ExpensePageImg
-            src={expensePageTablet}
-            alt="expense page background"
-          />
-        </Tablet>
-        <Desktop>
-          <ExpensePageImg
-            src={expensePageDesktop}
-            alt="expense page background"
-          />
-        </Desktop>
-      </ExpensePageContainer>
+      <>
+        {location.pathname === match.path ? (
+          <ExpensePageContainer>
+            <ExpenseFormWrapper>
+              <ExpenseForm />
+            </ExpenseFormWrapper>
+            <ForecastExpense />
+            <Mobile>
+              <ExpensePageImg
+                src={expensePageMobile}
+                alt="expense page background"
+              />
+            </Mobile>
+            <Tablet>
+              <ExpensePageImg
+                src={expensePageTablet}
+                alt="expense page background"
+              />
+            </Tablet>
+            <Desktop>
+              <ExpensePageImg
+                src={expensePageDesktop}
+                alt="expense page background"
+              />
+            </Desktop>
+          </ExpensePageContainer>
+        ) : (
+          <ul style={{ margin: '50px 50px', display: 'flex' }}>
+            <li style={{ marginRight: '35px' }}>
+              <Link
+                to={{
+                  pathname: `${match.url}/list`,
+                }}
+              >
+                Список
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={{
+                  pathname: `${match.url}/categories`,
+                }}
+              >
+                Категории
+              </Link>
+            </li>
+          </ul>
+        )}
+        <Route path={`${match.url}/list`}>
+          <ExpenseList />
+        </Route>
+        <Route path={`${match.url}/categories`}>
+          <ExpenseCategories />
+        </Route>
+        {/* <Route path={`${match.path}/categories`} component={ExpenseCategories} /> */}
+        {/* <Route path={`${match.path}/list`} component={ExpensesList} /> */}
+      </>
     );
   }
 };

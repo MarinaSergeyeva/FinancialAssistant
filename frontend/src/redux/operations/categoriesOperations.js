@@ -8,7 +8,6 @@ axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getCategories = () => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
-  console.log('persistedToken', persistedToken);
   if (!persistedToken) {
     return;
   }
@@ -16,7 +15,6 @@ const getCategories = () => async (dispatch, getState) => {
   dispatch(categoriesActions.categoriesRequest());
   try {
     const res = await axios.get('/api/v1/transactions/categories');
-    console.log('res', res);
     dispatch(categoriesActions.categoriesSuccess(res.data.categories));
   } catch (error) {
     console.log(error.message);

@@ -22,31 +22,29 @@ export default [
   {
     path: '/expense',
     label: 'ExpensePage',
-    exact: true,
+    exact: false,
     component: lazy(() => import('../../pages/ExpensePage/ExpensePage')),
     private: true,
     restricted: false,
   },
 
-  {
-    path: '/expense/list',
-    label: 'ExpenseList',
-    exact: true,
-    component: lazy(() =>
-      import('../../components/Expense/ExpenseList/ExpenseList'),
-    ),
-    private: true,
-    restricted: false,
-  },
+  // {
+  //   path: '/expense/list',
+  //   label: 'ExpenseList',
+  //   exact: true,
+  //   component: lazy(() => 'ExpenseList'),
+  //   private: true,
+  //   restricted: false,
+  // },
 
-  {
-    path: '/expense/categories',
-    label: 'ExpenseCategories',
-    exact: true,
-    component: lazy(() => 'ExpenseCategories'),
-    private: true,
-    restricted: false,
-  },
+  // {
+  //   path: '/expense/categories',
+  //   label: 'ExpenseCategories',
+  //   exact: true,
+  //   component: lazy(() => 'ExpenseCategories'),
+  //   private: true,
+  //   restricted: false,
+  // },
 
   {
     path: '/plan',

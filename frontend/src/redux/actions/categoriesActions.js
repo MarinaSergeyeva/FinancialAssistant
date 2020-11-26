@@ -5,7 +5,6 @@ const categoriesRequest = () => ({
 });
 
 const categoriesSuccess = categories => {
-  console.log('categories', categories);
   return {
     type: constants.CATEGORIES_SUCCESS,
     payload: categories,
