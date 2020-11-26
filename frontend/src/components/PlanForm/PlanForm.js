@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PlanFormStyled } from './planFormStyled';
+import { getCurrentUser } from '../../redux/selectors/userSelectors';
 
 const placeHolder = 'Введите сумму';
 
@@ -19,6 +20,8 @@ function PlanForm({ state, getState }) {
         <div className="firstColumn">
           <label>
             <span>1. ЗП обоих супругов</span>
+            {console.log('getCurrentUser', getCurrentUser)}
+            {console.log('state', state)}
             <input
               type="number"
               name="totalSalary"
