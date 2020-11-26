@@ -33,7 +33,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner />}>
         <Header showNavigation={showNavigationHandler} />
         {isUserAuth && showNavigation && (isMobileDevice || isTabletDevice) && (
           <Navigation showNavigation={showNavigationHandler} />
