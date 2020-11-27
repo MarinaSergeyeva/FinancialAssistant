@@ -14,8 +14,14 @@ const calcResultError = error => ({
   payload: error,
 });
 
+const calcReset = () => ({
+  type: constants.CALC_RESET,
+});
+
 export default {
   calcResultRequest,
   calcResultSuccess,
   calcResultError,
+
+  calcReset,
 };

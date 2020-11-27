@@ -29,6 +29,7 @@ const Navigation = ({ showNavigation }) => {
         </StyleNavLInk>
         <StyleNavLInk
           to="/expense"
+          exact
           activeClassName="active"
           onClick={showNavigation}
         >
@@ -41,7 +42,9 @@ const Navigation = ({ showNavigation }) => {
         >
           Динамика
         </StyleNavLInk>
-        {(isMobileDevice || isTabletDevice) && <Logout />}
+        {(isMobileDevice || isTabletDevice) && (
+          <Logout showNavigation={showNavigation} />
+        )}
         {isTabletDevice && (
           <NavigationBgImg
             src={navigationBackgroundTablet}

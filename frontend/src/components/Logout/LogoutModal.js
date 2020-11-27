@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
 import authOperations from '../../redux/operations/authOperations';
-import authSelector from '../../redux/selectors/authSelector';
 
 const LogoutModal = props => {
-  // const token = useSelector(state => authSelector.isAuthenticated(state));
-  // console.log('token', token);
-  // const [localToken, setToken] = useState(token);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (!localToken) {
-  //     dispatch(authOperations.userLogout());
-  //   }
-  // }, [localToken]);
-
   const logoutUser = async () => {
+    props.showNavigation();
     await dispatch(authOperations.userLogout());
-    // setToken(null);
   };
 
   return (

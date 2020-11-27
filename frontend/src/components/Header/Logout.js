@@ -5,7 +5,7 @@ import logoutImg from '../../assets/icons/Header/icon-logout.svg';
 import Modal from '../Modal/Modal';
 import LogoutModal from '../Logout/LogoutModal';
 
-const Logout = () => {
+const Logout = ({ showNavigation }) => {
   const [showExitModal, setShowExitModal] = useState(false);
 
   const showExitModalHandler = () => {
@@ -19,7 +19,10 @@ const Logout = () => {
       </ButtonLogout>
       {showExitModal && (
         <Modal closeModal={showExitModalHandler}>
-          <LogoutModal closeModal={showExitModalHandler} />
+          <LogoutModal
+            closeModal={showExitModalHandler}
+            showNavigation={showNavigation}
+          />
         </Modal>
       )}
     </>

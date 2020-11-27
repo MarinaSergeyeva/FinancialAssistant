@@ -11,6 +11,7 @@ import Navigation from '../Header/Navigation';
 import device from '../../common/deviceSizes';
 import Spinner from '../Spinner/Spinner';
 import { useMediaQuery } from 'react-responsive';
+import { authSelector } from '../../redux/selectors';
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
@@ -18,7 +19,7 @@ const App = () => {
     setShowMobileNavigation(!showNavigation);
   };
 
-  const isUserAuth = useSelector(state => state.auth.token);
+  const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
@@ -35,7 +36,7 @@ const App = () => {
     <>
       <Suspense fallback={<Spinner />}>
         <Header showNavigation={showNavigationHandler} />
-        {isUserAuth && showNavigation && (isMobileDevice || isTabletDevice) && (
+        {isUserAuth && showNavigation && (
           <Navigation showNavigation={showNavigationHandler} />
         )}
         {!showNavigation && (
