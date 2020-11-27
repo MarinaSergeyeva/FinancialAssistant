@@ -49,14 +49,14 @@ const MainPage = () => {
           <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
-      <GoogleAuthBtn href="http://localhost:8080/api/v1/auth/google">
+      <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
         <GoogleAuthBtnImg
           src={googleLogo}
           alt="google auth picture"
         ></GoogleAuthBtnImg>
         Sign up with Google
       </GoogleAuthBtn>
-      <FacebookAuthBtn href="http://localhost:8080/api/v1/auth/facebook">
+      <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
         <FacebookAuthBtnImg
           src={facebookLogo}
           alt="facebook auth picture"
