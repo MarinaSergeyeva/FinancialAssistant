@@ -4,7 +4,7 @@
   "description": "backendpart",
   "main": "index.js",
   "scripts": {
-    "test": "mocha '**/*.spec.js' --exit",
+    "test": "mocha '**/*.spec.js' --exit --timeout 10000",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "prod": "SET NODE_ENV=production & nodemon index.js"

@@ -45,7 +45,7 @@ describe('#monthlyUpdatingUsersInfo  updating  via cron tests suite', () => {
 
       after(async () => {
         await UserModel.deleteOne({ email: newUser.email });
-        await TransactionModel.deleteOne({ _id: fakeTransaction._id });
+        await TransactionModel.deleteMany({ userId: newUser._id });
         await monthReportModel.deleteOne({ userId: newUser._id });
       });
 
