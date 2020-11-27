@@ -10,7 +10,9 @@ function PrognosisBuy({ fields }) {
 
   const getResult = () => {
     if (
-      (fields.totalSalary || fields.passiveIncome || fields.balance) &&
+      fields.totalSalary &&
+      fields.passiveIncome &&
+      fields.balance &&
       fields.flatPrice &&
       fields.incomePercentageToSavings &&
       fields.balance <= fields.flatPrice
@@ -49,7 +51,7 @@ function PrognosisBuy({ fields }) {
 
   const onHandleSubmit = e => {
     e.preventDefault();
-    dispatch(operation.updateUserInfo(fields));
+    monthes && dispatch(operation.updateUserInfo(fields));
   };
 
   return (

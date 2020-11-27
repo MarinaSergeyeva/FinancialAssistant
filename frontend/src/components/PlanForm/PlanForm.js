@@ -2,25 +2,29 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PlanFormStyled } from './planFormStyled';
 // import { userSelectors } from '../../redux/selectors';
+// import sprite from '../../assets/icons/currency-sprite.svg';
 
 const placeHolder = 'Введите сумму';
 
 function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
+  const [currencySelect, setCurrency] = useState('');
 
   const infoCurrentUser = useSelector(state => state.user.info);
 
-  const inputValue = stateValue => {
-    if (!stateValue) {
-      return '';
-    } else return stateValue;
-    // infoCurrentUserValue&&infoCurrentUserValues
-  };
+  // const inputValue = stateValue => {
+  //   if (!stateValue) {
+  //     return '';
+  //   } else return stateValue;
+  //   // infoCurrentUserValue&&infoCurrentUserValues
+  // };
 
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
   };
-
+  const onHandleSelectChange = e => {
+    setCurrency(e.target.value);
+  };
   const onHandleFocus = () => setFieldActive(true);
   const onHandleBlur = () => setFieldActive(false);
 
@@ -35,15 +39,15 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="totalSalary"
-              // value={!state.totalSalary ? '' : state.totalSalary}
+              value={!state.totalSalary ? '' : state.totalSalary}
               // value={
               //   infoCurrentUser.totalSalary ? '' : infoCurrentUser.totalSalary
               // }
-              value={
-                infoCurrentUser.totalSalary === 0
-                  ? inputValue(state.totalSalary)
-                  : infoCurrentUser.totalSalarys
-              }
+              // value={
+              //   infoCurrentUser.totalSalary === 0
+              //     ? inputValue(state.totalSalary)
+              //     : infoCurrentUser.totalSalarys
+              // }
               placeholder={placeHolder}
               onChange={onHandleChange}
             />
@@ -72,6 +76,17 @@ function PlanForm({ state, getState }) {
         <div className="secondColumn">
           <label>
             <span>4. Укажите стоимость вашей будущей квартиры</span>
+            <div className="selectWrapper">
+              <select
+                value={currencySelect}
+                name="currency"
+                onChange={onHandleSelectChange}
+              >
+                <option value="euro">&euro;</option>
+                <option value="dollar">&#36;</option>
+                <option value="hryvna">&#8372;</option>
+              </select>
+            </div>
             <input
               type="number"
               name="flatPrice"
