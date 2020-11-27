@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PlanFormStyled } from './planFormStyled';
-// import { userSelectors } from '../../redux/selectors';
-// import sprite from '../../assets/icons/currency-sprite.svg';
+import Currency from './Currency';
 
 const placeHolder = 'Введите сумму';
 
 function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
-  const [currencySelect, setCurrency] = useState('');
+  // const [currencySelect, setCurrency] = useState('');
 
   const infoCurrentUser = useSelector(state => state.user.info);
 
@@ -22,9 +21,10 @@ function PlanForm({ state, getState }) {
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
   };
-  const onHandleSelectChange = e => {
-    setCurrency(e.target.value);
-  };
+  // const onHandleSelectChange = e => {
+  //   setCurrency(e.target.value);
+  // };
+
   const onHandleFocus = () => setFieldActive(true);
   const onHandleBlur = () => setFieldActive(false);
 
@@ -76,7 +76,7 @@ function PlanForm({ state, getState }) {
         <div className="secondColumn">
           <label>
             <span>4. Укажите стоимость вашей будущей квартиры</span>
-            <div className="selectWrapper">
+            {/* /* <div className="selectWrapper">
               <select
                 value={currencySelect}
                 name="currency"
@@ -86,7 +86,8 @@ function PlanForm({ state, getState }) {
                 <option value="dollar">&#36;</option>
                 <option value="hryvna">&#8372;</option>
               </select>
-            </div>
+            </div> */}
+            <Currency state={state} getState={getState} />
             <input
               type="number"
               name="flatPrice"
@@ -121,7 +122,7 @@ function PlanForm({ state, getState }) {
               onChange={onHandleChange}
             />
             <p>
-              {!!isFieldActive &&
+              {isFieldActive &&
                 'Укажите процент, который бы хотели накапливать в месяц от общей суммы доходов и вы увидите, когда достигните цели'}
             </p>
           </label>

@@ -56,7 +56,7 @@ export const PlanFormStyled = styled.div`
   input:focus {
     border-bottom: 1px solid rgb(33, 150, 243);
   }
-  .selectWrapper {
+  /* .selectWrapper {
     position: absolute;
     top: 34px;
     right: 12px;
@@ -66,22 +66,24 @@ export const PlanFormStyled = styled.div`
     width: 102px;
     height: 20px;
     outline: none;
-    /* background-image: url('select-arrow.png');
-    background-position: right center;
-    background-repeat: no-repeat; */
     background: rgba(0, 0, 0, 0);
+    background-image: url('.././../assets/icons/PlanForm/Shape.png');
+    background-position: right center;
+    background-repeat: no-repeat;
     padding: 30px 12px 12px;
     color: rgba(24, 25, 31, 0.87);
     font-size: 16px;
     line-height: 19px;
     border: none;
-  }
+  } */
   /* option {
     position: absolute;
     top: 100px;
     background: red;
     border: none;
   } */
+  ///------- currency ---------
+  /////height
 
   @media (min-width: ${size.tablet}) {
     form {
