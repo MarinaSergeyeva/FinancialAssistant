@@ -4,7 +4,8 @@ import moment from 'moment';
 import Chart from 'chart.js';
 import device from '../../common/deviceSizes.js';
 import { useMediaQuery } from 'react-responsive';
-
+import { connect, useSelector } from 'react-redux';
+import chartSelector from '../../redux/selectors/chartSelector';
 export const MyChart = () => {
   const monthlyReportArray = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
@@ -22,8 +23,8 @@ export const MyChart = () => {
     );
     arrayOfReportDate = monthlyReportArray.map(item => {
       const data = new Date(item.reportDate);
-      reportMonth = month[data.getMonth()];
-      return reportMonth;
+      // const reportMonth = month[data.getMonth()];
+      return data;
     });
   } else {
     arrayOfTotalSavings = [0];

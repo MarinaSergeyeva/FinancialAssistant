@@ -2,52 +2,49 @@ import React, { useState } from 'react';
 import { PlanFormStyled } from './planFormStyled';
 
 const placeHolder = 'Введите сумму';
-const field = {
-  salary: '',
-  passiveIncome: '',
-  saving: '',
-  apartmentCost: '',
-  apartmentArea: '',
-  accumulation: { inputValue: '', helperText: false },
-};
 
-function PlanForm() {
-  const [state, getState] = useState(field);
+function PlanForm({ state, getState }) {
+  const [isFieldActive, setFieldActive] = useState(false);
+
+  const onHandleChange = e => {
+    getState({ ...state, [e.target.name]: e.target.value });
+  };
+
+  const onHandleFocus = () => setFieldActive(true);
+  const onHandleBlur = () => setFieldActive(false);
 
   return (
     <PlanFormStyled>
-      <form onSubmit={() => {}}>
+      <form>
         <div className="firstColumn">
           <label>
             <span>1. ЗП обоих супругов</span>
             <input
-              type="text"
-              name="salary"
-              value={state.salary}
+              type="number"
+              name="totalSalary"
+              value={!state.totalSalary ? '' : state.totalSalary}
               placeholder={placeHolder}
-              onChange={e => getState({ ...state, salary: e.target.value })}
+              onChange={onHandleChange}
             />
           </label>
           <label>
             <span>2. Пассивные доходы, мес.</span>
             <input
-              type="text"
+              type="number"
               name="passiveIncome"
-              value={state.passiveIncome}
+              value={!state.passiveIncome ? '' : state.passiveIncome}
               placeholder={placeHolder}
-              onChange={e =>
-                getState({ ...state, passiveIncome: e.target.value })
-              }
+              onChange={onHandleChange}
             />
           </label>
           <label>
             <span>3. Сбережения</span>
             <input
-              type="text"
-              name="saving"
-              value={state.saving}
+              type="number"
+              name="balance"
+              value={!state.balance ? '' : state.balance}
               placeholder={placeHolder}
-              onChange={e => getState({ ...state, saving: e.target.value })}
+              onChange={onHandleChange}
             />
           </label>
         </div>
@@ -55,46 +52,42 @@ function PlanForm() {
           <label>
             <span>4. Укажите стоимость вашей будущей квартиры</span>
             <input
-              type="text"
-              name="apartmentCost"
-              value={state.apartmentCost}
+              type="number"
+              name="flatPrice"
+              value={!state.flatPrice ? '' : state.flatPrice}
               placeholder={placeHolder}
-              onChange={e =>
-                getState({ ...state, apartmentCost: e.target.value })
-              }
+              onChange={onHandleChange}
             />
           </label>
           <label>
             <span>5. Укажите кол-во кв. м вашей будущей квартиры</span>
             <input
-              type="text"
-              name="apartmentArea"
-              value={state.apartmentArea}
+              type="number"
+              name="flatSquareMeters"
+              value={!state.flatSquareMeters ? '' : state.flatSquareMeters}
               placeholder={placeHolder}
-              onChange={e =>
-                getState({ ...state, apartmentArea: e.target.value })
-              }
+              onChange={onHandleChange}
             />
           </label>
           <label>
             <span>6. Накопление, %</span>
             <input
-              type="text"
-              name="accumulation"
-              value={state.accumulation.inputValue}
-              placeholder={placeHolder}
-              onClick={() => {}}
-              onChange={e =>
-                getState({ ...state, accumulation: e.target.value })
+              type="number"
+              name="incomePercentageToSavings"
+              value={
+                !state.incomePercentageToSavings
+                  ? ''
+                  : state.incomePercentageToSavings
               }
+              placeholder={placeHolder}
+              onFocus={onHandleFocus}
+              onBlur={onHandleBlur}
+              onChange={onHandleChange}
             />
-            {/* {console.log(state.accumulation.helperText)}
-            {state.accumulation.helperText && ( */}
             <p>
-              Укажите процент, который бы хотели накапливать в месяц от общей
-              суммы доходов и вы увидите, когда достигните цели
+              {!!isFieldActive &&
+                'Укажите процент, который бы хотели накапливать в месяц от общей суммы доходов и вы увидите, когда достигните цели'}
             </p>
-            {/* )} */}
           </label>
         </div>
       </form>

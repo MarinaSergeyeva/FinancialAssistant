@@ -24,9 +24,15 @@ const getCurrentUser = async (req, res, next) => {
 };
 
 const updateUsersController = catchAsync(async (req, res, next) => {
+  if (req.user.balance > 0 && req.body.balance !== req.user.balance) {
+    return res
+      .status(409)
+      .json({ message: 'user balance already initialized' });
+  }
   const updatedUser = await UserDB.findByIdAndUpdate(req.user._id, req.body, {
     new: true,
   });
+
   return res.send({
     id: updatedUser._id,
     username: updatedUser.username,
@@ -94,7 +100,7 @@ const getFlatStats = (req, res, next) => {
 
   const stats = calculateStats(user);
 
-  res.status(200).json(stats);
+  return res.status(200).json(stats);
 };
 
 module.exports = { getCurrentUser, updateUsersController, getFlatStats };

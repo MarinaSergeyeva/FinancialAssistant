@@ -1,37 +1,62 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { textColor, colors } from '../../stylesheet/vars';
+import { statsFlatSelectors } from '../../redux/selectors';
+
+const YEARS_CASES = ['год', 'года', 'лет'];
+const MONTHS_CASES = ['месяц', 'месяца', 'месяцев'];
 
 const ProgressInfo = () => {
+  const statsFlat = useSelector(statsFlatSelectors.getStatsFlat);
+  const {
+    savingsPercentage,
+    savingsValue,
+    savingsInSquareMeters,
+    totalSquareMeters,
+    monthsLeftToSaveForFlat,
+  } = statsFlat;
+  const years = Math.abs(Math.floor(monthsLeftToSaveForFlat / 12));
+  const months = Math.abs(monthsLeftToSaveForFlat % 12);
+  const progressLength = (savingsInSquareMeters / totalSquareMeters) * 100;
   return (
     <>
       <TotalInfo>
-        Через <strong>4 года 1 месяц</strong>
+        Через{' '}
+        <strong>
+          {`${years} ${genitive(years, YEARS_CASES)} ${months} ${genitive(
+            months,
+            MONTHS_CASES,
+          )}`}
+        </strong>
       </TotalInfo>
       <Table>
         <tbody>
           <tr>
             <td className="left">Накоплено, %:</td>
-            <td className="right">28 %</td>
+            <td className="right">{savingsPercentage} %</td>
           </tr>
           <tr>
             <td className="left">Накоплено, грн:</td>
-            <td className="right">60 000 &#x20B4;</td>
+            <td className="right">
+              {new Intl.NumberFormat('ua-UA').format(savingsValue)} &#x20B4;
+            </td>
           </tr>
           <tr>
             <td className="left">А это:</td>
-            <td className="right">2 кв. м</td>
+            <td className="right">{savingsInSquareMeters} кв. м</td>
           </tr>
         </tbody>
       </Table>
 
       <AccumulatedMeters>
-        <span>22</span> из <span>60 кв.м</span> накоплено
+        <span>{savingsInSquareMeters}</span> из{' '}
+        <span>{totalSquareMeters} кв.м</span> накоплено
       </AccumulatedMeters>
 
       <ProgressBar>
-        <div className="progress" style={{ width: '28%' }} />
+        <div className="progress" style={{ width: progressLength + '%' }} />
       </ProgressBar>
     </>
   );
@@ -98,3 +123,12 @@ const ProgressBar = styled.div`
     background: linear-gradient(90deg, #fad961 17.16%, #ff6c00 103.41%);
   }
 `;
+
+function genitive(number, words) {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return words[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
+  ];
+}

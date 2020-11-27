@@ -3,6 +3,7 @@ const transactionRouter = express.Router();
 const {
   createTransaction,
   getTransactionCategories,
+  getListExpensesMonth,
 } = require('./transaction.controller');
 const { authorize } = require('../../utils/authMiddleware');
 const catchAsync = require('../../utils/catchAsync');
@@ -21,12 +22,19 @@ transactionRouter.post(
   '/',
   catchAsync(authorize),
   validate(addTransactionSchema),
-  createTransaction,
+  catchAsync(createTransaction),
 );
+
 transactionRouter.get(
   '/categories',
   catchAsync(authorize),
   getTransactionCategories,
+);
+
+transactionRouter.get(
+  '/expenses',
+  catchAsync(authorize),
+  catchAsync(getListExpensesMonth),
 );
 
 module.exports = transactionRouter;

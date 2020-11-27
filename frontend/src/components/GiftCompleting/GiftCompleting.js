@@ -3,28 +3,61 @@ import styled from 'styled-components';
 import giftImg from '../../assets/images/GiftCompleting/gift grey.png';
 import giftImg2 from '../../assets/images/GiftCompleting/gift 2.png';
 import device from '../../common/deviceSizes';
+import { useDispatch, useSelector } from 'react-redux';
+import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
+import statsOperatioins from '../../redux/operations/statsOperatioins';
+// import Congratulation from '../Congratulation/Congratulation';
+import Error from '../Error/Error';
+import Modal from '../../components/Modal/Modal';
 
 const GiftCompleting = () => {
-  const [isActive, setIsActive] = useState(false);
+  const giftForUnpack = useSelector(state =>
+    statsFlatSelectors.getGiftsForUnpacking(state),
+  );
+  const savingsForNextSquareMeterLeft = useSelector(state =>
+    statsFlatSelectors.getSavingsForNextSquareMeterLeft(state),
+  );
 
-  const isAciveHandler = () => {
-    setIsActive(!isActive);
+  const dispatch = useDispatch();
+
+  const unpackGift = async () => {
+    dispatch(await statsOperatioins.updateGifts());
   };
+
+  // const [isShowCongratulation, setIsShowCongratulation] = useState(false);
+  // const closeCongratulation = () => {
+  //   setIsShowCongratulation(prev => !prev);
+  // };
+
+  const [isShowError, setIsShowError] = useState(false);
+  const closeError = () => {
+    setIsShowError(prev => !prev);
+  };
+
   return (
     <>
-      <button type="button" onClick={isAciveHandler}>
-        Click
-      </button>
+      {/* {isShowCongratulation && (
+        <Modal closeModal={closeCongratulation}>
+          <Congratulation closeModal={closeCongratulation} />
+        </Modal>
+      )} */}
+
+      {isShowError && (
+        <Modal closeModal={closeError}>
+          <Error closeModal={closeError} />
+        </Modal>
+      )}
+
       <Wrapper>
         <TitleWrapper>
-          <Title>
+          <Title onClick={() => closeError()}>
             Чтобы добавить еще <Quantity>1 кв.м</Quantity> на планировку,
             осталось накопить
           </Title>
-          <Price>14 000 ₴</Price>
+          <Price>{savingsForNextSquareMeterLeft} ₴</Price>
         </TitleWrapper>
-        <ImgWrapper>
-          {isActive ? (
+        <ImgWrapper onClick={unpackGift}>
+          {!giftForUnpack > 0 ? (
             <img src={giftImg} alt="giftImg" width="159" height="159" />
           ) : (
             <img src={giftImg2} alt="giftImg" width="159" height="159" />
@@ -100,6 +133,7 @@ const Price = styled.p`
 const ImgWrapper = styled.div`
   width: 159px;
   margin: 0 auto;
+  cursor: pointer;
 `;
 
 const TitleWrapper = styled.div`

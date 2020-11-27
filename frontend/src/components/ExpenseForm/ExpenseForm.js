@@ -10,8 +10,9 @@ import {
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import device, { Mobile } from '../../common/deviceSizes';
-import transactionOperations from '../../redux/operations/transactionOperations';
+import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
+import categoriesSelector from '../../redux/selectors/categoriesSelector';
 
 const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
@@ -23,24 +24,22 @@ const useInput = initialValue => {
   return {
     bind: { value, onChange },
     value,
-    // onChange,
     clear,
   };
 };
 
 const ExpenseForm = () => {
-  const [categories, setCategories] = useState([]);
   const [showCalculator, setShowCalculator] = useState(false);
   const dispatch = useDispatch();
+
+  const categories = useSelector(state => categoriesSelector(state));
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
   };
 
   useEffect(() => {
-    transactionOperations.getTransactionCategories().then(result => {
-      return setCategories(result.categories);
-    });
+    dispatch(categoriesOperations.getCategories());
   }, []);
 
   const comment = useInput('');
@@ -60,15 +59,12 @@ const ExpenseForm = () => {
     amount: Number(amount.bind.value),
     category: category.bind.value,
   };
-  console.log('transactionInfo', transactionInfo);
-  // dispatch(transactionOperations.changeTransaction(transactionInfo));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
 
   useEffect(() => {
-    // dispatch(transactionOperations.changeTransaction(transactionInfo));
     if (amount !== '') {
       dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
     }
@@ -93,15 +89,14 @@ const ExpenseForm = () => {
           <label>
             <span>На категорию</span>
             <select type="text" {...category.bind}>
-              <option value="Без категории" defaultValue>
+              <option key="Без категории" value="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
               {categories.map(elem => (
-                <option value={elem}>{elem}</option>
+                <option value={elem} key={elem}>
+                  {elem}
+                </option>
               ))}
-              {/* <option value="value2" defaultValue>
-                Развлечения
-              </option> */}
             </select>
           </label>
           <label>
@@ -115,7 +110,7 @@ const ExpenseForm = () => {
             <Mobile>
               {showCalculator && (
                 <Modal closeModal={showCalculatorHandler}>
-                  <Calculator />
+                  <Calculator closeModal={showCalculatorHandler} />
                 </Modal>
               )}
             </Mobile>
