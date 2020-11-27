@@ -1,18 +1,14 @@
 require('dotenv').config({ path: './.env' });
-const cron = require('node-cron');
-const mongoose = require('mongoose');
 const { CrudServer } = require('../src/server');
-const request = require('supertest');
 const { assert, expect } = require('chai');
-
-const { monthlyUpdatesUsersInfo } = require('../src/api/cron/cronUpdateInfo');
 const UserModel = require('../src/api/users/user.model');
 const monthReportModel = require('../src/api/cron/monthReport.model');
 const {
   TransactionModel,
 } = require('../src/api/transactions/transaction.model');
+const { monthlyUpdatesUsersInfo } = require('../src/api/cron/cronUpdateInfo');
 
-describe(' #monthlyUpdatesUsersInfo  updating  via cron tests suite', () => {
+describe('#monthlyUpdatingUsersInfo  updating  via cron tests suite', () => {
   let server;
 
   before(async () => {
@@ -20,14 +16,14 @@ describe(' #monthlyUpdatesUsersInfo  updating  via cron tests suite', () => {
     await authServer.startForTest();
     server = authServer.server;
   });
-  describe('monthlyUpdatesUsersInfo #CronNNNN', () => {
+  describe('#monthlyUpdatingUsersInfo ', () => {
     context('#update ', () => {
       let fakeTransaction, newUser;
       before(async () => {
         newUser = await UserModel.create({
-          username: 'YXZAlwxabdwr',
-          email: 'YXZAlwxabdwr@gmail.com',
-          passwordHash: 'YXZ200Alwxabdwr_hash',
+          username: 'Alexander',
+          email: 'Alexander@gmail.com',
+          passwordHash: 'Alexander_hash',
           balance: 4,
           flatPrice: 3000000,
           flatSquareMeters: 110,
@@ -46,7 +42,7 @@ describe(' #monthlyUpdatesUsersInfo  updating  via cron tests suite', () => {
 
         await monthlyUpdatesUsersInfo();
       });
-      console.log('newUser', newUser);
+
       after(async () => {
         await UserModel.deleteOne({ email: newUser.email });
         await TransactionModel.deleteOne({ _id: fakeTransaction._id });
@@ -74,7 +70,7 @@ describe(' #monthlyUpdatesUsersInfo  updating  via cron tests suite', () => {
         const newMonthReport = await monthReportModel.findOne({
           userId: newUser._id,
         });
-        console.log('newMonthReport=========>', newMonthReport);
+
         expect(newMonthReport).to.include({
           totalExpenses: fakeTransaction.amount, //
           totalSavings:
