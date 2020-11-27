@@ -15,9 +15,6 @@ import LoginHeader from './LoginHeader';
 const Header = ({ showNavigation }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
-  // const isUserAuth = useSelector(state => state.auth.token);
-
-  // console.log('showMobileNavigation', showMobileNavigation);
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });

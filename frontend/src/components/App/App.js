@@ -14,6 +14,7 @@ import { useMediaQuery } from 'react-responsive';
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
+
   const showNavigationHandler = () => {
     setShowMobileNavigation(!showNavigation);
   };

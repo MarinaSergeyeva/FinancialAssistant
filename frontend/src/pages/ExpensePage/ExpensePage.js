@@ -34,6 +34,7 @@ const ExpensePage = () => {
             </Mobile>
             <Tablet>
               <ExpensePageImg
+                height="320"
                 src={expensePageTablet}
                 alt="expense page background"
               />
@@ -89,11 +90,13 @@ const ExpensePageContainer = styled.div`
   padding-bottom: 200px;
   width: 280px;
   @media ${device.tablet} {
+    max-height: calc(100vh - 87px);
     padding-top: 74px;
     padding-bottom: 510px;
     width: 690px;
   }
   @media ${device.desktop} {
+    max-height: 100vh;
     padding-top: 64px;
     padding-bottom: 220px;
     width: 770px;
@@ -114,6 +117,7 @@ const ExpensePageImg = styled.img`
   left: -20px;
 
   @media ${device.tablet} {
+    max-height: 320px;
     left: -40px;
   }
 
