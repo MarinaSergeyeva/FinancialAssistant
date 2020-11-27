@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
 
+const logoutUser
+
 const LogoutModal = props => {
   return (
     <>
@@ -12,7 +14,9 @@ const LogoutModal = props => {
         <ButtonStay className="btn" onClick={props.closeModal}>
           Нет, я останусь
         </ButtonStay>
-        <ButtonExit className="btn">Да, но я скоро вернусь</ButtonExit>
+        <ButtonExit className="btn" onClick={() => console.log('Hello')}>
+          Да, но я скоро вернусь
+        </ButtonExit>
       </LogoutWrapper>
     </>
   );
