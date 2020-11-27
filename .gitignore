@@ -15,6 +15,7 @@
 
 # production
 /build
+/frontend/build
 
 # misc
 /backend/.env
