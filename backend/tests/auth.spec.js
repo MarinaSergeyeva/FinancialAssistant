@@ -31,7 +31,7 @@ describe('Auth Controller system tests suite', () => {
       const existingEmail = faker.internet.email();
       let newUser;
       before(async () => {
-       newUser = await UserModel.create({
+        newUser = await UserModel.create({
           username: faker.name.firstName(),
           email: existingEmail,
           passwordHash: faker.random.words(),
