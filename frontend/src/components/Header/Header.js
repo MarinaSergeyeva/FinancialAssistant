@@ -47,7 +47,8 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 1px 0px #e5e9f2;
+  /* box-shadow: 0px 1px 0px #e5e9f2; */
+  border-bottom: 1px solid #e5e9f2;
 
   @media ${device.tablet} {
     width: 690px;

@@ -4,7 +4,7 @@
   "description": "backendpart",
   "main": "index.js",
   "scripts": {
-    "test": "mocha '**/*.spec.js' --exit",
+    "test": "mocha '**/*.spec.js' --exit --timeout 10000",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "prod": "SET NODE_ENV=production & nodemon index.js"
@@ -55,11 +55,5 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-local": "^1.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test"
-    }
   }
 }
