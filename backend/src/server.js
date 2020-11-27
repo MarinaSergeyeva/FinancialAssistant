@@ -67,8 +67,8 @@ class CrudServer {
 
   initMiddlewares() {
     const whitelist = [
-      'http://localhost:3000',
-      'https://financial-assistant-bc22.netlify.app',
+      process.env.ALLOWED_ORIGIN_LOCAL,
+      process.env.ALLOWED_ORIGIN,
     ];
     const corsOptions = {
       origin: function (origin, callback) {
