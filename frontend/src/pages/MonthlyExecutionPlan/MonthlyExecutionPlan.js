@@ -46,15 +46,15 @@ export const MonthlyExecutionPlan = () => {
     console.log('startDate', dt);
     setStartDate(dt);
   };
-  //console.log('monthlyReport', monthlyReport);
-  // const {
-  //   totalExpenses,
-  //   totalSavings,
-  //   totalIncome,
-  //   expectedSavingsPercentage,
-  //   expectedSavings,
-  //   reportDate,
-  // } = monthlyReport;
+  console.log('monthlyReport', monthlyReport);
+  const {
+    totalExpenses,
+    totalSavings,
+    totalIncome,
+    expectedSavingsPercentage,
+    expectedSavings,
+    reportDate,
+  } = monthlyReport;
   return (
     <>
       <MonthlyMainWrapper>
@@ -76,7 +76,7 @@ export const MonthlyExecutionPlan = () => {
         />
 
         <MonthlyCardsWrapper>
-          {/* <MonthlyCards>
+          <MonthlyCards>
             <MonthlyLabel>Доходы, &#8372;</MonthlyLabel>
             <MonthlyValue>{totalIncome}</MonthlyValue>
           </MonthlyCards>
@@ -95,7 +95,7 @@ export const MonthlyExecutionPlan = () => {
           <MonthlyCards>
             <MonthlyLabel>План %</MonthlyLabel>
             <MonthlyValue>{expectedSavingsPercentage}</MonthlyValue>
-          </MonthlyCards> */}
+          </MonthlyCards>
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
     </>

@@ -3,8 +3,7 @@ import transactionActions from '../actions/transactionActions';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-// axios.defaults.baseURL = 'http://localhost:8080';
-axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
 
 // const changeTransaction = transaction => (dispatch, getState) => {
 //   dispatch(transactionActions.changeTransactionSuccess(transaction));

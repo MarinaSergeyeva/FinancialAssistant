@@ -66,8 +66,19 @@ class CrudServer {
   }
 
   initMiddlewares() {
+    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+
+    if (process.env.NODE_ENV === 'development') {
+      this.server.use(morgan('dev'));
+    }
+
+    if (process.env.NODE_ENV !== 'development') {
+      this.server.use(morgan('combined'));
+    }
+
     this.server.use(passport.initialize());
     initGoogleOauthStrategy();
+    // initFacebookOauthStrategy();
     this.server.use(express.json());
 
     this.server.use((req, res, next) => {
