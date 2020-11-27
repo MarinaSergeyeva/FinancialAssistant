@@ -63,7 +63,7 @@ const ForecastExpense = () => {
           <p className="small">Отклонение от плановой суммы накопления</p>
         </div>
 
-        <button className="btn" onClick={handleClick} type="button">
+        <button className="btn orange-btn" onClick={handleClick} type="button">
           Готово
         </button>
       </ForecastExpenseWrapper>
@@ -85,7 +85,7 @@ function daysInMonth(month, year) {
 const ForecastExpenseWrapper = styled.div`
   padding: 34px 40px;
   border-radius: 8px;
-  background: ${background.secondary}; 
+  background: ${background.secondary};
   color: #ffffff;
   .inner {
     margin-bottom: 18px;
@@ -107,10 +107,11 @@ const ForecastExpenseWrapper = styled.div`
     width: 100%;
     padding: 18px;
     border: none;
-    background: ${colors.main}; 
+    background: ${colors.main};
     border-radius: inherit;
     color: inherit;
   }
+
   @media (min-width: ${size.tablet}) {
     padding: 32px 25px;
     display: flex;
