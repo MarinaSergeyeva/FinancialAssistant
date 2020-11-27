@@ -66,6 +66,7 @@ class CrudServer {
   }
 
   initMiddlewares() {
+    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
     this.server.use(passport.initialize());
     initGoogleOauthStrategy();
     this.server.use(express.json());

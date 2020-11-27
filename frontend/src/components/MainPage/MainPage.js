@@ -11,8 +11,8 @@ import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
 import { useSelector } from 'react-redux';
 
-const path = require("path")
-require("dotenv").config({ path: path.join("../../../../backend/.env") });
+const path = require('path');
+require('dotenv').config({ path: path.join('../../../../backend/.env') });
 
 const MainPage = () => {
   const userInfo = useSelector(state => state.auth.username);
@@ -27,9 +27,7 @@ const MainPage = () => {
     } else {
       setUserInfoRegistr(false);
     }
-
   }, [userInfo]);
-
 
   return (
     <MainPageContainer>
@@ -203,7 +201,7 @@ const GoogleAuthBtnImg = styled.img`
 `;
 
 const FacebookAuthBtn = styled.a`
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
