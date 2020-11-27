@@ -54,8 +54,27 @@ const getListExpensesMonth = async (req, res, next) => {
   return res.json(docs);
 };
 
+const updateTransaction = async (req, res) => {
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).json({ message: 'missing fields' });
+  }
+  const { transactionId } = req.params;
+  const transaction = await TransactionModel.findByIdAndUpdate(
+    transactionId,
+    req.body,
+    {
+      new: true,
+    },
+  );
+  if (!transaction) {
+    return next(new AppError(`No transactionId found with that ID`, 404));
+  }
+  return res.json(transaction);
+};
+
 module.exports = {
   createTransaction,
   getTransactionCategories,
   getListExpensesMonth,
+  updateTransaction,
 };
