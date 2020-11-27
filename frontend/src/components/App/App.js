@@ -17,6 +17,7 @@ const App = () => {
 
   const showNavigationHandler = () => {
     setShowMobileNavigation(!showNavigation);
+    return showNavigation;
   };
 
   const isUserAuth = useSelector(state => state.auth.token);
