@@ -19,9 +19,9 @@ export const persistConfig = {
 const root = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
   user: combineReducers({
-    //info: userReducer,
-
+    info: userReducer,
     transaction: transactionReducer,
+    stats: stats,
     monthlyReport: monthlyReportReducer,
   }),
   calculator: calculatorReduce,
