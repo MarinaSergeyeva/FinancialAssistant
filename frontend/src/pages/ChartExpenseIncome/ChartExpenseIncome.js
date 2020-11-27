@@ -9,7 +9,7 @@ import chartSelector from '../../redux/selectors/chartSelector';
 
 export const MyChart = () => {
   const monthlyReportArray = useSelector(state => {
-    console.log(' state', state);
+    // console.log(' state', state);
     return chartSelector.getMonthlyReport(state);
   });
   console.log('monthlyReportArray', monthlyReportArray);
