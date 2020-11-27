@@ -16,12 +16,13 @@ export const CurrencyStyled = styled.div`
     height: 12px;
     width: 100%;
     fill: rgba(53, 54, 59, 0.4);
-    /* fill: rgba(24, 25, 31, 0, 87); */
+  }
+  .selectedIconCurrency {
+    fill: rgb(53, 54, 59);
   }
   .iconCurrency:hover,
   .iconCurrency:focus {
     fill: rgb(53, 54, 59);
-    /* fill: red; */
   }
 
   .iconDollar {
