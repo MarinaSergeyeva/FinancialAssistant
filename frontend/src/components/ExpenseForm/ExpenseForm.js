@@ -40,11 +40,6 @@ const ExpenseForm = () => {
   const calculatorResult = useSelector(state =>
     calculatorSelector.calcResult(state),
   );
-  // const { amount } = useSelector(state =>
-  //   transactionSelectors.getTransaction(state),
-  // );
-
-  const prevAmount = useRef('');
 
   const dispatch = useDispatch();
 
@@ -52,13 +47,8 @@ const ExpenseForm = () => {
     setShowCalculator(!showCalculator);
   };
 
-  // useEffect(() => {
-  //   prevAmount.current = amount;
-  // }, [amount]);
-
   const onAmountChange = e => {
-    setAmount(calculatorResult);
-    // setAmount(e.target.value);
+    setAmount(e.target.value);
   };
 
   useEffect(() => {
@@ -71,7 +61,6 @@ const ExpenseForm = () => {
 
   const transactionInfo = {
     comment: comment.bind.value,
-    // amount: Number(amount.bind.value),
     amount: Number(amount),
     category: category.bind.value,
   };
@@ -81,19 +70,18 @@ const ExpenseForm = () => {
   });
 
   useEffect(() => {
+    setAmount(calculatorResult);
     dispatch(
       transactionActions.changeTransactionSuccess({
         ...transactionInfo,
         amount: calculatorResult,
       }),
     );
-
-    // return console.log('resetCalc');
   }, [calculatorResult]);
 
   useEffect(() => {
     dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  }, [amount]);
+  }, [transactionInfo]);
 
   return (
     <ExpenseFormStyled>
