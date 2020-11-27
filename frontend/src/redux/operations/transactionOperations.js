@@ -26,7 +26,24 @@ const createTransaction = transaction => async (dispatch, getState) => {
   }
 };
 
+const getTransactionsExpense = (month, year) => async (dispatch, getState) => {
+  const persistedToken = authSelector.isAuthenticated(getState());
+  if (!persistedToken) {
+    return;
+  }
+  token.set(persistedToken);
+  dispatch(transactionActions.getTransactionsExpenseRequest());
+  try {
+    const res = await axios.get(
+      `/api/v1/transactions/expenses?month=${month}&year=${year}`,
+    );
+    dispatch(transactionActions.getTransactionsExpenseSuccess(res.data));
+  } catch (error) {
+    dispatch(transactionActions.getTransactionsExpenseError(error));
+  }
+};
+
 export default {
   createTransaction,
-  // changeTransaction,
+  getTransactionsExpense,
 };

@@ -36,5 +36,10 @@ transactionRouter.get(
   catchAsync(authorize),
   catchAsync(getListExpensesMonth),
 );
+transactionRouter.get(
+  '/expenses/categories',
+  catchAsync(authorize),
+  catchAsync(getListExpensesCategories),
+);
 
 module.exports = transactionRouter;

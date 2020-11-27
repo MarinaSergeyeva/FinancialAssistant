@@ -40,6 +40,8 @@ const getListExpensesMonth = async (req, res, next) => {
   return res.json(transactions);
 };
 
+const getListExpensesCategories = async (req, res, next) => {};
+
 module.exports = {
   createTransaction,
   getTransactionCategories,
