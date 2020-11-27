@@ -16,7 +16,7 @@ const ExpenseList = () => {
   return (
     <ul>
       {expenses.map(expense => (
-        <ExpenseListItem expense={expense} />
+        <ExpenseListItem key={expense.transactionDate} expense={expense} />
       ))}
     </ul>
   );

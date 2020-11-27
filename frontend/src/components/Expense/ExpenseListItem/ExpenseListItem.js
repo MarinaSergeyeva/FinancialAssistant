@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import otherImg from '../../../assets/images/expenseListItem/other.svg';
 import editImg from '../../../assets/images/expenseListItem/edit.svg';
+import foodImg from '../../../assets/images/expenseListItem/food.svg';
+import homeImg from '../../../assets/images/expenseListItem/home.svg';
+import transportImg from '../../../assets/images/expenseListItem/taxi.svg';
+import productsImg from '../../../assets/images/expenseListItem/products.svg';
+import entertainmentImg from '../../../assets/images/expenseListItem/entertainment.svg';
 import device, { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 
 const ExpenseListItem = ({ expense }) => {
+  const [img, setImg] = useState(otherImg);
+  useEffect(() => {
+    console.log('expenseCategory', expense.category);
+    expense.category === 'ЖКХ' && setImg(homeImg);
+    expense.category === 'Другое' && setImg(otherImg);
+    expense.Category === 'Развлечения' && setImg(entertainmentImg);
+    expense.Category === 'Продукты' && setImg(foodImg);
+    expense.category === 'Товары' && setImg(productsImg);
+    expense.Category === 'Транспорт' && setImg(transportImg);
+  }, [img]);
+
   return (
     <>
       {expense && (
@@ -21,7 +37,7 @@ const ExpenseListItem = ({ expense }) => {
                 <Value>{expense.amount} грн</Value>
                 <CategoryWrapper>
                   <IconWrapper>
-                    <img width="20" height="20" alt="other" src={otherImg} />
+                    <img width="20" height="20" alt="other" src={img} />
                   </IconWrapper>
                   <Category>{expense.Category}</Category>
                 </CategoryWrapper>
@@ -41,7 +57,7 @@ const ExpenseListItem = ({ expense }) => {
                 <Value>{expense.amount} грн</Value>
                 <CategoryWrapper>
                   <IconWrapper>
-                    <img width="20" height="20" alt="other" src={otherImg} />
+                    <img width="20" height="20" alt="other" src={img} />
                   </IconWrapper>
                   <Category>{expense.Category}</Category>
                 </CategoryWrapper>
@@ -61,12 +77,7 @@ const ExpenseListItem = ({ expense }) => {
                   <WrapperSecondary>
                     <CategoryWrapper>
                       <IconWrapper>
-                        <img
-                          width="20"
-                          height="20"
-                          alt="other"
-                          src={otherImg}
-                        />
+                        <img width="20" height="20" alt="other" src={img} />
                       </IconWrapper>
                       <Category>{expense.Category}</Category>
                     </CategoryWrapper>
