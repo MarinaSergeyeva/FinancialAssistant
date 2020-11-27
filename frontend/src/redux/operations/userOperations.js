@@ -4,7 +4,7 @@ import userActions from '../actions/userActions';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getCurrentUser = () => async (dispatch, getState) => {
   // const isAuth = useSelector(state => authSelector.isAuthenticated(state));

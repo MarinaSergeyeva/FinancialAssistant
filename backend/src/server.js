@@ -66,7 +66,21 @@ class CrudServer {
   }
 
   initMiddlewares() {
-    this.server.use(cors({ origin: process.env.ALLOWED_ORIGIN }));
+    const whitelist = [
+      process.env.ALLOWED_ORIGIN_LOCAL,
+      process.env.ALLOWED_ORIGIN,
+    ];
+    const corsOptions = {
+      origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+    };
+
+    this.server.use(cors(corsOptions));
 
     if (process.env.NODE_ENV === 'development') {
       this.server.use(morgan('dev'));

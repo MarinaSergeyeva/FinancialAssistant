@@ -1,7 +1,7 @@
 import authAction from '../actions/authAction';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 export const token = {
   set(token) {
