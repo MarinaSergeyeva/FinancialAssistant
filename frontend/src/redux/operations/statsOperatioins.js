@@ -3,7 +3,7 @@ import statsActions from '../actions/statsActions';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getStatsFlat = () => async (dispatch, getState) => {
   const tokenNow = authSelector.isAuthenticated(getState());
