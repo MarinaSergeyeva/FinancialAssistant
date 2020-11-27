@@ -4,7 +4,6 @@ import userActions from '../actions/userActions';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-// axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getCurrentUser = () => async (dispatch, getState) => {

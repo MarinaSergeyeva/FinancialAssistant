@@ -8,6 +8,7 @@ const authRouter = require('./api/auth/auth.routers');
 const usersRouter = require('./api/users/user.router');
 const giftsRouter = require('./api/gifts/gifts.router');
 const transactionRouter = require('./api/transactions/transactionRouter');
+const monthReportRouter = require('./api/monthReports/monthReport.router');
 const {
   initGoogleOauthStrategy,
 } = require('./api/auth/strategies/google.strategy');
@@ -65,8 +66,33 @@ class CrudServer {
   }
 
   initMiddlewares() {
+    const whitelist = [
+      process.env.ALLOWED_ORIGIN_LOCAL,
+      process.env.ALLOWED_ORIGIN,
+    ];
+    const corsOptions = {
+      origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+    };
+
+    this.server.use(cors(corsOptions));
+
+    if (process.env.NODE_ENV === 'development') {
+      this.server.use(morgan('dev'));
+    }
+
+    if (process.env.NODE_ENV !== 'development') {
+      this.server.use(morgan('combined'));
+    }
+
     this.server.use(passport.initialize());
     initGoogleOauthStrategy();
+    // initFacebookOauthStrategy();
     this.server.use(express.json());
 
     this.server.use((req, res, next) => {
@@ -82,6 +108,7 @@ class CrudServer {
     this.server.use('/api/v1/auth', authRouter);
     this.server.use('/api/v1/users', usersRouter);
     this.server.use('/api/v1', giftsRouter);
+    this.server.use('/api/v1', monthReportRouter);
   }
 
   initErrorHandling() {

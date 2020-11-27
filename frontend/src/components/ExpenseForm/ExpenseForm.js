@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
@@ -10,8 +10,9 @@ import {
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import device, { Mobile } from '../../common/deviceSizes';
-import transactionOperations from '../../redux/operations/transactionOperations';
+import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
+import categoriesSelector from '../../redux/selectors/categoriesSelector';
 
 const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
@@ -28,18 +29,17 @@ const useInput = initialValue => {
 };
 
 const ExpenseForm = () => {
-  const [categories, setCategories] = useState([]);
   const [showCalculator, setShowCalculator] = useState(false);
   const dispatch = useDispatch();
+
+  const categories = useSelector(state => categoriesSelector(state));
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
   };
 
   useEffect(() => {
-    transactionOperations.getTransactionCategories().then(result => {
-      return setCategories(result.categories);
-    });
+    dispatch(categoriesOperations.getCategories());
   }, []);
 
   const comment = useInput('');
@@ -59,14 +59,12 @@ const ExpenseForm = () => {
     amount: Number(amount.bind.value),
     category: category.bind.value,
   };
-  // dispatch(transactionOperations.changeTransaction(transactionInfo));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
 
   useEffect(() => {
-    // dispatch(transactionOperations.changeTransaction(transactionInfo));
     if (amount !== '') {
       dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
     }
