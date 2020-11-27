@@ -26,10 +26,7 @@ const monthlyUpdatesUsersInfo = async () => {
   );
 };
 const updateInfo = () => {
-  cron.schedule(
-    '0 0 1 * *',
-    monthlyUpdatesUsersInfo, //
-  );
+  cron.schedule('0 0 1 * *', monthlyUpdatesUsersInfo);
 };
 
 module.exports = { updateInfo, monthlyUpdatesUsersInfo };
