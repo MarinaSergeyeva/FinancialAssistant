@@ -64,4 +64,4 @@ const updateInfo = () => {
   //   });
 };
 
-module.exports = { updateInfo };
+module.exports = { updateInfo, monthlyUpdatesUsersInfo };
