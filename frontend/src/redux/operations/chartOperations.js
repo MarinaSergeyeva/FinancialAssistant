@@ -1,11 +1,11 @@
-import reportAction from '../actions/chartActions';
+//import reportAction from '../actions/chartActions';
 import axios from 'axios';
 import authSelector from '../selectors/authSelector';
 import { token } from './authOperations';
 import chartActions from '../actions/chartActions';
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
-export const getMonthReport = ({ endMonth, endYear }) => async (
+const getMonthReport = ({ endMonth, endYear }) => async (
   dispatch,
   getState,
 ) => {
@@ -16,7 +16,7 @@ export const getMonthReport = ({ endMonth, endYear }) => async (
   try {
     //
     const res = await axios.get(
-      `api/v1/month-reports/annual?%${endMonth}&${endYear}`,
+      `api/v1/month-reports/annual?endMonth=${endMonth}&endYear=${endYear}`,
     );
     console.log('res.data', res.data);
     dispatch(chartActions.getReportSuccess(res.data));
@@ -24,3 +24,4 @@ export const getMonthReport = ({ endMonth, endYear }) => async (
     dispatch(chartActions.getReportError(error));
   }
 };
+export default { getMonthReport };

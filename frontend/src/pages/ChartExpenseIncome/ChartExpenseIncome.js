@@ -6,10 +6,13 @@ import device from '../../common/deviceSizes.js';
 import { useMediaQuery } from 'react-responsive';
 import { connect, useSelector } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
+
 export const MyChart = () => {
   const monthlyReportArray = useSelector(state => {
+    console.log(' state', state);
     return chartSelector.getMonthlyReport(state);
   });
+  console.log('monthlyReportArray', monthlyReportArray);
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];

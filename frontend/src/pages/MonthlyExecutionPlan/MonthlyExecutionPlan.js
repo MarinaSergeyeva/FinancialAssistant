@@ -5,7 +5,7 @@ import styles from './MonthlyExecutionPlan.module.css';
 import ru from 'date-fns/locale/ru';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 //import getCurrentUser from "../../redux/selectors/userSelectors";
 import userSelectors from '../../redux/selectors/userSelectors';
 import chartSelector from '../../redux/selectors/chartSelector';
@@ -35,11 +35,11 @@ export const MonthlyExecutionPlan = () => {
   const monthlyReport = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
   });
-
+  const dispatch = useDispatch();
   useEffect(() => {
     // const patientListUrl = `${baseUrl}api/patient/list?date=${getDate(d)}`;
     // fetchPatientsStartAsync(patientListUrl);
-    //dispatch(chartOperation.getMonthReport(startDate));
+    dispatch(chartOperation.getMonthReport(startDate));
   }, [startDate]);
 
   const onChange = dt => {
