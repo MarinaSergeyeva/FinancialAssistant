@@ -8,6 +8,7 @@ const authRouter = require('./api/auth/auth.routers');
 const usersRouter = require('./api/users/user.router');
 const giftsRouter = require('./api/gifts/gifts.router');
 const transactionRouter = require('./api/transactions/transactionRouter');
+const monthReportRouter = require('./api/monthReports/monthReport.router');
 const {
   initGoogleOauthStrategy,
 } = require('./api/auth/strategies/google.strategy');
@@ -83,6 +84,7 @@ class CrudServer {
     this.server.use('/api/v1/auth', authRouter);
     this.server.use('/api/v1/users', usersRouter);
     this.server.use('/api/v1', giftsRouter);
+    this.server.use('/api/v1', monthReportRouter);
   }
 
   initErrorHandling() {

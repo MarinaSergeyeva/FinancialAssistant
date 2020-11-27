@@ -48,6 +48,13 @@ const Navigation = ({ showNavigation }) => {
             alt="navigation tablet background"
           />
         )}
+        <StyleNavLInk
+          to="/expense/list"
+          activeClassName="active"
+          onClick={showNavigation}
+        >
+          Expenses List
+        </StyleNavLInk>
       </NavigationContainer>
     </>
   );

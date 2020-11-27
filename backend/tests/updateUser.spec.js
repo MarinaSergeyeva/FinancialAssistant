@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './.env' });
+require('dotenv').config({ path: '../.env' });
 const jwt = require('jsonwebtoken');
 const request = require('supertest');
 const { assert, expect } = require('chai');
