@@ -48,13 +48,15 @@ const Navigation = ({ showNavigation }) => {
             alt="navigation tablet background"
           />
         )}
-        <StyleNavLInk
+        <BtnNavLInk
           to="/expense/list"
           activeClassName="active"
           onClick={showNavigation}
         >
-          Expenses List
-        </StyleNavLInk>
+          <SvgIcon>
+            <use href="#dynamics"></use>
+          </SvgIcon>
+        </BtnNavLInk>
       </NavigationContainer>
     </>
   );
@@ -138,4 +140,20 @@ const NavigationBgImg = styled.img`
   bottom: 0px;
   right: 0px;
   z-index: -1;
+`;
+
+const BtnNavLInk = styled(NavLink)`
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #7c9af2;
+  border-radius: 8px;
+`;
+
+const SvgIcon = styled.svg`
+  width: 12px;
+  height: 12px;
+  fill: white;
 `;
