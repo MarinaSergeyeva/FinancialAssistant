@@ -18,10 +18,11 @@ const BurgerMenu = ({ showNavigation }) => {
   }, [isActiveClass]);
 
   return (
-    <BurgerMenuWrapper>
-      <div className="burger-wrapper" onClick={classNameHandleChange}>
-        <div className={className}></div>
-      </div>
+    <BurgerMenuWrapper
+      className="burger-wrapper"
+      onClick={classNameHandleChange}
+    >
+      <div className={className}></div>
     </BurgerMenuWrapper>
   );
 };
