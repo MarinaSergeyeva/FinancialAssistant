@@ -5,11 +5,8 @@ import authSelector from '../../redux/selectors/authSelector';
 
 const withAuth = WrappedComponent => {
   function WithAuth(props) {
-    
     return <WrappedComponent {...props} />;
   }
-
-  
 
   const mapStateToProps = state => ({
     isAuthenticated: authSelector.isAuthenticated(state),

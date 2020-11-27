@@ -140,6 +140,7 @@ const NavigationBgImg = styled.img`
   bottom: 0px;
   right: 0px;
   z-index: -1;
+  max-height: calc(100vh - 350px);
 `;
 
 const BtnNavLInk = styled(NavLink)`
