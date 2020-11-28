@@ -19,7 +19,6 @@ const LoginHeader = () => {
 
   const closeRegistration = () => {
     setIsShowRegistration(prev => !prev);
-    // setIsShowLogin(prev => !prev);
   };
 
   const closeLogin = () => {

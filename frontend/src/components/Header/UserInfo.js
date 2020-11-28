@@ -39,7 +39,7 @@ const Userinfo = ({ showNavigation, setActive }) => {
           <p className="userName">{username}</p>
         )}
         {isDesktopDevice ? (
-          <Logout />
+          <Logout showNavigation={showNavigation} />
         ) : (
           <BurgerMenu showNavigation={showNavigation} />
         )}

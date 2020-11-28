@@ -3,12 +3,18 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
 import authOperations from '../../redux/operations/authOperations';
+import device from '../../common/deviceSizes';
+import { useMediaQuery } from 'react-responsive';
 
 const LogoutModal = props => {
   const dispatch = useDispatch();
 
+  const isDesktopDevice = useMediaQuery({
+    query: device.desktop,
+  });
+
   const logoutUser = async () => {
-    props.showNavigation();
+    !isDesktopDevice && props.showNavigation();
     await dispatch(authOperations.userLogout());
   };
 
@@ -32,13 +38,17 @@ const LogoutModal = props => {
 export default LogoutModal;
 
 const LogoutWrapper = styled.div`
-  width: 500px;
-  height: 250px;
+  padding: 40px 30px 50px;
   background: #fff;
   border-radius: 8px;
   text-align: center;
   margin: 0 auto;
-  padding: 70px;
+
+  @media ${device.largeDevice} {
+    width: 500px;
+    height: 250px;
+    padding: 70px;
+  }
 
   .modalTitle {
     color: ${background.secondary};
@@ -62,7 +72,11 @@ const LogoutWrapper = styled.div`
 const ButtonStay = styled.button`
   background: ${background.logout};
   color: rgba(24, 25, 31);
-  margin-right: 14px;
+  margin-bottom: 20px;
+
+  @media ${device.largeDevice} {
+    margin-right: 14px;
+  }
 `;
 const ButtonExit = styled.button`
   background: ${colors.main};

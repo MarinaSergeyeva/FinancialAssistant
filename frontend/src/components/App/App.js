@@ -16,19 +16,15 @@ import { authSelector } from '../../redux/selectors';
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
 
-  const showNavigationHandler = () => {
-    setShowMobileNavigation(!showNavigation);
-    return showNavigation;
-  };
-
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
-  const isMobileDevice = useMediaQuery({
-    query: device.mobile,
+  const isDesktopDevice = useMediaQuery({
+    query: device.desktop,
   });
-  const isTabletDevice = useMediaQuery({
-    query: device.tablet,
-  });
+
+  const showNavigationHandler = () => {
+    setShowMobileNavigation(!showNavigation);
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,7 +34,7 @@ const App = () => {
     <>
       <Suspense fallback={<Spinner />}>
         <Header showNavigation={showNavigationHandler} />
-        {isUserAuth && showNavigation && (
+        {isUserAuth && showNavigation && !isDesktopDevice && (
           <Navigation showNavigation={showNavigationHandler} />
         )}
         {!showNavigation && (

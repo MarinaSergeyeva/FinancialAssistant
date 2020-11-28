@@ -30,7 +30,6 @@ const Header = ({ showNavigation }) => {
         {isUserAuth && <Userinfo showNavigation={showNavigation} />}
         {!isUserAuth && !isMobileDevice && <LoginHeader />}
       </HeaderContainer>
-      {/* <MobileNavigationContainer></MobileNavigationContainer> */}
     </>
   );
 };
