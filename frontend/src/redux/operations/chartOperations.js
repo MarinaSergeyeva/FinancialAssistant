@@ -20,7 +20,7 @@ const getMonthReport = startDate => async (dispatch, getState) => {
       //`api/v1/month-reports/annual?endMonth=${endMonth}&endYear=${endYear}`,
       `api/v1/month-reports/annual?endMonth=${month}&endYear=${year}`,
     );
-    //console.log('res.data=====>', res.data.monthReports);
+    console.log('year  and month  =====>', month, year);
     dispatch(chartActions.getReportSuccess(res.data.monthReports));
   } catch (error) {
     dispatch(chartActions.getReportError(error));

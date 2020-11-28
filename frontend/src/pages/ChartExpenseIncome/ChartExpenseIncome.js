@@ -8,25 +8,23 @@ import { connect, useSelector } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
 
 export const MyChart = () => {
-  const monthlyReportArray = useSelector(state => {
-    // console.log(' state', state);
+  //const [startDate, setStartDate] = useState(new Date());
+  const allReports = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
   });
-  // console.log('monthlyReportArray', monthlyReportArray);
+  const reportsNew = Object.values(allReports);
+  console.log('reportsNew', reportsNew);
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
   let arrayOfExpectedSavings = [];
   let arrayOfReportDate = [];
-  if (monthlyReportArray.length > 0) {
-    arrayOfTotalSavings = monthlyReportArray.map(item => item.totalSavings);
-    arrayOfTotalExpenses = monthlyReportArray.map(item => item.totalExpenses);
-    arrayOfExpectedSavings = monthlyReportArray.map(
-      item => item.expectedSavings,
-    );
-    arrayOfReportDate = monthlyReportArray.map(item => {
+  if (reportsNew.length > 0) {
+    arrayOfTotalSavings = reportsNew.map(item => item.totalSavings);
+    arrayOfTotalExpenses = reportsNew.map(item => item.totalExpenses);
+    arrayOfExpectedSavings = reportsNew.map(item => item.expectedSavings);
+    arrayOfReportDate = reportsNew.map(item => {
       const data = new Date(item.reportDate);
-      // const reportMonth = month[data.getMonth()];
       return data;
     });
   } else {
@@ -46,12 +44,12 @@ export const MyChart = () => {
       },
 
       ticks: {
-        //beginAtZero: true,
-        stepSize: 100,
+        beginAtZero: true,
+        stepSize: 5000,
         // max: 500,
         //   min: 0,
-        suggestedMin: 50,
-        suggestedMax: 500,
+        // suggestedMin: 50,
+        // suggestedMax: 100000,
       },
     };
     const xAxesConfig = {
@@ -69,7 +67,7 @@ export const MyChart = () => {
     };
     var chart = new Chart(ctx, {
       type: isOnMobile ? 'horizontalBar' : 'bar',
-      // type: "bar",
+
       data: {
         labels: arrayOfReportDate,
 
@@ -115,7 +113,7 @@ export const MyChart = () => {
         },
         layout: {
           padding: {
-            left: isOnMobile ? 10 : 40,
+            left: isOnMobile ? 10 : 10,
             right: 10,
             top: 0,
             bottom: isOnMobile ? 0 : 20,
@@ -131,9 +129,12 @@ export const MyChart = () => {
 
     return () => chart.destroy();
   });
-  const isOnMobile = useMediaQuery({
-    query: device.mobile,
-  });
+  const isOnMobile = useMediaQuery(
+    {
+      query: device.mobile,
+    },
+    [allReports],
+  );
   const isOnTablet = useMediaQuery({
     query: device.tablet,
   });

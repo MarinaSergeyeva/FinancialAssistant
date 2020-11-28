@@ -23,28 +23,17 @@ export const MonthlyExecutionPlan = () => {
   }, [startDate]);
 
   const onChange = dt => {
-    console.log('startDate', getDate(dt).month, getDate(dt).year);
+    //console.log('startDate', getDate(dt).month, getDate(dt).year);
     setStartDate(dt);
   };
   allReports = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
   });
-  console.log('allReports', allReports);
-
-  // const getReportsNew = () => {
-  //   const reportsNew = Object.values(allReports);
-  //   //actualReport = reportsNew.find(report => report.totalSavings === 5000);
-  //   const actualReport = reportsNew.map(
-  //     report => report.reportDate,
-  //     //   console.log('actualReport', actualReport);
-  //   );
-  //   return actualReport;
-  // };
-  // console.log('actualReport', getReportsNew());
+  //console.log('allReports', allReports);
 
   const reportsNew = Object.values(allReports);
   const actualReport = reportsNew[0];
-  // const actualReport = reportsNew.find(report => report.totalSavings === 5000);
+
   console.log('actualReport', actualReport);
 
   function getDate(startDate) {
@@ -81,25 +70,33 @@ export const MonthlyExecutionPlan = () => {
           <MonthlyCards>
             <MonthlyLabel>Доходы, &#8372;</MonthlyLabel>
             <MonthlyValue>
-              {actualReport ? actualReport.totalIncome : 0}
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.totalIncome : 0,
+              )}
             </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Расходы, &#8372;</MonthlyLabel>
             <MonthlyValue>
-              {actualReport ? actualReport.totalExpenses : 0}
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.totalExpenses : 0,
+              )}
             </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Накоплено, &#8372;</MonthlyLabel>
             <MonthlyValue>
-              {actualReport ? actualReport.totalSavings : 0}
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.totalSavings : 0,
+              )}
             </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План, &#8372; </MonthlyLabel>
             <MonthlyValue>
-              {actualReport ? actualReport.expectedSavings : 0}
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.expectedSavings : 0,
+              )}
             </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
