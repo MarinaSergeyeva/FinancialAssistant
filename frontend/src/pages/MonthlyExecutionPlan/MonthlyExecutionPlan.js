@@ -14,7 +14,38 @@ registerLocale('ru', ru);
 //console.log('userSelectors', userSelectors)
 
 export const MonthlyExecutionPlan = () => {
+  let allReports;
   const [startDate, setStartDate] = useState(new Date());
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(chartOperation.getMonthReport(startDate));
+  }, [startDate]);
+
+  const onChange = dt => {
+    console.log('startDate', getDate(dt).month, getDate(dt).year);
+    setStartDate(dt);
+  };
+  allReports = useSelector(state => {
+    return chartSelector.getMonthlyReport(state);
+  });
+  console.log('allReports', allReports);
+
+  // const getReportsNew = () => {
+  //   const reportsNew = Object.values(allReports);
+  //   //actualReport = reportsNew.find(report => report.totalSavings === 5000);
+  //   const actualReport = reportsNew.map(
+  //     report => report.reportDate,
+  //     //   console.log('actualReport', actualReport);
+  //   );
+  //   return actualReport;
+  // };
+  // console.log('actualReport', getReportsNew());
+
+  const reportsNew = Object.values(allReports);
+  const actualReport = reportsNew[0];
+  // const actualReport = reportsNew.find(report => report.totalSavings === 5000);
+  console.log('actualReport', actualReport);
 
   function getDate(startDate) {
     const data = new Date(startDate);
@@ -26,39 +57,6 @@ export const MonthlyExecutionPlan = () => {
     return dataForRequest;
   }
 
-  const allReports = useSelector(state => {
-    return chartSelector.getMonthlyReport(state);
-  });
-  const reportsNew = Object.values(allReports);
-  // const actualReport = useSelector(state => {
-  //   return chartSelector.actualReport(state, 5000);
-  // });
-  console.log('allReports', allReports);
-  console.log('reportsNew', reportsNew);
-
-  // console.log('allReports', typeof reportsNew);
-  const actualReport = reportsNew.find(report => report.totalSavings === 5000);
-  console.log('actualReport', actualReport);
-  // console.log('actualReport', actualReport);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    // const patientListUrl = `${baseUrl}api/patient/list?date=${getDate(d)}`;
-    // fetchPatientsStartAsync(patientListUrl);
-    dispatch(chartOperation.getMonthReport(startDate));
-  }, [startDate]);
-
-  const onChange = dt => {
-    console.log('startDate', dt);
-    setStartDate(dt);
-  };
-  const {
-    totalExpenses,
-    totalSavings,
-    totalIncome,
-    expectedSavingsPercentage,
-    expectedSavings,
-    reportDate,
-  } = actualReport;
   return (
     <>
       <MonthlyMainWrapper>
@@ -82,23 +80,33 @@ export const MonthlyExecutionPlan = () => {
         <MonthlyCardsWrapper>
           <MonthlyCards>
             <MonthlyLabel>Доходы, &#8372;</MonthlyLabel>
-            <MonthlyValue>{totalIncome}</MonthlyValue>
+            <MonthlyValue>
+              {actualReport ? actualReport.totalIncome : 0}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Расходы, &#8372;</MonthlyLabel>
-            <MonthlyValue>{totalExpenses}</MonthlyValue>
+            <MonthlyValue>
+              {actualReport ? actualReport.totalExpenses : 0}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>Накоплено, &#8372;</MonthlyLabel>
-            <MonthlyValue>{totalSavings}</MonthlyValue>
+            <MonthlyValue>
+              {actualReport ? actualReport.totalSavings : 0}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План, &#8372; </MonthlyLabel>
-            <MonthlyValue>{expectedSavings}</MonthlyValue>
+            <MonthlyValue>
+              {actualReport ? actualReport.expectedSavings : 0}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
             <MonthlyLabel>План %</MonthlyLabel>
-            <MonthlyValue>{expectedSavingsPercentage}</MonthlyValue>
+            <MonthlyValue>
+              {actualReport ? actualReport.expectedSavingsPercentage : 0}
+            </MonthlyValue>
           </MonthlyCards>
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
