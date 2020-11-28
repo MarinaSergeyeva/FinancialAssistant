@@ -19,6 +19,7 @@ import {
   ErrMessage
 } from '../../../common/globalStyleComponents';
 import { getError } from '../../../redux/selectors/errorSelector';
+import funcErrTranslator from '../utilsAuth/funcErrTranslator';
 
 const Login = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,22 @@ const Login = ({ closeModal }) => {
   });
   
   const errState = useSelector(state => getError(state));
+  // const errState = useSelector(state => getError(state));
+  const [messageErr, setMessageErr] = useState(null);
+  // const [showErrModal, setShowErrModal] = useState(errState !== null ? true : false);
+  const MessageErr = async () => {
+    const message = await funcErrTranslator(Number(errState?.status));
+    setMessageErr(message);
+  };
+
+  useEffect(() => {
+    // errState
+    // ? console.log("treu")
+    // : console.log("false")
+    // console.log(showErrModal,"errState?.kindOfErr")
+    MessageErr();
+    console.log(messageErr);
+  }, [errState]);
 
   return (
     <AuthFormWrapperLogin>
@@ -45,7 +62,9 @@ const Login = ({ closeModal }) => {
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-              {errState.kindOfErr === "Login" && <ErrMessage>{errState.statusText}</ErrMessage>}
+              {errState?.kindOfErr === 'Login' && errState?.status === 500 &&(
+                <ErrMessage>{messageErr}</ErrMessage>
+              )}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>
                 <AuthInput
@@ -63,6 +82,9 @@ const Login = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
+                 {errState?.status === 404 && errState?.kindOfErr === 'Login' && (
+                  <ErrMessage>{messageErr}</ErrMessage>
+                )}
               </AuthInputForm>
 
               <AuthInputForm>
@@ -82,6 +104,9 @@ const Login = ({ closeModal }) => {
                     message={errors.password}
                   />
                 ) && funcMessage(errors.password)}
+                {errState?.status === 403 && errState?.kindOfErr === 'Login' && (
+                  <ErrMessage>{messageErr}</ErrMessage>
+                )}
               </AuthInputForm>
 
               <AuthButtonBlock>

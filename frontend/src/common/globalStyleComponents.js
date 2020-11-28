@@ -4,6 +4,7 @@ import { background, textColor } from '../stylesheet/vars';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`
+/* position: relative; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,12 +121,12 @@ export const AuthButtonBlock = styled.div`
   }
 `;
 export const ErrMessage = styled.p`
-  color: red;
-  font-size: 13px;
-  text-align: center;
-  margin-bottom: 10px;
-  /* position: absolute;
-top: 60%; */
+  position: absolute;
+  top: 65px;
+  left: 10px;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: #fe6083;
 `;
 //!
 

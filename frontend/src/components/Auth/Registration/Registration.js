@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { Formik, Form } from 'formik';
@@ -16,18 +16,35 @@ import {
   AuthInputTxt,
   AuthInput,
   AuthButtonBlock,
-  ErrMessage
+  ErrMessage,
 } from '../../../common/globalStyleComponents';
 import { getError } from '../../../redux/selectors/errorSelector';
+import funcErrTranslator from '../utilsAuth/funcErrTranslator';
 
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
+
   const errState = useSelector(state => getError(state));
+  const [messageErr, setMessageErr] = useState(null);
+  // const [showErrModal, setShowErrModal] = useState(errState !== null ? true : false);
+  const MessageErr = async () => {
+    const message = await funcErrTranslator(Number(errState?.status));
+    setMessageErr(message);
+  };
+
+  useEffect(() => {
+    // errState
+    // ? console.log("treu")
+    // : console.log("false")
+    // console.log(showErrModal,"errState?.kindOfErr")
+    MessageErr();
+    console.log(messageErr);
+  }, [errState]);
 
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
-  console.log(errState)
+  console.log(errState);
 
   return (
     <AuthFormWrapper>
@@ -40,7 +57,7 @@ const Registration = ({ closeModal }) => {
         validationSchema={registrationFrontSchema}
         onSubmit={async values => {
           dispatch(await operation.userRegistration({ ...values }));
-          !isOnMobile && !errState && closeModal();
+          // !isOnMobile && showErrModal && closeModal();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -49,7 +66,9 @@ const Registration = ({ closeModal }) => {
               <AuthTxt>
                 {isOnMobile ? 'Готовы подписаться?' : 'Регистрация'}
               </AuthTxt>
-              {errState.kindOfErr === "Register" && <ErrMessage>{errState.statusText}</ErrMessage>}
+              {errState?.kindOfErr === 'Register' && errState?.status === 500 &&(
+                <ErrMessage>{messageErr}</ErrMessage>
+              )}
               <AuthInputForm>
                 <AuthInputTxt>Name</AuthInputTxt>
                 <AuthInput
@@ -86,6 +105,9 @@ const Registration = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
+                {(errState?.status === 409) && errState?.kindOfErr === 'Register' && (
+                  <ErrMessage>{messageErr}</ErrMessage>
+                )}
               </AuthInputForm>
 
               <AuthInputForm>
@@ -105,6 +127,9 @@ const Registration = ({ closeModal }) => {
                     message={errors.password}
                   />
                 ) && funcMessage(errors.password)}
+                {errState?.status === 403 && errState?.kindOfErr === 'Register' && (
+                  <ErrMessage>{messageErr}</ErrMessage>
+                )}
               </AuthInputForm>
 
               <AuthButtonBlock>
