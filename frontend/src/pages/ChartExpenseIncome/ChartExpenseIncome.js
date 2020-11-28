@@ -12,7 +12,7 @@ export const MyChart = () => {
     // console.log(' state', state);
     return chartSelector.getMonthlyReport(state);
   });
-  console.log('monthlyReportArray', monthlyReportArray);
+  // console.log('monthlyReportArray', monthlyReportArray);
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];

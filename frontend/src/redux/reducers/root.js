@@ -22,7 +22,7 @@ const root = combineReducers({
     info: userReducer,
     transaction: transactionReducer,
     stats: stats,
-    monthlyReport: monthlyReportReducer,
+    monthReports: monthlyReportReducer,
   }),
   calculator: calculatorReduce,
   categories: categoriesReducer,

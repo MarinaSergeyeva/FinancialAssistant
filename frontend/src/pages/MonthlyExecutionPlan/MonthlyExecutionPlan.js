@@ -26,15 +26,20 @@ export const MonthlyExecutionPlan = () => {
     return dataForRequest;
   }
 
-  console.log('getDate()', getDate(startDate));
-  // const userBalance = useSelector(state => {
-  //   return userSelectors.getCurrentUser(state);
-  // });
-  // console.log('userBalance', userBalance);
-  // const { balance, totalSalary, flatPrice } = userBalance;
-  const monthlyReport = useSelector(state => {
+  const allReports = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
   });
+  const reportsNew = Object.values(allReports);
+  // const actualReport = useSelector(state => {
+  //   return chartSelector.actualReport(state, 5000);
+  // });
+  console.log('allReports', allReports);
+  console.log('reportsNew', reportsNew);
+
+  // console.log('allReports', typeof reportsNew);
+  const actualReport = reportsNew.find(report => report.totalSavings === 5000);
+  console.log('actualReport', actualReport);
+  // console.log('actualReport', actualReport);
   const dispatch = useDispatch();
   useEffect(() => {
     // const patientListUrl = `${baseUrl}api/patient/list?date=${getDate(d)}`;
@@ -46,7 +51,6 @@ export const MonthlyExecutionPlan = () => {
     console.log('startDate', dt);
     setStartDate(dt);
   };
-  console.log('monthlyReport', monthlyReport);
   const {
     totalExpenses,
     totalSavings,
@@ -54,7 +58,7 @@ export const MonthlyExecutionPlan = () => {
     expectedSavingsPercentage,
     expectedSavings,
     reportDate,
-  } = monthlyReport;
+  } = actualReport;
   return (
     <>
       <MonthlyMainWrapper>
@@ -157,3 +161,10 @@ const MonthlyValue = styled.p`
   font-size: 14px;
   color: #18191f;
 `;
+//========
+// console.log('getDate()', getDate(startDate));
+// const userBalance = useSelector(state => {
+//   return userSelectors.getCurrentUser(state);
+// });
+// console.log('userBalance', userBalance);
+// const { balance, totalSalary, flatPrice } = userBalance;

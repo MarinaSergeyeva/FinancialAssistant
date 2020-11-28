@@ -21,8 +21,8 @@ const getMonthReport = () => async (
       //`api/v1/month-reports/annual?endMonth=${endMonth}&endYear=${endYear}`,
       `api/v1/month-reports/annual?endMonth=11&endYear=2020`,
     );
-    console.log('res.data=====>', res.data);
-    dispatch(chartActions.getReportSuccess(res.data));
+    // console.log('res.data=====>', res.data.monthReports);
+    dispatch(chartActions.getReportSuccess(res.data.monthReports));
   } catch (error) {
     dispatch(chartActions.getReportError(error));
   }

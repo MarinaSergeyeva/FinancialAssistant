@@ -1,13 +1,15 @@
 import chartConstants from '../constants/chartConstants';
 const initialState = {
-  monthlyReport: {
-    totalExpenses: 0,
-    totalSavings: 0,
-    totalIncome: 0,
-    expectedSavingsPercentage: 0,
-    expectedSavings: 0,
-    reportDate: 0,
-  },
+  monthlyReport: [
+    {
+      totalExpenses: 0,
+      totalSavings: 0,
+      totalIncome: 0,
+      expectedSavingsPercentage: 0,
+      expectedSavings: 0,
+      reportDate: 0,
+    },
+  ],
 };
 
 const monthlyReport = (
@@ -16,7 +18,7 @@ const monthlyReport = (
 ) => {
   switch (type) {
     case chartConstants.GET_REPORT_SUCCESS:
-      console.log('payload from monthlyReport', payload);
+      //console.log('payload from monthlyReport', payload);
       return { ...state, ...payload };
     default:
       return state;
