@@ -12,7 +12,7 @@ import categoriesReducer from './categoriesReducer';
 export const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'auth'],
+  whitelist: ['token', 'auth.username', "username"],
 };
 
 const root = combineReducers({

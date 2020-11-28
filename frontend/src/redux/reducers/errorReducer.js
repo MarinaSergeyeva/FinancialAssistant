@@ -9,22 +9,12 @@ const initialResponse = {
 
 const error = (state = null, action) => {
   switch (action.type) {
-    case errorConstants.SET_ERROR:
     case authConstants.REGISTER_ERROR:
+      return { statusText: action.payload.message, kindOfErr: 'Register' };
     case authConstants.LOGIN_ERROR:
-      // const response = action.payload.response
-        // ? {
-      //       data: action.payload.response.data,
-      //       status: action.payload.response.status,
-      //       statusText: action.payload.response.statusText,
-      //     }
-      //   : initialResponse;
-      // return {
-      //   ...response,
+      return { statusText: action.payload.message, kindOfErr: 'Login' };
+    case errorConstants.SET_ERROR:
       return action.payload.message;
-        // message: 
-      // };
-
     case errorConstants.HIDE_ERROR:
     case authConstants.REGISTER_REQUEST:
     case authConstants.LOGIN_REQUEST:

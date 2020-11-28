@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { Formik, Form } from 'formik';
 import operation from '../../../redux/operations/authOperations';
@@ -16,13 +16,18 @@ import {
   AuthInputTxt,
   AuthInput,
   AuthButtonBlock,
+  ErrMessage
 } from '../../../common/globalStyleComponents';
+import { getError } from '../../../redux/selectors/errorSelector';
 
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
+  const errState = useSelector(state => getError(state));
+
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
+  console.log(errState)
 
   return (
     <AuthFormWrapper>
@@ -35,7 +40,7 @@ const Registration = ({ closeModal }) => {
         validationSchema={registrationFrontSchema}
         onSubmit={async values => {
           dispatch(await operation.userRegistration({ ...values }));
-          !isOnMobile && closeModal();
+          !isOnMobile && !errState && closeModal();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -44,7 +49,7 @@ const Registration = ({ closeModal }) => {
               <AuthTxt>
                 {isOnMobile ? 'Готовы подписаться?' : 'Регистрация'}
               </AuthTxt>
-
+              {errState.kindOfErr === "Register" && <ErrMessage>{errState.statusText}</ErrMessage>}
               <AuthInputForm>
                 <AuthInputTxt>Name</AuthInputTxt>
                 <AuthInput

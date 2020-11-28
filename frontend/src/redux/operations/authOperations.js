@@ -29,7 +29,7 @@ const userRegistration = credentials => dispatch => {
 const userLogin = credentials => dispatch => {
   dispatch(authAction.loginRequest());
   axios
-    .post('/api/v1/auth/sign-in', credentials)
+    .post('/api/v1/auth/sign-in', {credentials})
     .then(res => {
       token.set(res.data.token);
       dispatch(authAction.loginSuccess(res.data));

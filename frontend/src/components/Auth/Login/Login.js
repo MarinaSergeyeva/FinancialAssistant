@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
@@ -16,6 +16,7 @@ import {
   AuthInputTxt,
   AuthInput,
   AuthButtonBlock,
+  ErrMessage
 } from '../../../common/globalStyleComponents';
 import { getError } from '../../../redux/selectors/errorSelector';
 
@@ -24,7 +25,7 @@ const Login = ({ closeModal }) => {
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
-
+  
   const errState = useSelector(state => getError(state));
 
   return (
@@ -44,7 +45,7 @@ const Login = ({ closeModal }) => {
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-              {errState && <ErrMessage>{errState}</ErrMessage>}
+              {errState.kindOfErr === "Login" && <ErrMessage>{errState.statusText}</ErrMessage>}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>
                 <AuthInput
@@ -118,12 +119,5 @@ const AuthFormWrapperLogin = styled.div`
   }
 `;
 
-const ErrMessage = styled.p`
-  color: red;
-  font-size: 13px;
-  text-align: center;
-  margin-bottom: 10px;
-  /* position: absolute;
-top: 60%; */
-`;
+
 export default Login;

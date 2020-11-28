@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import gapi from 'gapi';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
@@ -10,13 +9,19 @@ import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
 import { useSelector } from 'react-redux';
+import { getError } from '../../redux/selectors/errorSelector';
+import Modal from '../Modal/Modal';
+import { useMediaQuery } from 'react-responsive';
+import ModalResultError from '../Auth/ModalResult/ModalResultError';
+import ModalResultSuccess from '../Auth/ModalResult/ModalResultSuccess';
 
 const path = require('path');
 require('dotenv').config({ path: path.join('../../../../backend/.env') });
 
 const MainPage = () => {
+  const errState = useSelector(state => getError(state));
+  const [showErrModal, setShowErrModal] = useState(errState !== null ? true : false);
   const userInfo = useSelector(state => state.auth.username);
-
   const [userInfoRegistr, setUserInfoRegistr] = useState(
     userInfo ? true : false,
   );
@@ -29,96 +34,107 @@ const MainPage = () => {
     }
   }, [userInfo]);
 
+  const isOnLargeTablet = useMediaQuery({
+    query: device.largeTablet,
+  });
+
   return (
-    <MainPageContainer>
-      <Mobile>
-        <MainPageTitile>
-          Планировщик для совместного
-          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-        </MainPageTitile>
-      </Mobile>
-      <Tablet>
-        <MainPageTitile>
-          Планировщик для совместного
-          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-        </MainPageTitile>
-      </Tablet>
-      <Desktop>
-        <MainPageTitile>
-          Планировщик <br /> для совместного
-          <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-        </MainPageTitile>
-      </Desktop>
-      <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
-        <GoogleAuthBtnImg
-          src={googleLogo}
-          alt="google auth picture"
-        ></GoogleAuthBtnImg>
-        Sign up with Google
-      </GoogleAuthBtn>
-      <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
-        <FacebookAuthBtnImg
-          src={facebookLogo}
-          alt="facebook auth picture"
-        ></FacebookAuthBtnImg>
-        Sign up with Facebook
-      </FacebookAuthBtn>
+    <>
+      {(userInfoRegistr && isOnLargeTablet && 
+        <Modal closeModal={setShowErrModal}>
+            <ModalResultSuccess closeModal={setShowErrModal}/>
+        </Modal>
+      )}
+      <MainPageContainer>
+        <Mobile>
+          <MainPageTitile>
+            Планировщик для совместного
+            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
+          </MainPageTitile>
+        </Mobile>
+        <Tablet>
+          <MainPageTitile>
+            Планировщик для совместного
+            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
+          </MainPageTitile>
+        </Tablet>
+        <Desktop>
+          <MainPageTitile>
+            Планировщик <br /> для совместного
+            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
+          </MainPageTitile>
+        </Desktop>
+        <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
+          <GoogleAuthBtnImg
+            src={googleLogo}
+            alt="google auth picture"
+          ></GoogleAuthBtnImg>
+          Sign up with Google
+        </GoogleAuthBtn>
+        <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
+          <FacebookAuthBtnImg
+            src={facebookLogo}
+            alt="facebook auth picture"
+          ></FacebookAuthBtnImg>
+          Sign up with Facebook
+        </FacebookAuthBtn>
 
-      <Mobile>
-        <AuthContainer>
-          {!userInfoRegistr && (
-            <>
-              <Registration />
-              <AuthParagraph>
-                Уже есть аккаунт?
-                <span
-                  onClick={() => {
-                    setUserInfoRegistr(true);
-                  }}
-                >
-                  Войти
-                </span>
-              </AuthParagraph>
-            </>
-          )}
+        <Mobile>
+          <AuthContainer>
+            {!userInfoRegistr && (
+              <>
+                <Registration />
+                <AuthParagraph>
+                  Уже есть аккаунт?
+                  <span
+                    onClick={() => {
+                      setUserInfoRegistr(true);
+                    }}
+                  >
+                    Войти
+                  </span>
+                </AuthParagraph>
+              </>
+            )}
 
-          {userInfoRegistr && (
-            <>
-              <Login />
-              <AuthParagraph>
-                Еще нет аккаунта?
-                <span
-                  onClick={() => {
-                    setUserInfoRegistr(false);
-                  }}
-                >
-                  Зарегистрироваться
-                </span>
-              </AuthParagraph>
-            </>
-          )}
-        </AuthContainer>
-      </Mobile>
+            {userInfoRegistr && (
+              <>
+                <Login />
+                <AuthParagraph>
+                  Еще нет аккаунта?
+                  <span
+                    onClick={() => {
+                      setUserInfoRegistr(false);
+                    }}
+                  >
+                    Зарегистрироваться
+                  </span>
+                </AuthParagraph>
+              </>
+            )}
+          </AuthContainer>
+        </Mobile>
 
-      <Mobile>
-        <MainPageImg
-          src={mainPictureMobile}
-          alt="main page picture"
-        ></MainPageImg>
-      </Mobile>
-      <Tablet>
-        <MainPageImg
-          src={mainPictureTablet}
-          alt="main page picture"
-        ></MainPageImg>
-      </Tablet>
-      <Desktop>
-        <MainPageImg
-          src={mainPictureDesktop}
-          alt="main page picture"
-        ></MainPageImg>
-      </Desktop>
-    </MainPageContainer>
+        <Mobile>
+          <MainPageImg
+            src={mainPictureMobile}
+            alt="main page picture"
+          ></MainPageImg>
+        </Mobile>
+        <Tablet>
+          <MainPageImg
+            src={mainPictureTablet}
+            alt="main page picture"
+          ></MainPageImg>
+        </Tablet>
+        <Desktop>
+          <MainPageImg
+            src={mainPictureDesktop}
+            alt="main page picture"
+          ></MainPageImg>
+        </Desktop>
+      </MainPageContainer>
+    </>
   );
 };
 
