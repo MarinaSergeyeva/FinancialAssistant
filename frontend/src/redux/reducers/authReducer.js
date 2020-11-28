@@ -13,7 +13,7 @@ const auth = (state = initialState, { type, payload }) => {
       return payload;
 
     case authConstants.LOGOUT:
-      return '';
+      return initialState;
 
     default:
       return state;

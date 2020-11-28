@@ -1,4 +1,5 @@
 import userConstants from '../constants/userConstants';
+import authConstants from '../constants/authConstants';
 import userInfoConstants from '../constants/userInfoConstants';
 
 const initialState = {
@@ -20,6 +21,9 @@ const info = (state = initialState.info, { type, payload }) => {
 
     case userInfoConstants.UPDATE_USER_INFO_SUCCESS:
       return { ...state, ...payload };
+
+    case authConstants.LOGOUT:
+      return initialState.info;
 
     default:
       return state;

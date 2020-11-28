@@ -40,8 +40,16 @@ const userLogin = credentials => dispatch => {
     });
 };
 
+const userLogout = () => dispatch => {
+  axios.delete('/api/v1/auth/sign-out').then(res => {
+    token.unSet();
+    dispatch(authAction.logout());
+  });
+};
+
 export default {
   token,
   userRegistration,
   userLogin,
+  userLogout,
 };

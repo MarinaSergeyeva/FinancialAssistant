@@ -1,8 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
+import authOperations from '../../redux/operations/authOperations';
+import device from '../../common/deviceSizes';
+import { useMediaQuery } from 'react-responsive';
 
 const LogoutModal = props => {
+  const dispatch = useDispatch();
+
+  const isDesktopDevice = useMediaQuery({
+    query: device.desktop,
+  });
+
+  const logoutUser = async () => {
+    !isDesktopDevice && props.showNavigation();
+    await dispatch(authOperations.userLogout());
+  };
+
   return (
     <>
       <LogoutWrapper>
@@ -12,7 +27,9 @@ const LogoutModal = props => {
         <ButtonStay className="btn" onClick={props.closeModal}>
           Нет, я останусь
         </ButtonStay>
-        <ButtonExit className="btn">Да, но я скоро вернусь</ButtonExit>
+        <ButtonExit className="btn" onClick={logoutUser}>
+          Да, но я скоро вернусь
+        </ButtonExit>
       </LogoutWrapper>
     </>
   );
@@ -21,13 +38,17 @@ const LogoutModal = props => {
 export default LogoutModal;
 
 const LogoutWrapper = styled.div`
-  width: 500px;
-  height: 250px;
+  padding: 40px 30px 50px;
   background: #fff;
   border-radius: 8px;
   text-align: center;
   margin: 0 auto;
-  padding: 70px;
+
+  @media ${device.largeDevice} {
+    width: 500px;
+    height: 250px;
+    padding: 70px;
+  }
 
   .modalTitle {
     color: ${background.secondary};
@@ -51,7 +72,11 @@ const LogoutWrapper = styled.div`
 const ButtonStay = styled.button`
   background: ${background.logout};
   color: rgba(24, 25, 31);
-  margin-right: 14px;
+  margin-bottom: 20px;
+
+  @media ${device.largeDevice} {
+    margin-right: 14px;
+  }
 `;
 const ButtonExit = styled.button`
   background: ${colors.main};

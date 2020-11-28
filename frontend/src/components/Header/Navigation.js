@@ -29,6 +29,7 @@ const Navigation = ({ showNavigation }) => {
         </StyleNavLInk>
         <StyleNavLInk
           to="/expense"
+          exact
           activeClassName="active"
           onClick={showNavigation}
         >
@@ -41,7 +42,9 @@ const Navigation = ({ showNavigation }) => {
         >
           Динамика
         </StyleNavLInk>
-        {(isMobileDevice || isTabletDevice) && <Logout />}
+        {(isMobileDevice || isTabletDevice) && (
+          <Logout showNavigation={showNavigation} />
+        )}
         {isTabletDevice && (
           <NavigationBgImg
             src={navigationBackgroundTablet}
@@ -140,6 +143,7 @@ const NavigationBgImg = styled.img`
   bottom: 0px;
   right: 0px;
   z-index: -1;
+  max-height: calc(100vh - 350px);
 `;
 
 const BtnNavLInk = styled(NavLink)`

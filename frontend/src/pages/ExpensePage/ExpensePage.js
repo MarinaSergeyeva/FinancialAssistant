@@ -16,8 +16,8 @@ const ExpensePage = () => {
   {
     const match = useRouteMatch();
     const location = useLocation();
-    console.log('location', location);
-    console.log('match', match); // '/expense'
+    // console.log('location', location);
+    // console.log('match', match); // '/expense'
     return (
       <>
         {location.pathname === match.path ? (
