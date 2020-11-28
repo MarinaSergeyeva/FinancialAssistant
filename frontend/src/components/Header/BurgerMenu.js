@@ -13,10 +13,6 @@ const BurgerMenu = ({ showNavigation }) => {
   const { pathname } = useLocation();
   const [location, setLocation] = useState(pathname);
 
-  console.log('pathname', pathname);
-  console.log('location', location);
-  console.log('match', match);
-
   const classNameHandleChange = () => {
     showNavigation();
     setActiveClass(!isActiveClass);
