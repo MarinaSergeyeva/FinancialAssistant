@@ -24,11 +24,9 @@ export const CurrencyStyled = styled.div`
   .iconCurrency:focus {
     fill: rgb(53, 54, 59);
   }
-
   .iconDollar {
     height: 14px;
   }
-
   .iconArrow {
     transform: rotate(180deg);
   }
@@ -62,11 +60,21 @@ export const CurrencyStyled = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
   }
   .currencyOption,
   .currencyOptionWrapper {
     height: 118px;
   }
+  .iconDollar,
+  .iconEuro,
+  .iconHryvna {
+    margin: 4px;
+  }
+  /* .iconsWrapper {
+    width: 16px;
+    height: 16px;
+  } */
 
   @media (min-width: ${size.tablet}) {
     .currencyWrapper {

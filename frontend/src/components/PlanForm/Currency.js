@@ -9,21 +9,20 @@ function Currency({ state, getState }) {
   const showCurrency = () => setShowCurrency(prevState => !prevState);
 
   const selectedCurrency = e => {
-    // console.log('e.target', e.target);
-    // console.log('name', e.target.id);
-    setCurrencySvg(e.target.id); //! объект, а нужна строка e.target.id
+    setCurrencySvg(e.target.id);
   };
-  // useEffect(() => {
-  // fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5');
-  // return () => {
-  //   cleanup;
-  // };
-  // selectedCurrency();
-  // }, [currencySvg]);
+
+  const fetchRates = () => {
+    fetch(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
+      .then(result => result.json())
+      .then(result => console.log(result[0], result[1]));
+  };
+  useEffect(() => {
+    fetchRates();
+  }, []);
 
   return (
     <CurrencyStyled>
-      {console.log('currencySvg', currencySvg)}
       <div className="currencyWrapper">
         <svg className="iconCurrency selectedIconCurrency">
           <use href={sprite + `#${currencySvg}`} />
@@ -39,14 +38,14 @@ function Currency({ state, getState }) {
         <div className="currencyOption">
           <div className="currencyOptionWrapper">
             <svg
-              className="iconCurrency"
+              className="iconCurrency iconHryvna"
               id="icon-hryvna"
               onClick={selectedCurrency}
             >
               <use href={sprite + '#icon-hryvna'} />
             </svg>
             <svg
-              className="iconCurrency"
+              className="iconCurrency iconEuro"
               id="icon-euro"
               onClick={selectedCurrency}
             >

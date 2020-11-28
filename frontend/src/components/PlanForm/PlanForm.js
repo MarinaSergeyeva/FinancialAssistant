@@ -21,9 +21,6 @@ function PlanForm({ state, getState }) {
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
   };
-  // const onHandleSelectChange = e => {
-  //   setCurrency(e.target.value);
-  // };
 
   const onHandleFocus = () => setFieldActive(true);
   const onHandleBlur = () => setFieldActive(false);
@@ -34,8 +31,8 @@ function PlanForm({ state, getState }) {
         <div className="firstColumn">
           <label>
             <span>1. ЗП обоих супругов</span>
-            {console.log('infoCurrentUser', infoCurrentUser)}
-            {console.log('state', state)}
+            {/* {console.log('infoCurrentUser', infoCurrentUser)}
+            {console.log('state', state)} */}
             <input
               type="number"
               name="totalSalary"

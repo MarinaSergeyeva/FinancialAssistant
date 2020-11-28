@@ -56,6 +56,14 @@ export const PlanFormStyled = styled.div`
   input:focus {
     border-bottom: 1px solid rgb(33, 150, 243);
   }
+  input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+  }
   /* .selectWrapper {
     position: absolute;
     top: 34px;
