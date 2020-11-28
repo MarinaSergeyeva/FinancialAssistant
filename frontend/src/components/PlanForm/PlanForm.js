@@ -7,7 +7,7 @@ const placeHolder = 'Введите сумму';
 
 function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
-  // const [currencySelect, setCurrency] = useState('');
+  const [currency, setCurrency] = useState('');
 
   const infoCurrentUser = useSelector(state => state.user.info);
 
@@ -22,6 +22,14 @@ function PlanForm({ state, getState }) {
     getState({ ...state, [e.target.name]: e.target.value });
   };
 
+  const onHandleChangeCurrency = e => {
+    console.log(currency);
+    getState({ ...state, [e.target.name]: Number(e.target.value)*() });
+  };
+  const getCurrency = value => {
+    setCurrency(value);
+    return value;
+  };
   const onHandleFocus = () => setFieldActive(true);
   const onHandleBlur = () => setFieldActive(false);
 
@@ -73,24 +81,17 @@ function PlanForm({ state, getState }) {
         <div className="secondColumn">
           <label>
             <span>4. Укажите стоимость вашей будущей квартиры</span>
-            {/* /* <div className="selectWrapper">
-              <select
-                value={currencySelect}
-                name="currency"
-                onChange={onHandleSelectChange}
-              >
-                <option value="euro">&euro;</option>
-                <option value="dollar">&#36;</option>
-                <option value="hryvna">&#8372;</option>
-              </select>
-            </div> */}
-            <Currency state={state} getState={getState} />
+            <Currency
+              state={state}
+              getState={getState}
+              getCurrency={getCurrency}
+            />
             <input
               type="number"
               name="flatPrice"
               value={!state.flatPrice ? '' : state.flatPrice}
               placeholder={placeHolder}
-              onChange={onHandleChange}
+              onChange={onHandleChangeCurrency}
             />
           </label>
           <label>
