@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
 // import avatarImg from '../../assets/icons/Header/Avatar/avatar.png';
@@ -11,11 +11,16 @@ import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from './BurgerMenu';
 
 const Userinfo = ({ showNavigation, setActive }) => {
+  const [name, setName] = useState('');
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
   const { username } = useSelector(state =>
     userSelectors.getCurrentUser(state),
   );
   // console.log('name', name);
+
+  useEffect(() => {
+    setName(username);
+  }, []);
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
