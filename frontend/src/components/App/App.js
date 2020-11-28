@@ -15,8 +15,10 @@ import { authSelector } from '../../redux/selectors';
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
+
   const showNavigationHandler = () => {
     setShowMobileNavigation(!showNavigation);
+    return showNavigation;
   };
 
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
