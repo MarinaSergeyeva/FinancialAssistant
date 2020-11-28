@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const {
   Schema,
   Types: { ObjectId },
@@ -29,6 +30,8 @@ const transactionSchema = new Schema(
 
 transactionSchema.statics.createTransaction = createTransaction;
 transactionSchema.statics.getCurrentMonthExpenses = getCurrentMonthExpenses;
+
+transactionSchema.plugin(mongoosePaginate);
 
 const TransactionModel = mongoose.model('Transaction', transactionSchema);
 
