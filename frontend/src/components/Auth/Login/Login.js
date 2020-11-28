@@ -27,7 +27,6 @@ const Login = ({ closeModal }) => {
 
   const errState = useSelector(state => getError(state));
 
-
   return (
     <AuthFormWrapperLogin>
       <Formik
@@ -37,7 +36,6 @@ const Login = ({ closeModal }) => {
         }}
         validationSchema={loginFrontSchema}
         onSubmit={async values => {
-          console.log(values, 'values');
           dispatch(await operation.userLogin({ ...values }));
           !isOnMobile && closeModal();
         }}
@@ -120,13 +118,12 @@ const AuthFormWrapperLogin = styled.div`
   }
 `;
 
-
 const ErrMessage = styled.p`
-color: red;
-font-size: 13px;
-text-align: center;
-margin-bottom: 10px;
-/* position: absolute;
+  color: red;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 10px;
+  /* position: absolute;
 top: 60%; */
-`
+`;
 export default Login;

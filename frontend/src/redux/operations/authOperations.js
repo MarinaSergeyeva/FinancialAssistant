@@ -30,7 +30,6 @@ const userLogin = credentials => dispatch => {
   axios
     .post('/api/v1/auth/sign-in', credentials)
     .then(res => {
-      console.log(res.data, 'userLogin');
       token.set(res.data.token);
       dispatch(authAction.loginSuccess(res.data));
     })
