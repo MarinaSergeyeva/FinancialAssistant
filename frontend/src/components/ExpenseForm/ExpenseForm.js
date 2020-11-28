@@ -16,6 +16,7 @@ import categoriesSelector from '../../redux/selectors/categoriesSelector';
 import calculatorSelector from '../../redux/selectors/calculatorSelector';
 import calculatorActions from '../../redux/actions/calculatorActions';
 import { transactionSelectors, userSelectors } from '../../redux/selectors';
+import { e } from 'mathjs';
 
 const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
@@ -33,7 +34,15 @@ const useInput = initialValue => {
 
 const ExpenseForm = () => {
   const [showCalculator, setShowCalculator] = useState(false);
+
   const [amount, setAmount] = useState('');
+
+  const comment = useInput('');
+  // const amount = useInput('');
+  const category = useInput('');
+
+  // const [localComment, setLocalComment] = useState(comment.value);
+  // const [localCategory, setLocalCategory] = useState(category.value);
 
   const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
   const categories = useSelector(state => categoriesSelector(state));
@@ -51,14 +60,6 @@ const ExpenseForm = () => {
     setAmount(e.target.value);
   };
 
-  useEffect(() => {
-    dispatch(categoriesOperations.getCategories());
-  }, []);
-
-  const comment = useInput('');
-  // const amount = useInput('');
-  const category = useInput('');
-
   const transactionInfo = {
     comment: comment.bind.value,
     amount: Number(amount),
@@ -70,18 +71,28 @@ const ExpenseForm = () => {
   });
 
   useEffect(() => {
-    setAmount(calculatorResult);
-    dispatch(
-      transactionActions.changeTransactionSuccess({
-        ...transactionInfo,
-        amount: calculatorResult,
-      }),
-    );
-  }, [calculatorResult]);
+    console.log('render');
+    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+  });
 
   useEffect(() => {
-    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  }, [transactionInfo]);
+    console.log('CDM');
+    dispatch(categoriesOperations.getCategories());
+  }, []);
+
+  useEffect(() => {
+    setAmount(calculatorResult);
+    // dispatch(
+    //   transactionActions.changeTransactionSuccess({
+    //     ...transactionInfo,
+    //     amount: calculatorResult,
+    //   }),
+    // );
+  }, [calculatorResult]);
+
+  // useEffect(() => {
+  //   dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+  // }, [transactionInfo]);
 
   return (
     <ExpenseFormStyled>
@@ -96,7 +107,11 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Название статьи</span>
-            <input type="text" {...comment.bind} />
+            <input
+              type="text"
+              placeholder="Введите статью расходов"
+              {...comment.bind}
+            />
           </label>
 
           <label>
@@ -118,6 +133,7 @@ const ExpenseForm = () => {
             <input
               className="calc-input"
               type="number"
+              placeholder="Введите сумму"
               onChange={onAmountChange}
               value={amount}
             />
