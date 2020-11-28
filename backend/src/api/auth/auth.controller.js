@@ -82,6 +82,5 @@ exports.AuthGoogle_FB = async (req, res, next) => {
   existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
 
-  return res.redirect(`http://localhost:3000?token=${token}`);
+  return res.redirect(`${process.env.ALLOWED_ORIGIN}?token=${token}`);
 };
-

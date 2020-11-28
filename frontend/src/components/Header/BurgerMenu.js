@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { textColor } from '../../stylesheet/vars';
 
 const BurgerMenu = ({ showNavigation }) => {
   const [className, setClassName] = useState('burger');
   const [isActiveClass, setActiveClass] = useState(false);
+
+  // const match = useRouteMatch();
+  const location = useLocation();
+  console.log('location in burger', location);
 
   const classNameHandleChange = () => {
     showNavigation();
