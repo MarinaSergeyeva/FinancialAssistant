@@ -13,5 +13,8 @@ const Spinner = () => {
 export default Spinner;
 
 const SpinnerWrapper = styled.div`
-  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

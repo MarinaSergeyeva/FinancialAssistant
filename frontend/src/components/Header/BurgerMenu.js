@@ -6,11 +6,12 @@ import { textColor } from '../../stylesheet/vars';
 const BurgerMenu = ({ showNavigation }) => {
   const [className, setClassName] = useState('burger');
   const [isActiveClass, setActiveClass] = useState(false);
-  const [location, setLocation] = useState('');
 
   const prevLocation = useRef('');
 
+  const match = useRouteMatch();
   const { pathname } = useLocation();
+  const [location, setLocation] = useState(pathname);
 
   const classNameHandleChange = () => {
     showNavigation();
