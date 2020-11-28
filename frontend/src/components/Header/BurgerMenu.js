@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { textColor } from '../../stylesheet/vars';
 
 const BurgerMenu = ({ showNavigation }) => {
   const [className, setClassName] = useState('burger');
   const [isActiveClass, setActiveClass] = useState(false);
+  const [location, setLocation] = useState('');
 
-  // const match = useRouteMatch();
-  const location = useLocation();
-  console.log('location in burger', location);
+  const prevLocation = useRef('');
+
+  const { pathname } = useLocation();
 
   const classNameHandleChange = () => {
     showNavigation();
     setActiveClass(!isActiveClass);
   };
+
+  useEffect(() => {
+    setLocation(pathname);
+    if (prevLocation.current !== location) setActiveClass(!isActiveClass);
+  }, [pathname]);
 
   useEffect(() => {
     isActiveClass
