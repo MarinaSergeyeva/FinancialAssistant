@@ -1,5 +1,6 @@
 import authAction from '../actions/authAction';
 import axios from 'axios';
+import { authSelector } from '../selectors';
 
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
@@ -30,7 +31,6 @@ const userLogin = credentials => dispatch => {
   axios
     .post('/api/v1/auth/sign-in', credentials)
     .then(res => {
-      console.log(res.data, 'userLogin');
       token.set(res.data.token);
       dispatch(authAction.loginSuccess(res.data));
     })
@@ -40,8 +40,21 @@ const userLogin = credentials => dispatch => {
     });
 };
 
+const userLogout = () => (dispatch, getState) => {
+  const persistedToken = authSelector.isAuthenticated(getState());
+  if (!persistedToken) {
+    return;
+  }
+  token.set(persistedToken);
+  axios.delete('/api/v1/auth/sign-out').then(res => {
+    token.unSet();
+    dispatch(authAction.logout());
+  });
+};
+
 export default {
   token,
   userRegistration,
   userLogin,
+  userLogout,
 };
