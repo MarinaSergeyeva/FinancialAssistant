@@ -11,7 +11,6 @@ const LoginHeader = () => {
   const [isShowLogin, setIsShowLogin] = useState(false);
 
   const showModalAuth = e => {
-    console.log('e.target.innerText', e.target.innerText);
     e.target.innerText === 'Регистрация'
       ? setIsShowRegistration(true)
       : setIsShowLogin(true);
