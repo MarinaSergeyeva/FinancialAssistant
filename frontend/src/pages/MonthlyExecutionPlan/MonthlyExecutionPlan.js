@@ -15,7 +15,7 @@ registerLocale('ru', ru);
 
 export const MonthlyExecutionPlan = () => {
   let allReports;
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,7 +56,7 @@ export const MonthlyExecutionPlan = () => {
           //locale="ru"
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
-          selected={startDate}
+          selected={startDate ? startDate : null}
           // onChange={reportDate => setStartDate(reportDate)}
           onChange={onChange}
           dateFormat="MMMM YYY"

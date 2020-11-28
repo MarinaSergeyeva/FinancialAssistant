@@ -1,10 +1,9 @@
 import React, { Component, useEffect } from 'react';
 
-import moment from 'moment';
 import Chart from 'chart.js';
 import device from '../../common/deviceSizes.js';
 import { useMediaQuery } from 'react-responsive';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
 
 export const MyChart = () => {
@@ -12,20 +11,22 @@ export const MyChart = () => {
   const allReports = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
   });
-  const reportsNew = Object.values(allReports);
-  console.log('reportsNew', reportsNew);
+  console.log('allReports', allReports.length);
+  const reportsNewR = Object.values(allReports);
+  const reportsNew = reportsNewR.splice(0, 11);
+  console.log('reportsNewR', reportsNew);
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
   let arrayOfExpectedSavings = [];
   let arrayOfReportDate = [];
   if (reportsNew.length > 0) {
-    arrayOfTotalSavings = reportsNew.map(item => item.totalSavings);
+    arrayOfTotalSavings = reportsNew.map(item => item.totalIncome);
     arrayOfTotalExpenses = reportsNew.map(item => item.totalExpenses);
-    arrayOfExpectedSavings = reportsNew.map(item => item.expectedSavings);
+    arrayOfExpectedSavings = reportsNew.map(item => item.totalSavings);
     arrayOfReportDate = reportsNew.map(item => {
       const data = new Date(item.reportDate);
-      return data;
+      return data.toLocaleString('default', { month: 'short' });
     });
   } else {
     arrayOfTotalSavings = [0];
@@ -34,9 +35,10 @@ export const MyChart = () => {
     arrayOfReportDate = [0];
   }
 
+  console.log('arrayOfReportDate', arrayOfReportDate);
   useEffect(() => {
     var ctx = document.getElementById('myChart').getContext('2d');
-    ctx.lineCap = 'round';
+    // ctx.lineCap = 'round';
     const yAxesConfig = {
       gridLines: {
         display: true,
@@ -45,11 +47,11 @@ export const MyChart = () => {
 
       ticks: {
         beginAtZero: true,
-        stepSize: 5000,
+        stepSize: 10000,
         // max: 500,
         //   min: 0,
         // suggestedMin: 50,
-        // suggestedMax: 100000,
+        suggestedMax: 70000,
       },
     };
     const xAxesConfig = {
@@ -57,18 +59,19 @@ export const MyChart = () => {
         display: false,
         offset: true,
       },
-      type: 'time',
-      time: {
-        unit: 'month',
-        displayFormats: {
-          month: 'MMM',
-        },
-      },
+      // type: 'time',
+      // time: {
+      //   unit: 'month',
+      //   displayFormats: {
+      //     month: 'MMMM',
+      //   },
+      // },
     };
     var chart = new Chart(ctx, {
       type: isOnMobile ? 'horizontalBar' : 'bar',
 
       data: {
+        display: false,
         labels: arrayOfReportDate,
 
         datasets: [
@@ -113,8 +116,8 @@ export const MyChart = () => {
         },
         layout: {
           padding: {
-            left: isOnMobile ? 10 : 10,
-            right: 10,
+            left: isOnMobile ? 0 : 0,
+            right: isOnMobile ? 10 : 0,
             top: 0,
             bottom: isOnMobile ? 0 : 20,
           },
@@ -129,12 +132,9 @@ export const MyChart = () => {
 
     return () => chart.destroy();
   });
-  const isOnMobile = useMediaQuery(
-    {
-      query: device.mobile,
-    },
-    [allReports],
-  );
+  const isOnMobile = useMediaQuery({
+    query: device.mobile,
+  });
   const isOnTablet = useMediaQuery({
     query: device.tablet,
   });
