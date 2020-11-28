@@ -14,7 +14,7 @@ import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
 import categoriesSelector from '../../redux/selectors/categoriesSelector';
 
-const useInput = initialValue => {
+export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
 
   const onChange = e => {
@@ -40,6 +40,7 @@ const ExpenseForm = () => {
 
   useEffect(() => {
     dispatch(categoriesOperations.getCategories());
+    // eslint-disable-next-line
   }, []);
 
   const comment = useInput('');
@@ -68,6 +69,7 @@ const ExpenseForm = () => {
     if (amount !== '') {
       dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
     }
+    // eslint-disable-next-line
   }, [amount]);
 
   return (

@@ -31,6 +31,20 @@ const getTransactionsExpenseError = error => ({
   payload: error,
 });
 
+const updateTransactionRequest = () => ({
+  type: transactionConstants.UPDATE_TRANSACTION_REQUEST,
+});
+
+const updateTransactionSuccess = updatedExpense => ({
+  type: transactionConstants.UPDATE_TRANSACTION_SUCCESS,
+  payload: updatedExpense,
+});
+
+const updateTransactionError = error => ({
+  type: transactionConstants.UPDATE_TRANSACTION_ERROR,
+  payload: error,
+});
+
 export default {
   changeTransactionSuccess,
 
@@ -41,4 +55,8 @@ export default {
   getTransactionsExpenseRequest,
   getTransactionsExpenseSuccess,
   getTransactionsExpenseError,
+
+  updateTransactionRequest,
+  updateTransactionSuccess,
+  updateTransactionError,
 };

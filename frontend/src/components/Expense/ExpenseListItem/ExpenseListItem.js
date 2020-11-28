@@ -8,86 +8,258 @@ import transportImg from '../../../assets/images/expenseListItem/taxi.svg';
 import productsImg from '../../../assets/images/expenseListItem/products.svg';
 import entertainmentImg from '../../../assets/images/expenseListItem/entertainment.svg';
 import device, { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
+import { useInput } from '../../ExpenseForm/ExpenseForm';
+import { useDispatch } from 'react-redux';
+import transactionOperations from '../../../redux/operations/transactionOperations';
 
 const ExpenseListItem = ({ expense }) => {
-  const [img, setImg] = useState(otherImg);
+  const dispatch = useDispatch();
+  const categories = [
+    'Другое',
+    'Развлечения',
+    'Продукты',
+    'Товары',
+    'Транспорт',
+    'ЖКХ',
+  ];
+
+  const [img, setImg] = useState();
   useEffect(() => {
-    console.log('expenseCategory', expense.category);
-    expense.category === 'ЖКХ' && setImg(homeImg);
-    expense.category === 'Другое' && setImg(otherImg);
-    expense.Category === 'Развлечения' && setImg(entertainmentImg);
-    expense.Category === 'Продукты' && setImg(foodImg);
-    expense.category === 'Товары' && setImg(productsImg);
-    expense.Category === 'Транспорт' && setImg(transportImg);
+    if (expense.category === 'ЖКХ') {
+      return setImg(homeImg);
+    } else if (expense.category === 'Другое') {
+      return setImg(otherImg);
+    } else if (expense.category === 'Развлечения') {
+      return setImg(entertainmentImg);
+    } else if (expense.category === 'Продукты') {
+      return setImg(foodImg);
+    } else if (expense.category === 'Товары') {
+      return setImg(productsImg);
+    } else if (expense.category === 'Транспорт') {
+      return setImg(transportImg);
+    }
+    // eslint-disable-next-line
   }, [img]);
+
+  const [showInput, setShowInput] = useState(false);
+
+  const openEdit = () => {
+    setShowInput(true);
+  };
+
+  const closeEdit = () => {
+    setShowInput(false);
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    // const date = new Date(expense.transactionDate);
+    // console.log(date);
+    dispatch(
+      await transactionOperations.updateTransactionExpense(
+        updatedExpense,
+        expense._id,
+      ),
+    );
+    closeEdit();
+  };
+
+  const amount = useInput(expense.amount);
+  const comment = useInput(expense.comment);
+  const category = useInput(expense.category);
+
+  const updatedExpense = {
+    amount: Number(amount.bind.value),
+    comment: comment.bind.value,
+    category: category.bind.value,
+    _id: expense._id,
+  };
 
   return (
     <>
       {expense && (
         <>
           <Mobile>
-            <Wrapper>
-              <WrapperSecondary>
-                <ExpenseName>{expense.comment}</ExpenseName>
-                <EditButton>
-                  <img width="20" height="20" alt="other" src={editImg} />
-                </EditButton>
-              </WrapperSecondary>
-              <WrapperSecondary>
-                <Value>{expense.amount} грн</Value>
-                <CategoryWrapper>
-                  <IconWrapper>
-                    <img width="20" height="20" alt="other" src={img} />
-                  </IconWrapper>
-                  <Category>{expense.Category}</Category>
-                </CategoryWrapper>
-              </WrapperSecondary>
-              <Date>19.12.2019</Date>
-            </Wrapper>
+            {showInput ? (
+              <Form onSubmit={handleSubmit}>
+                <Label>
+                  Название: <Input type="text" {...comment.bind} />
+                </Label>
+                <Label>
+                  Сумма:
+                  <Input type="number" {...amount.bind} />
+                </Label>
+                <Label>
+                  Категория:
+                  <Select type="text" {...category.bind}>
+                    <option
+                      key="Без категории"
+                      value="Без категории"
+                      defaultValue
+                    >
+                      -- Выберите категорию --
+                    </option>
+                    {categories.map(elem => (
+                      <option value={elem} key={elem}>
+                        {elem}
+                      </option>
+                    ))}
+                  </Select>
+                </Label>
+                <Date>19.12.2019</Date>
+                <Button>Сохранить</Button>
+              </Form>
+            ) : (
+              <Wrapper>
+                <WrapperSecondary>
+                  <ExpenseName>{expense.comment}</ExpenseName>
+                  <EditButton onClick={openEdit}>
+                    <img width="20" height="20" alt="other" src={editImg} />
+                  </EditButton>
+                </WrapperSecondary>
+                <WrapperSecondary>
+                  <Value>{expense.amount} грн</Value>
+                  <CategoryWrapper>
+                    <IconWrapper>
+                      <img
+                        width="20"
+                        height="20"
+                        alt={expense.category}
+                        src={img}
+                      />
+                    </IconWrapper>
+                    <Category>{expense.category}</Category>
+                  </CategoryWrapper>
+                </WrapperSecondary>
+                <Date>19.12.2019</Date>
+              </Wrapper>
+            )}
           </Mobile>
           <Tablet>
-            <Wrapper>
-              <WrapperSecondary>
-                <ExpenseName>{expense.comment}</ExpenseName>
-                <EditButton>
-                  <img width="20" height="20" alt="other" src={editImg} />
-                </EditButton>
-              </WrapperSecondary>
-              <WrapperSecondary>
-                <Value>{expense.amount} грн</Value>
-                <CategoryWrapper>
-                  <IconWrapper>
-                    <img width="20" height="20" alt="other" src={img} />
-                  </IconWrapper>
-                  <Category>{expense.Category}</Category>
-                </CategoryWrapper>
-              </WrapperSecondary>
-              <Date>19.12.2019</Date>
-            </Wrapper>
+            {showInput ? (
+              <Form onSubmit={handleSubmit}>
+                <Label>
+                  Название: <Input type="text" {...comment.bind} />
+                </Label>
+                <Label>
+                  Сумма:
+                  <Input type="number" {...amount.bind} />
+                </Label>
+                <Label>
+                  Категория:
+                  <Select type="text" {...category.bind}>
+                    <option
+                      key="Без категории"
+                      value="Без категории"
+                      defaultValue
+                    >
+                      -- Выберите категорию --
+                    </option>
+                    {categories.map(elem => (
+                      <option value={elem} key={elem}>
+                        {elem}
+                      </option>
+                    ))}
+                  </Select>
+                </Label>
+                <Date>19.12.2019</Date>
+                <Button>Сохранить</Button>
+              </Form>
+            ) : (
+              <Wrapper>
+                <WrapperSecondary>
+                  <ExpenseName>{expense.comment}</ExpenseName>
+                  <EditButton onClick={openEdit}>
+                    <img width="20" height="20" alt="other" src={editImg} />
+                  </EditButton>
+                </WrapperSecondary>
+                <WrapperSecondary>
+                  <Value>{expense.amount} грн</Value>
+                  <CategoryWrapper>
+                    <IconWrapper>
+                      <img
+                        width="20"
+                        height="20"
+                        alt={expense.category}
+                        src={img}
+                      />
+                    </IconWrapper>
+                    <Category>{expense.category}</Category>
+                  </CategoryWrapper>
+                </WrapperSecondary>
+                <Date>19.12.2019</Date>
+              </Wrapper>
+            )}
           </Tablet>
           <Desktop>
-            <Wrapper>
-              <LeftWrapper>
-                <Date>19.12.2019</Date>
-                <ExpenseName>{expense.comment}</ExpenseName>
-              </LeftWrapper>
-              <RightWrapper>
-                <WrapperSecondary2>
-                  <Value>{expense.amount} грн</Value>
-                  <WrapperSecondary>
-                    <CategoryWrapper>
-                      <IconWrapper>
-                        <img width="20" height="20" alt="other" src={img} />
-                      </IconWrapper>
-                      <Category>{expense.Category}</Category>
-                    </CategoryWrapper>
-                  </WrapperSecondary>
-                </WrapperSecondary2>
-                <EditButton>
-                  <img width="20" height="20" alt="other" src={editImg} />
-                </EditButton>
-              </RightWrapper>
-            </Wrapper>
+            {showInput ? (
+              <Form _id={expense._id} onSubmit={handleSubmit}>
+                <LeftWrapper>
+                  <Date>19.12.2019</Date>
+                  <Label>
+                    Название: <Input type="text" {...comment.bind} />
+                  </Label>
+                </LeftWrapper>
+                <RightWrapper>
+                  <WrapperSecondary2>
+                    <Label>
+                      Сумма:
+                      <Input type="number" {...amount.bind} />
+                    </Label>
+                    <WrapperSecondary>
+                      <CategoryWrapper>
+                        <label>
+                          <Select type="text" {...category.bind}>
+                            <option
+                              key="Без категории"
+                              value="Без категории"
+                              defaultValue
+                            >
+                              -- Выберите категорию --
+                            </option>
+                            {categories.map(elem => (
+                              <option value={elem} key={elem}>
+                                {elem}
+                              </option>
+                            ))}
+                          </Select>
+                        </label>
+                      </CategoryWrapper>
+                    </WrapperSecondary>
+                  </WrapperSecondary2>
+                  <Button>Сохранить</Button>
+                </RightWrapper>
+              </Form>
+            ) : (
+              <Wrapper>
+                <LeftWrapper>
+                  <Date>19.12.2019</Date>
+                  <ExpenseName>{expense.comment}</ExpenseName>
+                </LeftWrapper>
+                <RightWrapper>
+                  <WrapperSecondary2>
+                    <Value>{expense.amount} грн</Value>
+                    <WrapperSecondary>
+                      <CategoryWrapper>
+                        <IconWrapper>
+                          <img
+                            width="20"
+                            height="20"
+                            alt={expense.category}
+                            src={img}
+                          />
+                        </IconWrapper>
+                        <Category>{expense.category}</Category>
+                      </CategoryWrapper>
+                    </WrapperSecondary>
+                  </WrapperSecondary2>
+                  <EditButton onClick={openEdit}>
+                    <img width="20" height="20" alt="other" src={editImg} />
+                  </EditButton>
+                </RightWrapper>
+              </Wrapper>
+            )}
           </Desktop>
         </>
       )}
@@ -96,6 +268,65 @@ const ExpenseListItem = ({ expense }) => {
 };
 
 export default ExpenseListItem;
+
+const Button = styled.button`
+  background-color: #7c9af2;
+  height: 30px;
+  border: 0;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s linear;
+  :hover {
+    background-color: #ff6c00;
+  }
+`;
+
+const Select = styled.select`
+  width: 80px;
+`;
+
+const Label = styled.label`
+  display: flex;
+`;
+
+const Form = styled.form`
+  padding: 15px;
+  margin: 0 auto;
+  width: 280px;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 400;
+  background: rgba(24, 25, 31, 0.03);
+  border-radius: 4px;
+
+  @media ${device.mobile} {
+    margin-bottom: 20px;
+  }
+
+  @media ${device.tablet} {
+    margin-bottom: 20px;
+  }
+
+  @media ${device.desktop} {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 1px solid #18191f;
+
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    width: 770px;
+    height: 56px;
+  }
+`;
+
+const Input = styled.input`
+  width: 100px;
+  margin-right: 25px;
+  margin-left: 10px;
+  padding-left: 6px;
+`;
 const LeftWrapper = styled.div`
   @media ${device.desktop} {
     display: flex;
@@ -136,12 +367,22 @@ const Wrapper = styled.div`
   background: rgba(24, 25, 31, 0.03);
   border-radius: 4px;
   @media ${device.mobile} {
-    box-shadow: 0px 14px 28px rgba(0, 0, 0, 0.25),
-      0 10px 10px rgba(0, 0, 0, 0.22);
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    :hover {
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    }
   }
   @media ${device.tablet} {
-    box-shadow: 0px 14px 28px rgba(0, 0, 0, 0.25),
-      0 10px 10px rgba(0, 0, 0, 0.22);
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    :hover {
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    }
   }
   @media ${device.desktop} {
     border-bottom: 1px solid #18191f;
@@ -198,7 +439,7 @@ const EditButton = styled.div`
   @media ${device.desktop} {
     background-color: transparent;
     width: 20px;
-
+    cursor: pointer;
     height: 20px;
     display: flex;
     align-self: flex-end;
