@@ -14,15 +14,9 @@ export default function ChartWrapper() {
   );
 }
 const ChartWrapperSC = styled.div`
-  /* padding-top: 10px; */
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-  /* border: 1px solid black; */
   height: 527px;
   width: 280px;
 
-  /* overflow: hidden; */
   @media ${device.tablet} {
     width: 510px;
     height: 390px;

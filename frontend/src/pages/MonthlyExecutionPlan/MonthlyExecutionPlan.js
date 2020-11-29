@@ -8,6 +8,7 @@ import device from '../../common/deviceSizes';
 import { useSelector, useDispatch } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
 import chartOperation from '../../redux/operations/chartOperations';
+import { addMonths } from 'date-fns';
 registerLocale('ru', ru);
 
 export const MonthlyExecutionPlan = () => {
@@ -25,20 +26,9 @@ export const MonthlyExecutionPlan = () => {
   const onChange = dt => {
     setStartDate(dt);
   };
-  console.log('allReports', allReports);
 
   const reportsNew = Object.values(allReports);
   const actualReport = reportsNew[0];
-
-  function getDate(startDate) {
-    const data = new Date(startDate);
-    //startDate.getFullYear(),
-    const month = data.getMonth() + 1;
-    const year = data.getFullYear();
-    //startDate.getDate(),
-    const dataForRequest = { month, year };
-    return dataForRequest;
-  }
 
   const monthsBG = [
     'Январь',
@@ -77,6 +67,7 @@ export const MonthlyExecutionPlan = () => {
           showMonthYearPicker
           showFullMonthYearPicker
           showTwoColumnMonthYearPicker
+          maxDate={addMonths(new Date(), 0)}
         />
 
         <MonthlyCardsWrapper>

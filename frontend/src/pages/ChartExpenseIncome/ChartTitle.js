@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
+import device from '../../common/deviceSizes';
 
 export default function ChartTitle() {
   return (
-    <div>
+    <>
       <ChartTitlteSC>Динамика расходов и накоплений</ChartTitlteSC>
-    </div>
+    </>
   );
 }
 const ChartTitlteSC = styled.p`
   width: 230px;
-  /* height: 70px; */
+
   font-weight: 800;
   font-size: 14px;
   line-height: 20px;
