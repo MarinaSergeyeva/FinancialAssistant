@@ -18,7 +18,7 @@ import calculatorActions from '../../redux/actions/calculatorActions';
 import { transactionSelectors, userSelectors } from '../../redux/selectors';
 import { e } from 'mathjs';
 
-const useInput = initialValue => {
+export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
 
   const onChange = e => {
