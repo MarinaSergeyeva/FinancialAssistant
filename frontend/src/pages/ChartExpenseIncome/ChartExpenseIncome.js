@@ -13,8 +13,14 @@ export const MyChart = () => {
   });
   console.log('allReports', allReports.length);
   const reportsNewR = Object.values(allReports);
+  const isOnMobile = useMediaQuery({
+    query: device.mobile,
+  });
+  const isOnTablet = useMediaQuery({
+    query: device.tablet,
+  });
   //const reportsNew = reportsNewR.splice(0, 11).reverse();
-  const reportsNew = reportsNewR.splice(0, 10);
+  const reportsNew = isOnMobile ? reportsNewR : reportsNewR.reverse();
   console.log('reportsNewR', reportsNew);
 
   let arrayOfTotalSavings = [];
@@ -51,7 +57,7 @@ export const MyChart = () => {
       },
 
       ticks: {
-        beginAtZero: true,
+        //beginAtZero: true,
         stepSize: 10000,
         // max: 500,
         //   min: 0,
@@ -135,14 +141,14 @@ export const MyChart = () => {
       },
     });
 
-    // return () => chart.destroy();
+    return () => chart.destroy();
   });
-  const isOnMobile = useMediaQuery({
-    query: device.mobile,
-  });
-  const isOnTablet = useMediaQuery({
-    query: device.tablet,
-  });
+  // const isOnMobile = useMediaQuery({
+  //   query: device.mobile,
+  // });
+  // const isOnTablet = useMediaQuery({
+  //   query: device.tablet,
+  // });
   return (
     <div className="chartjs-wrapper">
       <canvas
