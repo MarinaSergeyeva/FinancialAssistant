@@ -18,7 +18,9 @@ export const MyChart = () => {
     query: device.tablet,
   });
 
-  const reportsNew = isOnMobile ? reportsNewR : reportsNewR.reverse();
+  const reportsNew = isOnMobile
+    ? reportsNewR.splice(0, 12)
+    : reportsNewR.splice(0, 12).reverse();
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
