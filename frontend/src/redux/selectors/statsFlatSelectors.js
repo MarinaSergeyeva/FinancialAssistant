@@ -9,10 +9,13 @@ const getSavingsForNextSquareMeterLeft = state =>
 
 const getStatsFlat = state => state.user.stats;
 
+const getFlatPrice = state => state.user.info.flatPrice;
+
 export default {
   getGiftsForUnpacking,
   getSavingsPercentage,
   getSavingsValue,
   getSavingsForNextSquareMeterLeft,
   getStatsFlat,
+  getFlatPrice,
 };
