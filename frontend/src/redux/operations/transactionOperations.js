@@ -34,7 +34,7 @@ const getTransactionsCats = date => async (dispatch, getState) => {
   token.set(persistedToken);
   dispatch(transactionActions.getTransactionsCatsRequest());
   try {
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const year = date.getFullYear();
     const res = await axios.get(
       `/api/v1/transactions/expenses?month=${month}&year=${year}`,

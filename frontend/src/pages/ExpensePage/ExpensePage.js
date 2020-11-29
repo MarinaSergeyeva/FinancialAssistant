@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Route,
-  Link,
-  useRouteMatch,
-  useLocation,
-  NavLink,
-} from 'react-router-dom';
+import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,13 +7,11 @@ import styled from 'styled-components';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import { device, Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
-// import { size } from '../../common/deviceSizes';
 import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
 import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
 import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
-import LogoutModal from '../../components/Logout/LogoutModal';
-import ExpenseCategories from '../../components/ExpenseCategories/ExpenseCategories';
+import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
@@ -182,20 +174,13 @@ const ExpenseListImg = styled.img`
   position: absolute;
   bottom: 0;
   right: 0;
-
-  @media ${device.tablet} {
-    max-height: 320px;
-    /* left: -40px; */
-  }
-
-  @media ${device.largeDesktop} {
-    /* left: -255px; */
-  } ;
+  max-width: 100%;
 `;
 
 const ExpenseListHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const ExpenseListWrap = styled.div`
@@ -208,18 +193,22 @@ const TabsModeView = styled.ul`
 `;
 
 const TabMode = styled.li`
-  margin-right: 35px;
+  display: flex;
+  border: 1px solid rgba(24, 25, 31, 0.03);
+  border-radius: 8px 8px 0px 0px;
+
   .tab-link {
     padding: 18px 12px;
+    flex-grow: 1;
     color: rgb(16.5%, 21.2%, 23.1%);
   }
   .active-tab {
     background: rgba(24, 25, 31, 0.03);
-    border-radius: 8px 8px 0px 0px;
   }
 `;
 
 const BtnCalendar = styled.button`
+  margin-bottom: 16px;
   width: 40px;
   height: 40px;
   display: flex;

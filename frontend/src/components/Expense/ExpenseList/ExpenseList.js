@@ -13,7 +13,7 @@ const ExpenseList = ({ date }) => {
   useEffect(() => {
     dispatch(
       transactionOperations.getTransactionsExpense(
-        date.getMonth(),
+        date.getMonth() + 1,
         date.getFullYear(),
         page,
       ),

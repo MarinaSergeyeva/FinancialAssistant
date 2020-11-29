@@ -5,7 +5,7 @@ import authReducer from './authReducer';
 import stats from './statsReduce';
 import userReducer from './userReducer';
 import transactionReducer from './transactionReducer';
-import expensesReducer from './expensesReducer';
+import catsExpenseReducer from './catsExpenseReducer';
 import monthlyReportReducer from './chartReducer';
 import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
@@ -23,10 +23,10 @@ const root = combineReducers({
   user: combineReducers({
     info: userReducer,
     transaction: transactionReducer,
-    expenses: expensesReducer,
     stats: stats,
     monthReports: monthlyReportReducer,
     expenses: expenses,
+    catsExpense: catsExpenseReducer,
   }),
   calculator: calculatorReduce,
   categories: categoriesReducer,
