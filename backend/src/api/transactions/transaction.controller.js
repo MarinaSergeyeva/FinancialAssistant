@@ -72,8 +72,6 @@ const updateTransaction = async (req, res) => {
   return res.json(transaction);
 };
 
-const getListExpensesCategories = async (req, res, next) => {};
-
 module.exports = {
   createTransaction,
   getTransactionCategories,
