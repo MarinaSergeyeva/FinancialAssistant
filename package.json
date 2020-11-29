@@ -17,8 +17,4 @@
     "url": "https://github.com/MarinaSergeyeva/FinancialAssistant/issues"
   },
   "homepage": "https://github.com/MarinaSergeyeva/FinancialAssistant#readme",
-  "dependencies": {
-    "@date-io/luxon": "^2.10.6",
-    "luxon": "^1.25.0"
-  }
 }
