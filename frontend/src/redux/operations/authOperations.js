@@ -3,6 +3,8 @@ import axios from 'axios';
 import { authSelector } from '../selectors';
 
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
+// axios.defaults.baseURL = 'http://localhost:8080';
+
 
 export const token = {
   set(token) {
@@ -27,9 +29,10 @@ const userRegistration = credentials => dispatch => {
 };
 
 const userLogin = credentials => dispatch => {
+  console.log(credentials)
   dispatch(authAction.loginRequest());
   axios
-    .post('/api/v1/auth/sign-in', {credentials})
+    .post('/api/v1/auth/sign-in', credentials)
     .then(res => {
       token.set(res.data.token);
       dispatch(authAction.loginSuccess(res.data));

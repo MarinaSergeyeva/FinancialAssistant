@@ -26,28 +26,37 @@ const Registration = ({ closeModal }) => {
 
   const errState = useSelector(state => getError(state));
   const [messageErr, setMessageErr] = useState(null);
-  // const [showErrModal, setShowErrModal] = useState(errState !== null ? true : false);
-  const MessageErr = async () => {
-    const message = await funcErrTranslator(Number(errState?.status));
+
+  const MessageErr =  () => {
+    const message = funcErrTranslator(Number(errState?.status));
     setMessageErr(message);
   };
+  useEffect(() => {
+     MessageErr();
+  }, [errState]);
+
+  const userInfo = useSelector(state => state.auth.username);
+  console.log(userInfo)
+
+  const [userInfoRegistr, setUserInfoRegistr] = useState(
+    userInfo ? true : false,
+  );
 
   useEffect(() => {
-    // errState
-    // ? console.log("treu")
-    // : console.log("false")
-    // console.log(showErrModal,"errState?.kindOfErr")
-    MessageErr();
-    console.log(messageErr);
-  }, [errState]);
+    if (userInfo) {
+      setUserInfoRegistr(true);
+    } else {
+      setUserInfoRegistr(false);
+    }
+  }, [userInfo]);
 
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
-  console.log(errState);
 
   return (
     <AuthFormWrapper>
+      {console.log(userInfoRegistr,"1userInfoRegistr")}
       <Formik
         initialValues={{
           username: '',
@@ -56,8 +65,9 @@ const Registration = ({ closeModal }) => {
         }}
         validationSchema={registrationFrontSchema}
         onSubmit={async values => {
-          dispatch(await operation.userRegistration({ ...values }));
-          // !isOnMobile && showErrModal && closeModal();
+        dispatch(await operation.userRegistration({ ...values }));
+
+          !isOnMobile && messageErr && closeModal();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -66,7 +76,7 @@ const Registration = ({ closeModal }) => {
               <AuthTxt>
                 {isOnMobile ? 'Готовы подписаться?' : 'Регистрация'}
               </AuthTxt>
-              {errState?.kindOfErr === 'Register' && errState?.status === 500 &&(
+              {errState?.kindOfErr === 'Register' && (
                 <ErrMessage>{messageErr}</ErrMessage>
               )}
               <AuthInputForm>
@@ -79,6 +89,7 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваше имя"
                   name="username"
                   id="username"
+                  borderErrColor={'#a3a3a3'}
                 />
                 {(
                   <ErrorValidation
@@ -98,6 +109,8 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваш e-mail"
                   name="email"
                   id="email"
+                  borderErrColor={errState?.status === 409 ? 'red' : '#a3a3a3'}
+
                 />
                 {(
                   <ErrorValidation
@@ -105,9 +118,9 @@ const Registration = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
-                {(errState?.status === 409) && errState?.kindOfErr === 'Register' && (
+                {/* {(errState?.status === 409) && errState?.kindOfErr === 'Register' && (
                   <ErrMessage>{messageErr}</ErrMessage>
-                )}
+                )} */}
               </AuthInputForm>
 
               <AuthInputForm>
@@ -120,6 +133,7 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваш пароль"
                   name="password"
                   id="password"
+                  borderErrColor={'#a3a3a3'}
                 />
                 {(
                   <ErrorValidation
@@ -127,9 +141,9 @@ const Registration = ({ closeModal }) => {
                     message={errors.password}
                   />
                 ) && funcMessage(errors.password)}
-                {errState?.status === 403 && errState?.kindOfErr === 'Register' && (
+                {/* {errState?.status === 403 && errState?.kindOfErr === 'Register' && (
                   <ErrMessage>{messageErr}</ErrMessage>
-                )}
+                )} */}
               </AuthInputForm>
 
               <AuthButtonBlock>

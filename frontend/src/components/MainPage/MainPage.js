@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 import { getError } from '../../redux/selectors/errorSelector';
 import Modal from '../Modal/Modal';
 import { useMediaQuery } from 'react-responsive';
-import ModalResultError from '../Auth/ModalResult/ModalResultError';
 import ModalResultSuccess from '../Auth/ModalResult/ModalResultSuccess';
 
 const path = require('path');
@@ -20,7 +19,8 @@ require('dotenv').config({ path: path.join('../../../../backend/.env') });
 
 const MainPage = () => {
   const errState = useSelector(state => getError(state));
-  const [showErrModal, setShowErrModal] = useState(errState !== null ? true : false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [loginModal, setLoginModal] = useState(false);
   const userInfo = useSelector(state => state.auth.username);
   const [userInfoRegistr, setUserInfoRegistr] = useState(
     userInfo ? true : false,
@@ -29,8 +29,15 @@ const MainPage = () => {
   useEffect(() => {
     if (userInfo) {
       setUserInfoRegistr(true);
+      setSuccessModal(true)
     } else {
       setUserInfoRegistr(false);
+      setSuccessModal(false)
+    }
+
+    if(loginModal){
+      console.log(loginModal, "loginModal")
+      setSuccessModal(false)
     }
   }, [userInfo]);
 
@@ -38,13 +45,35 @@ const MainPage = () => {
     query: device.largeTablet,
   });
 
+   const closeSuccessModal = () => {
+    setSuccessModal(prev => !prev);
+    };
+
+    const [stateAuthUser, setStateAuthUser] = useState('')
+
+    useEffect(() => {
+      const authUser = JSON.parse(localStorage.getItem("persist:auth"));
+      if(authUser){
+        setStateAuthUser(JSON.parse(authUser.username))
+      }
+    }, [])
+
   return (
     <>
-      {(userInfoRegistr && isOnLargeTablet && 
-        <Modal closeModal={setShowErrModal}>
-            <ModalResultSuccess closeModal={setShowErrModal}/>
+  
+      {(userInfoRegistr && isOnLargeTablet && successModal && 
+        <Modal closeModal={closeSuccessModal}>
+            <ModalResultSuccess closeModal={closeSuccessModal} showLoginModal={setLoginModal} setSuccessModal={setSuccessModal}/>
         </Modal>
       )}
+
+      {( isOnLargeTablet && loginModal && 
+         <Modal closeModal={setLoginModal}>
+             <Login closeModal={setLoginModal}/>
+         </Modal>
+       )}
+
+
       <MainPageContainer>
         <Mobile>
           <MainPageTitile>

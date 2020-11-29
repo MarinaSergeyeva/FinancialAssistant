@@ -7,7 +7,7 @@ import operation from '../../../redux/operations/authOperations';
 import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-// import { getError } from '../../../redux/selectors/errorSelector'
+
 import device from '../../../common/deviceSizes';
 import {
   AuthForm,
@@ -28,22 +28,17 @@ const Login = ({ closeModal }) => {
   });
   
   const errState = useSelector(state => getError(state));
-  // const errState = useSelector(state => getError(state));
-  const [messageErr, setMessageErr] = useState(null);
-  // const [showErrModal, setShowErrModal] = useState(errState !== null ? true : false);
-  const MessageErr = async () => {
-    const message = await funcErrTranslator(Number(errState?.status));
-    setMessageErr(message);
-  };
 
+  const [messageErrLogin, setMessageErrlogin] = useState(null);
+
+  const MessageErrlogin =  () => {
+    const message = funcErrTranslator(Number(errState?.status));
+    setMessageErrlogin(message);
+  };
   useEffect(() => {
-    // errState
-    // ? console.log("treu")
-    // : console.log("false")
-    // console.log(showErrModal,"errState?.kindOfErr")
-    MessageErr();
-    console.log(messageErr);
+    MessageErrlogin();
   }, [errState]);
+
 
   return (
     <AuthFormWrapperLogin>
@@ -54,16 +49,17 @@ const Login = ({ closeModal }) => {
         }}
         validationSchema={loginFrontSchema}
         onSubmit={async values => {
+          
           dispatch(await operation.userLogin({ ...values }));
-          !isOnMobile && closeModal();
+          !isOnMobile && messageErrLogin && closeModal();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-              {errState?.kindOfErr === 'Login' && errState?.status === 500 &&(
-                <ErrMessage>{messageErr}</ErrMessage>
+              {errState?.kindOfErr === 'Login' &&(
+                <ErrMessage>{messageErrLogin}</ErrMessage>
               )}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>
@@ -75,6 +71,8 @@ const Login = ({ closeModal }) => {
                   placeholder="Введите ваш e-mail"
                   name="email"
                   id="email"
+                  borderErrColor={errState?.status === 404 || errState?.status === 500 ? 'red' : '#a3a3a3'}
+
                 />
                 {(
                   <ErrorValidation
@@ -82,9 +80,9 @@ const Login = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
-                 {errState?.status === 404 && errState?.kindOfErr === 'Login' && (
+                 {/* {errState?.status === 404 && errState?.kindOfErr === 'Login' && (
                   <ErrMessage>{messageErr}</ErrMessage>
-                )}
+                )} */}
               </AuthInputForm>
 
               <AuthInputForm>
@@ -97,6 +95,8 @@ const Login = ({ closeModal }) => {
                   placeholder="Введите ваш пароль"
                   name="password"
                   id="password"
+                  borderErrColor={errState?.status === 404 || errState?.status === 500 ? 'red' : '#a3a3a3'}
+
                 />
                 {(
                   <ErrorValidation
@@ -104,9 +104,9 @@ const Login = ({ closeModal }) => {
                     message={errors.password}
                   />
                 ) && funcMessage(errors.password)}
-                {errState?.status === 403 && errState?.kindOfErr === 'Login' && (
+                {/* {errState?.status === 403 && errState?.kindOfErr === 'Login' && (
                   <ErrMessage>{messageErr}</ErrMessage>
-                )}
+                )} */}
               </AuthInputForm>
 
               <AuthButtonBlock>
@@ -125,6 +125,7 @@ const AuthFormWrapperLogin = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: 400px;
   height: 354px;
   border-radius: 8px;

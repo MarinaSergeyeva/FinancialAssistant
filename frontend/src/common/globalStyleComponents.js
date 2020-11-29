@@ -4,7 +4,7 @@ import { background, textColor } from '../stylesheet/vars';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`
-/* position: relative; */
+position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +36,7 @@ export const AuthTxt = styled.p`
   font-size: 20px;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 
   @media ${device.mobile} {
     font-size: 14px;
@@ -55,15 +55,16 @@ export const AuthInputForm = styled.label`
 export const AuthInput = styled.input`
   width: 316px;
   height: 56px;
-  border: 1px solid rgba(0, 0, 0, 0.36);
+  /* border: 1px solid rgba(0, 0, 0, 0.36); */
+  border: 1px solid ${(prop) => prop.borderErrColor};
   box-sizing: border-box;
   border-radius: 4px;
   margin-bottom: 30px;
   padding-left: 18px;
-  color: rgba(24, 25, 31, 0.54);
-
+  color: ${(prop) => prop.textErrColor};
+  /* #828386 */
   &::placeholder {
-    padding-left: 18px;
+    padding-left: 18px;;
   }
 
   &:active,
@@ -122,11 +123,13 @@ export const AuthButtonBlock = styled.div`
 `;
 export const ErrMessage = styled.p`
   position: absolute;
-  top: 65px;
-  left: 10px;
-  font-size: 9.5px;
+  text-align: center;
+  top: 70px;
+  left: 40px;
+  font-size: 10px;
   font-weight: 500;
   color: #fe6083;
+  width: 80%;
 `;
 //!
 
@@ -135,9 +138,10 @@ export const ErrMessage = styled.p`
 export const CongratulationWrapper = styled.div`
   display: flex;
   justify-content: center;
+  position:relative; 
   text-align: center;
   flex-wrap: wrap;
-  width: 280px;
+  width: 400px;
   height: 303px;
   font-family: 'Gilroy';
   font-style: normal;
@@ -147,11 +151,12 @@ export const CongratulationWrapper = styled.div`
   color: #7c9af2;
   background: #ffffff;
   border-radius: 8px;
+  padding: 20px 35px;
   box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14),
     0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
 
   & p {
-    min-width: 120px;
+
     height: 20px;
     font-family: 'Gilroy';
     font-style: normal;
@@ -160,7 +165,7 @@ export const CongratulationWrapper = styled.div`
     line-height: 20px;
     text-align: center;
     color: #7c9af2;
-    padding-top: 40px;
+    padding-top: 10px;
   }
 
   & span {
@@ -173,48 +178,24 @@ export const CongratulationWrapper = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: rgba(24, 25, 31, 0.87);
-    margin-top: 40px;
+    margin-top: 10px;
   }
 
-  @media ${device.tablet} {
-    width: 400px;
-    height: 247px;
-
-    & p {
-      min-width: 180px;
-    }
-
-    & span {
-      width: 310px;
-    }
-  }
-
-  @media ${device.desktop} {
-    width: 400px;
-    height: 247px;
-
-    & p {
-      min-width: 180px;
-    }
-
-    & span {
-      width: 310px;
-    }
-  }
 `;
 
 export const CongratulationBackgroundWrapper = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  width: 280px;
+
+  width: 380px;
   height: 303px;
 `;
 
 export const CongratulationBackgroundImg = styled.img`
   position: absolute;
-  top: 45%;
-  left: 53%;
+  width: 100%;
+
   z-index: 1;
   transform: translate(-50%, -50%);
 
@@ -258,7 +239,7 @@ export const ErrorWrapper = styled.div`
     line-height: 20px;
     text-align: center;
     color: #ff2e00;
-    padding-top: 110px;
+
   }
 
   & span {
@@ -270,36 +251,10 @@ export const ErrorWrapper = styled.div`
     font-size: 16px;
     line-height: 19px;
     color: #ff2e00;
-    margin-top: 40px;
+
   }
 
-  @media ${device.tablet} {
-    width: 400px;
-    height: 247px;
-
-    & p {
-      min-width: 180px;
-      padding-top: 100px;
-    }
-
-    & span {
-      width: 310px;
-      margin-top: 40px;
-    }
-  }
-
-  @media ${device.desktop} {
-    width: 400px;
-    height: 247px;
-
-    & p {
-      min-width: 180px;
-    }
-
-    & span {
-      width: 310px;
-    }
-  }
+ 
 `;
 
 export const ErrorBackgroundWrapper = styled.div`

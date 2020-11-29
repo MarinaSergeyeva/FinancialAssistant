@@ -12,12 +12,12 @@ import categoriesReducer from './categoriesReducer';
 export const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'auth', "username"],
+  whitelist: ['token', "username", "auth"],
 };
 
 const root = combineReducers({
-  // auth: persistReducer(persistConfig, authReducer),
-  auth: authReducer,
+  auth: persistReducer(persistConfig, authReducer),
+  // auth: authReducer,
   user: combineReducers({
     info: userReducer,
     transaction: transactionReducer,
