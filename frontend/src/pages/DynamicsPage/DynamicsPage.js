@@ -7,17 +7,58 @@ import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPl
 import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
+import Modal from '../../components/Modal/Modal';
+import {
+  modalCongratulation,
+  modalError,
+} from '../../redux/selectors/modalSelector';
+import Congratulation from '../../components/Congratulation/Congratulation';
+import Error from '../../components/Error/Error';
 
 const DynamicsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(statsOperatioins.getStatsFlat());
   }, []);
+  const congratulationModal = useSelector(state => modalCongratulation(state));
+  const errorModal = useSelector(state => modalError(state));
+
+  const [errorState, setError] = useState(errorModal ? true : false);
+  useEffect(() => {
+    if (errorModal) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [errorModal]);
+
+  const [congratulationState, setCongratulation] = useState(
+    congratulationModal ? true : false,
+  );
+  useEffect(() => {
+    if (congratulationModal) {
+      setCongratulation(true);
+    } else {
+      setCongratulation(false);
+    }
+  }, [congratulationModal]);
 
   return (
     <>
+      {congratulationState && (
+        <Modal closeModal={setCongratulation}>
+          <Congratulation closeModal={setCongratulation} />
+        </Modal>
+      )}
+
+      {errorState && (
+        <Modal closeModal={setError}>
+          <Error closeModal={setError} />
+        </Modal>
+      )}
+
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
           <GrafWrapper>
