@@ -3,7 +3,7 @@ import transactionConstants from '../constants/transactionConstants';
 const initialState = {
   transaction: {
     category: '',
-    amount: '',
+    amount: 0,
     comment: '',
   },
   // transactions: [],

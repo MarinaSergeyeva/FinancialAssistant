@@ -8,7 +8,7 @@ import { transactionOperations } from '../../redux/operations';
 import Modal from '../Modal/Modal';
 import transactionActions from '../../redux/actions/transactionActions';
 
-const ForecastExpense = () => {
+const ForecastExpense = ({ setTransactionStatus }) => {
   const transaction = useSelector(transactionSelectors.getTransaction);
   const userData = useSelector(userSelectors.getCurrentUser);
 
@@ -32,15 +32,19 @@ const ForecastExpense = () => {
   const dispatch = useDispatch();
 
   const handleClick = async () => {
-    if (transaction.amount) {
+    const { amount, category, comment } = transaction;
+    if (amount) {
+      console.log('transaction.amount', amount);
       const newTransaction = {
-        ...transaction,
+        amount,
+        category,
+        comment,
         transactionDate: Date.now(),
         type: 'EXPENSE',
       };
       console.log('newTransaction', newTransaction);
       await dispatch(transactionOperations.createTransaction(newTransaction));
-      dispatch(transactionActions.cleanTransactionSuccess());
+      setTransactionStatus(true);
       setMessage('Ваши данные по расходам сохранены!');
     } else {
       setMessage('Введите сумму транзакции больше нуля');

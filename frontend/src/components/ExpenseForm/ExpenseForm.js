@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
@@ -14,9 +14,7 @@ import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
 import categoriesSelector from '../../redux/selectors/categoriesSelector';
 import calculatorSelector from '../../redux/selectors/calculatorSelector';
-import calculatorActions from '../../redux/actions/calculatorActions';
-import { transactionSelectors, userSelectors } from '../../redux/selectors';
-import { e } from 'mathjs';
+import { userSelectors } from '../../redux/selectors';
 
 export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
@@ -32,7 +30,9 @@ export const useInput = initialValue => {
   };
 };
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ resetForm }) => {
+  const isTransactionSend = resetForm();
+
   const [showCalculator, setShowCalculator] = useState(false);
 
   const [amount, setAmount] = useState('');
@@ -64,6 +64,15 @@ const ExpenseForm = () => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
+
+  useEffect(() => {
+    if (isTransactionSend) {
+      setAmount('');
+      setComment('');
+      setCategory('');
+      resetForm();
+    }
+  }, [isTransactionSend]);
 
   useEffect(() => {
     const transactionInfoLS = JSON.parse(
@@ -134,7 +143,6 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Сумма</span>
-            {/* <input className="calc-input" type="number" {...amount.bind} /> */}
             <input
               className="calc-input"
               type="number"
