@@ -11,9 +11,13 @@ const ExpenseList = ({ date }) => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
+    if (page === 1 && expenses.length > 0) {
+      return;
+    }
+
     dispatch(
       transactionOperations.getTransactionsExpense(
-        date.getMonth(),
+        date.getMonth() + 1,
         date.getFullYear(),
         page,
       ),
@@ -45,7 +49,7 @@ const ExpenseList = ({ date }) => {
           />
         ))}
       </ExpensesList>
-      <Button onClick={loadMore}>...</Button>
+      {expenses.length > 8 && <Button onClick={loadMore}>...</Button>}
     </>
   );
 };
