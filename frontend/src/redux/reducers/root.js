@@ -9,6 +9,7 @@ import catsExpenseReducer from './catsExpenseReducer';
 import monthlyReportReducer from './chartReducer';
 import errorReducer from './errorReducer';
 import calculatorReducer from './calculatorReduces';
+import modalReducer from '../reducers/modalReducer';
 import categoriesReducer from './categoriesReducer';
 import expenses from './expenseReducer';
 
@@ -51,6 +52,7 @@ const root = combineReducers({
   calculator: calculatorReducer,
   categories: categoriesReducer,
   error: errorReducer,
+  modal: modalReducer,
 });
 
 export default root;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import giftImg from '../../assets/images/GiftCompleting/gift grey.png';
 import giftImg2 from '../../assets/images/GiftCompleting/gift 2.png';
@@ -6,9 +6,6 @@ import device from '../../common/deviceSizes';
 import { useDispatch, useSelector } from 'react-redux';
 import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
-// import Congratulation from '../Congratulation/Congratulation';
-import Error from '../Error/Error';
-import Modal from '../../components/Modal/Modal';
 
 const GiftCompleting = () => {
   const giftForUnpack = useSelector(state =>
@@ -24,33 +21,11 @@ const GiftCompleting = () => {
     dispatch(await statsOperatioins.updateGifts());
   };
 
-  // const [isShowCongratulation, setIsShowCongratulation] = useState(false);
-  // const closeCongratulation = () => {
-  //   setIsShowCongratulation(prev => !prev);
-  // };
-
-  const [isShowError, setIsShowError] = useState(false);
-  const closeError = () => {
-    setIsShowError(prev => !prev);
-  };
-
   return (
     <>
-      {/* {isShowCongratulation && (
-        <Modal closeModal={closeCongratulation}>
-          <Congratulation closeModal={closeCongratulation} />
-        </Modal>
-      )} */}
-
-      {isShowError && (
-        <Modal closeModal={closeError}>
-          <Error closeModal={closeError} />
-        </Modal>
-      )}
-
       <Wrapper>
         <TitleWrapper>
-          <Title onClick={() => closeError()}>
+          <Title>
             Чтобы добавить еще <Quantity>1 кв.м</Quantity> на планировку,
             осталось накопить
           </Title>
