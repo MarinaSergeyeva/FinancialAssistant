@@ -13,10 +13,8 @@ import { useMediaQuery } from 'react-responsive';
 import LoginHeader from './LoginHeader';
 import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
-const Header = ({ showNavigation }) => {
+const Header = ({ showNavigation, isNavigationOn }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
-  const [closeNav, setCloseNav] = useState(false);
-  console.log('closeNav', closeNav);
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
@@ -28,11 +26,6 @@ const Header = ({ showNavigation }) => {
     query: device.desktop,
   });
 
-  const closeNavigation = () => {
-    showNavigation();
-    setCloseNav(!closeNav);
-  };
-
   return (
     <>
       <HeaderContainer>
@@ -40,7 +33,12 @@ const Header = ({ showNavigation }) => {
         <Logo />
         <UserInfoWrapper>
           {isUserAuth && !isMobileDevice && <ExpenseButton />}
-          {isUserAuth && <Userinfo showNavigation={showNavigation} />}
+          {isUserAuth && (
+            <Userinfo
+              showNavigation={showNavigation}
+              isNavigationOn={isNavigationOn}
+            />
+          )}
           {!isUserAuth && !isMobileDevice && <LoginHeader />}
         </UserInfoWrapper>
       </HeaderContainer>

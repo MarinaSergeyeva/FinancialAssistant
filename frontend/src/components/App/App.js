@@ -12,11 +12,9 @@ import device from '../../common/deviceSizes';
 import Spinner from '../Spinner/Spinner';
 import { useMediaQuery } from 'react-responsive';
 import { authSelector } from '../../redux/selectors';
-import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
-  console.log('showNavigation', showNavigation);
 
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
@@ -28,10 +26,6 @@ const App = () => {
     setShowMobileNavigation(!showNavigation);
   };
 
-  //  const closeSuccessModal = () => {
-  //    setSuccessModal(prev => !prev);
-  //  };
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
@@ -39,9 +33,15 @@ const App = () => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <Header showNavigation={showNavigationHandler} />
+        <Header
+          showNavigation={showNavigationHandler}
+          isNavigationOn={showNavigation}
+        />
         {isUserAuth && showNavigation && !isDesktopDevice && (
-          <Navigation showNavigation={showNavigationHandler} />
+          <Navigation
+            showNavigation={showNavigationHandler}
+            isNavigationOn={showNavigation}
+          />
         )}
         {!showNavigation && (
           <Switch>

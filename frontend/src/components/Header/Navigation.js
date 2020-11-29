@@ -8,16 +8,19 @@ import { useMediaQuery } from 'react-responsive';
 import navigationBackgroundTablet from '../../assets/images/Navigation/navigation_bg-tablet.png';
 import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
-const Navigation = ({ showNavigation }) => {
+const Navigation = ({ showNavigation, isNavigationOn }) => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
   const isTabletDevice = useMediaQuery({
     query: device.tablet,
   });
-  const isDesktopDevice = useMediaQuery({
-    query: device.desktop,
-  });
+
+  const onHandleChange = () => {
+    if (isNavigationOn) {
+      showNavigation();
+    }
+  };
 
   return (
     <>
@@ -25,7 +28,7 @@ const Navigation = ({ showNavigation }) => {
         <StyleNavLInk
           to="/plan"
           activeClassName="active"
-          onClick={showNavigation}
+          onClick={onHandleChange}
         >
           Персональный план
         </StyleNavLInk>
@@ -33,18 +36,18 @@ const Navigation = ({ showNavigation }) => {
           to="/expense"
           exact
           activeClassName="active"
-          onClick={showNavigation}
+          onClick={onHandleChange}
         >
           Расходы
         </StyleNavLInk>
         <StyleNavLInk
           to="/dynamics"
           activeClassName="active"
-          onClick={showNavigation}
+          onClick={onHandleChange}
         >
           Динамика
         </StyleNavLInk>
-        {isMobileDevice && <ExpenseButton />}
+        {isMobileDevice && <ExpenseButton showNavigation={showNavigation} />}
         {(isMobileDevice || isTabletDevice) && (
           <Logout showNavigation={showNavigation} />
         )}

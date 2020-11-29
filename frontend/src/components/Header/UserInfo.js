@@ -9,7 +9,7 @@ import { authSelector, userSelectors } from '../../redux/selectors';
 import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from './BurgerMenu';
 
-const Userinfo = ({ showNavigation, isActiveClass }) => {
+const Userinfo = ({ showNavigation, isNavigationOn }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
   const { username } = useSelector(state =>
     userSelectors.getCurrentUser(state),
@@ -36,7 +36,7 @@ const Userinfo = ({ showNavigation, isActiveClass }) => {
         ) : (
           <BurgerMenu
             showNavigation={showNavigation}
-            isActiveClass={isActiveClass}
+            isNavigationOn={isNavigationOn}
           />
         )}
       </UserinfoContainer>
