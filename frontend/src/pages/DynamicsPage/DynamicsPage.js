@@ -9,6 +9,7 @@ import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
 import { useDispatch, useSelector } from 'react-redux';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
+import Modal from '../../components/Modal/Modal';
 import {
   modalCongratulation,
   modalError,
@@ -24,10 +25,41 @@ const DynamicsPage = () => {
   const congratulationModal = useSelector(state => modalCongratulation(state));
   const errorModal = useSelector(state => modalError(state));
 
+  const [errorState, setError] = useState(errorModal ? true : false);
+  useEffect(() => {
+    if (errorModal) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+    // console.log(errorState);
+  }, [errorModal]);
+
+  const [congratulationState, setCongratulation] = useState(
+    congratulationModal ? true : false,
+  );
+  useEffect(() => {
+    if (congratulationModal) {
+      setCongratulation(true);
+    } else {
+      setCongratulation(false);
+    }
+    // console.log(congratulationState);
+  }, [congratulationModal]);
+
   return (
     <>
-      {congratulationModal && <Congratulation />}
-      {errorModal && <Error />}
+      {congratulationState && (
+        <Modal closeModal={setCongratulation}>
+          <Congratulation closeModal={setCongratulation} />
+        </Modal>
+      )}
+      
+      {errorState && (
+        <Modal closeModal={setError}>
+          <Error closeModal={setError} />
+        </Modal>
+      )}
 
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
