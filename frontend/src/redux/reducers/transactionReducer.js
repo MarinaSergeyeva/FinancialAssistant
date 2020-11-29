@@ -6,7 +6,6 @@ const initialState = {
     amount: 0,
     comment: '',
   },
-  // transactions: [],
 };
 
 const transaction = (state = initialState.transaction, { type, payload }) => {
@@ -18,11 +17,7 @@ const transaction = (state = initialState.transaction, { type, payload }) => {
       return { ...state, ...initialState.transaction };
 
     case transactionConstants.CREATE_TRANSACTION_SUCCESS:
-      // const { amount, category, comment } = payload;
       return { ...state, ...initialState.transaction };
-
-    // case transactionConstants.GET_MONTHLY_EXPENSE_TRANSACTIONS_SUCCESS:
-    //   return { ...state, ...initialState.transactions };
 
     default:
       return state;

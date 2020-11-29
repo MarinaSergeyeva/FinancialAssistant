@@ -23,6 +23,20 @@ const createTransactionError = error => ({
   payload: error,
 });
 
+const getTransactionsCatsRequest = () => ({
+  type: transactionConstants.GET_TRANSACTIONS_CATS_REQUEST,
+});
+
+const getTransactionsCatsSuccess = payload => ({
+  type: transactionConstants.GET_TRANSACTIONS_CATS_SUCCESS,
+  payload,
+});
+
+const getTransactionsCatsError = error => ({
+  type: transactionConstants.GET_TRANSACTIONS_CATS_ERROR,
+  payload: error,
+});
+
 const getTransactionsExpenseRequest = () => ({
   type: transactionConstants.GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST,
 });
@@ -57,6 +71,9 @@ export default {
   createTransactionSuccess,
   createTransactionError,
 
+  getTransactionsCatsRequest,
+  getTransactionsCatsSuccess,
+  getTransactionsCatsError,
   getTransactionsExpenseRequest,
   getTransactionsExpenseSuccess,
   getTransactionsExpenseError,
