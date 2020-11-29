@@ -12,7 +12,7 @@ import { useInput } from '../../ExpenseForm/ExpenseForm';
 import { useDispatch } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
 
-const ExpenseListItem = ({ expense }) => {
+const ExpenseListItem = ({ expense, date }) => {
   const dispatch = useDispatch();
   const categories = [
     'Другое',
@@ -132,7 +132,7 @@ const ExpenseListItem = ({ expense }) => {
                     <Category>{expense.category}</Category>
                   </CategoryWrapper>
                 </WrapperSecondary>
-                <Date>19.12.2019</Date>
+                <Date>{date}</Date>
               </Wrapper>
             )}
           </Mobile>
@@ -188,7 +188,7 @@ const ExpenseListItem = ({ expense }) => {
                     <Category>{expense.category}</Category>
                   </CategoryWrapper>
                 </WrapperSecondary>
-                <Date>19.12.2019</Date>
+                <Date>{date}</Date>
               </Wrapper>
             )}
           </Tablet>
@@ -234,7 +234,7 @@ const ExpenseListItem = ({ expense }) => {
             ) : (
               <Wrapper>
                 <LeftWrapper>
-                  <Date>19.12.2019</Date>
+                  <Date>{date}</Date>
                   <ExpenseName>{expense.comment}</ExpenseName>
                 </LeftWrapper>
                 <RightWrapper>

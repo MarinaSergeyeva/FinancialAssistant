@@ -5,6 +5,7 @@ import transactionOperations from '../../../redux/operations/transactionOperatio
 import { transactionSelectors } from '../../../redux/selectors';
 import styled from 'styled-components';
 import device from '../../../common/deviceSizes';
+import { DateTime } from 'luxon';
 
 const ExpenseList = () => {
   const [page, setPage] = useState(1);
@@ -19,6 +20,11 @@ const ExpenseList = () => {
     transactionSelectors.getExpenses(state),
   );
 
+  const getDate = transactionDate => {
+    const date = DateTime.fromISO(transactionDate);
+    return `${date.c.year}.${date.c.month}.${date.c.day}`;
+  };
+
   const loadMore = () => {
     setPage(page + 1);
   };
@@ -26,7 +32,11 @@ const ExpenseList = () => {
     <>
       <ExpensesList>
         {expenses.map(expense => (
-          <ExpenseListItem key={expense._id} expense={expense} />
+          <ExpenseListItem
+            date={getDate(expense.transactionDate)}
+            key={expense._id}
+            expense={expense}
+          />
         ))}
       </ExpensesList>
       <Button onClick={loadMore}>...</Button>
