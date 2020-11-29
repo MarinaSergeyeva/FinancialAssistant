@@ -56,6 +56,7 @@ const calculateStats = user => {
     totalSalary,
     passiveIncome,
     incomePercentageToSavings,
+    giftsUnpacked,
     giftsForUnpacking,
   } = user;
 
@@ -63,9 +64,10 @@ const calculateStats = user => {
 
   const savingsValue = balance;
 
-  const savingsInSquareMeters = Math.floor(
-    savingsValue / (flatPrice / flatSquareMeters),
-  );
+  const savingsInSquareMeters = giftsUnpacked;
+  // const savingsInSquareMeters = Math.floor(
+  //   savingsValue / (flatPrice / flatSquareMeters),
+  // );
 
   const totalSquareMeters = flatSquareMeters;
 
@@ -92,7 +94,7 @@ const calculateStats = user => {
 
 const getFlatStats = (req, res, next) => {
   const { user } = req;
-
+  console.log('user', user);
   const { flatPrice } = user;
   if (!flatPrice) {
     return next(new AppError('Saving stats not initialized', 403));
