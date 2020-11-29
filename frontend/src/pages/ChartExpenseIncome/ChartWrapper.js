@@ -1,7 +1,7 @@
-import { MyChart } from "./ChartExpenseIncome";
-import ChartTitle from "./ChartTitle";
-import styled from "styled-components";
-import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
+import { MyChart } from './ChartExpenseIncome';
+import ChartTitle from './ChartTitle';
+import styled from 'styled-components';
+import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 
 export default function ChartWrapper() {
   return (
@@ -21,6 +21,7 @@ const ChartWrapperSC = styled.div`
   /* border: 1px solid black; */
   height: 527px;
   width: 280px;
+
   /* overflow: hidden; */
   @media ${device.tablet} {
     width: 510px;

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
+import React from 'react';
+import styled from 'styled-components';
+import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 
 export default function ChartTitle() {
   return (
