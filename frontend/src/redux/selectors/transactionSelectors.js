@@ -1,3 +1,5 @@
 const getTransaction = state => state.user.transaction;
 
-export default { getTransaction };
+const getExpenses = state => state.user.expenses;
+
+export default { getTransaction, getExpenses };
