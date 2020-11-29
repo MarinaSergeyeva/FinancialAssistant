@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { colors } from '../../stylesheet/vars';
@@ -18,6 +18,7 @@ const Navigation = ({ showNavigation }) => {
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
   });
+
   return (
     <>
       <NavigationContainer>

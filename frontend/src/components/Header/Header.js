@@ -15,6 +15,8 @@ import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
 const Header = ({ showNavigation }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
+  const [closeNav, setCloseNav] = useState(false);
+  console.log('closeNav', closeNav);
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
@@ -25,6 +27,11 @@ const Header = ({ showNavigation }) => {
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
   });
+
+  const closeNavigation = () => {
+    showNavigation();
+    setCloseNav(!closeNav);
+  };
 
   return (
     <>
