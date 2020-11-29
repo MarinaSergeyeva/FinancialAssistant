@@ -5,10 +5,6 @@ import { token } from './authOperations';
 
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
-// const changeTransaction = transaction => (dispatch, getState) => {
-//   dispatch(transactionActions.changeTransactionSuccess(transaction));
-// };
-
 const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {

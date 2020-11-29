@@ -9,19 +9,22 @@ import productsImg from '../../../assets/images/expenseListItem/products.svg';
 import entertainmentImg from '../../../assets/images/expenseListItem/entertainment.svg';
 import device, { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 import { useInput } from '../../ExpenseForm/ExpenseForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
+import categoriesSelector from '../../../redux/selectors/categoriesSelector';
 
 const ExpenseListItem = ({ expense, date }) => {
   const dispatch = useDispatch();
-  const categories = [
-    'Другое',
-    'Развлечения',
-    'Продукты',
-    'Товары',
-    'Транспорт',
-    'ЖКХ',
-  ];
+  const categories = useSelector(state => categoriesSelector(state));
+
+  // const categories = [
+  //   'Другое',
+  //   'Развлечения',
+  //   'Продукты',
+  //   'Товары',
+  //   'Транспорт',
+  //   'ЖКХ',
+  // ];
 
   const [img, setImg] = useState();
   useEffect(() => {
