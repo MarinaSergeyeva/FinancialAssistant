@@ -17,6 +17,9 @@ export const MonthlyExecutionPlan = () => {
   let allReports;
   const [startDate, setStartDate] = useState(new Date());
 
+  allReports = useSelector(state => {
+    return chartSelector.getMonthlyReport(state);
+  });
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(chartOperation.getMonthReport(startDate));
@@ -26,15 +29,12 @@ export const MonthlyExecutionPlan = () => {
     //console.log('startDate', getDate(dt).month, getDate(dt).year);
     setStartDate(dt);
   };
-  allReports = useSelector(state => {
-    return chartSelector.getMonthlyReport(state);
-  });
-  //console.log('allReports', allReports);
+  console.log('allReports', allReports);
 
   const reportsNew = Object.values(allReports);
   const actualReport = reportsNew[0];
 
-  console.log('actualReport', actualReport);
+  //console.log('actualReport', actualReport);
 
   function getDate(startDate) {
     const data = new Date(startDate);

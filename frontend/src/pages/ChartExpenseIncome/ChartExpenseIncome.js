@@ -9,6 +9,7 @@ import chartSelector from '../../redux/selectors/chartSelector';
 export const MyChart = () => {
   //const [startDate, setStartDate] = useState(new Date());
   const allReports = useSelector(state => {
+    console.log('state', state);
     return chartSelector.getMonthlyReport(state);
   });
   console.log('allReports', allReports.length);
@@ -20,8 +21,10 @@ export const MyChart = () => {
     query: device.tablet,
   });
   //const reportsNew = reportsNewR.splice(0, 11).reverse();
-  const reportsNew = isOnMobile ? reportsNewR : reportsNewR.reverse();
-  console.log('reportsNewR', reportsNew);
+  const reportsNew = isOnMobile
+    ? reportsNewR.splice(0, 12)
+    : reportsNewR.splice(0, 12).reverse();
+  console.log('reportsNew', reportsNew);
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
@@ -57,12 +60,12 @@ export const MyChart = () => {
       },
 
       ticks: {
-        //beginAtZero: true,
-        stepSize: 10000,
+        beginAtZero: true,
+        //stepSize: 10000,
         // max: 500,
         //   min: 0,
         // suggestedMin: 50,
-        suggestedMax: 70000,
+        //suggestedMax: 70000,
       },
     };
     const xAxesConfig = {
@@ -82,7 +85,7 @@ export const MyChart = () => {
       type: isOnMobile ? 'horizontalBar' : 'bar',
 
       data: {
-        display: false,
+        display: true,
         labels: arrayOfReportDate,
 
         datasets: [
@@ -91,14 +94,14 @@ export const MyChart = () => {
             categoryPercentage: 0.6,
             label: 'Доходы',
             backgroundColor: '#7C9AF2',
-            data: arrayOfTotalSavings,
+            data: arrayOfTotalSavings === [] ? 0 : arrayOfTotalSavings,
           },
           {
             categoryPercentage: 0.6,
             barPercentage: 0.8,
             label: 'Расходы',
             backgroundColor: '#FF6C00',
-            data: arrayOfTotalExpenses,
+            data: arrayOfTotalExpenses === [] ? 0 : arrayOfTotalExpenses,
           },
           {
             categoryPercentage: 0.6,
@@ -108,7 +111,7 @@ export const MyChart = () => {
             // fontColor: "pink",
             // padding: 50,
             backgroundColor: '#D7D8DD',
-            data: arrayOfExpectedSavings,
+            data: arrayOfExpectedSavings === [] ? 0 : arrayOfExpectedSavings,
           },
         ],
       },
@@ -116,7 +119,7 @@ export const MyChart = () => {
       options: {
         legend: {
           display: true,
-          align: 'start',
+          align: 'center',
 
           labels: {
             fontColor: 'rgba(24, 25, 31, 0.54)',
@@ -129,8 +132,8 @@ export const MyChart = () => {
           padding: {
             left: isOnMobile ? 0 : 0,
             right: isOnMobile ? 10 : 0,
-            top: 0,
-            bottom: isOnMobile ? 0 : 20,
+            top: 10,
+            bottom: isOnMobile ? 0 : 10,
           },
         },
 

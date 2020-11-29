@@ -22,6 +22,7 @@ const getMonthReport = startDate => async (dispatch, getState) => {
     );
     console.log('year  and month  =====>', month, year);
     dispatch(chartActions.getReportSuccess(res.data.monthReports));
+    console.log('res.data.monthReport', res.data.monthReports);
   } catch (error) {
     dispatch(chartActions.getReportError(error));
   }
