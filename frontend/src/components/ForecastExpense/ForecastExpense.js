@@ -34,7 +34,6 @@ const ForecastExpense = ({ setTransactionStatus }) => {
   const handleClick = async () => {
     const { amount, category, comment } = transaction;
     if (amount) {
-      console.log('transaction.amount', amount);
       const newTransaction = {
         amount,
         category,
@@ -42,7 +41,6 @@ const ForecastExpense = ({ setTransactionStatus }) => {
         transactionDate: Date.now(),
         type: 'EXPENSE',
       };
-      console.log('newTransaction', newTransaction);
       await dispatch(transactionOperations.createTransaction(newTransaction));
       setTransactionStatus(true);
       setMessage('Ваши данные по расходам сохранены!');
