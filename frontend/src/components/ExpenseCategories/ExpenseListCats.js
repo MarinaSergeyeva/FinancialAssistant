@@ -10,18 +10,18 @@ const ExpenseListCats = ({ date }) => {
   useEffect(() => {
     dispatch(transactionOperations.getTransactionsCats(date));
   }, [date]);
-  return transactions?.totalAmount ? (
-    <ul>
-      {expensesCategories.map(item => {
-        const cat = Object.keys(item)[0];
-        if (!transactions[cat]) {
-          return;
-        }
-        return <ExpenseItemCategory key={cat} category={cat} />;
-      })}
-    </ul>
-  ) : (
-    <h1>No items</h1>
+  return (
+    transactions && (
+      <ul>
+        {expensesCategories.map(item => {
+          const cat = Object.keys(item)[0];
+          if (!transactions[cat]) {
+            return;
+          }
+          return <ExpenseItemCategory key={cat} category={cat} />;
+        })}
+      </ul>
+    )
   );
 };
 
