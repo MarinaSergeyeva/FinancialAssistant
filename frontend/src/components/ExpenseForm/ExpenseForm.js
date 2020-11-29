@@ -36,10 +36,12 @@ const ExpenseForm = () => {
   const [showCalculator, setShowCalculator] = useState(false);
 
   const [amount, setAmount] = useState('');
+  const [comment, setComment] = useState('');
+  const [category, setCategory] = useState('');
 
-  const comment = useInput('');
-  // const amount = useInput('');
-  const category = useInput('');
+  // const comment = useInput('');
+  // // const amount = useInput('');
+  // const category = useInput('');
 
   let transactionInfo;
 
