@@ -9,6 +9,7 @@ import monthlyReportReducer from './chartReducer';
 import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
 import categoriesReducer from './categoriesReducer';
+import expenses from './expenseReducer';
 
 export const persistConfig = {
   key: 'auth',
@@ -23,6 +24,7 @@ const root = combineReducers({
     transaction: transactionReducer,
     stats: stats,
     monthReports: monthlyReportReducer,
+    expenses: expenses,
   }),
   calculator: calculatorReduce,
   categories: categoriesReducer,
