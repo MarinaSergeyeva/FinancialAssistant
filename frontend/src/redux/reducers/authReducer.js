@@ -1,6 +1,7 @@
 import authConstants from '../constants/authConstants';
 
 const initialState = {
+  username: null,
   token: null,
 };
 

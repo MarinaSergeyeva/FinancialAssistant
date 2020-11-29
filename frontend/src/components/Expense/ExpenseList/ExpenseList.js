@@ -17,7 +17,7 @@ const ExpenseList = ({ date }) => {
 
     dispatch(
       transactionOperations.getTransactionsExpense(
-        date.getMonth(),
+        date.getMonth() + 1,
         date.getFullYear(),
         page,
       ),

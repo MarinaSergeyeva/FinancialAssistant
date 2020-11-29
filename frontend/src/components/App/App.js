@@ -29,7 +29,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
-  }, []);
+  }, [isUserAuth]);
   return (
     <>
       <Suspense fallback={<Spinner />}>

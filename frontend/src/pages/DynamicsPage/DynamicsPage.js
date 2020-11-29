@@ -32,7 +32,6 @@ const DynamicsPage = () => {
     } else {
       setError(false);
     }
-    // console.log(errorState);
   }, [errorModal]);
 
   const [congratulationState, setCongratulation] = useState(
@@ -44,7 +43,6 @@ const DynamicsPage = () => {
     } else {
       setCongratulation(false);
     }
-    // console.log(congratulationState);
   }, [congratulationModal]);
 
   return (
@@ -54,7 +52,7 @@ const DynamicsPage = () => {
           <Congratulation closeModal={setCongratulation} />
         </Modal>
       )}
-      
+
       {errorState && (
         <Modal closeModal={setError}>
           <Error closeModal={setError} />
