@@ -6,6 +6,7 @@ import stats from './statsReduce';
 import userReducer from './userReducer';
 import transactionReducer from './transactionReducer';
 import expensesReducer from './expensesReducer';
+import monthlyReportReducer from './chartReducer';
 import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
 import categoriesReducer from './categoriesReducer';
@@ -24,6 +25,7 @@ const root = combineReducers({
     transaction: transactionReducer,
     expenses: expensesReducer,
     stats: stats,
+    monthReports: monthlyReportReducer,
     expenses: expenses,
   }),
   calculator: calculatorReduce,
