@@ -11,6 +11,9 @@ const ExpenseList = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
+    if (page === 1 && expenses.length > 0) {
+      return;
+    }
     dispatch(transactionOperations.getTransactionsExpense(11, 2020, page));
 
     // eslint-disable-next-line
@@ -39,7 +42,7 @@ const ExpenseList = () => {
           />
         ))}
       </ExpensesList>
-      <Button onClick={loadMore}>...</Button>
+      {expenses.length > 8 && <Button onClick={loadMore}>...</Button>}
     </>
   );
 };
