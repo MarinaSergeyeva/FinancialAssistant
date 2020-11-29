@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import PlanForm from '../../components/PlanForm/PlanForm';
 import PrognosisBuy from '../../components/PrognosisBuy/PrognosisBuy';
 import { PlanPageStyled } from './planPageStyled';
@@ -16,16 +14,6 @@ const fields = {
 
 const PlanPage = () => {
   const [state, getState] = useState(fields);
-  // const infoCurrentUser = useSelector(state => state.user.info);
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   let live = false;
-  //   if (infoCurrentUser.flatPrice && !live) {
-  //     live = true;
-  //     history.push('/expense');
-  //   }
-  // }, []);
 
   return (
     <PlanPageStyled>

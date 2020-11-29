@@ -84,10 +84,8 @@ function PlanForm({ state, getState }) {
               type="number"
               name="flatPrice"
               value={rateValue}
-              // value={!state.flatPrice ? '' : state.flatPrice}
               placeholder={placeHolder}
-              // onChange={onHandleChangeCurrency} //!
-              onChange={onSetRateValue} //!
+              onChange={onSetRateValue}
             />
           </label>
           <label>

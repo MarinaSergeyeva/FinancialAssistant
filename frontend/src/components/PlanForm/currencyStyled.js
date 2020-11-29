@@ -66,11 +66,6 @@ export const CurrencyStyled = styled.div`
   .currencyOptionWrapper {
     height: 118px;
   }
-  /* .iconDollar,
-  .iconEuro,
-  .iconHryvna {
-    margin: 4px;
-  } */
 
   @media (min-width: ${size.tablet}) {
     .currencyWrapper {
@@ -87,9 +82,5 @@ export const CurrencyStyled = styled.div`
       /* width: 35px; */
       height: 70px;
     }
-    /* li {
-      display: flex;
-      justify-content: flex-start;
-    } */
   }
 `;
