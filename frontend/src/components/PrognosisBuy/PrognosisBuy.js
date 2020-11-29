@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import operation from '../../redux/operations/userInfoOperation';
+import Modal from '../Modal/Modal';
 import decor from '../../assets/images/planPage/decor.svg';
 import { PrognosisBuyStyled, MessageStyled } from './prognosisBuyStyled';
-import Modal from '../Modal/Modal';
 
 function PrognosisBuy({ fields }) {
   const [years, setYears] = useState(0);

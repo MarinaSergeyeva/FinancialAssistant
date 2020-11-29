@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
 import { PlanFormStyled } from './planFormStyled';
 import Currency from './Currency';
 
@@ -8,8 +7,6 @@ const placeHolder = 'Введите сумму';
 function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
   const [currency, setCurrency] = useState('');
-
-  // const infoCurrentUser = useSelector(state => state.user.info);
 
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
@@ -32,20 +29,10 @@ function PlanForm({ state, getState }) {
         <div className="firstColumn">
           <label>
             <span>1. ЗП обоих супругов</span>
-            {/* {console.log('infoCurrentUser', infoCurrentUser)}
-            {console.log('state', state)} */}
             <input
               type="number"
               name="totalSalary"
               value={!state.totalSalary ? '' : state.totalSalary}
-              // value={
-              //   infoCurrentUser.totalSalary ? '' : infoCurrentUser.totalSalary
-              // }
-              // value={
-              //   infoCurrentUser.totalSalary === 0
-              //     ? inputValue(state.totalSalary)
-              //     : infoCurrentUser.totalSalarys
-              // }
               placeholder={placeHolder}
               onChange={onHandleChange}
             />

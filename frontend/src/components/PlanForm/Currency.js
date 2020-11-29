@@ -11,30 +11,12 @@ const exchangeRatesInit = {
 function Currency({ state, getState, getCurrency }) {
   const [isShowCurrency, setShowCurrency] = useState(false);
   const [currencySvg, setCurrencySvg] = useState('icon-hryvna');
-  // const [selectCurrency, setSelectCurrency] = useState('UAH');
   const [exchangeRates, setExchangeRates] = useState(exchangeRatesInit);
 
   const showCurrency = () => setShowCurrency(prevState => !prevState);
 
-  // const convertCurrency = () => {
-  //   if (currencySvg === 'icon-hryvna') {
-  //     // setSelectCurrency('UAH');
-  //     getState({ ...state, flatPrice: state.flatPrice });
-  //   } else if (currencySvg === 'icon-dollar') {
-  //     // setSelectCurrency('USD');
-  //     const convertFlatPrice = state.flatPrice / exchangeRates.dollarRate.buy;
-  //     getState({ ...state, flatPrice: convertFlatPrice });
-  //   } else if (currencySvg === 'icon-euro') {
-  //     // setSelectCurrency('EUR');
-  //     const convertFlatPrice = state.flatPrice / exchangeRates.euroRate.buy;
-  //     getState({ ...state, flatPrice: convertFlatPrice });
-  //   }
-  // };
-
   const selectedCurrency = e => {
     setCurrencySvg(e.target.id);
-    // if(currencySvg==="icon-hryvna"){setSelectCurrency("USD")}
-    // convertCurrency();
   };
 
   const fetchExchangeRates = () => {
@@ -101,7 +83,7 @@ function Currency({ state, getState, getCurrency }) {
 
 export default Currency;
 
-//--------------------------
+//------------- ------------- -----------
 // import React, { useState, useEffect } from 'react';
 // import { CurrencyStyled } from './currencyStyled';
 // import sprite from '../../assets/icons/PlanForm/currency-sprite.svg';
