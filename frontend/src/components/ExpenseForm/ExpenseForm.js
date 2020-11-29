@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
@@ -41,8 +41,13 @@ const ExpenseForm = () => {
   // const amount = useInput('');
   const category = useInput('');
 
+  const look = JSON.parse(localStorage.getItem('persist:transaction'));
+  console.log('look', look);
+
   // const [localComment, setLocalComment] = useState(comment.value);
   // const [localCategory, setLocalCategory] = useState(category.value);
+
+  let transactionInfo;
 
   const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
   const categories = useSelector(state => categoriesSelector(state));
@@ -60,7 +65,16 @@ const ExpenseForm = () => {
     setAmount(e.target.value);
   };
 
-  const transactionInfo = {
+  // const transactionInfo = useMemo(
+  //   () => ({
+  //     comment: comment.bind.value,
+  //     amount: Number(amount),
+  //     category: category.bind.value,
+  //   }),
+  //   [amount],
+  // );
+
+  transactionInfo = {
     comment: comment.bind.value,
     amount: Number(amount),
     category: category.bind.value,
@@ -70,29 +84,40 @@ const ExpenseForm = () => {
     query: device.mobile,
   });
 
-  useEffect(() => {
-    console.log('render');
-    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  });
+  // useEffect(() => {
+  //   // console.log('render');
+  //   // transactionInfo = {
+  //   //   comment: comment.bind.value,
+  //   //   amount: Number(amount),
+  //   //   category: category.bind.value,
+  //   // };
+  //   console.log('transactionInfo RENDER', transactionInfo);
+  //   dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+  // });
 
   useEffect(() => {
     console.log('CDM');
     dispatch(categoriesOperations.getCategories());
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     setAmount(calculatorResult);
-    // dispatch(
-    //   transactionActions.changeTransactionSuccess({
-    //     ...transactionInfo,
-    //     amount: calculatorResult,
-    //   }),
-    // );
+    dispatch(
+      transactionActions.changeTransactionSuccess({
+        ...transactionInfo,
+        amount: calculatorResult,
+      }),
+    );
+    // eslint-disable-next-line
   }, [calculatorResult]);
 
-  // useEffect(() => {
-  //   dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  // }, [transactionInfo]);
+  useEffect(() => {
+    console.log('transactionInfo []', transactionInfo);
+
+    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+    // eslint-disable-next-line
+  }, [transactionInfo]);
 
   return (
     <ExpenseFormStyled>

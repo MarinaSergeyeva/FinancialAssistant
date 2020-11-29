@@ -18,13 +18,27 @@ export const persistConfig = {
 export const persistConfigTransaction = {
   key: 'transaction',
   storage,
-  // whitelist: ['category', 'comment', 'transaction'],
+  whitelist: ['category', 'comment', 'amount', 'transaction'],
+};
+
+export const persistConfigUserInfo = {
+  key: 'userInfo',
+  storage,
+  whitelist: [
+    'balance',
+    'totalSalary',
+    'passiveIncome',
+    'incomePercentageToSavings',
+    'flatPrice',
+    'flatSquareMeters',
+    'userInfo',
+  ],
 };
 
 const root = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
   user: combineReducers({
-    info: userReducer,
+    info: persistReducer(persistConfigUserInfo, userReducer),
     transaction: persistReducer(persistConfigTransaction, transactionReducer),
     stats: stats,
   }),

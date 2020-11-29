@@ -12,6 +12,7 @@ const transaction = (state = initialState.transaction, { type, payload }) => {
   switch (type) {
     case transactionConstants.CHANGE_TRANSACTION_SUCCESS:
       return { ...state, ...payload };
+    // return { ...payload };
 
     case transactionConstants.CREATE_TRANSACTION_SUCCESS:
       // const { amount, category, comment } = payload;

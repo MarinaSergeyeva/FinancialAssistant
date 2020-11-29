@@ -24,5 +24,4 @@ const createTransaction = transaction => async (dispatch, getState) => {
 
 export default {
   createTransaction,
-  // changeTransaction,
 };
