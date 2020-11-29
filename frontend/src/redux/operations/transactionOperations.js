@@ -38,7 +38,7 @@ const getTransactionsCats = date => async (dispatch, getState) => {
     const year = date.getFullYear();
     const res = await axios.get(
       `/api/v1/transactions/expenses?month=${month}&year=${year}`,
-    ); //&page=${page}&limit=${limit}
+    );
     console.log(res.data, 'getTransaction');
     const expenses = {
       other: 0,

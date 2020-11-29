@@ -1,4 +1,4 @@
 const getTransaction = state => state.user.transaction;
-const getCategories = state => state.user.categories;
+const getExpensesCats = state => state.user.expenses;
 
-export default { getTransaction, getCategories };
+export default { getTransaction, getExpensesCats };

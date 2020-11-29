@@ -5,7 +5,7 @@ import { transactionSelectors } from '../../redux/selectors';
 
 const ExpenseCategories = ({ date }) => {
   const dispatch = useDispatch();
-  const transactions = useSelector(transactionSelectors.getCategories);
+  const transactions = useSelector(transactionSelectors.getExpensesCats);
 
   // const catsMonth = Object.create(expensesCategories, { amount: { value: 0 } });
   // const catsMonth = Object.assign(expensesCategories, { amount: 0 });
