@@ -18,7 +18,6 @@ const monthlyReport = (
 ) => {
   switch (type) {
     case chartConstants.GET_REPORT_SUCCESS:
-      //console.log('payload from monthlyReport', payload);
       return { ...payload };
     default:
       return state;

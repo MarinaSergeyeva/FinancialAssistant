@@ -1,5 +1,4 @@
-import React, { Component, useEffect } from 'react';
-
+import React, { useEffect } from 'react';
 import Chart from 'chart.js';
 import device from '../../common/deviceSizes.js';
 import { useMediaQuery } from 'react-responsive';
@@ -7,12 +6,10 @@ import { useSelector } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
 
 export const MyChart = () => {
-  //const [startDate, setStartDate] = useState(new Date());
   const allReports = useSelector(state => {
-    console.log('state', state);
     return chartSelector.getMonthlyReport(state);
   });
-  console.log('allReports', allReports.length);
+
   const reportsNewR = Object.values(allReports);
   const isOnMobile = useMediaQuery({
     query: device.mobile,
@@ -20,11 +17,8 @@ export const MyChart = () => {
   const isOnTablet = useMediaQuery({
     query: device.tablet,
   });
-  //const reportsNew = reportsNewR.splice(0, 11).reverse();
-  const reportsNew = isOnMobile
-    ? reportsNewR.splice(0, 12)
-    : reportsNewR.splice(0, 12).reverse();
-  console.log('reportsNew', reportsNew);
+
+  const reportsNew = isOnMobile ? reportsNewR : reportsNewR.reverse();
 
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
@@ -36,7 +30,7 @@ export const MyChart = () => {
     arrayOfExpectedSavings = reportsNew.map(item => item.totalSavings);
     arrayOfReportDate = reportsNew.map(item => {
       const data = new Date(item.reportDate);
-      //return data;
+
       return data.toLocaleString('default', {
         month: 'short',
         year: '2-digit',
@@ -49,10 +43,9 @@ export const MyChart = () => {
     arrayOfReportDate = [];
   }
 
-  //console.log('arrayOfReportDate', arrayOfReportDate);
   useEffect(() => {
     var ctx = document.getElementById('myChart').getContext('2d');
-    // ctx.lineCap = 'round';
+    ctx.lineCap = 'round';
     const yAxesConfig = {
       gridLines: {
         display: true,
@@ -61,11 +54,6 @@ export const MyChart = () => {
 
       ticks: {
         beginAtZero: true,
-        //stepSize: 10000,
-        // max: 500,
-        //   min: 0,
-        // suggestedMin: 50,
-        //suggestedMax: 70000,
       },
     };
     const xAxesConfig = {
@@ -73,13 +61,6 @@ export const MyChart = () => {
         display: false,
         offset: true,
       },
-      //type: 'time',
-      // time: {
-      //   //unit: 'month',
-      //   displayFormats: {
-      //     month: 'MMM',
-      //   },
-      // },
     };
     var chart = new Chart(ctx, {
       type: isOnMobile ? 'horizontalBar' : 'bar',
@@ -107,9 +88,6 @@ export const MyChart = () => {
             categoryPercentage: 0.6,
             barPercentage: 0.8,
             label: 'План',
-            // lineHeight: 1.2,
-            // fontColor: "pink",
-            // padding: 50,
             backgroundColor: '#D7D8DD',
             data: arrayOfExpectedSavings === [] ? 0 : arrayOfExpectedSavings,
           },
@@ -146,17 +124,11 @@ export const MyChart = () => {
 
     return () => chart.destroy();
   });
-  // const isOnMobile = useMediaQuery({
-  //   query: device.mobile,
-  // });
-  // const isOnTablet = useMediaQuery({
-  //   query: device.tablet,
-  // });
+
   return (
     <div className="chartjs-wrapper">
       <canvas
         id="myChart"
-        //width={isOnMobile ? "180" : "50"}
         height={isOnTablet ? '200' : isOnMobile ? '480' : '200'}
         className="chartjs"
       ></canvas>

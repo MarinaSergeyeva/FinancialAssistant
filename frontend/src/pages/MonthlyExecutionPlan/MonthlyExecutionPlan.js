@@ -5,13 +5,10 @@ import styles from './MonthlyExecutionPlan.module.css';
 import ru from 'date-fns/locale/ru';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-import { connect, useSelector, useDispatch } from 'react-redux';
-//import getCurrentUser from "../../redux/selectors/userSelectors";
-import userSelectors from '../../redux/selectors/userSelectors';
+import { useSelector, useDispatch } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
 import chartOperation from '../../redux/operations/chartOperations';
 registerLocale('ru', ru);
-//console.log('userSelectors', userSelectors)
 
 export const MonthlyExecutionPlan = () => {
   let allReports;
@@ -26,15 +23,12 @@ export const MonthlyExecutionPlan = () => {
   }, [startDate]);
 
   const onChange = dt => {
-    //console.log('startDate', getDate(dt).month, getDate(dt).year);
     setStartDate(dt);
   };
   console.log('allReports', allReports);
 
   const reportsNew = Object.values(allReports);
   const actualReport = reportsNew[0];
-
-  //console.log('actualReport', actualReport);
 
   function getDate(startDate) {
     const data = new Date(startDate);
@@ -71,7 +65,6 @@ export const MonthlyExecutionPlan = () => {
   return (
     <>
       <MonthlyMainWrapper>
-        {/* <input type="text" id="datepicker"></input> */}
         <MonthlyLabel>Месяц </MonthlyLabel>
 
         <DatePicker
@@ -79,13 +72,11 @@ export const MonthlyExecutionPlan = () => {
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
           selected={startDate}
-          // onChange={reportDate => setStartDate(reportDate)}
           onChange={onChange}
           dateFormat="MMMM YYY"
           showMonthYearPicker
           showFullMonthYearPicker
           showTwoColumnMonthYearPicker
-          //isClearable
         />
 
         <MonthlyCardsWrapper>
@@ -135,7 +126,6 @@ export const MonthlyExecutionPlan = () => {
 
 //========
 const MonthlyMainWrapper = styled.div`
-  /* border: 1px solid black; */
   width: 280px;
   @media ${device.tablet} {
     width: 510px;
@@ -188,10 +178,3 @@ const MonthlyValue = styled.p`
   font-size: 14px;
   color: #18191f;
 `;
-//========
-// console.log('getDate()', getDate(startDate));
-// const userBalance = useSelector(state => {
-//   return userSelectors.getCurrentUser(state);
-// });
-// console.log('userBalance', userBalance);
-// const { balance, totalSalary, flatPrice } = userBalance;
