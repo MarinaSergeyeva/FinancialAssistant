@@ -41,12 +41,6 @@ const ExpenseForm = () => {
   // const amount = useInput('');
   const category = useInput('');
 
-  const look = JSON.parse(localStorage.getItem('persist:transaction'));
-  console.log('look', look);
-
-  // const [localComment, setLocalComment] = useState(comment.value);
-  // const [localCategory, setLocalCategory] = useState(category.value);
-
   let transactionInfo;
 
   const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
@@ -83,17 +77,6 @@ const ExpenseForm = () => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
-
-  // useEffect(() => {
-  //   // console.log('render');
-  //   // transactionInfo = {
-  //   //   comment: comment.bind.value,
-  //   //   amount: Number(amount),
-  //   //   category: category.bind.value,
-  //   // };
-  //   console.log('transactionInfo RENDER', transactionInfo);
-  //   dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  // });
 
   useEffect(() => {
     console.log('CDM');
