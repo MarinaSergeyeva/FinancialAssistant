@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
 // import Congratulation from '../Congratulation/Congratulation';
-import Error from '../Error/Error';
-import Modal from '../../components/Modal/Modal';
+// import Modal from '../../components/Modal/Modal';
+// import Error from '../Error/Error';
 
 const GiftCompleting = () => {
   const giftForUnpack = useSelector(state =>
@@ -29,10 +29,10 @@ const GiftCompleting = () => {
   //   setIsShowCongratulation(prev => !prev);
   // };
 
-  const [isShowError, setIsShowError] = useState(false);
-  const closeError = () => {
-    setIsShowError(prev => !prev);
-  };
+  // const [isShowError, setIsShowError] = useState(false);
+  // const closeError = () => {
+  //   setIsShowError(prev => !prev);
+  // };
 
   return (
     <>
@@ -42,15 +42,15 @@ const GiftCompleting = () => {
         </Modal>
       )} */}
 
-      {isShowError && (
+      {/* {isShowError && (
         <Modal closeModal={closeError}>
           <Error closeModal={closeError} />
         </Modal>
-      )}
+      )} */}
 
       <Wrapper>
         <TitleWrapper>
-          <Title onClick={() => closeError()}>
+          <Title>
             Чтобы добавить еще <Quantity>1 кв.м</Quantity> на планировку,
             осталось накопить
           </Title>

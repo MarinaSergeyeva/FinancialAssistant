@@ -7,6 +7,7 @@ import userReducer from './userReducer';
 import transactionReducer from './transactionReducer';
 import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
+import modalReducer from '../reducers/modalReducer';
 
 export const persistConfig = {
   key: 'auth',
@@ -23,6 +24,7 @@ const root = combineReducers({
   }),
   calculator: calculatorReduce,
   error: errorReducer,
+  modal: modalReducer,
 });
 
 export default root;
