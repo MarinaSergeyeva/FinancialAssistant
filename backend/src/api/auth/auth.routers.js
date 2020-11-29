@@ -39,12 +39,14 @@ authRouter.get(
   catchAsync(AuthController.AuthGoogle_FB),
 );
 
-authRouter.get('/facebook',
-passport.authenticate('facebook', { scope: ['email', 'profile'] }));
+authRouter.get(
+  '/facebook',
+  passport.authenticate('facebook', { scope: ['email', 'profile'] }),
+);
 
 authRouter.get(
   '/facebook/callback',
-  passport.authenticate('facebook',{ session: false }),
+  passport.authenticate('facebook', { session: false }),
   catchAsync(AuthController.AuthGoogle_FB),
 );
 
