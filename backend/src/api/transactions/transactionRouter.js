@@ -52,10 +52,5 @@ transactionRouter.patch(
   validate(updateTransactionSchema),
   catchAsync(transactionController.updateTransaction),
 );
-transactionRouter.get(
-  '/expenses/categories',
-  catchAsync(authorize),
-  catchAsync(getListExpensesCategories),
-);
 
 module.exports = transactionRouter;
