@@ -7,14 +7,20 @@ import styled from 'styled-components';
 import device from '../../../common/deviceSizes';
 import { DateTime } from 'luxon';
 
-const ExpenseList = () => {
+const ExpenseList = ({ date }) => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(transactionOperations.getTransactionsExpense(11, 2020, page));
+    dispatch(
+      transactionOperations.getTransactionsExpense(
+        date.getMonth(),
+        date.getFullYear(),
+        page,
+      ),
+    );
 
     // eslint-disable-next-line
-  }, [page]);
+  }, [page, date]);
 
   const expenses = useSelector(state =>
     transactionSelectors.getExpenses(state),
