@@ -54,7 +54,7 @@ const GiftCompleting = () => {
             Чтобы добавить еще <Quantity>1 кв.м</Quantity> на планировку,
             осталось накопить
           </Title>
-          <Price>{savingsForNextSquareMeterLeft} ₴</Price>
+          <Price>{savingsForNextSquareMeterLeft.toFixed(0)} ₴</Price>
         </TitleWrapper>
         <ImgWrapper onClick={unpackGift}>
           {!giftForUnpack > 0 ? (
