@@ -36,6 +36,7 @@ const updateGifts = () => async (dispatch, getState) => {
   } catch (error) {
     console.log(error.message);
     dispatch(statsActions.updateGiftsForUnpackingError(error.message));
+    dispatch(modalAction.openModalError());
   }
 };
 

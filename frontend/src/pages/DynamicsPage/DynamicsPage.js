@@ -7,17 +7,28 @@ import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPl
 import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
+import {
+  modalCongratulation,
+  modalError,
+} from '../../redux/selectors/modalSelector';
+import Congratulation from '../../components/Congratulation/Congratulation';
+import Error from '../../components/Error/Error';
 
 const DynamicsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(statsOperatioins.getStatsFlat());
   }, []);
+  const congratulationModal = useSelector(state => modalCongratulation(state));
+  const errorModal = useSelector(state => modalError(state));
 
   return (
     <>
+      {congratulationModal && <Congratulation />}
+      {errorModal && <Error />}
+
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
           <GrafWrapper>

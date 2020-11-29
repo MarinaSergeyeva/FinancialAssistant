@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
@@ -10,10 +10,14 @@ import {
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import device, { Mobile } from '../../common/deviceSizes';
-import transactionOperations from '../../redux/operations/transactionOperations';
+import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
+import categoriesSelector from '../../redux/selectors/categoriesSelector';
+import calculatorSelector from '../../redux/selectors/calculatorSelector';
+import calculatorActions from '../../redux/actions/calculatorActions';
+import { transactionSelectors, userSelectors } from '../../redux/selectors';
 
-const useInput = initialValue => {
+export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
 
   const onChange = e => {
@@ -28,49 +32,57 @@ const useInput = initialValue => {
 };
 
 const ExpenseForm = () => {
-  const [categories, setCategories] = useState([]);
   const [showCalculator, setShowCalculator] = useState(false);
+  const [amount, setAmount] = useState('');
+
+  const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
+  const categories = useSelector(state => categoriesSelector(state));
+  const calculatorResult = useSelector(state =>
+    calculatorSelector.calcResult(state),
+  );
+
   const dispatch = useDispatch();
 
   const showCalculatorHandler = () => {
     setShowCalculator(!showCalculator);
   };
 
+  const onAmountChange = e => {
+    setAmount(e.target.value);
+  };
+
   useEffect(() => {
-    transactionOperations.getTransactionCategories().then(result => {
-      return setCategories(result.categories);
-    });
+    dispatch(categoriesOperations.getCategories());
+    // eslint-disable-next-line
   }, []);
 
   const comment = useInput('');
-  const amount = useInput('');
-  // const categories = [
-  //   'Другое',
-  //   'Развлечения',
-  //   'Продукты',
-  //   'Товары',
-  //   'Транспорт',
-  //   'ЖКХ',
-  // ];
+  // const amount = useInput('');
   const category = useInput('');
 
   const transactionInfo = {
     comment: comment.bind.value,
-    amount: Number(amount.bind.value),
+    amount: Number(amount),
     category: category.bind.value,
   };
-  // dispatch(transactionOperations.changeTransaction(transactionInfo));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
 
   useEffect(() => {
-    // dispatch(transactionOperations.changeTransaction(transactionInfo));
-    if (amount !== '') {
-      dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-    }
-  }, [amount]);
+    setAmount(calculatorResult);
+    dispatch(
+      transactionActions.changeTransactionSuccess({
+        ...transactionInfo,
+        amount: calculatorResult,
+      }),
+    );
+  }, [calculatorResult]);
+
+  useEffect(() => {
+    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+  }, [transactionInfo]);
 
   return (
     <ExpenseFormStyled>
@@ -81,7 +93,7 @@ const ExpenseForm = () => {
             <select type="text">
               <option defaultValue>Карта VISA (Ваня)</option>
             </select>
-            <p>Остаток на счете: 80 000 UAH</p>
+            <p>Остаток на счете: {balance} UAH</p>
           </label>
           <label>
             <span>Название статьи</span>
@@ -103,7 +115,13 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Сумма</span>
-            <input className="calc-input" type="number" {...amount.bind} />
+            {/* <input className="calc-input" type="number" {...amount.bind} /> */}
+            <input
+              className="calc-input"
+              type="number"
+              onChange={onAmountChange}
+              value={amount}
+            />
           </label>
           <CalcIconStyled onClick={showCalculatorHandler}>
             <CalcIcon className="icon_hover" />

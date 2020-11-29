@@ -29,6 +29,7 @@ const Navigation = ({ showNavigation }) => {
         </StyleNavLInk>
         <StyleNavLInk
           to="/expense"
+          exact
           activeClassName="active"
           onClick={showNavigation}
         >
@@ -41,13 +42,24 @@ const Navigation = ({ showNavigation }) => {
         >
           Динамика
         </StyleNavLInk>
-        {(isMobileDevice || isTabletDevice) && <Logout />}
+        {(isMobileDevice || isTabletDevice) && (
+          <Logout showNavigation={showNavigation} />
+        )}
         {isTabletDevice && (
           <NavigationBgImg
             src={navigationBackgroundTablet}
             alt="navigation tablet background"
           />
         )}
+        <BtnNavLInk
+          to="/expense/list"
+          activeClassName="active"
+          onClick={showNavigation}
+        >
+          <SvgIcon>
+            <use href="#dynamics"></use>
+          </SvgIcon>
+        </BtnNavLInk>
       </NavigationContainer>
     </>
   );
@@ -131,4 +143,21 @@ const NavigationBgImg = styled.img`
   bottom: 0px;
   right: 0px;
   z-index: -1;
+  max-height: calc(100vh - 350px);
+`;
+
+const BtnNavLInk = styled(NavLink)`
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #7c9af2;
+  border-radius: 8px;
+`;
+
+const SvgIcon = styled.svg`
+  width: 12px;
+  height: 12px;
+  fill: white;
 `;

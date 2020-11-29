@@ -1,61 +1,122 @@
-import React, { useState } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "./MonthlyExecutionPlan.module.css";
-import ru from "date-fns/locale/ru";
-import styled from "styled-components";
-import device, { Mobile, Tablet, Desktop } from "../../common/deviceSizes";
-registerLocale("ru", ru);
-export const MonthlyExecutionPlan = (props) => {
+import React, { useState, useEffect } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import styles from './MonthlyExecutionPlan.module.css';
+import ru from 'date-fns/locale/ru';
+import styled from 'styled-components';
+import device from '../../common/deviceSizes';
+import { useSelector, useDispatch } from 'react-redux';
+import chartSelector from '../../redux/selectors/chartSelector';
+import chartOperation from '../../redux/operations/chartOperations';
+import { addMonths } from 'date-fns';
+registerLocale('ru', ru);
+
+export const MonthlyExecutionPlan = () => {
+  let allReports;
   const [startDate, setStartDate] = useState(new Date());
+
+  allReports = useSelector(state => {
+    return chartSelector.getMonthlyReport(state);
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(chartOperation.getMonthReport(startDate));
+  }, [startDate]);
+
+  const onChange = dt => {
+    setStartDate(dt);
+  };
+
+  const reportsNew = Object.values(allReports);
+  const actualReport = reportsNew[0];
+
+  const monthsBG = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ];
+
+  registerLocale('bg', {
+    localize: {
+      month: n => monthsBG[n],
+    },
+    formatLong: {},
+  });
 
   return (
     <>
       <MonthlyMainWrapper>
-        {/* <input type="text" id="datepicker"></input> */}
         <MonthlyLabel>Месяц </MonthlyLabel>
 
         <DatePicker
-          //locale="ru"
+          locale="bg"
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={onChange}
           dateFormat="MMMM YYY"
           showMonthYearPicker
           showFullMonthYearPicker
           showTwoColumnMonthYearPicker
-          isClearable
+          maxDate={addMonths(new Date(), 0)}
         />
 
         <MonthlyCardsWrapper>
           <MonthlyCards>
-            <MonthlyLabel>Доходы,</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>Доходы, &#8372;</MonthlyLabel>
+            <MonthlyValue>
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.totalIncome : 0,
+              )}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>Расходы</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>Расходы, &#8372;</MonthlyLabel>
+            <MonthlyValue>
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.totalExpenses : 0,
+              )}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>Накоплено</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>Накоплено, &#8372;</MonthlyLabel>
+            <MonthlyValue>
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.totalSavings : 0,
+              )}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>План, </MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>План, &#8372; </MonthlyLabel>
+            <MonthlyValue>
+              {new Intl.NumberFormat('ua-UA').format(
+                actualReport ? actualReport.expectedSavings : 0,
+              )}
+            </MonthlyValue>
           </MonthlyCards>
           <MonthlyCards>
-            <MonthlyLabel>План, %</MonthlyLabel>
-            <MonthlyValue>00 000</MonthlyValue>
+            <MonthlyLabel>План %</MonthlyLabel>
+            <MonthlyValue>
+              {actualReport ? actualReport.expectedSavingsPercentage : 0}
+            </MonthlyValue>
           </MonthlyCards>
         </MonthlyCardsWrapper>
       </MonthlyMainWrapper>
     </>
   );
 };
+
+//========
 const MonthlyMainWrapper = styled.div`
-  /* border: 1px solid black; */
   width: 280px;
   @media ${device.tablet} {
     width: 510px;

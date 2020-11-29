@@ -1,16 +1,16 @@
 import userInfoConstants from '../constants/userInfoConstants';
 
 const updateUserInfoRequest = () => ({
-  type: userInfoConstants.UPDATE_USER_REQUEST,
+  type: userInfoConstants.UPDATE_USER_INFO_REQUEST,
 });
 
 const updateUserInfoSuccess = user => ({
-  type: userInfoConstants.UPDATE_USER_SUCCESS,
+  type: userInfoConstants.UPDATE_USER_INFO_SUCCESS,
   payload: user,
 });
 
 const updateUserInfoError = error => ({
-  type: userInfoConstants.UPDATE_USER_ERROR,
+  type: userInfoConstants.UPDATE_USER_INFO_ERROR,
   payload: error,
 });
 

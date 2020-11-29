@@ -1,27 +1,34 @@
-import modalConstans from '../constants/modalConstans';
+import { combineReducers } from 'redux';
+import modalConstants from '../constants/modalConstants';
 
-const initialState = {
-  congratulation: false,
-  errorModule: false,
-};
-
-const modalReducer = (state = initialState, action) => {
+const modalCongratulationReducer = (state = false, action) => {
   switch (action.type) {
-    case modalConstans.OPEN_CONGRATULATION:
-      return (initialState.congratulation = true);
+    case modalConstants.OPEN_CONGRATULATION:
+      return (state = true);
 
-    case modalConstans.CLOSE_CONGRATULATION:
-      return (initialState.congratulation = false);
-
-    case modalConstans.OPEN_ERROR_MODAL:
-      return (initialState.errorModule = true);
-
-    case modalConstans.CLOSE_ERROR_MODAL:
-      return (initialState.errorModule = false);
+    case modalConstants.CLOSE_CONGRATULATION:
+      return (state = false);
 
     default:
       return state;
   }
 };
 
+const modalErrorReducer = (state = false, action) => {
+  switch (action.type) {
+    case modalConstants.OPEN_ERROR_MODAL:
+      return (state = true);
+
+    case modalConstants.CLOSE_ERROR_MODAL:
+      return (state = false);
+
+    default:
+      return state;
+  }
+};
+
+const modalReducer = combineReducers({
+  congratulation: modalCongratulationReducer,
+  error: modalErrorReducer,
+});
 export default modalReducer;

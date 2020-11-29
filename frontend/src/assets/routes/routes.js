@@ -22,7 +22,7 @@ export default [
   {
     path: '/expense',
     label: 'ExpensePage',
-    exact: true,
+    exact: false,
     component: lazy(() => import('../../pages/ExpensePage/ExpensePage')),
     private: true,
     restricted: false,

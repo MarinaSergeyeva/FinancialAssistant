@@ -1,19 +1,19 @@
-import modalConstans from '../../redux/constants/modalConstans';
+import modalConstants from '../../redux/constants/modalConstants';
 
 const openModalCongratulation = () => ({
-  type: modalConstans.OPEN_CONGRATULATION,
+  type: modalConstants.OPEN_CONGRATULATION,
 });
 
 const closeModalCongratulation = () => ({
-  type: modalConstans.CLOSE_CONGRATULATION,
+  type: modalConstants.CLOSE_CONGRATULATION,
 });
 
 const openModalError = () => ({
-  type: modalConstans.OPEN_ERROR_MODAL,
+  type: modalConstants.OPEN_ERROR_MODAL,
 });
 
 const closeModalError = () => ({
-  type: modalConstans.OPEN_ERROR_MODAL,
+  type: modalConstants.OPEN_ERROR_MODAL,
 });
 
 export default {

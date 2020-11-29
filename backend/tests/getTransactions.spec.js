@@ -47,9 +47,8 @@ describe('CurrentUser test suite', () => {
         });
         userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
         await userDoc.save();
+
         testDate = new Date(2020, 9, 15);
-        console.log('Date', testDate);
-        console.log('ms', Date.parse(testDate));
         transactionDoc = await TransactionModel.create({
           amount: 1000,
           type: 'EXPENSE',
