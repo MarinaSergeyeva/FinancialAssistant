@@ -10,11 +10,9 @@ const incrementUserBalance = async user => {
 const createIncomeTransaction = async user => {
   await TransactionModel.create({
     amount: user.totalSalary + user.passiveIncome,
-    //amount: 10000,
     userId: user._id,
     transactionDate: Date.now(),
     type: 'INCOME',
-    //type: 'EXPENSE',
   });
 };
 let totalExpenses;
