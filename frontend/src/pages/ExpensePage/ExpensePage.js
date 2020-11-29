@@ -123,7 +123,7 @@ const ExpensePage = () => {
                 <ExpenseList date={startDate} />
               </Route>
               <Route path={`${match.url}/categories`}>
-                <ExpenseCategories />
+                <ExpenseCategories date={startDate} />
               </Route>
             </ExpenseListWrap>
           </ExpensePageContainer>

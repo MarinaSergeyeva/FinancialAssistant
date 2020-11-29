@@ -26,4 +26,14 @@ const transaction = (state = initialState.transaction, { type, payload }) => {
   }
 };
 
-export default transaction;
+const categories = (state = null, { type, payload }) => {
+  switch (type) {
+    case transactionConstants.GET_TRANSACTIONS_CATS_SUCCESS:
+      return { ...state, ...payload };
+
+    default:
+      return state;
+  }
+};
+
+export default { transaction, categories };

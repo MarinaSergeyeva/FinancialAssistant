@@ -19,7 +19,8 @@ const root = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
   user: combineReducers({
     info: userReducer,
-    transaction: transactionReducer,
+    transaction: transactionReducer.transaction,
+    categories: transactionReducer.categories,
     stats: stats,
   }),
   calculator: calculatorReduce,
