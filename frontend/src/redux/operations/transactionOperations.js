@@ -5,10 +5,6 @@ import { token } from './authOperations';
 
 axios.defaults.baseURL = 'http://localhost:8080';
 
-// const changeTransaction = transaction => (dispatch, getState) => {
-//   dispatch(transactionActions.changeTransactionSuccess(transaction));
-// };
-
 const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {

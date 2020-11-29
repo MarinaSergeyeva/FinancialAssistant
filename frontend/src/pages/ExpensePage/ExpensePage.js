@@ -16,6 +16,11 @@ import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
   {
+    const [isTransactionSend, setTransactionStatus] = useState(false);
+    // console.log('isTransactionSend', isTransactionSend);
+    const resetForm = () => {
+      return isTransactionSend;
+    };
     const match = useRouteMatch();
     const location = useLocation();
     const [startDate, setStartDate] = useState(new Date());
@@ -47,9 +52,12 @@ const ExpensePage = () => {
         {location.pathname === match.path ? (
           <ExpensePageContainer>
             <ExpenseFormWrapper>
-              <ExpenseForm />
+              <ExpenseForm
+                setTransactionStatus={setTransactionStatus}
+                resetForm={resetForm}
+              />
             </ExpenseFormWrapper>
-            <ForecastExpense />
+            <ForecastExpense setTransactionStatus={setTransactionStatus} />
             <Mobile>
               <ExpensePageImg
                 src={expensePageMobile}
