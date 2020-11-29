@@ -33,9 +33,15 @@ const App = () => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <Header showNavigation={showNavigationHandler} />
+        <Header
+          showNavigation={showNavigationHandler}
+          isNavigationOn={showNavigation}
+        />
         {isUserAuth && showNavigation && !isDesktopDevice && (
-          <Navigation showNavigation={showNavigationHandler} />
+          <Navigation
+            showNavigation={showNavigationHandler}
+            isNavigationOn={showNavigation}
+          />
         )}
         {!showNavigation && (
           <Switch>
