@@ -71,10 +71,6 @@ export const CurrencyStyled = styled.div`
   .iconHryvna {
     margin: 4px;
   }
-  /* .iconsWrapper {
-    width: 16px;
-    height: 16px;
-  } */
 
   @media (min-width: ${size.tablet}) {
     .currencyWrapper {

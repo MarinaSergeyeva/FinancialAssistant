@@ -41,7 +41,7 @@ function Currency({ state, getState, getCurrency }) {
     fetch(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
       .then(result => result.json())
       .then(result => {
-        getCurrency({{ dollarRate: result[0], euroRate: result[1] }, {} });
+        getCurrency({ dollarRate: result[0], euroRate: result[1] });
         setExchangeRates({ dollarRate: result[0], euroRate: result[1] });
       });
   };

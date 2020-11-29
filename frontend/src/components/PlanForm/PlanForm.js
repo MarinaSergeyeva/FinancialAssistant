@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { PlanFormStyled } from './planFormStyled';
 import Currency from './Currency';
 
@@ -9,14 +9,7 @@ function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
   const [currency, setCurrency] = useState('');
 
-  const infoCurrentUser = useSelector(state => state.user.info);
-
-  // const inputValue = stateValue => {
-  //   if (!stateValue) {
-  //     return '';
-  //   } else return stateValue;
-  //   // infoCurrentUserValue&&infoCurrentUserValues
-  // };
+  // const infoCurrentUser = useSelector(state => state.user.info);
 
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
@@ -24,7 +17,7 @@ function PlanForm({ state, getState }) {
 
   const onHandleChangeCurrency = e => {
     console.log(currency);
-    getState({ ...state, [e.target.name]: Number(e.target.value)*() });
+    getState({ ...state, [e.target.name]: Number(e.target.value) });
   };
   const getCurrency = value => {
     setCurrency(value);

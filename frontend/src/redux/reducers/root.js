@@ -14,11 +14,24 @@ export const persistConfig = {
   storage,
   whitelist: ['token', 'auth'],
 };
-
+export const persistConfigUserInfo = {
+  key: 'userInfo',
+  storage,
+  whitelist: [
+    'balance',
+    'totalSalary',
+    'passiveIncome',
+    'incomePercentageToSavings',
+    'flatPrice',
+    'flatSquareMeters',
+    'userInfo',
+  ],
+};
 const root = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
   user: combineReducers({
     info: userReducer,
+    info: persistReducer(persistConfigUserInfo, userReducer),
     transaction: transactionReducer,
     stats: stats,
   }),
