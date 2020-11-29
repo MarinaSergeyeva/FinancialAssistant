@@ -9,6 +9,7 @@ import expensesReducer from './expensesReducer';
 import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
 import categoriesReducer from './categoriesReducer';
+import expenses from './expenseReducer';
 
 const authPersistConfig = {
   key: 'auth',
@@ -23,6 +24,7 @@ const root = combineReducers({
     transaction: transactionReducer,
     expenses: expensesReducer,
     stats: stats,
+    expenses: expenses,
   }),
   calculator: calculatorReduce,
   categories: categoriesReducer,

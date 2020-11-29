@@ -20,7 +20,7 @@ import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-d
 import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
 import LogoutModal from '../../components/Logout/LogoutModal';
 import ExpenseCategories from '../../components/ExpenseCategories/ExpenseCategories';
-import ExpenseList from '../../components/ExpenseList/ExpenseList';
+import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
   {

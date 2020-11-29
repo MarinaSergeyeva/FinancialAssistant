@@ -24,20 +24,6 @@ const createTransactionError = error => ({
   payload: error,
 });
 
-// const getTransactionsRequest = () => ({
-//   type: transactionConstants.GET_TRANSACTIONS_REQUEST,
-// });
-
-// const getTransactionsSuccess = () => ({
-//   type: transactionConstants.GET_TRANSACTIONS_SUCCESS,
-//   payload,
-// });
-
-// const getTransactionsError = error => ({
-//   type: transactionConstants.GET_TRANSACTIONS_ERROR,
-//   payload: error,
-// });
-
 const getTransactionsCatsRequest = () => ({
   type: transactionConstants.GET_TRANSACTIONS_CATS_REQUEST,
 });
@@ -52,6 +38,32 @@ const getTransactionsCatsError = error => ({
   payload: error,
 });
 
+const getTransactionsExpenseRequest = () => ({
+  type: transactionConstants.GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST,
+});
+const getTransactionsExpenseSuccess = transaction => ({
+  type: transactionConstants.GET_MONTHLY_EXPENSE_TRANSACTIONS_SUCCESS,
+  payload: transaction,
+});
+const getTransactionsExpenseError = error => ({
+  type: transactionConstants.GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST,
+  payload: error,
+});
+
+const updateTransactionRequest = () => ({
+  type: transactionConstants.UPDATE_TRANSACTION_REQUEST,
+});
+
+const updateTransactionSuccess = updatedExpense => ({
+  type: transactionConstants.UPDATE_TRANSACTION_SUCCESS,
+  payload: updatedExpense,
+});
+
+const updateTransactionError = error => ({
+  type: transactionConstants.UPDATE_TRANSACTION_ERROR,
+  payload: error,
+});
+
 export default {
   changeTransactionSuccess,
   changeTransactionAmountSuccess,
@@ -60,11 +72,14 @@ export default {
   createTransactionSuccess,
   createTransactionError,
 
-  // getTransactionsRequest,
-  // getTransactionsSuccess,
-  // getTransactionsError,
-
   getTransactionsCatsRequest,
   getTransactionsCatsSuccess,
   getTransactionsCatsError,
+  getTransactionsExpenseRequest,
+  getTransactionsExpenseSuccess,
+  getTransactionsExpenseError,
+
+  updateTransactionRequest,
+  updateTransactionSuccess,
+  updateTransactionError,
 };

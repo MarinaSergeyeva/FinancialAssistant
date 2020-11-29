@@ -17,7 +17,7 @@ import calculatorSelector from '../../redux/selectors/calculatorSelector';
 import calculatorActions from '../../redux/actions/calculatorActions';
 import { transactionSelectors, userSelectors } from '../../redux/selectors';
 
-const useInput = initialValue => {
+export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
 
   const onChange = e => {
@@ -53,6 +53,7 @@ const ExpenseForm = () => {
 
   useEffect(() => {
     dispatch(categoriesOperations.getCategories());
+    // eslint-disable-next-line
   }, []);
 
   const comment = useInput('');
