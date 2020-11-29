@@ -19,8 +19,12 @@ const BurgerMenu = ({ showNavigation }) => {
   };
 
   useEffect(() => {
+    setClassName('burger');
+  }, []);
+
+  useEffect(() => {
     setLocation(pathname);
-    if (prevLocation.current !== location) setActiveClass(!isActiveClass);
+    // if (prevLocation.current !== location) setActiveClass(!isActiveClass);
   }, [pathname]);
 
   useEffect(() => {

@@ -25,8 +25,12 @@ const App = () => {
   });
 
   const showNavigationHandler = () => {
-    return setShowMobileNavigation(!showNavigation);
+    setShowMobileNavigation(!showNavigation);
   };
+
+  //  const closeSuccessModal = () => {
+  //    setSuccessModal(prev => !prev);
+  //  };
 
   const dispatch = useDispatch();
   useEffect(() => {
