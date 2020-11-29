@@ -13,7 +13,8 @@ export const MyChart = () => {
   });
   console.log('allReports', allReports.length);
   const reportsNewR = Object.values(allReports);
-  const reportsNew = reportsNewR.splice(0, 11).reverse();
+  //const reportsNew = reportsNewR.splice(0, 11).reverse();
+  const reportsNew = reportsNewR.splice(0, 10);
   console.log('reportsNewR', reportsNew);
 
   let arrayOfTotalSavings = [];
@@ -26,16 +27,20 @@ export const MyChart = () => {
     arrayOfExpectedSavings = reportsNew.map(item => item.totalSavings);
     arrayOfReportDate = reportsNew.map(item => {
       const data = new Date(item.reportDate);
-      return data.toLocaleString('default', { month: 'short' });
+      //return data;
+      return data.toLocaleString('default', {
+        month: 'short',
+        year: '2-digit',
+      });
     });
   } else {
-    arrayOfTotalSavings = [0];
-    arrayOfTotalExpenses = [0];
-    arrayOfExpectedSavings = [0];
-    arrayOfReportDate = [0];
+    arrayOfTotalSavings = [];
+    arrayOfTotalExpenses = [];
+    arrayOfExpectedSavings = [];
+    arrayOfReportDate = [];
   }
 
-  console.log('arrayOfReportDate', arrayOfReportDate);
+  //console.log('arrayOfReportDate', arrayOfReportDate);
   useEffect(() => {
     var ctx = document.getElementById('myChart').getContext('2d');
     // ctx.lineCap = 'round';
@@ -59,11 +64,11 @@ export const MyChart = () => {
         display: false,
         offset: true,
       },
-      // type: 'time',
+      //type: 'time',
       // time: {
-      //   unit: 'month',
+      //   //unit: 'month',
       //   displayFormats: {
-      //     month: 'MMMM',
+      //     month: 'MMM',
       //   },
       // },
     };
@@ -130,7 +135,7 @@ export const MyChart = () => {
       },
     });
 
-    return () => chart.destroy();
+    // return () => chart.destroy();
   });
   const isOnMobile = useMediaQuery({
     query: device.mobile,
