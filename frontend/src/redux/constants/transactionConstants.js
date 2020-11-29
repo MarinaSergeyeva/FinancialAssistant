@@ -1,4 +1,5 @@
 const CHANGE_TRANSACTION_SUCCESS = '@transaction/changeTransactionSuccess';
+const CLEAN_TRANSACTION_SUCCESS = '@transaction/cleanTransactionSuccess';
 
 const CREATE_TRANSACTION_REQUEST = '@transaction/createTransactionRequest';
 const CREATE_TRANSACTION_SUCCESS = '@transaction/createTransactionSuccess';
@@ -17,6 +18,7 @@ const UPDATE_TRANSACTION_ERROR = '@transactions/updateError';
 
 export default {
   CHANGE_TRANSACTION_SUCCESS,
+  CLEAN_TRANSACTION_SUCCESS,
 
   CREATE_TRANSACTION_REQUEST,
   CREATE_TRANSACTION_SUCCESS,

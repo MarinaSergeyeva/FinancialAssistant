@@ -6,6 +6,7 @@ import { background, colors } from '../../stylesheet/vars';
 import { userSelectors, transactionSelectors } from '../../redux/selectors';
 import { transactionOperations } from '../../redux/operations';
 import Modal from '../Modal/Modal';
+import transactionActions from '../../redux/actions/transactionActions';
 
 const ForecastExpense = () => {
   const transaction = useSelector(transactionSelectors.getTransaction);
@@ -39,6 +40,7 @@ const ForecastExpense = () => {
       };
       console.log('newTransaction', newTransaction);
       await dispatch(transactionOperations.createTransaction(newTransaction));
+      dispatch(transactionActions.cleanTransactionSuccess());
       setMessage('Ваши данные по расходам сохранены!');
     } else {
       setMessage('Введите сумму транзакции больше нуля');

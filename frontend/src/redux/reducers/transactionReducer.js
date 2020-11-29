@@ -3,7 +3,7 @@ import transactionConstants from '../constants/transactionConstants';
 const initialState = {
   transaction: {
     category: '',
-    amount: 0,
+    amount: '',
     comment: '',
   },
   // transactions: [],
@@ -13,7 +13,9 @@ const transaction = (state = initialState.transaction, { type, payload }) => {
   switch (type) {
     case transactionConstants.CHANGE_TRANSACTION_SUCCESS:
       return { ...state, ...payload };
-    // return { ...payload };
+
+    case transactionConstants.CLEAN_TRANSACTION_SUCCESS:
+      return { ...state, ...initialState.transaction };
 
     case transactionConstants.CREATE_TRANSACTION_SUCCESS:
       // const { amount, category, comment } = payload;

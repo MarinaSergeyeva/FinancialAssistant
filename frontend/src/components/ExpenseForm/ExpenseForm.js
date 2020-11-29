@@ -39,12 +39,6 @@ const ExpenseForm = () => {
   const [comment, setComment] = useState('');
   const [category, setCategory] = useState('');
 
-  // const comment = useInput('');
-  // // const amount = useInput('');
-  // const category = useInput('');
-
-  let transactionInfo;
-
   const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
   const categories = useSelector(state => categoriesSelector(state));
   const calculatorResult = useSelector(state =>
@@ -58,22 +52,13 @@ const ExpenseForm = () => {
   };
 
   const onAmountChange = e => {
-    setAmount(e.target.value);
+    setAmount(Number(e.target.value));
   };
-
-  // const transactionInfo = useMemo(
-  //   () => ({
-  //     comment: comment.bind.value,
-  //     amount: Number(amount),
-  //     category: category.bind.value,
-  //   }),
-  //   [amount],
-  // );
-
-  transactionInfo = {
-    comment: comment.bind.value,
-    amount: Number(amount),
-    category: category.bind.value,
+  const onCommentChange = e => {
+    setComment(e.target.value);
+  };
+  const onCategoryChange = e => {
+    setCategory(e.target.value);
   };
 
   const isMobileDevice = useMediaQuery({
@@ -81,28 +66,37 @@ const ExpenseForm = () => {
   });
 
   useEffect(() => {
-    console.log('CDM');
+    const transactionInfoLS = JSON.parse(
+      localStorage.getItem('persist:transaction'),
+    );
+    if (transactionInfoLS) {
+      setComment(JSON.parse(transactionInfoLS.comment));
+      setCategory(JSON.parse(transactionInfoLS.category));
+      setAmount(Number(JSON.parse(transactionInfoLS.amount)));
+    }
     dispatch(categoriesOperations.getCategories());
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    setAmount(calculatorResult);
-    dispatch(
-      transactionActions.changeTransactionSuccess({
-        ...transactionInfo,
-        amount: calculatorResult,
-      }),
-    );
+    if (calculatorResult) {
+      setAmount(calculatorResult);
+    }
     // eslint-disable-next-line
   }, [calculatorResult]);
 
   useEffect(() => {
-    console.log('transactionInfo []', transactionInfo);
+    const transactionInfo = {
+      amount,
+      category,
+      comment,
+    };
 
-    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+    if (transactionInfo) {
+      dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+    }
     // eslint-disable-next-line
-  }, [transactionInfo]);
+  }, [amount, category, comment]);
 
   return (
     <ExpenseFormStyled>
@@ -120,14 +114,15 @@ const ExpenseForm = () => {
             <input
               type="text"
               placeholder="Введите статью расходов"
-              {...comment.bind}
+              value={comment}
+              onChange={onCommentChange}
             />
           </label>
 
           <label>
             <span>На категорию</span>
-            <select type="text" {...category.bind}>
-              <option key="Без категории" value="Без категории" defaultValue>
+            <select type="text" value={category} onChange={onCategoryChange}>
+              <option key="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
               {categories.map(elem => (
@@ -145,7 +140,7 @@ const ExpenseForm = () => {
               type="number"
               placeholder="Введите сумму"
               onChange={onAmountChange}
-              value={amount}
+              value={amount.toString()}
             />
           </label>
           <CalcIconStyled onClick={showCalculatorHandler}>

@@ -5,6 +5,10 @@ const changeTransactionSuccess = transaction => ({
   payload: transaction,
 });
 
+const cleanTransactionSuccess = () => ({
+  type: transactionConstants.CLEAN_TRANSACTION_SUCCESS,
+});
+
 const createTransactionRequest = () => ({
   type: transactionConstants.CREATE_TRANSACTION_REQUEST,
 });
@@ -47,6 +51,7 @@ const updateTransactionError = error => ({
 
 export default {
   changeTransactionSuccess,
+  cleanTransactionSuccess,
 
   createTransactionRequest,
   createTransactionSuccess,
