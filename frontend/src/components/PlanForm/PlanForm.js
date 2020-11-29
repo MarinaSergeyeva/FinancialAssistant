@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlanFormStyled } from './planFormStyled';
 import Currency from './Currency';
 
@@ -6,20 +6,34 @@ const placeHolder = 'Введите сумму';
 
 function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
-  const [currency, setCurrency] = useState('');
+  const [currency, setCurrency] = useState({});
+  const [currencySvg, setCurrencySvg] = useState('hryvnaRate');
+  const [rateValue, setRateValue] = useState('');
 
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
   };
+  const setFlatPrice = () => {
+    getState({
+      ...state,
+      flatPrice:
+        Number(rateValue) *
+        (currency[currencySvg] ? Number(currency[currencySvg]) : 1),
+    });
+  };
+  const onSetRateValue = e => {
+    setRateValue(e.target.value);
+    getState({
+      ...state,
+      [e.target.name]:
+        Number(e.target.value) *
+        (currency[currencySvg] ? Number(currency[currencySvg]) : 1),
+    });
+  };
+  useEffect(() => {
+    setFlatPrice();
+  }, [currencySvg]);
 
-  const onHandleChangeCurrency = e => {
-    console.log(currency);
-    getState({ ...state, [e.target.name]: Number(e.target.value) });
-  };
-  const getCurrency = value => {
-    setCurrency(value);
-    return value;
-  };
   const onHandleFocus = () => setFieldActive(true);
   const onHandleBlur = () => setFieldActive(false);
 
@@ -62,16 +76,18 @@ function PlanForm({ state, getState }) {
           <label>
             <span>4. Укажите стоимость вашей будущей квартиры</span>
             <Currency
-              state={state}
-              getState={getState}
-              getCurrency={getCurrency}
+              currencySvg={currencySvg}
+              setCurrencySvg={setCurrencySvg}
+              setCurrency={setCurrency}
             />
             <input
               type="number"
               name="flatPrice"
-              value={!state.flatPrice ? '' : state.flatPrice}
+              value={rateValue}
+              // value={!state.flatPrice ? '' : state.flatPrice}
               placeholder={placeHolder}
-              onChange={onHandleChangeCurrency}
+              // onChange={onHandleChangeCurrency} //!
+              onChange={onSetRateValue} //!
             />
           </label>
           <label>

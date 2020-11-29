@@ -8,23 +8,25 @@ const exchangeRatesInit = {
   // hryvna: 1,
 };
 
-function Currency({ state, getState, getCurrency }) {
+function Currency({ currencySvg, setCurrencySvg, setCurrency }) {
   const [isShowCurrency, setShowCurrency] = useState(false);
-  const [currencySvg, setCurrencySvg] = useState('icon-hryvna');
-  const [exchangeRates, setExchangeRates] = useState(exchangeRatesInit);
 
   const showCurrency = () => setShowCurrency(prevState => !prevState);
 
   const selectedCurrency = e => {
     setCurrencySvg(e.target.id);
+    setShowCurrency(false);
   };
 
   const fetchExchangeRates = () => {
     fetch(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
       .then(result => result.json())
       .then(result => {
-        getCurrency({ dollarRate: result[0], euroRate: result[1] });
-        setExchangeRates({ dollarRate: result[0], euroRate: result[1] });
+        setCurrency({
+          dollarRate: result[0].buy,
+          euroRate: result[1].buy,
+          hryvnaRate: 1,
+        });
       });
   };
 
@@ -34,11 +36,6 @@ function Currency({ state, getState, getCurrency }) {
 
   return (
     <CurrencyStyled>
-      {console.log(
-        exchangeRates,
-        exchangeRates.dollarRate.buy,
-        exchangeRates.euroRate.buy,
-      )}
       <div className="currencyWrapper">
         <svg className="iconCurrency selectedIconCurrency">
           <use href={sprite + `#${currencySvg}`} />
@@ -52,29 +49,35 @@ function Currency({ state, getState, getCurrency }) {
       </div>
       {isShowCurrency && (
         <div className="currencyOption">
-          <div className="currencyOptionWrapper">
-            <svg
-              className="iconCurrency iconHryvna"
-              id="icon-hryvna"
-              onClick={selectedCurrency}
-            >
-              <use href={sprite + '#icon-hryvna'} />
-            </svg>
-            <svg
-              className="iconCurrency iconEuro"
-              id="icon-euro"
-              onClick={selectedCurrency}
-            >
-              <use href={sprite + '#icon-euro'} />
-            </svg>
-            <svg
-              className="iconCurrency iconDollar"
-              id="icon-dollar"
-              onClick={selectedCurrency}
-            >
-              <use href={sprite + '#icon-dollar'} />
-            </svg>
-          </div>
+          <ul className="currencyOptionWrapper">
+            <li>
+              <svg
+                className="iconCurrency iconHryvna"
+                id="hryvnaRate"
+                onClick={selectedCurrency}
+              >
+                <use href={sprite + '#hryvnaRate'} />
+              </svg>
+            </li>
+            <li>
+              <svg
+                className="iconCurrency iconEuro"
+                id="euroRate"
+                onClick={selectedCurrency}
+              >
+                <use href={sprite + '#euroRate'} />
+              </svg>
+            </li>
+            <li>
+              <svg
+                className="iconCurrency iconDollar"
+                id="dollarRate"
+                onClick={selectedCurrency}
+              >
+                <use href={sprite + '#dollarRate'} />
+              </svg>
+            </li>
+          </ul>
         </div>
       )}
     </CurrencyStyled>
@@ -83,6 +86,24 @@ function Currency({ state, getState, getCurrency }) {
 
 export default Currency;
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //------------- ------------- -----------
 // import React, { useState, useEffect } from 'react';
 // import { CurrencyStyled } from './currencyStyled';
@@ -97,22 +118,22 @@ export default Currency;
 // const initialHryvna = {
 //   name: 'UAH',
 //   price: 1,
-//   icon: 'icon-hryvna',
+//   icon: 'hryvnaRate',
 // };
 // const initialEuro = {
 //   name: 'EUR',
 //   price: 1,
-//   icon: 'icon-euro',
+//   icon: 'euroRate',
 // };
 // const initialDollar = {
 //   name: 'USD',
 //   price: 1,
-//   icon: 'icon-dollar',
+//   icon: 'dollarRate',
 // };
 
 // function Currency({ state, getState }) {
 //   const [isShowCurrency, setShowCurrency] = useState(false);
-//   const [currencySvg, setCurrencySvg] = useState('icon-hryvna');
+//   const [currencySvg, setCurrencySvg] = useState('hryvnaRate');
 
 //   const [hryvna, setHryvna] = useState(initialHryvna);
 //   const [euro, setEuro] = useState(initialEuro);
@@ -123,14 +144,14 @@ export default Currency;
 //   const showCurrency = () => setShowCurrency(prevState => !prevState);
 
 //   // const convertCurrency = () => {
-//   //   if (currencySvg === 'icon-hryvna') {
+//   //   if (currencySvg === 'hryvnaRate') {
 //   //     setSelectCurrency('UAH');
 //   //     getState({ ...state, flatPrice: state.flatPrice });
-//   //   } else if (currencySvg === 'icon-dollar') {
+//   //   } else if (currencySvg === 'dollarRate') {
 //   //     setSelectCurrency('USD');
 //   //     const convertFlatPrice = state.flatPrice / exchangeRates.dollarRate.buy;
 //   //     getState({ ...state, flatPrice: convertFlatPrice });
-//   //   } else if (currencySvg === 'icon-euro') {
+//   //   } else if (currencySvg === 'euroRate') {
 //   //     setSelectCurrency('EUR');
 //   //     const convertFlatPrice = state.flatPrice / exchangeRates.euroRate.buy;
 //   //     getState({ ...state, flatPrice: convertFlatPrice });
@@ -139,17 +160,17 @@ export default Currency;
 
 //   const selectedCurrency = e => {
 //     setCurrencySvg(e.target.id);
-//     if (currencySvg === 'icon-hryvna') {
+//     if (currencySvg === 'hryvnaRate') {
 //       setHryvna({ ...hryvna, price: 1 });
 //       getState({ ...state, flatPrice: state.flatPrice });
-//     } else if (currencySvg === 'icon-dollar') {
+//     } else if (currencySvg === 'dollarRate') {
 //       setDollar({ ...dollar, price: exchangeRates.dollarRate.buy });
 //       setCurrencySvg(prevState => {
-//         if (prevState === 'icon-euro') {
+//         if (prevState === 'euroRate') {
 //           //
 //         }
 //       });
-//     } else if (currencySvg === 'icon-euro') {
+//     } else if (currencySvg === 'euroRate') {
 //       setEuro({ ...euro, price: exchangeRates.euroRate.buy });
 //     }
 
@@ -191,24 +212,24 @@ export default Currency;
 //           <div className="currencyOptionWrapper">
 //             <svg
 //               className="iconCurrency iconHryvna"
-//               id="icon-hryvna"
+//               id="hryvnaRate"
 //               onClick={selectedCurrency}
 //             >
-//               <use href={sprite + '#icon-hryvna'} />
+//               <use href={sprite + '#hryvnaRate'} />
 //             </svg>
 //             <svg
 //               className="iconCurrency iconEuro"
-//               id="icon-euro"
+//               id="euroRate"
 //               onClick={selectedCurrency}
 //             >
-//               <use href={sprite + '#icon-euro'} />
+//               <use href={sprite + '#euroRate'} />
 //             </svg>
 //             <svg
 //               className="iconCurrency iconDollar"
-//               id="icon-dollar"
+//               id="dollarRate"
 //               onClick={selectedCurrency}
 //             >
-//               <use href={sprite + '#icon-dollar'} />
+//               <use href={sprite + '#dollarRate'} />
 //             </svg>
 //           </div>
 //         </div>
