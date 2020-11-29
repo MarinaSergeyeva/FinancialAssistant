@@ -56,6 +56,42 @@ export const PlanFormStyled = styled.div`
   input:focus {
     border-bottom: 1px solid rgb(33, 150, 243);
   }
+  input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+  }
+  /* .selectWrapper {
+    position: absolute;
+    top: 34px;
+    right: 12px;
+  }
+  select {
+    position: relative;
+    width: 102px;
+    height: 20px;
+    outline: none;
+    background: rgba(0, 0, 0, 0);
+    background-image: url('.././../assets/icons/PlanForm/Shape.png');
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding: 30px 12px 12px;
+    color: rgba(24, 25, 31, 0.87);
+    font-size: 16px;
+    line-height: 19px;
+    border: none;
+  } */
+  /* option {
+    position: absolute;
+    top: 100px;
+    background: red;
+    border: none;
+  } */
+  ///------- currency ---------
+  /////height
 
   @media (min-width: ${size.tablet}) {
     form {

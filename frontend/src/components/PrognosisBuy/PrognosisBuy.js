@@ -10,7 +10,9 @@ function PrognosisBuy({ fields }) {
 
   const getResult = () => {
     if (
-      (fields.totalSalary || fields.passiveIncome || fields.balance) &&
+      fields.totalSalary &&
+      fields.passiveIncome &&
+      fields.balance &&
       fields.flatPrice &&
       fields.incomePercentageToSavings &&
       fields.balance <= fields.flatPrice
@@ -33,13 +35,6 @@ function PrognosisBuy({ fields }) {
     }
   };
 
-  // const reg = /\s/;
-  // const yearsArray = yearsResult.toLocaleString().split('');
-  // const yearsArray = years.toString().split('');
-  // const lastIndexOfYearsArray = yearsArray[yearsArray.length - 1];
-  // const monthesArray = monthes.toString().split('');
-  // const lastIndexOfMonthesArray = monthes[monthes.length - 1];
-
   function declOfNum(number, words) {
     return words[
       number % 100 > 4 && number % 100 < 20
@@ -50,31 +45,21 @@ function PrognosisBuy({ fields }) {
 
   useEffect(() => {
     getResult();
-    // changeWord();
   }, [fields]);
 
   const dispatch = useDispatch();
 
   const onHandleSubmit = e => {
     e.preventDefault();
-    dispatch(operation.updateUserInfo(fields));
+    monthes && dispatch(operation.updateUserInfo(fields));
   };
 
   return (
     <PrognosisBuyStyled>
-      {/* {console.log('state!!!', fields)} */}
-      {/* {console.log('incomeToSaving', incomeToSavings)} */}
-      {/* {console.log('years!!!', years)}
-      {console.log('monthes!!!', monthes)} */}
-      {/* {console.log('yearsArray!!!', yearsArray)}
-      {console.log('monthesArray!!!', monthesArray)} */}
       <div className="wrapper">
         <h2>У вас будет квартира через:</h2>
         <form onSubmit={onHandleSubmit}>
           <label>
-            {/* {console.log(yearsArray)} */}
-            {/* {console.log(yearsArray[yearsArray.length - 1])} */}
-            {/* {console.log(lastIndexOfYearsArray)} */}
             <input
               type="text"
               name="years"
