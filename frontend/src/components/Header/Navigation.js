@@ -6,6 +6,7 @@ import device from '../../common/deviceSizes';
 import Logout from './Logout';
 import { useMediaQuery } from 'react-responsive';
 import navigationBackgroundTablet from '../../assets/images/Navigation/navigation_bg-tablet.png';
+import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
 const Navigation = ({ showNavigation }) => {
   const isMobileDevice = useMediaQuery({
@@ -42,6 +43,7 @@ const Navigation = ({ showNavigation }) => {
         >
           Динамика
         </StyleNavLInk>
+        {isMobileDevice && <ExpenseButton />}
         {(isMobileDevice || isTabletDevice) && (
           <Logout showNavigation={showNavigation} />
         )}
@@ -51,15 +53,6 @@ const Navigation = ({ showNavigation }) => {
             alt="navigation tablet background"
           />
         )}
-        <BtnNavLInk
-          to="/expense/list"
-          activeClassName="active"
-          onClick={showNavigation}
-        >
-          <SvgIcon>
-            <use href="#dynamics"></use>
-          </SvgIcon>
-        </BtnNavLInk>
       </NavigationContainer>
     </>
   );
@@ -144,20 +137,4 @@ const NavigationBgImg = styled.img`
   right: 0px;
   z-index: -1;
   max-height: calc(100vh - 350px);
-`;
-
-const BtnNavLInk = styled(NavLink)`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #7c9af2;
-  border-radius: 8px;
-`;
-
-const SvgIcon = styled.svg`
-  width: 12px;
-  height: 12px;
-  fill: white;
 `;

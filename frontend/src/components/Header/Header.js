@@ -11,12 +11,16 @@ import { authSelector } from '../../redux/selectors';
 import Navigation from './Navigation';
 import { useMediaQuery } from 'react-responsive';
 import LoginHeader from './LoginHeader';
+import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
 const Header = ({ showNavigation }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
+  });
+  const isTabletDevice = useMediaQuery({
+    query: device.tablet,
   });
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
@@ -27,8 +31,11 @@ const Header = ({ showNavigation }) => {
       <HeaderContainer>
         {isUserAuth && isDesktopDevice && <Navigation />}
         <Logo />
-        {isUserAuth && <Userinfo showNavigation={showNavigation} />}
-        {!isUserAuth && !isMobileDevice && <LoginHeader />}
+        <UserInfoWrapper>
+          {isUserAuth && !isMobileDevice && <ExpenseButton />}
+          {isUserAuth && <Userinfo showNavigation={showNavigation} />}
+          {!isUserAuth && !isMobileDevice && <LoginHeader />}
+        </UserInfoWrapper>
       </HeaderContainer>
     </>
   );
@@ -54,7 +61,9 @@ const HeaderContainer = styled.div`
   } ;
 `;
 
-const MobileNavigationContainer = styled.div`
-  width: 280px;
-  margin: 0 auto;
+const UserInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  /* width: 280px;
+  margin: 0 auto; */
 `;

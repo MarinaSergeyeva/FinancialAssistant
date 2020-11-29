@@ -12,9 +12,11 @@ import device from '../../common/deviceSizes';
 import Spinner from '../Spinner/Spinner';
 import { useMediaQuery } from 'react-responsive';
 import { authSelector } from '../../redux/selectors';
+import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
 const App = () => {
   const [showNavigation, setShowMobileNavigation] = useState(false);
+  console.log('showNavigation', showNavigation);
 
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
@@ -23,7 +25,7 @@ const App = () => {
   });
 
   const showNavigationHandler = () => {
-    setShowMobileNavigation(!showNavigation);
+    return setShowMobileNavigation(!showNavigation);
   };
 
   const dispatch = useDispatch();
