@@ -13,7 +13,7 @@ export const MyChart = () => {
   });
   console.log('allReports', allReports.length);
   const reportsNewR = Object.values(allReports);
-  const reportsNew = reportsNewR.splice(0, 11);
+  const reportsNew = reportsNewR.splice(0, 11).reverse();
   console.log('reportsNewR', reportsNew);
 
   let arrayOfTotalSavings = [];

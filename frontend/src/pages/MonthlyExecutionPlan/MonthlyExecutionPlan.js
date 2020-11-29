@@ -15,7 +15,7 @@ registerLocale('ru', ru);
 
 export const MonthlyExecutionPlan = () => {
   let allReports;
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,6 +46,28 @@ export const MonthlyExecutionPlan = () => {
     return dataForRequest;
   }
 
+  const monthsBG = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ];
+
+  registerLocale('bg', {
+    localize: {
+      month: n => monthsBG[n],
+    },
+    formatLong: {},
+  });
+
   return (
     <>
       <MonthlyMainWrapper>
@@ -53,17 +75,17 @@ export const MonthlyExecutionPlan = () => {
         <MonthlyLabel>Месяц </MonthlyLabel>
 
         <DatePicker
-          //locale="ru"
+          locale="bg"
           placeholderText="Укажите месяц ..."
           className={styles.Month_input}
-          selected={startDate ? startDate : null}
+          selected={startDate}
           // onChange={reportDate => setStartDate(reportDate)}
           onChange={onChange}
           dateFormat="MMMM YYY"
           showMonthYearPicker
           showFullMonthYearPicker
           showTwoColumnMonthYearPicker
-          isClearable
+          //isClearable
         />
 
         <MonthlyCardsWrapper>
