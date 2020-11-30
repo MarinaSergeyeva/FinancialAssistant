@@ -131,9 +131,14 @@ const ExpenseForm = ({ resetForm }) => {
             />
           </label>
 
-          <label>
+          <label className="select-arrow">
             <span>На категорию</span>
-            <select type="text" value={category} onChange={onCategoryChange}>
+            <select
+              className="select-arrow"
+              type="text"
+              value={category}
+              onChange={onCategoryChange}
+            >
               <option key="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
