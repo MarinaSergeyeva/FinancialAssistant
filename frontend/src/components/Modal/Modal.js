@@ -1,23 +1,34 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import setError from '../../redux/actions/errorActions';
 
 export default function Modal({ children, closeModal }) {
   const refModal = useRef();
+  const dispatch = useDispatch();
 
   const hendleClick = useCallback(
-      ({ target }) => {
-    if (refModal.current !== target) return;
-    closeModal();
-  },[closeModal]);
-
-    const closeModalKeydown = useCallback(e => {
-    if (e.code === 'Escape') {
+    ({ target }) => {
+      if (refModal.current !== target) return;
       closeModal();
-    }
-    }, [closeModal]);
+      dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
+    },
+    [closeModal],
+  );
+
+  const closeModalKeydown = useCallback(
+    e => {
+      if (e.code === 'Escape') {
+        closeModal();
+        dispatch(
+          setError.setError({ kindOfErr: '', status: 0, statusText: '' }),
+        );
+      }
+    },
+    [closeModal],
+  );
 
   useEffect(() => {
-  
     window.addEventListener('keydown', closeModalKeydown);
     document.body.style.overflow = 'hidden';
 

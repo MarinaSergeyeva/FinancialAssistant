@@ -10,7 +10,8 @@ const AuthPage = () => {
 
   useEffect(() => {
     const token = new URLSearchParams(location.search).get('token');
-    dispatch(action.loginSuccess({ token }));
+    // console.log(token,"PARAMS");
+    token && dispatch(action.loginSuccess({ token }));
   }, [location.search]);
 
   return (

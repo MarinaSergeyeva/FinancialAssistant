@@ -9,15 +9,14 @@ import errorReducer from './errorReducer';
 import calculatorReduce from './calculatorReduces';
 import categoriesReducer from './categoriesReducer';
 
-export const persistConfig = {
+export const persistAuthConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', "username", "auth"],
+  whitelist: ['token', 'username', 'id'],
 };
 
 const root = combineReducers({
-  auth: persistReducer(persistConfig, authReducer),
-  // auth: authReducer,
+  auth: persistReducer(persistAuthConfig, authReducer),
   user: combineReducers({
     info: userReducer,
     transaction: transactionReducer,

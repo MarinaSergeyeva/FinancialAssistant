@@ -7,6 +7,7 @@ import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
 import device from '../../../common/deviceSizes';
+import setError from '../../../redux/actions/errorActions'
 
 import {
   AuthFormWrapper,
@@ -25,19 +26,45 @@ const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
 
   const errState = useSelector(state => getError(state));
-  const [messageErr, setMessageErr] = useState(null);
 
-  const MessageErr =  () => {
+  const [messageErr, setMessageErr] = useState('');
+
+    const MessageErr =  (errState) => {
     const message = funcErrTranslator(Number(errState?.status));
     setMessageErr(message);
   };
+
+
   useEffect(() => {
-     MessageErr();
-  }, [errState]);
+    if(messageErr){
+      console.log("is mistake")
+      console.log(messageErr, "messageErr")
+    }else{
+      console.log("NO mistake")
+      console.log(messageErr, "messageErr")
+    }
+   
+  }, [MessageErr]);
+
+
+  useEffect(() => {
+    // MessageErr(errState);
+    const MessageErr =  (errState) => {
+      const message = funcErrTranslator(Number(errState?.status));
+      setMessageErr(message);
+    };
+    MessageErr();
+    
+  //  if(messageErr){
+  //    console.log("is mistake")
+  //  }else{
+  //    console.log("NO mistake")
+  //  }
+  //  //  console.log(messageErr,"messageErrcloseModal!!!1")
+    console.log(errState,"errState")
+ }, [errState]);
 
   const userInfo = useSelector(state => state.auth.username);
-  console.log(userInfo)
-
   const [userInfoRegistr, setUserInfoRegistr] = useState(
     userInfo ? true : false,
   );
@@ -48,6 +75,8 @@ const Registration = ({ closeModal }) => {
     } else {
       setUserInfoRegistr(false);
     }
+    // console.log(userInfo,"userInfo")
+    // console.log(userInfoRegistr,"userInfoRegistr")
   }, [userInfo]);
 
   const isOnMobile = useMediaQuery({
@@ -56,7 +85,6 @@ const Registration = ({ closeModal }) => {
 
   return (
     <AuthFormWrapper>
-      {console.log(userInfoRegistr,"1userInfoRegistr")}
       <Formik
         initialValues={{
           username: '',
@@ -64,10 +92,11 @@ const Registration = ({ closeModal }) => {
           password: '',
         }}
         validationSchema={registrationFrontSchema}
-        onSubmit={async values => {
+        onSubmit={async (values) => {
         dispatch(await operation.userRegistration({ ...values }));
-
-          !isOnMobile && messageErr && closeModal();
+        
+          !isOnMobile && !messageErr && closeModal();
+          closeModal() && dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (

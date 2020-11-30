@@ -22,7 +22,7 @@ const error = (state = {...initialResponse}, action) => {
         kindOfErr: 'Login',
       };
     case errorConstants.SET_ERROR:
-      return action.payload.message;
+      return action.payload;
     case errorConstants.HIDE_ERROR:
     case authConstants.REGISTER_REQUEST:
     case authConstants.LOGIN_REQUEST:

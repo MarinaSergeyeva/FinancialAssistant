@@ -26,18 +26,23 @@ const Login = ({ closeModal }) => {
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
-  
+  const [state, setstate] = useState(null)
   const errState = useSelector(state => getError(state));
-
   const [messageErrLogin, setMessageErrlogin] = useState(null);
 
   const MessageErrlogin =  () => {
     const message = funcErrTranslator(Number(errState?.status));
+    console.log(message);
     setMessageErrlogin(message);
   };
   useEffect(() => {
     MessageErrlogin();
+   
   }, [errState]);
+
+  useEffect(() => {
+    console.log(state,"state")
+  }, [])
 
 
   return (
@@ -47,11 +52,13 @@ const Login = ({ closeModal }) => {
           email: '',
           password: '',
         }}
+
         validationSchema={loginFrontSchema}
-        onSubmit={async values => {
-          
+        onSubmit={async (values) => {
+        
           dispatch(await operation.userLogin({ ...values }));
           !isOnMobile && messageErrLogin && closeModal();
+          
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -72,7 +79,7 @@ const Login = ({ closeModal }) => {
                   name="email"
                   id="email"
                   borderErrColor={errState?.status === 404 || errState?.status === 500 ? 'red' : '#a3a3a3'}
-
+                  touched={setstate("rjcyekcz")}
                 />
                 {(
                   <ErrorValidation

@@ -1,22 +1,21 @@
 import authConstants from '../constants/authConstants';
-// console.log("11111");
+
 const initialState = {
-  token: null,
-  username: null,
+  id: '',
+  username: '',
+  token: '',
 };
 
-const auth = (state = { ...initialState }, { type, payload }) => {
-
-
+const auth = (state = {...initialState}, { type, payload }) => {
   switch (type) {
     case authConstants.REGISTER_SUCCESS:
-      return payload;
+      return { ...payload };
 
     case authConstants.LOGIN_SUCCESS:
-      return payload;
+      return { ...payload };
 
     case authConstants.LOGOUT:
-      return initialState;
+      return state;
 
     default:
       return state;
