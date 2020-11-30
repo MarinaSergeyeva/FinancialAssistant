@@ -26,6 +26,7 @@ function Currency({ currencySvg, setCurrencySvg, setCurrency }) {
 
   useEffect(() => {
     fetchExchangeRates();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

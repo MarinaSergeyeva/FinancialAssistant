@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import device from '../common/deviceSizes';
-import { background, textColor } from '../stylesheet/vars';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`

@@ -6,7 +6,6 @@ import { background, colors } from '../../stylesheet/vars';
 import { userSelectors, transactionSelectors } from '../../redux/selectors';
 import { transactionOperations } from '../../redux/operations';
 import Modal from '../Modal/Modal';
-import transactionActions from '../../redux/actions/transactionActions';
 
 const ForecastExpense = ({ setTransactionStatus }) => {
   const transaction = useSelector(transactionSelectors.getTransaction);
