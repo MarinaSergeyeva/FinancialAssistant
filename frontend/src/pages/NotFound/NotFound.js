@@ -53,7 +53,7 @@ const SectionNotFound = styled.section`
 
 const SectionText = styled.p`
   position: absolute;
-  top: 20%;
+  top: 15%;
   font-size: 80px;
 `;
 
