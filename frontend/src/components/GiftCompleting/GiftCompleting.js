@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import giftImg from '../../assets/images/GiftCompleting/gift grey.png';
 import giftImg2 from '../../assets/images/GiftCompleting/gift 2.png';
@@ -16,15 +16,10 @@ const GiftCompleting = () => {
   );
 
   const dispatch = useDispatch();
-  const [gifts, setGifts] = useState(giftForUnpack);
 
-  const unpackGift = () => {
-    setGifts(prev => prev - 1);
+  const unpackGift = async () => {
+    dispatch(await statsOperatioins.updateGifts());
   };
-
-  useEffect(() => {
-    dispatch(statsOperatioins.updateGifts());
-  }, [gifts]);
 
   return (
     <>

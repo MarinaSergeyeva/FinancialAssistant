@@ -2,7 +2,7 @@ import axios from 'axios';
 import authSelector from '../selectors/authSelector';
 import { token } from './authOperations';
 import chartActions from '../actions/chartActions';
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
 
 const getMonthReport = startDate => async (dispatch, getState) => {
   const tokenNow = authSelector.isAuthenticated(getState());
