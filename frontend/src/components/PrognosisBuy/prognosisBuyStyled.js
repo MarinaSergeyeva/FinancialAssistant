@@ -56,6 +56,11 @@ export const PrognosisBuyStyled = styled.div`
     background: rgb(255, 108, 0);
     cursor: pointer;
   }
+  button:hover,
+  button:focus {
+    background: rgba(255, 108, 0, 0.8);
+  }
+
   input,
   button {
     height: 56px;
@@ -115,4 +120,12 @@ export const PrognosisBuyStyled = styled.div`
       margin-left: 127px;
     }
   }
+`;
+export const MessageStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 100px;
+  font-size: 14px;
+  background-color: #ffffff;
 `;
