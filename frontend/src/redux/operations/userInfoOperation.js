@@ -3,7 +3,7 @@ import userInfoAction from '../actions/userInfoAction';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
 
 const updateUserInfo = userInfo => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
