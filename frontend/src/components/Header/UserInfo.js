@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
+import { NavLink } from 'react-router-dom';
 import { ReactComponent as AvatarImgIcon } from '../../assets/icons/Header/Avatar/icon-user.svg';
 import Logout from './Logout';
 import { colors, textColor } from '../../stylesheet/vars';
@@ -25,12 +26,17 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
   return (
     <>
       <UserinfoContainer>
-        <AvatarImgIconStyled>
-          <AvatarImgIcon className="avatar-icon" />
-        </AvatarImgIconStyled>
-        {isUserAuth && !isMobileDevice && (
-          <p className="userName">{username}</p>
-        )}
+        {/* <StyleNavLInk to="/profile"> */}
+        <UserInfoWrapper>
+          <AvatarImgIconStyled>
+            <AvatarImgIcon className="avatar-icon" />
+          </AvatarImgIconStyled>
+          {isUserAuth && !isMobileDevice && (
+            <p className="userName">{username}</p>
+          )}
+        </UserInfoWrapper>
+        {/* </StyleNavLInk> */}
+
         {isDesktopDevice ? (
           <Logout showNavigation={showNavigation} />
         ) : (
@@ -66,6 +72,14 @@ const UserinfoContainer = styled.div`
     margin-right: 32px;
   }
 `;
+
+const UserInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StyleNavLInk = styled(NavLink);
 
 const AvatarImgIconStyled = styled.svg`
   width: 48px;

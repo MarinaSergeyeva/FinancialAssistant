@@ -57,7 +57,9 @@ const ExpensePage = () => {
                 resetForm={resetForm}
               />
             </ExpenseFormWrapper>
-            <ForecastExpense setTransactionStatus={setTransactionStatus} />
+            <ForecastExpenseWrapper>
+              <ForecastExpense setTransactionStatus={setTransactionStatus} />
+            </ForecastExpenseWrapper>
             <Mobile>
               <ExpensePageImg
                 src={expensePageMobile}
@@ -66,7 +68,7 @@ const ExpensePage = () => {
             </Mobile>
             <Tablet>
               <ExpensePageImg
-                height="320"
+                // height="320"
                 src={expensePageTablet}
                 alt="expense page background"
               />
@@ -139,7 +141,6 @@ const ExpensePageContainer = styled.div`
   position: relative;
   margin: 0 auto;
   padding-top: 40px;
-  padding-bottom: 200px;
   width: 280px;
   @media ${device.tablet} {
     max-height: calc(100vh - 87px);
@@ -150,32 +151,34 @@ const ExpensePageContainer = styled.div`
   @media ${device.desktop} {
     max-height: 100vh;
     padding-top: 64px;
-    padding-bottom: 220px;
     width: 770px;
   }
 `;
 
 const ExpenseFormWrapper = styled.div`
   margin: 0 auto;
-
   margin-bottom: 52px;
-  /* width: 690px; */
-  /* display: flex; */
+`;
+
+const ForecastExpenseWrapper = styled.div`
+  margin-bottom: 34px;
+  @media ${device.tablet} {
+    margin-bottom: 160px;
+  }
 `;
 
 const ExpensePageImg = styled.img`
-  position: absolute;
-  bottom: 0px;
-  left: -20px;
+  margin-left: -20px;
 
   @media ${device.tablet} {
+    margin-left: -40px;
     max-height: 320px;
     left: -40px;
   }
 
   @media ${device.largeDesktop} {
-    left: -255px;
-  } ;
+    margin-left: -200px;
+  }
 `;
 
 const ExpenseListImg = styled.img`
@@ -183,6 +186,10 @@ const ExpenseListImg = styled.img`
   bottom: 0;
   right: 0;
   max-width: 100%;
+
+  @media ${device.largeDesktop} {
+    max-height: 265px;
+  }
 `;
 
 const ExpenseListHeader = styled.div`

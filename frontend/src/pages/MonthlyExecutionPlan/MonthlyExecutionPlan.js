@@ -117,6 +117,7 @@ export const MonthlyExecutionPlan = () => {
 
 //========
 const MonthlyMainWrapper = styled.div`
+  margin: 0 auto;
   width: 280px;
   @media ${device.tablet} {
     width: 510px;
@@ -159,6 +160,7 @@ const MonthlyCards = styled.li`
     line-height: 18px;
     width: 80px;
     height: 48px;
+    margin-bottom: 0px;
   }
 `;
 const MonthlyLabel = styled.p`

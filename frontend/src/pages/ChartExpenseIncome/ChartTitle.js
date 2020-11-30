@@ -19,7 +19,7 @@ const ChartTitlteSC = styled.p`
   text-align: center;
 
   @media ${device.mobile} {
-    margin: 30px 0;
+    margin: 0 0 30px;
   }
   @media ${device.tablet} {
     background-color: #f3f3f5;
