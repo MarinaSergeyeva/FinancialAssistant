@@ -57,13 +57,13 @@ const MainPage = () => {
           ></GoogleAuthBtnImg>
           Sign up with Google
         </GoogleAuthBtn>
-        <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
+        {/* <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
           <FacebookAuthBtnImg
             src={facebookLogo}
             alt="facebook auth picture"
           ></FacebookAuthBtnImg>
           Sign up with Facebook
-        </FacebookAuthBtn>
+        </FacebookAuthBtn> */}
 
         <Mobile>
           <AuthContainer>
