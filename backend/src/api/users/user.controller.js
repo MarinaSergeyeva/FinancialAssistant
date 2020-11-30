@@ -75,7 +75,8 @@ const calculateStats = user => {
     giftsForUnpacking,
   } = user;
 
-  const savingsPercentage = Math.round((balance / flatPrice) * 100) / 100;
+  const savingsPercentage =
+    Math.round((giftsUnpacked / flatSquareMeters) * 100) / 100;
 
   const savingsValue = balance;
 
@@ -100,6 +101,7 @@ const calculateStats = user => {
     totalSquareMeters,
     monthsLeftToSaveForFlat,
     savingsForNextSquareMeterLeft,
+    giftsUnpacked,
     giftsForUnpacking,
   };
   return flatStats;
