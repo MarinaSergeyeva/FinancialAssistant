@@ -15,122 +15,123 @@ import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCat
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
-  {
-    const [isTransactionSend, setTransactionStatus] = useState(false);
-    // console.log('isTransactionSend', isTransactionSend);
-    const resetForm = () => {
-      return isTransactionSend;
+  const [isTransactionSend, setTransactionStatus] = useState(false);
+  // console.log('isTransactionSend', isTransactionSend);
+  const resetForm = () => {
+    return isTransactionSend;
+  };
+  const match = useRouteMatch();
+  const location = useLocation();
+  const [startDate, setStartDate] = useState(new Date());
+  const [calendarIsOpen, setIsOpenCalendar] = useState(false);
+  const openDatePicker = () => {
+    setIsOpenCalendar(!calendarIsOpen);
+  };
+  const CustomInput = React.forwardRef((props, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClick = () => {
+      setIsOpen(!isOpen);
+      props.onClick();
+      openDatePicker();
     };
-    const match = useRouteMatch();
-    const location = useLocation();
-    const [startDate, setStartDate] = useState(new Date());
-    const [calendarIsOpen, setIsOpenCalendar] = useState(false);
-    const openDatePicker = () => {
-      setIsOpenCalendar(!calendarIsOpen);
-    };
-    const CustomInput = React.forwardRef((props, ref) => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleClick = () => {
-        setIsOpen(!isOpen);
-        props.onClick();
-        openDatePicker();
-      };
-      return (
-        <BtnCalendar onClick={handleClick} ref={ref}>
-          {isOpen ? (
-            props.value
-          ) : (
-            <SvgIcon>
-              <use href="#calendar"></use>
-            </SvgIcon>
-          )}
-        </BtnCalendar>
-      );
-    });
     return (
-      <>
-        {location.pathname === match.path ? (
-          <ExpensePageContainer>
-            <ExpenseFormWrapper>
-              <ExpenseForm
-                setTransactionStatus={setTransactionStatus}
-                resetForm={resetForm}
-              />
-            </ExpenseFormWrapper>
-            <ForecastExpense setTransactionStatus={setTransactionStatus} />
-            <Mobile>
-              <ExpensePageImg
-                src={expensePageMobile}
-                alt="expense page background"
-              />
-            </Mobile>
-            <Tablet>
-              <ExpensePageImg
-                height="320"
-                src={expensePageTablet}
-                alt="expense page background"
-              />
-            </Tablet>
-            <Desktop>
-              <ExpensePageImg
-                src={expensePageDesktop}
-                alt="expense page background"
-              />
-            </Desktop>
-          </ExpensePageContainer>
+      <BtnCalendar onClick={handleClick} ref={ref}>
+        {isOpen ? (
+          props.value
         ) : (
-          <ExpensePageContainer>
-            <ExpenseListHeader>
-              <TabsModeView>
-                <TabMode>
-                  <NavLink
-                    to={{
-                      pathname: `${match.url}/list`,
-                    }}
-                    className="tab-link"
-                    activeClassName="active-tab"
-                  >
-                    Список
-                  </NavLink>
-                </TabMode>
-                <TabMode>
-                  <NavLink
-                    to={{
-                      pathname: `${match.url}/categories`,
-                    }}
-                    className="tab-link"
-                    activeClassName="active-tab"
-                  >
-                    Категории
-                  </NavLink>
-                </TabMode>
-              </TabsModeView>
-              <DatePicker
-                selected={startDate}
-                locale={ru}
-                onChange={date => setStartDate(date)}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
-                showFullMonthYearPicker
-                open={calendarIsOpen}
-                onClickOutside={openDatePicker}
-                customInput={<CustomInput />}
-              />
-            </ExpenseListHeader>
-            <ExpenseListImg src={expenseList} alt="expense list background" />
-            <ExpenseListWrap>
-              <Route path={`${match.url}/list`}>
-                <ExpenseList date={startDate} />
-              </Route>
-              <Route path={`${match.url}/categories`}>
-                <ExpenseCategories date={startDate} />
-              </Route>
-            </ExpenseListWrap>
-          </ExpensePageContainer>
+          <SvgIcon>
+            <use href="#calendar"></use>
+          </SvgIcon>
         )}
-      </>
+      </BtnCalendar>
     );
-  }
+  });
+  return (
+    <>
+      {location.pathname === match.path ? (
+        <ExpensePageContainer>
+          <ExpenseFormWrapper>
+            <ExpenseForm
+              setTransactionStatus={setTransactionStatus}
+              resetForm={resetForm}
+            />
+          </ExpenseFormWrapper>
+          <ForecastExpenseWrapper>
+            <ForecastExpense setTransactionStatus={setTransactionStatus} />
+          </ForecastExpenseWrapper>
+          <Mobile>
+            <ExpensePageImg
+              src={expensePageMobile}
+              alt="expense page background"
+            />
+          </Mobile>
+          <Tablet>
+            <ExpensePageImg
+              // height="320"
+              src={expensePageTablet}
+              alt="expense page background"
+            />
+          </Tablet>
+          <Desktop>
+            <ExpensePageImg
+              src={expensePageDesktop}
+              alt="expense page background"
+            />
+          </Desktop>
+        </ExpensePageContainer>
+      ) : (
+        <ExpenseListContainer>
+          <ExpenseListHeader>
+            <TabsModeView>
+              <TabMode>
+                <NavLink
+                  to={{
+                    pathname: `${match.url}/list`,
+                  }}
+                  className="tab-link"
+                  activeClassName="active-tab"
+                >
+                  Список
+                </NavLink>
+              </TabMode>
+              <TabMode>
+                <NavLink
+                  to={{
+                    pathname: `${match.url}/categories`,
+                  }}
+                  className="tab-link"
+                  activeClassName="active-tab"
+                >
+                  Категории
+                </NavLink>
+              </TabMode>
+            </TabsModeView>
+            <DatePicker
+              selected={startDate}
+              locale={ru}
+              onChange={date => setStartDate(date)}
+              dateFormat="MM/yyyy"
+              showMonthYearPicker
+              showFullMonthYearPicker
+              showTwoColumnMonthYearPicker
+              open={calendarIsOpen}
+              onClickOutside={openDatePicker}
+              customInput={<CustomInput />}
+            />
+          </ExpenseListHeader>
+          <ExpenseListWrap>
+            <Route path={`${match.url}/list`}>
+              <ExpenseList date={startDate} />
+            </Route>
+            <Route path={`${match.url}/categories`}>
+              <ExpenseCategories date={startDate} />
+            </Route>
+          </ExpenseListWrap>
+          <ExpenseListImg src={expenseList} alt="expense list background" />
+        </ExpenseListContainer>
+      )}
+    </>
+  );
 };
 
 export default ExpensePage;
@@ -139,7 +140,6 @@ const ExpensePageContainer = styled.div`
   position: relative;
   margin: 0 auto;
   padding-top: 40px;
-  padding-bottom: 200px;
   width: 280px;
   @media ${device.tablet} {
     max-height: calc(100vh - 87px);
@@ -150,39 +150,59 @@ const ExpensePageContainer = styled.div`
   @media ${device.desktop} {
     max-height: 100vh;
     padding-top: 64px;
-    padding-bottom: 220px;
     width: 770px;
   }
 `;
 
 const ExpenseFormWrapper = styled.div`
   margin: 0 auto;
-
   margin-bottom: 52px;
-  /* width: 690px; */
-  /* display: flex; */
+`;
+
+const ForecastExpenseWrapper = styled.div`
+  margin-bottom: 34px;
+  @media ${device.tablet} {
+    margin-bottom: 160px;
+  }
 `;
 
 const ExpensePageImg = styled.img`
-  position: absolute;
-  bottom: 0px;
-  left: -20px;
+  margin-left: -20px;
 
   @media ${device.tablet} {
+    margin-left: -40px;
     max-height: 320px;
     left: -40px;
   }
 
   @media ${device.largeDesktop} {
-    left: -255px;
-  } ;
+    margin-left: -200px;
+  }
+`;
+
+const ExpenseListContainer = styled.div`
+  margin: 0 auto;
+  padding-top: 40px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  @media ${device.tablet} {
+    padding-top: 74px;
+    width: 690px;
+  }
+  @media ${device.desktop} {
+    padding-top: 64px;
+    width: 770px;
+  }
 `;
 
 const ExpenseListImg = styled.img`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  max-width: 100%;
+  margin-left: auto;
+  max-width: 55%;
+
+  @media ${device.largeDesktop} {
+    max-width: 315px;
+  }
 `;
 
 const ExpenseListHeader = styled.div`
@@ -193,6 +213,7 @@ const ExpenseListHeader = styled.div`
 
 const ExpenseListWrap = styled.div`
   min-height: 355px;
+  margin-bottom: 55px;
 `;
 
 const TabsModeView = styled.ul`

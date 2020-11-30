@@ -9,8 +9,9 @@ import { authSelector, userSelectors } from '../../redux/selectors';
 import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from './BurgerMenu';
 
-const Userinfo = ({ showNavigation }) => {
+const Userinfo = ({ showNavigation, isNavigationOn }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
+  const userData = useSelector(userSelectors.getCurrentUser);
   const { username } = useSelector(state =>
     userSelectors.getCurrentUser(state),
   );
@@ -25,16 +26,26 @@ const Userinfo = ({ showNavigation }) => {
   return (
     <>
       <UserinfoContainer>
-        <AvatarImgIconStyled>
-          <AvatarImgIcon className="avatar-icon" />
-        </AvatarImgIconStyled>
-        {isUserAuth && !isMobileDevice && (
-          <p className="userName">{username}</p>
-        )}
+        <UserInfoWrapper>
+          {userData.picture === 'none' ? (
+            <AvatarImgIconStyled>
+              <AvatarImgIcon className="avatar-icon" />
+            </AvatarImgIconStyled>
+          ) : (
+            <AvatarImg src="userData.picture" alt="avatar" />
+          )}
+          {isUserAuth && !isMobileDevice && (
+            <p className="userName">{username}</p>
+          )}
+        </UserInfoWrapper>
+
         {isDesktopDevice ? (
           <Logout showNavigation={showNavigation} />
         ) : (
-          <BurgerMenu showNavigation={showNavigation} />
+          <BurgerMenu
+            showNavigation={showNavigation}
+            isNavigationOn={isNavigationOn}
+          />
         )}
       </UserinfoContainer>
     </>
@@ -64,11 +75,28 @@ const UserinfoContainer = styled.div`
   }
 `;
 
+const UserInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 const AvatarImgIconStyled = styled.svg`
   width: 48px;
   height: 48px;
   //   border-radius: 50%;
   fill: ${colors.secondary};
+  margin-right: 18px;
+
+  @media ${device.tablet} {
+    margin-right: 12px;
+  }
+`;
+
+const AvatarImg = styled.img`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   margin-right: 18px;
 
   @media ${device.tablet} {

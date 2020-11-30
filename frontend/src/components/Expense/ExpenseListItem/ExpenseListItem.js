@@ -11,6 +11,7 @@ import device, { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 import { useInput } from '../../ExpenseForm/ExpenseForm';
 import { useDispatch, useSelector } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
+import categoriesOperations from '../../../redux/operations/categoriesOperations';
 import categoriesSelector from '../../../redux/selectors/categoriesSelector';
 
 const ExpenseListItem = ({ expense, date }) => {

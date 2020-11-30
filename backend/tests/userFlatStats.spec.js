@@ -74,7 +74,7 @@ describe('User flat stats test suite', () => {
           totalSalary: 900,
           passiveIncome: 400,
           incomePercentageToSavings: 5,
-          giftsForUnpacking: 4,
+          giftsForUnpacking: 1,
         });
 
         const token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
@@ -98,13 +98,14 @@ describe('User flat stats test suite', () => {
       });
       it('should return expected response body', () => {
         expect(response.body).to.include({
-          savingsPercentage: 0.03,
+          savingsPercentage: 0,
           savingsValue: 1000,
-          savingsInSquareMeters: 1,
+          savingsInSquareMeters: 0,
           totalSquareMeters: 40,
           monthsLeftToSaveForFlat: 600,
           savingsForNextSquareMeterLeft: 1000,
-          giftsForUnpacking: 4,
+          giftsUnpacked: 0,
+          giftsForUnpacking: 1,
         });
       });
     });

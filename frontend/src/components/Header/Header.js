@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import Unauthorized from '../Header/Unauthorized';
 // import Authorized from '../Header/Authorized';
 import Logo from './Logo';
@@ -11,13 +11,15 @@ import { authSelector } from '../../redux/selectors';
 import Navigation from './Navigation';
 import { useMediaQuery } from 'react-responsive';
 import LoginHeader from './LoginHeader';
+import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
-const Header = ({ showNavigation }) => {
+const Header = ({ showNavigation, isNavigationOn }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
+
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
   });
@@ -27,8 +29,16 @@ const Header = ({ showNavigation }) => {
       <HeaderContainer>
         {isUserAuth && isDesktopDevice && <Navigation />}
         <Logo />
-        {isUserAuth && <Userinfo showNavigation={showNavigation} />}
-        {!isUserAuth && !isMobileDevice && <LoginHeader />}
+        <UserInfoWrapper>
+          {isUserAuth && !isMobileDevice && <ExpenseButton />}
+          {isUserAuth && (
+            <Userinfo
+              showNavigation={showNavigation}
+              isNavigationOn={isNavigationOn}
+            />
+          )}
+          {!isUserAuth && !isMobileDevice && <LoginHeader />}
+        </UserInfoWrapper>
       </HeaderContainer>
     </>
   );
@@ -54,7 +64,9 @@ const HeaderContainer = styled.div`
   } ;
 `;
 
-const MobileNavigationContainer = styled.div`
-  width: 280px;
-  margin: 0 auto;
+const UserInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  /* width: 280px;
+  margin: 0 auto; */
 `;

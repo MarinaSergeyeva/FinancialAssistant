@@ -6,10 +6,16 @@ import { transactionSelectors } from '../../../redux/selectors';
 import styled from 'styled-components';
 import device from '../../../common/deviceSizes';
 import { DateTime } from 'luxon';
+import categoriesOperations from '../../../redux/operations/categoriesOperations';
 
 const ExpenseList = ({ date }) => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(categoriesOperations.getCategories());
+  }, []);
+
   useEffect(() => {
     if (page === 1 && expenses.length > 0) {
       return;

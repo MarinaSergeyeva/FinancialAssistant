@@ -16,7 +16,7 @@ export default function ChartWrapper() {
 const ChartWrapperSC = styled.div`
   height: 527px;
   width: 280px;
-
+  margin: 0 auto;
   @media ${device.tablet} {
     width: 510px;
     height: 390px;

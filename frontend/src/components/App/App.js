@@ -29,13 +29,21 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuth]);
+
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <Header showNavigation={showNavigationHandler} />
+        <Header
+          showNavigation={showNavigationHandler}
+          isNavigationOn={showNavigation}
+        />
         {isUserAuth && showNavigation && !isDesktopDevice && (
-          <Navigation showNavigation={showNavigationHandler} />
+          <Navigation
+            showNavigation={showNavigationHandler}
+            isNavigationOn={showNavigation}
+          />
         )}
         {!showNavigation && (
           <Switch>

@@ -9,7 +9,8 @@ const getCurrentUser = async (req, res, next) => {
   );
   const currentBalance =
     req.user.totalSalary + req.user.passiveIncome - currentExpenses;
-  return res.status(200).json({
+
+  const response = {
     id: req.user._id,
     username: req.user.username,
     email: req.user.email,
@@ -20,18 +21,31 @@ const getCurrentUser = async (req, res, next) => {
     passiveIncome: req.user.passiveIncome,
     incomePercentageToSavings: req.user.incomePercentageToSavings,
     monthBalance: currentBalance,
-  });
+  };
+  response.picture = req.user.picture ? req.user.picture : 'none';
+
+  return res.status(200).json(response);
 };
 
 const updateUsersController = catchAsync(async (req, res, next) => {
+  const { body } = req;
+  const { balance, flatPrice, flatSquareMeters } = body;
+  const giftsForUnpacking = Math.floor(
+    balance / (flatPrice / flatSquareMeters),
+  );
+  console.log('giftsForUnpacking', giftsForUnpacking);
   if (req.user.balance > 0 && req.body.balance !== req.user.balance) {
     return res
       .status(409)
       .json({ message: 'user balance already initialized' });
   }
-  const updatedUser = await UserDB.findByIdAndUpdate(req.user._id, req.body, {
-    new: true,
-  });
+  const updatedUser = await UserDB.findByIdAndUpdate(
+    req.user._id,
+    { ...req.body, giftsForUnpacking },
+    {
+      new: true,
+    },
+  );
 
   return res.send({
     id: updatedUser._id,
@@ -43,6 +57,7 @@ const updateUsersController = catchAsync(async (req, res, next) => {
     totalSalary: updatedUser.totalSalary,
     passiveIncome: updatedUser.passiveIncome,
     incomePercentageToSavings: updatedUser.incomePercentageToSavings,
+    giftsForUnpacking: updatedUser.giftsForUnpacking,
   });
 });
 
@@ -56,16 +71,16 @@ const calculateStats = user => {
     totalSalary,
     passiveIncome,
     incomePercentageToSavings,
+    giftsUnpacked,
     giftsForUnpacking,
   } = user;
 
-  const savingsPercentage = Math.round((balance / flatPrice) * 100) / 100;
+  const savingsPercentage =
+    Math.round((giftsUnpacked / flatSquareMeters) * 100) / 100;
 
   const savingsValue = balance;
 
-  const savingsInSquareMeters = Math.floor(
-    savingsValue / (flatPrice / flatSquareMeters),
-  );
+  const savingsInSquareMeters = giftsUnpacked;
 
   const totalSquareMeters = flatSquareMeters;
 
@@ -76,7 +91,8 @@ const calculateStats = user => {
 
   const savingsForNextSquareMeterLeft =
     flatPrice / flatSquareMeters -
-    (balance - savingsInSquareMeters * (flatPrice / flatSquareMeters));
+    (balance -
+      (giftsUnpacked + giftsForUnpacking) * (flatPrice / flatSquareMeters));
 
   const flatStats = {
     savingsPercentage,
@@ -85,6 +101,7 @@ const calculateStats = user => {
     totalSquareMeters,
     monthsLeftToSaveForFlat,
     savingsForNextSquareMeterLeft,
+    giftsUnpacked,
     giftsForUnpacking,
   };
   return flatStats;
@@ -92,7 +109,7 @@ const calculateStats = user => {
 
 const getFlatStats = (req, res, next) => {
   const { user } = req;
-
+  console.log('user', user);
   const { flatPrice } = user;
   if (!flatPrice) {
     return next(new AppError('Saving stats not initialized', 403));

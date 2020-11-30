@@ -14,7 +14,6 @@ const createTransaction = transaction => async (dispatch, getState) => {
   dispatch(transactionActions.createTransactionRequest());
   try {
     const res = await axios.post('/api/v1/transactions', transaction);
-    // console.log(res.data, 'createTransaction');
     dispatch(transactionActions.createTransactionSuccess(res.data));
   } catch (error) {
     console.log(error.message);
@@ -35,7 +34,6 @@ const getTransactionsCats = date => async (dispatch, getState) => {
     const res = await axios.get(
       `/api/v1/transactions/expenses?month=${month}&year=${year}`,
     );
-    console.log(res.data, 'getTransaction');
     const expenses = {
       other: 0,
       food: 0,

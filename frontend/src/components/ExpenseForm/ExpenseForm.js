@@ -72,6 +72,7 @@ const ExpenseForm = ({ resetForm }) => {
       setCategory('');
       resetForm();
     }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTransactionSend]);
 
   useEffect(() => {
@@ -111,10 +112,10 @@ const ExpenseForm = ({ resetForm }) => {
     <ExpenseFormStyled>
       <form>
         <div className="smallFormContainer">
-          <label className="">
+          <label className="select-arrow">
             <span>Со счета</span>
             <select type="text">
-              <option defaultValue>Карта VISA (Ваня)</option>
+              <option defaultValue>Карта VISA (**** 1234)</option>
             </select>
             <p>Остаток на счете: {balance} UAH</p>
           </label>
@@ -128,9 +129,14 @@ const ExpenseForm = ({ resetForm }) => {
             />
           </label>
 
-          <label>
+          <label className="select-arrow">
             <span>На категорию</span>
-            <select type="text" value={category} onChange={onCategoryChange}>
+            <select
+              className="select-arrow"
+              type="text"
+              value={category}
+              onChange={onCategoryChange}
+            >
               <option key="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
