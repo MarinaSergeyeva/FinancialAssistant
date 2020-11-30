@@ -11,6 +11,7 @@ import BurgerMenu from './BurgerMenu';
 
 const Userinfo = ({ showNavigation, isNavigationOn }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
+  const userData = useSelector(userSelectors.getCurrentUser);
   const { username } = useSelector(state =>
     userSelectors.getCurrentUser(state),
   );
@@ -26,9 +27,13 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
     <>
       <UserinfoContainer>
         <UserInfoWrapper>
-          <AvatarImgIconStyled>
-            <AvatarImgIcon className="avatar-icon" />
-          </AvatarImgIconStyled>
+          {userData.picture === 'none' ? (
+            <AvatarImgIconStyled>
+              <AvatarImgIcon className="avatar-icon" />
+            </AvatarImgIconStyled>
+          ) : (
+            <AvatarImg src="userData.picture" alt="avatar" />
+          )}
           {isUserAuth && !isMobileDevice && (
             <p className="userName">{username}</p>
           )}
@@ -81,6 +86,17 @@ const AvatarImgIconStyled = styled.svg`
   height: 48px;
   //   border-radius: 50%;
   fill: ${colors.secondary};
+  margin-right: 18px;
+
+  @media ${device.tablet} {
+    margin-right: 12px;
+  }
+`;
+
+const AvatarImg = styled.img`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   margin-right: 18px;
 
   @media ${device.tablet} {
