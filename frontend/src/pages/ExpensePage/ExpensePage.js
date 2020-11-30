@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Route,
-  Link,
-  useRouteMatch,
-  useLocation,
-  NavLink,
-} from 'react-router-dom';
+import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,17 +7,20 @@ import styled from 'styled-components';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import { device, Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
-// import { size } from '../../common/deviceSizes';
 import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
 import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
 import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
-import LogoutModal from '../../components/Logout/LogoutModal';
-import ExpenseCategories from '../../components/ExpenseCategories/ExpenseCategories';
-import ExpenseList from '../../components/ExpenseList/ExpenseList';
+import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
+import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
   {
+    const [isTransactionSend, setTransactionStatus] = useState(false);
+    // console.log('isTransactionSend', isTransactionSend);
+    const resetForm = () => {
+      return isTransactionSend;
+    };
     const match = useRouteMatch();
     const location = useLocation();
     const [startDate, setStartDate] = useState(new Date());
@@ -55,9 +52,14 @@ const ExpensePage = () => {
         {location.pathname === match.path ? (
           <ExpensePageContainer>
             <ExpenseFormWrapper>
-              <ExpenseForm />
+              <ExpenseForm
+                setTransactionStatus={setTransactionStatus}
+                resetForm={resetForm}
+              />
             </ExpenseFormWrapper>
-            <ForecastExpense />
+            <ForecastExpenseWrapper>
+              <ForecastExpense setTransactionStatus={setTransactionStatus} />
+            </ForecastExpenseWrapper>
             <Mobile>
               <ExpensePageImg
                 src={expensePageMobile}
@@ -66,7 +68,7 @@ const ExpensePage = () => {
             </Mobile>
             <Tablet>
               <ExpensePageImg
-                height="320"
+                // height="320"
                 src={expensePageTablet}
                 alt="expense page background"
               />
@@ -123,7 +125,7 @@ const ExpensePage = () => {
                 <ExpenseList date={startDate} />
               </Route>
               <Route path={`${match.url}/categories`}>
-                <ExpenseCategories />
+                <ExpenseCategories date={startDate} />
               </Route>
             </ExpenseListWrap>
           </ExpensePageContainer>
@@ -139,7 +141,6 @@ const ExpensePageContainer = styled.div`
   position: relative;
   margin: 0 auto;
   padding-top: 40px;
-  padding-bottom: 200px;
   width: 280px;
   @media ${device.tablet} {
     max-height: calc(100vh - 87px);
@@ -150,52 +151,51 @@ const ExpensePageContainer = styled.div`
   @media ${device.desktop} {
     max-height: 100vh;
     padding-top: 64px;
-    padding-bottom: 220px;
     width: 770px;
   }
 `;
 
 const ExpenseFormWrapper = styled.div`
   margin: 0 auto;
-
   margin-bottom: 52px;
-  /* width: 690px; */
-  /* display: flex; */
+`;
+
+const ForecastExpenseWrapper = styled.div`
+  margin-bottom: 34px;
+  @media ${device.tablet} {
+    margin-bottom: 160px;
+  }
 `;
 
 const ExpensePageImg = styled.img`
-  position: absolute;
-  bottom: 0px;
-  left: -20px;
+  margin-left: -20px;
 
   @media ${device.tablet} {
+    margin-left: -40px;
     max-height: 320px;
     left: -40px;
   }
 
   @media ${device.largeDesktop} {
-    left: -255px;
-  } ;
+    margin-left: -200px;
+  }
 `;
 
 const ExpenseListImg = styled.img`
   position: absolute;
   bottom: 0;
   right: 0;
-
-  @media ${device.tablet} {
-    max-height: 320px;
-    /* left: -40px; */
-  }
+  max-width: 100%;
 
   @media ${device.largeDesktop} {
-    /* left: -255px; */
-  } ;
+    max-height: 265px;
+  }
 `;
 
 const ExpenseListHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const ExpenseListWrap = styled.div`
@@ -208,18 +208,22 @@ const TabsModeView = styled.ul`
 `;
 
 const TabMode = styled.li`
-  margin-right: 35px;
+  display: flex;
+  border: 1px solid rgba(24, 25, 31, 0.03);
+  border-radius: 8px 8px 0px 0px;
+
   .tab-link {
     padding: 18px 12px;
+    flex-grow: 1;
     color: rgb(16.5%, 21.2%, 23.1%);
   }
   .active-tab {
     background: rgba(24, 25, 31, 0.03);
-    border-radius: 8px 8px 0px 0px;
   }
 `;
 
 const BtnCalendar = styled.button`
+  margin-bottom: 16px;
   width: 40px;
   height: 40px;
   display: flex;

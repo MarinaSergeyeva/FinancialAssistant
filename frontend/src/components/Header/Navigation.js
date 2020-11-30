@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { colors } from '../../stylesheet/vars';
@@ -6,24 +6,29 @@ import device from '../../common/deviceSizes';
 import Logout from './Logout';
 import { useMediaQuery } from 'react-responsive';
 import navigationBackgroundTablet from '../../assets/images/Navigation/navigation_bg-tablet.png';
+import ExpenseButton from '../ExpenseButton/ExpenseButton';
 
-const Navigation = ({ showNavigation }) => {
+const Navigation = ({ showNavigation, isNavigationOn }) => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
   const isTabletDevice = useMediaQuery({
     query: device.tablet,
   });
-  const isDesktopDevice = useMediaQuery({
-    query: device.desktop,
-  });
+
+  const onHandleChange = () => {
+    if (isNavigationOn) {
+      showNavigation();
+    }
+  };
+
   return (
     <>
       <NavigationContainer>
         <StyleNavLInk
           to="/plan"
           activeClassName="active"
-          onClick={showNavigation}
+          onClick={onHandleChange}
         >
           Персональный план
         </StyleNavLInk>
@@ -31,17 +36,18 @@ const Navigation = ({ showNavigation }) => {
           to="/expense"
           exact
           activeClassName="active"
-          onClick={showNavigation}
+          onClick={onHandleChange}
         >
           Расходы
         </StyleNavLInk>
         <StyleNavLInk
           to="/dynamics"
           activeClassName="active"
-          onClick={showNavigation}
+          onClick={onHandleChange}
         >
           Динамика
         </StyleNavLInk>
+        {isMobileDevice && <ExpenseButton showNavigation={showNavigation} />}
         {(isMobileDevice || isTabletDevice) && (
           <Logout showNavigation={showNavigation} />
         )}
@@ -51,15 +57,6 @@ const Navigation = ({ showNavigation }) => {
             alt="navigation tablet background"
           />
         )}
-        <BtnNavLInk
-          to="/expense/list"
-          activeClassName="active"
-          onClick={showNavigation}
-        >
-          <SvgIcon>
-            <use href="#dynamics"></use>
-          </SvgIcon>
-        </BtnNavLInk>
       </NavigationContainer>
     </>
   );
@@ -144,20 +141,4 @@ const NavigationBgImg = styled.img`
   right: 0px;
   z-index: -1;
   max-height: calc(100vh - 350px);
-`;
-
-const BtnNavLInk = styled(NavLink)`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #7c9af2;
-  border-radius: 8px;
-`;
-
-const SvgIcon = styled.svg`
-  width: 12px;
-  height: 12px;
-  fill: white;
 `;

@@ -32,7 +32,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
-  }, []);
+  }, [isUserAuth]);
 
   useEffect(() => {
     flatPrice && history.push('/expense');
@@ -41,9 +41,15 @@ const App = () => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <Header showNavigation={showNavigationHandler} />
+        <Header
+          showNavigation={showNavigationHandler}
+          isNavigationOn={showNavigation}
+        />
         {isUserAuth && showNavigation && !isDesktopDevice && (
-          <Navigation showNavigation={showNavigationHandler} />
+          <Navigation
+            showNavigation={showNavigationHandler}
+            isNavigationOn={showNavigation}
+          />
         )}
         {!showNavigation && (
           <Switch>

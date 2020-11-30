@@ -13,12 +13,10 @@ const transaction = (state = initialState.transaction, { type, payload }) => {
     case transactionConstants.CHANGE_TRANSACTION_SUCCESS:
       return { ...state, ...payload };
 
-    case transactionConstants.CHANGE_TRANSACTION_AMOUNT_SUCCESS:
-      return { ...state, amount: payload };
+    case transactionConstants.CLEAN_TRANSACTION_SUCCESS:
+      return { ...state, ...initialState.transaction };
 
     case transactionConstants.CREATE_TRANSACTION_SUCCESS:
-      console.log('payload', payload);
-      // const { amount, category, comment } = payload;
       return { ...state, ...initialState.transaction };
 
     default:

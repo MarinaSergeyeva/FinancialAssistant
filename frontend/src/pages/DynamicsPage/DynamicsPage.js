@@ -7,17 +7,58 @@ import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPl
 import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
+import Modal from '../../components/Modal/Modal';
+import {
+  modalCongratulation,
+  modalError,
+} from '../../redux/selectors/modalSelector';
+import Congratulation from '../../components/Congratulation/Congratulation';
+import Error from '../../components/Error/Error';
 
 const DynamicsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(statsOperatioins.getStatsFlat());
   }, []);
+  const congratulationModal = useSelector(state => modalCongratulation(state));
+  const errorModal = useSelector(state => modalError(state));
+
+  const [errorState, setError] = useState(errorModal ? true : false);
+  useEffect(() => {
+    if (errorModal) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [errorModal]);
+
+  const [congratulationState, setCongratulation] = useState(
+    congratulationModal ? true : false,
+  );
+  useEffect(() => {
+    if (congratulationModal) {
+      setCongratulation(true);
+    } else {
+      setCongratulation(false);
+    }
+  }, [congratulationModal]);
 
   return (
     <>
+      {congratulationState && (
+        <Modal closeModal={setCongratulation}>
+          <Congratulation closeModal={setCongratulation} />
+        </Modal>
+      )}
+
+      {errorState && (
+        <Modal closeModal={setError}>
+          <Error closeModal={setError} />
+        </Modal>
+      )}
+
       <DynamicsPageWrapper>
         <GraphAnnualWrapper>
           <GrafWrapper>
@@ -54,7 +95,7 @@ const DynamicsPageWrapper = styled.div`
 
   @media ${device.tablet} {
     width: 690px;
-    padding: 74px 130px;
+    padding: 74px;
   }
   @media ${device.desktop} {
     width: 1170px;
@@ -64,7 +105,16 @@ const DynamicsPageWrapper = styled.div`
   }
 `;
 
-const GraphAnnualWrapper = styled.div``;
+const GraphAnnualWrapper = styled.div`
+  margin: 0 auto;
+
+  @media ${device.desktop} {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+`;
 
 const ProgressPicturePresentWrapper = styled.div``;
 
@@ -89,14 +139,18 @@ const AnnualWrapper = styled.div`
 
 const ProgressPictureWrapper = styled.div`
   @media ${device.tablet} {
+    width: 510px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     margin-bottom: 72px;
+    align-items: flex-end;
   }
   @media ${device.desktop} {
     display: flex;
     justify-content: space-between;
     margin-bottom: 60px;
+    align-items: flex-end;
   }
 `;
 
@@ -108,16 +162,18 @@ const ProgressInfoWrapper = styled.div`
 
   @media (min-width: ${size.tablet}) {
     margin: 0px;
-    width: 48%;
+    width: 240px;
   }
 `;
 
 const PictureWrapper = styled.div`
   margin-bottom: 42px;
+  border: 2px solid #e5e9f2;
+  border-radius: 8px;
 
   @media ${device.tablet} {
     margin-bottom: 0px;
-    width: 48%;
+    width: 240px;
   }
   @media ${device.desktop} {
     margin-bottom: 0px;

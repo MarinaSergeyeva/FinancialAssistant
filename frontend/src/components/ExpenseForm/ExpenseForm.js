@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
@@ -14,10 +14,9 @@ import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
 import categoriesSelector from '../../redux/selectors/categoriesSelector';
 import calculatorSelector from '../../redux/selectors/calculatorSelector';
-import calculatorActions from '../../redux/actions/calculatorActions';
-import { transactionSelectors, userSelectors } from '../../redux/selectors';
+import { userSelectors } from '../../redux/selectors';
 
-const useInput = initialValue => {
+export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);
 
   const onChange = e => {
@@ -31,9 +30,14 @@ const useInput = initialValue => {
   };
 };
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ resetForm }) => {
+  const isTransactionSend = resetForm();
+
   const [showCalculator, setShowCalculator] = useState(false);
+
   const [amount, setAmount] = useState('');
+  const [comment, setComment] = useState('');
+  const [category, setCategory] = useState('');
 
   const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
   const categories = useSelector(state => categoriesSelector(state));
@@ -48,21 +52,13 @@ const ExpenseForm = () => {
   };
 
   const onAmountChange = e => {
-    setAmount(e.target.value);
+    setAmount(Number(e.target.value));
   };
-
-  useEffect(() => {
-    dispatch(categoriesOperations.getCategories());
-  }, []);
-
-  const comment = useInput('');
-  // const amount = useInput('');
-  const category = useInput('');
-
-  const transactionInfo = {
-    comment: comment.bind.value,
-    amount: Number(amount),
-    category: category.bind.value,
+  const onCommentChange = e => {
+    setComment(e.target.value);
+  };
+  const onCategoryChange = e => {
+    setCategory(e.target.value);
   };
 
   const isMobileDevice = useMediaQuery({
@@ -70,18 +66,46 @@ const ExpenseForm = () => {
   });
 
   useEffect(() => {
-    setAmount(calculatorResult);
-    dispatch(
-      transactionActions.changeTransactionSuccess({
-        ...transactionInfo,
-        amount: calculatorResult,
-      }),
+    if (isTransactionSend) {
+      setAmount('');
+      setComment('');
+      setCategory('');
+      resetForm();
+    }
+  }, [isTransactionSend]);
+
+  useEffect(() => {
+    const transactionInfoLS = JSON.parse(
+      localStorage.getItem('persist:transaction'),
     );
+    if (transactionInfoLS) {
+      setComment(JSON.parse(transactionInfoLS.comment));
+      setCategory(JSON.parse(transactionInfoLS.category));
+      setAmount(Number(JSON.parse(transactionInfoLS.amount)));
+    }
+    dispatch(categoriesOperations.getCategories());
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    if (calculatorResult) {
+      setAmount(calculatorResult);
+    }
+    // eslint-disable-next-line
   }, [calculatorResult]);
 
   useEffect(() => {
-    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  }, [transactionInfo]);
+    const transactionInfo = {
+      amount,
+      category,
+      comment,
+    };
+
+    if (transactionInfo) {
+      dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+    }
+    // eslint-disable-next-line
+  }, [amount, category, comment]);
 
   return (
     <ExpenseFormStyled>
@@ -96,13 +120,18 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Название статьи</span>
-            <input type="text" {...comment.bind} />
+            <input
+              type="text"
+              placeholder="Введите статью расходов"
+              value={comment}
+              onChange={onCommentChange}
+            />
           </label>
 
           <label>
             <span>На категорию</span>
-            <select type="text" {...category.bind}>
-              <option key="Без категории" value="Без категории" defaultValue>
+            <select type="text" value={category} onChange={onCategoryChange}>
+              <option key="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
               {categories.map(elem => (
@@ -114,12 +143,12 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Сумма</span>
-            {/* <input className="calc-input" type="number" {...amount.bind} /> */}
             <input
               className="calc-input"
               type="number"
+              placeholder="Введите сумму"
               onChange={onAmountChange}
-              value={amount}
+              value={amount.toString()}
             />
           </label>
           <CalcIconStyled onClick={showCalculatorHandler}>

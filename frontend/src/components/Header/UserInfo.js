@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-// import avatarImg from '../../assets/icons/Header/Avatar/avatar.png';
-import avatarImg from '../../assets/icons/Header/Avatar/icon-user.svg';
+import { NavLink } from 'react-router-dom';
+import { ReactComponent as AvatarImgIcon } from '../../assets/icons/Header/Avatar/icon-user.svg';
 import Logout from './Logout';
-import { textColor } from '../../stylesheet/vars';
+import { colors, textColor } from '../../stylesheet/vars';
 import { useSelector } from 'react-redux';
 import { authSelector, userSelectors } from '../../redux/selectors';
 import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from './BurgerMenu';
 
-const Userinfo = ({ showNavigation, setActive }) => {
-  const [name, setName] = useState('');
+const Userinfo = ({ showNavigation, isNavigationOn }) => {
   const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
   const { username } = useSelector(state =>
     userSelectors.getCurrentUser(state),
   );
-  // console.log('name', name);
-
-  useEffect(() => {
-    setName(username);
-  }, []);
 
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
@@ -29,24 +23,27 @@ const Userinfo = ({ showNavigation, setActive }) => {
     query: device.desktop,
   });
 
-  // const setActive = () => {
-  //   document.querySelector('.burger-wrapper').onclick = function () {
-  //     document.querySelector('.burger').classList.toggle('burger-active');
-  //     showNavigation();
-  //   };
-  // };
-
   return (
     <>
       <UserinfoContainer>
-        <AvatarImg src={avatarImg} alt="avatar img"></AvatarImg>
-        {isUserAuth && !isMobileDevice && (
-          <p className="userName">{username}</p>
-        )}
+        {/* <StyleNavLInk to="/profile"> */}
+        <UserInfoWrapper>
+          <AvatarImgIconStyled>
+            <AvatarImgIcon className="avatar-icon" />
+          </AvatarImgIconStyled>
+          {isUserAuth && !isMobileDevice && (
+            <p className="userName">{username}</p>
+          )}
+        </UserInfoWrapper>
+        {/* </StyleNavLInk> */}
+
         {isDesktopDevice ? (
           <Logout showNavigation={showNavigation} />
         ) : (
-          <BurgerMenu showNavigation={showNavigation} />
+          <BurgerMenu
+            showNavigation={showNavigation}
+            isNavigationOn={isNavigationOn}
+          />
         )}
       </UserinfoContainer>
     </>
@@ -76,11 +73,20 @@ const UserinfoContainer = styled.div`
   }
 `;
 
-const AvatarImg = styled.img`
+const UserInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StyleNavLInk = styled(NavLink);
+
+const AvatarImgIconStyled = styled.svg`
   width: 48px;
-  border-radius: 50%;
+  height: 48px;
+  //   border-radius: 50%;
+  fill: ${colors.secondary};
   margin-right: 18px;
-  fill: ${textColor.secondary};
 
   @media ${device.tablet} {
     margin-right: 12px;
