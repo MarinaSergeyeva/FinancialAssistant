@@ -32,6 +32,7 @@ function PlanForm({ state, getState }) {
   };
   useEffect(() => {
     setFlatPrice();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currencySvg]);
 
   const onHandleFocus = () => setFieldActive(true);

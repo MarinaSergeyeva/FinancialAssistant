@@ -49,6 +49,7 @@ function PrognosisBuy({ fields }) {
 
   useEffect(() => {
     getResult();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields]);
 
   const dispatch = useDispatch();

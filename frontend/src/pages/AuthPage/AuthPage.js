@@ -16,6 +16,7 @@ const AuthPage = () => {
   useEffect(() => {
     const token = new URLSearchParams(location.search).get('token');
     dispatch(action.loginSuccess({ token }));
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 
   const [successModal, setSuccessModal] = useState(false);

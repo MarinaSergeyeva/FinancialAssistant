@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PlanForm from '../../components/PlanForm/PlanForm';
 import PrognosisBuy from '../../components/PrognosisBuy/PrognosisBuy';
 import { PlanPageStyled } from './planPageStyled';

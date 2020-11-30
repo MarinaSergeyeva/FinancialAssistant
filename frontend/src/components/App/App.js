@@ -32,10 +32,12 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuth]);
 
   useEffect(() => {
     flatPrice && history.push('/expense');
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flatPrice]);
 
   return (
