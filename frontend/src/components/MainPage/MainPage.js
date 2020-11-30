@@ -30,6 +30,7 @@ const MainPage = () => {
   }, [userInfo]);
 
   return (
+    <>
     <MainPageContainer>
       <Mobile>
         <MainPageTitile>
@@ -119,6 +120,7 @@ const MainPage = () => {
         ></MainPageImg>
       </Desktop>
     </MainPageContainer>
+    </>
   );
 };
 
