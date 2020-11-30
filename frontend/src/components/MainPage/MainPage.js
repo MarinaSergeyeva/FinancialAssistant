@@ -49,7 +49,7 @@ const MainPage = () => {
           <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
         </MainPageTitile>
       </Desktop>
-      <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
+      <GoogleAuthBtn href="http:/localhost:8080/api/v1/auth/google">
         <GoogleAuthBtnImg
           src={googleLogo}
           alt="google auth picture"

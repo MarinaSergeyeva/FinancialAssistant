@@ -4,7 +4,7 @@ import { authSelector } from '../selectors';
 import { token } from './authOperations';
 import modalAction from '../actions/modalAction';
 
-axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:8080';
 
 const getStatsFlat = () => async (dispatch, getState) => {
   const tokenNow = authSelector.isAuthenticated(getState());
