@@ -29,8 +29,6 @@ const ExpenseListItem = ({ expense, date }) => {
 
   const [img, setImg] = useState();
   useEffect(() => {
-    dispatch(categoriesOperations.getCategories());
-
     if (expense.category === 'ЖКХ') {
       return setImg(homeImg);
     } else if (expense.category === 'Другое') {
