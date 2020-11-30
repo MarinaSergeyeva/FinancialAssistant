@@ -10,22 +10,16 @@ import Modal from '../Modal/Modal';
 const ForecastExpense = ({ setTransactionStatus }) => {
   const transaction = useSelector(transactionSelectors.getTransaction);
   const userData = useSelector(userSelectors.getCurrentUser);
-
   const { monthBalance, incomePercentageToSavings } = userData;
   const freeMoney = monthBalance * (1 - incomePercentageToSavings / 100);
-
-  const todayDate = new Date();
-  const restDays =
-    daysInMonth(todayDate.getMonth(), todayDate.getFullYear()) -
-    todayDate.getDate() +
-    1;
+  const today = new Date();
+  const allMonthDays = daysInMonth(today.getMonth(), today.getFullYear());
+  const restDays = allMonthDays - today.getDate() + 1;
   const dailyLimit = (
     freeMoney / restDays -
     Number(transaction.amount)
   ).toFixed(2);
-
   const monthLimit = (freeMoney - Number(transaction.amount)).toFixed(2);
-
   const [isShowModal, setIsShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
@@ -82,7 +76,7 @@ const ForecastExpense = ({ setTransactionStatus }) => {
 export default ForecastExpense;
 
 function daysInMonth(month, year) {
-  return new Date(year, month, 0).getDate();
+  return new Date(year, month + 1, 0).getDate();
 }
 
 const ForecastExpenseWrapper = styled.div`
