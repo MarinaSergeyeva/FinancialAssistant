@@ -52,6 +52,7 @@ const Wrapper = styled.div`
   padding-bottom: 34px;
   padding-right: 27px;
   padding-left: 27px;
+  margin: 0 auto;
   width: 280px;
   height: 388px;
   @media ${device.largeTablet} {
