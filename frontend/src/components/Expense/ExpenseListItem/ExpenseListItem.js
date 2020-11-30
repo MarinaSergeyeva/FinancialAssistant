@@ -11,8 +11,8 @@ import device, { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 import { useInput } from '../../ExpenseForm/ExpenseForm';
 import { useDispatch, useSelector } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
-import categoriesSelector from '../../../redux/selectors/categoriesSelector';
 import categoriesOperations from '../../../redux/operations/categoriesOperations';
+import categoriesSelector from '../../../redux/selectors/categoriesSelector';
 
 const ExpenseListItem = ({ expense, date }) => {
   const dispatch = useDispatch();
@@ -29,8 +29,6 @@ const ExpenseListItem = ({ expense, date }) => {
 
   const [img, setImg] = useState();
   useEffect(() => {
-    dispatch(categoriesOperations.getCategories());
-
     if (expense.category === 'ЖКХ') {
       return setImg(homeImg);
     } else if (expense.category === 'Другое') {

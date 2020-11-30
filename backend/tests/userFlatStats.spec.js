@@ -98,12 +98,13 @@ describe('User flat stats test suite', () => {
       });
       it('should return expected response body', () => {
         expect(response.body).to.include({
-          savingsPercentage: 0.03,
+          savingsPercentage: 0,
           savingsValue: 1000,
           savingsInSquareMeters: 0,
           totalSquareMeters: 40,
           monthsLeftToSaveForFlat: 600,
           savingsForNextSquareMeterLeft: 1000,
+          giftsUnpacked: 0,
           giftsForUnpacking: 1,
         });
       });
