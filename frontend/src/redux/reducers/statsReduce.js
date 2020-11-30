@@ -14,9 +14,12 @@ const initialState = {
 };
 
 const countPercentage = state => {
+  console.log('state.giftsUnpacked', state.giftsUnpacked);
+  console.log('state.totalSquareMeters', state.totalSquareMeters);
   const result =
-    Math.floor((state.giftsUnpacked / state.totalSquareMeters) * 100) / 100;
-
+    Math.ceil(((state.giftsUnpacked + 1) / state.totalSquareMeters) * 100) /
+    100;
+  console.log('result', result);
   return result;
 };
 
@@ -29,6 +32,7 @@ const stats = (state = initialState.stats, { type, payload }) => {
         ...state,
         ...{
           ...payload,
+          giftsUnpacked: state.giftsUnpacked + 1,
           savingsInSquareMeters: state.savingsInSquareMeters + 1,
           savingsPercentage: countPercentage(state),
         },
