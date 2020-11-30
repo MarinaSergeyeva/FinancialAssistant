@@ -159,6 +159,8 @@ export const ExpenseFormStyled = styled.div`
 
   .select-arrow{
 position:relative;
+  cursor:pointer;
+
   }
 
   .select-arrow::after{
@@ -170,9 +172,9 @@ position:relative;
     padding: 0 8px;
   font-size: 12px;
   position: absolute;
-  right: 8px;
-  top: 50%;
-  transform:translateY(-50%)
+  right: 6px;
+  top: 46%;
+  /* transform:translateY(-50%); */
   z-index: 1;
   text-align: center;
   width: 10%;

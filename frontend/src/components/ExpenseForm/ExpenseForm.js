@@ -114,7 +114,7 @@ const ExpenseForm = ({ resetForm }) => {
     <ExpenseFormStyled>
       <form>
         <div className="smallFormContainer">
-          <label className="">
+          <label className="select-arrow">
             <span>Со счета</span>
             <select type="text">
               <option defaultValue>Карта VISA (**** 1234)</option>
