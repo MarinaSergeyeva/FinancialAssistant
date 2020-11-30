@@ -39,9 +39,7 @@ const ExpenseForm = ({ resetForm }) => {
   const [comment, setComment] = useState('');
   const [category, setCategory] = useState('');
 
-  const { balance, username } = useSelector(state =>
-    userSelectors.getCurrentUser(state),
-  );
+  const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
   const categories = useSelector(state => categoriesSelector(state));
   const calculatorResult = useSelector(state =>
     calculatorSelector.calcResult(state),

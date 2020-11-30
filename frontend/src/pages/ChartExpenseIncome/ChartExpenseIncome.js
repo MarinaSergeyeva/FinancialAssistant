@@ -20,7 +20,6 @@ export const MyChart = () => {
   const reportsNew = isOnMobile
     ? reportsNewR.splice(0, 12)
     : reportsNewR.splice(0, 12).reverse();
-  console.log('reportsNew.length', reportsNew.length);
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
   let arrayOfExpectedSavings = [];
