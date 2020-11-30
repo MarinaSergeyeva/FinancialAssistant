@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import logoImg from '../../assets/images/logo/logo.svg';
 import { Link } from 'react-router-dom';
-import device from '../../common/deviceSizes';
 
 const Logo = () => {
   return (

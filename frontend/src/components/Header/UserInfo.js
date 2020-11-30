@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import device from '../../common/deviceSizes';
-import { NavLink } from 'react-router-dom';
 import { ReactComponent as AvatarImgIcon } from '../../assets/icons/Header/Avatar/icon-user.svg';
 import Logout from './Logout';
 import { colors, textColor } from '../../stylesheet/vars';
@@ -26,7 +25,6 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
   return (
     <>
       <UserinfoContainer>
-        {/* <StyleNavLInk to="/profile"> */}
         <UserInfoWrapper>
           <AvatarImgIconStyled>
             <AvatarImgIcon className="avatar-icon" />
@@ -35,7 +33,6 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
             <p className="userName">{username}</p>
           )}
         </UserInfoWrapper>
-        {/* </StyleNavLInk> */}
 
         {isDesktopDevice ? (
           <Logout showNavigation={showNavigation} />
@@ -78,8 +75,6 @@ const UserInfoWrapper = styled.div`
   flex-direction: row;
   align-items: center;
 `;
-
-const StyleNavLInk = styled(NavLink);
 
 const AvatarImgIconStyled = styled.svg`
   width: 48px;

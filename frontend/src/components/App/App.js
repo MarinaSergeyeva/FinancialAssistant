@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import PublicRoute from '../CustomRoutes/PublicRoute';
@@ -22,9 +22,6 @@ const App = () => {
     query: device.desktop,
   });
 
-  const flatPrice = useSelector(state => state.user.info.flatPrice);
-  const history = useHistory();
-
   const showNavigationHandler = () => {
     setShowMobileNavigation(!showNavigation);
   };
@@ -32,11 +29,8 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUserAuth]);
-
-  useEffect(() => {
-    flatPrice && history.push('/expense');
-  }, [flatPrice]);
 
   return (
     <>

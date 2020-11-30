@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import Unauthorized from '../Header/Unauthorized';
 // import Authorized from '../Header/Authorized';
 import Logo from './Logo';
@@ -19,9 +19,7 @@ const Header = ({ showNavigation, isNavigationOn }) => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
-  const isTabletDevice = useMediaQuery({
-    query: device.tablet,
-  });
+
   const isDesktopDevice = useMediaQuery({
     query: device.desktop,
   });

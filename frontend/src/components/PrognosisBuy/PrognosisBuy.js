@@ -33,6 +33,20 @@ function PrognosisBuy({ fields }) {
 
       setYears(yearsResult);
       setMonthes(monthesResult);
+    } else if (infoCurrentUser.flatPrice) {
+      const incomeToSavings =
+        ((Number(infoCurrentUser.totalSalary) +
+          Number(infoCurrentUser.passiveIncome)) *
+          Number(infoCurrentUser.incomePercentageToSavings)) /
+        100;
+      const requiredAmount =
+        Number(infoCurrentUser.flatPrice) - Number(infoCurrentUser.balance);
+      const yearsResult = Math.floor(requiredAmount / incomeToSavings / 12);
+      const monthesResult = Math.ceil(
+        requiredAmount / incomeToSavings - yearsResult * 12,
+      );
+      setYears(yearsResult);
+      setMonthes(monthesResult);
     } else {
       setYears(0);
       setMonthes(0);
@@ -49,6 +63,7 @@ function PrognosisBuy({ fields }) {
 
   useEffect(() => {
     getResult();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields]);
 
   const dispatch = useDispatch();
