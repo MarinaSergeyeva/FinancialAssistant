@@ -15,7 +15,6 @@ const getMonthReport = startDate => async (dispatch, getState) => {
     startDate.getFullYear();
     const month = data.getMonth() + 1;
     const year = data.getFullYear();
-    console.log(' month, year', month, year);
     const res = await axios.get(
       `api/v1/month-reports/annual?endMonth=${month}&endYear=${year}`,
     );

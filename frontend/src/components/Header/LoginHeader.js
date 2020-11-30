@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
-import logoutImg from '../../assets/icons/Header/icon-logout.svg';
 import Modal from '../Modal/Modal';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';

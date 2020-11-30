@@ -81,7 +81,7 @@ const ExpensePage = () => {
             </Desktop>
           </ExpensePageContainer>
         ) : (
-          <ExpensePageContainer>
+          <ExpenseListContainer>
             <ExpenseListHeader>
               <TabsModeView>
                 <TabMode>
@@ -114,12 +114,12 @@ const ExpensePage = () => {
                 dateFormat="MM/yyyy"
                 showMonthYearPicker
                 showFullMonthYearPicker
+                showTwoColumnMonthYearPicker
                 open={calendarIsOpen}
                 onClickOutside={openDatePicker}
                 customInput={<CustomInput />}
               />
             </ExpenseListHeader>
-            <ExpenseListImg src={expenseList} alt="expense list background" />
             <ExpenseListWrap>
               <Route path={`${match.url}/list`}>
                 <ExpenseList date={startDate} />
@@ -128,7 +128,8 @@ const ExpensePage = () => {
                 <ExpenseCategories date={startDate} />
               </Route>
             </ExpenseListWrap>
-          </ExpensePageContainer>
+            <ExpenseListImg src={expenseList} alt="expense list background" />
+          </ExpenseListContainer>
         )}
       </>
     );
@@ -181,14 +182,28 @@ const ExpensePageImg = styled.img`
   }
 `;
 
+const ExpenseListContainer = styled.div`
+  margin: 0 auto;
+  padding-top: 40px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  @media ${device.tablet} {
+    padding-top: 74px;
+    width: 690px;
+  }
+  @media ${device.desktop} {
+    padding-top: 64px;
+    width: 770px;
+  }
+`;
+
 const ExpenseListImg = styled.img`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  max-width: 100%;
+  margin-left: auto;
+  max-width: 55%;
 
   @media ${device.largeDesktop} {
-    max-height: 265px;
+    max-width: 315px;
   }
 `;
 
@@ -200,6 +215,7 @@ const ExpenseListHeader = styled.div`
 
 const ExpenseListWrap = styled.div`
   min-height: 355px;
+  margin-bottom: 55px;
 `;
 
 const TabsModeView = styled.ul`
