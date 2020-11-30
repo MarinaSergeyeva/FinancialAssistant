@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { CurrencyStyled } from './currencyStyled';
 import sprite from '../../assets/icons/PlanForm/currency-sprite.svg';
 
 function Currency({ currencySvg, setCurrencySvg, setCurrency }) {
   const [isShowCurrency, setShowCurrency] = useState(false);
+  const flatPrice = useSelector(state => state.user.info.flatPrice);
 
   const showCurrency = () => setShowCurrency(prevState => !prevState);
 
@@ -34,12 +36,14 @@ function Currency({ currencySvg, setCurrencySvg, setCurrency }) {
         <svg className="iconCurrency selectedIconCurrency">
           <use href={sprite + `#${currencySvg}`} />
         </svg>
-        <svg
-          className={isShowCurrency ? 'iconArrowRotate' : 'iconArrow'}
-          onClick={showCurrency}
-        >
-          <use href={sprite + '#icon-arrow'} />
-        </svg>
+        {!flatPrice && (
+          <svg
+            className={isShowCurrency ? 'iconArrowRotate' : 'iconArrow'}
+            onClick={showCurrency}
+          >
+            <use href={sprite + '#icon-arrow'} />
+          </svg>
+        )}
       </div>
       {isShowCurrency && (
         <div className="currencyOption">
