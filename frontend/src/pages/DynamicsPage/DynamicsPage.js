@@ -16,16 +16,24 @@ import {
 } from '../../redux/selectors/modalSelector';
 import Congratulation from '../../components/Congratulation/Congratulation';
 import Error from '../../components/Error/Error';
+import modalAction from '../../redux/actions/modalAction';
 
 const DynamicsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(statsOperatioins.getStatsFlat());
   }, []);
+
   const congratulationModal = useSelector(state => modalCongratulation(state));
+
   const errorModal = useSelector(state => modalError(state));
 
   const [errorState, setError] = useState(errorModal ? true : false);
+  const closeModalError = () => {
+    setError(false);
+    dispatch(modalAction.closeModalError());
+  };
+
   useEffect(() => {
     if (errorModal) {
       setError(true);
@@ -37,6 +45,11 @@ const DynamicsPage = () => {
   const [congratulationState, setCongratulation] = useState(
     congratulationModal ? true : false,
   );
+  const closeCongratulationModal = () => {
+    setCongratulation(false);
+    dispatch(modalAction.closeModalCongratulation());
+  };
+
   useEffect(() => {
     if (congratulationModal) {
       setCongratulation(true);
@@ -48,14 +61,14 @@ const DynamicsPage = () => {
   return (
     <>
       {congratulationState && (
-        <Modal closeModal={setCongratulation}>
-          <Congratulation closeModal={setCongratulation} />
+        <Modal closeModal={closeCongratulationModal}>
+          <Congratulation closeModal={closeCongratulationModal} />
         </Modal>
       )}
 
       {errorState && (
-        <Modal closeModal={setError}>
-          <Error closeModal={setError} />
+        <Modal closeModal={closeModalError}>
+          <Error closeModal={closeModalError} />
         </Modal>
       )}
 

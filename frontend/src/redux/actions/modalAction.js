@@ -13,7 +13,7 @@ const openModalError = () => ({
 });
 
 const closeModalError = () => ({
-  type: modalConstants.OPEN_ERROR_MODAL,
+  type: modalConstants.CLOSE_ERROR_MODAL,
 });
 
 export default {
