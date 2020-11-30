@@ -4,7 +4,6 @@ import device from '../../common/deviceSizes.js';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
-
 export const MyChart = () => {
   const allReports = useSelector(state => {
     return chartSelector.getMonthlyReport(state);
@@ -21,7 +20,7 @@ export const MyChart = () => {
   const reportsNew = isOnMobile
     ? reportsNewR.splice(0, 12)
     : reportsNewR.splice(0, 12).reverse();
-
+  console.log('reportsNew.length', reportsNew.length);
   let arrayOfTotalSavings = [];
   let arrayOfTotalExpenses = [];
   let arrayOfExpectedSavings = [];
@@ -31,12 +30,15 @@ export const MyChart = () => {
     arrayOfTotalExpenses = reportsNew.map(item => item.totalExpenses);
     arrayOfExpectedSavings = reportsNew.map(item => item.totalSavings);
     arrayOfReportDate = reportsNew.map(item => {
-      const data = new Date(item.reportDate);
-
-      return data.toLocaleString('default', {
-        month: 'short',
-        year: '2-digit',
-      });
+      if (!item.reportDate) {
+        return '';
+      } else {
+        const data = new Date(item.reportDate);
+        return data.toLocaleString('default', {
+          month: 'short',
+          year: '2-digit',
+        });
+      }
     });
   } else {
     arrayOfTotalSavings = [];
@@ -128,12 +130,14 @@ export const MyChart = () => {
   });
 
   return (
-    <div className="chartjs-wrapper">
-      <canvas
-        id="myChart"
-        height={isOnTablet ? '200' : isOnMobile ? '480' : '200'}
-        className="chartjs"
-      ></canvas>
-    </div>
+    <>
+      <div className="chartjs-wrapper">
+        <canvas
+          id="myChart"
+          height={isOnTablet ? '200' : isOnMobile ? '480' : '200'}
+          className="chartjs"
+        ></canvas>
+      </div>
+    </>
   );
 };
