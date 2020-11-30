@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import device from '../common/deviceSizes';
-import { background, textColor } from '../stylesheet/vars';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`
@@ -121,3 +120,71 @@ export const AuthButtonBlock = styled.div`
 `;
 
 //!
+//!MODAL SUCCESS
+
+export const CongratulationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  position:relative; 
+  text-align: center;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 303px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 20px;
+  color: #7c9af2;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px 35px;
+  box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14),
+    0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
+  & p {
+    height: 20px;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #7c9af2;
+    padding-top: 10px;
+  }
+  & span {
+    width: 215px;
+    height: auto;
+    margin-top: 15px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(24, 25, 31, 0.87);
+    margin-top: 10px;
+  }
+`;
+
+export const CongratulationBackgroundWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 380px;
+  height: 303px;
+`;
+
+export const CongratulationBackgroundImg = styled.img`
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  @media ${device.tablet} {
+    top: 50%;
+    left: 50%;
+  }
+  @media ${device.desktop} {
+    top: 50%;
+    left: 50%;
+  }
+`;

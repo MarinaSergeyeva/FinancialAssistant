@@ -9,6 +9,7 @@ const ExpenseListCats = ({ date }) => {
   const transactions = useSelector(transactionSelectors.getExpensesCats);
   useEffect(() => {
     dispatch(transactionOperations.getTransactionsCats(date));
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date]);
   return (
     transactions && (
