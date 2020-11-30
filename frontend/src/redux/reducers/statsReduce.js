@@ -18,7 +18,13 @@ const stats = (state = initialState.stats, { type, payload }) => {
     case statsConstants.GET_STATS_SUCCESS:
       return { ...state, ...payload };
     case statsConstants.UPDATE_UNPACK_GIFT_SUCCESS:
-      return { ...state, ...payload };
+      return {
+        ...state,
+        ...{
+          ...payload,
+          savingsInSquareMeters: state.savingsInSquareMeters + 1,
+        },
+      };
 
     default:
       return state;
