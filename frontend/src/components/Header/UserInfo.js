@@ -32,7 +32,7 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
               <AvatarImgIcon className="avatar-icon" />
             </AvatarImgIconStyled>
           ) : (
-            <AvatarImg src="userData.picture" alt="avatar" />
+            <AvatarImg src={userData.picture} alt="avatar" />
           )}
           {isUserAuth && !isMobileDevice && (
             <p className="userName">{username}</p>
