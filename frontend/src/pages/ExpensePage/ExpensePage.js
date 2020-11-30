@@ -15,125 +15,123 @@ import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCat
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 
 const ExpensePage = () => {
-  {
-    const [isTransactionSend, setTransactionStatus] = useState(false);
-    // console.log('isTransactionSend', isTransactionSend);
-    const resetForm = () => {
-      return isTransactionSend;
+  const [isTransactionSend, setTransactionStatus] = useState(false);
+  // console.log('isTransactionSend', isTransactionSend);
+  const resetForm = () => {
+    return isTransactionSend;
+  };
+  const match = useRouteMatch();
+  const location = useLocation();
+  const [startDate, setStartDate] = useState(new Date());
+  const [calendarIsOpen, setIsOpenCalendar] = useState(false);
+  const openDatePicker = () => {
+    setIsOpenCalendar(!calendarIsOpen);
+  };
+  const CustomInput = React.forwardRef((props, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClick = () => {
+      setIsOpen(!isOpen);
+      props.onClick();
+      openDatePicker();
     };
-    const match = useRouteMatch();
-    const location = useLocation();
-    const [startDate, setStartDate] = useState(new Date());
-    const [calendarIsOpen, setIsOpenCalendar] = useState(false);
-    const openDatePicker = () => {
-      setIsOpenCalendar(!calendarIsOpen);
-    };
-    const CustomInput = React.forwardRef((props, ref) => {
-      const [isOpen, setIsOpen] = useState(false);
-      const handleClick = () => {
-        setIsOpen(!isOpen);
-        props.onClick();
-        openDatePicker();
-      };
-      return (
-        <BtnCalendar onClick={handleClick} ref={ref}>
-          {isOpen ? (
-            props.value
-          ) : (
-            <SvgIcon>
-              <use href="#calendar"></use>
-            </SvgIcon>
-          )}
-        </BtnCalendar>
-      );
-    });
     return (
-      <>
-        {location.pathname === match.path ? (
-          <ExpensePageContainer>
-            <ExpenseFormWrapper>
-              <ExpenseForm
-                setTransactionStatus={setTransactionStatus}
-                resetForm={resetForm}
-              />
-            </ExpenseFormWrapper>
-            <ForecastExpenseWrapper>
-              <ForecastExpense setTransactionStatus={setTransactionStatus} />
-            </ForecastExpenseWrapper>
-            <Mobile>
-              <ExpensePageImg
-                src={expensePageMobile}
-                alt="expense page background"
-              />
-            </Mobile>
-            <Tablet>
-              <ExpensePageImg
-                // height="320"
-                src={expensePageTablet}
-                alt="expense page background"
-              />
-            </Tablet>
-            <Desktop>
-              <ExpensePageImg
-                src={expensePageDesktop}
-                alt="expense page background"
-              />
-            </Desktop>
-          </ExpensePageContainer>
+      <BtnCalendar onClick={handleClick} ref={ref}>
+        {isOpen ? (
+          props.value
         ) : (
-          <ExpenseListContainer>
-            <ExpenseListHeader>
-              <TabsModeView>
-                <TabMode>
-                  <NavLink
-                    to={{
-                      pathname: `${match.url}/list`,
-                    }}
-                    className="tab-link"
-                    activeClassName="active-tab"
-                  >
-                    Список
-                  </NavLink>
-                </TabMode>
-                <TabMode>
-                  <NavLink
-                    to={{
-                      pathname: `${match.url}/categories`,
-                    }}
-                    className="tab-link"
-                    activeClassName="active-tab"
-                  >
-                    Категории
-                  </NavLink>
-                </TabMode>
-              </TabsModeView>
-              <DatePicker
-                selected={startDate}
-                locale={ru}
-                onChange={date => setStartDate(date)}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
-                showFullMonthYearPicker
-                showTwoColumnMonthYearPicker
-                open={calendarIsOpen}
-                onClickOutside={openDatePicker}
-                customInput={<CustomInput />}
-              />
-            </ExpenseListHeader>
-            <ExpenseListWrap>
-              <Route path={`${match.url}/list`}>
-                <ExpenseList date={startDate} />
-              </Route>
-              <Route path={`${match.url}/categories`}>
-                <ExpenseCategories date={startDate} />
-              </Route>
-            </ExpenseListWrap>
-            <ExpenseListImg src={expenseList} alt="expense list background" />
-          </ExpenseListContainer>
+          <SvgIcon>
+            <use href="#calendar"></use>
+          </SvgIcon>
         )}
-      </>
+      </BtnCalendar>
     );
-  }
+  });
+  return (
+    <>
+      {location.pathname === match.path ? (
+        <ExpensePageContainer>
+          <ExpenseFormWrapper>
+            <ExpenseForm
+              setTransactionStatus={setTransactionStatus}
+              resetForm={resetForm}
+            />
+          </ExpenseFormWrapper>
+          <ForecastExpenseWrapper>
+            <ForecastExpense setTransactionStatus={setTransactionStatus} />
+          </ForecastExpenseWrapper>
+          <Mobile>
+            <ExpensePageImg
+              src={expensePageMobile}
+              alt="expense page background"
+            />
+          </Mobile>
+          <Tablet>
+            <ExpensePageImg
+              // height="320"
+              src={expensePageTablet}
+              alt="expense page background"
+            />
+          </Tablet>
+          <Desktop>
+            <ExpensePageImg
+              src={expensePageDesktop}
+              alt="expense page background"
+            />
+          </Desktop>
+        </ExpensePageContainer>
+      ) : (
+        <ExpenseListContainer>
+          <ExpenseListHeader>
+            <TabsModeView>
+              <TabMode>
+                <NavLink
+                  to={{
+                    pathname: `${match.url}/list`,
+                  }}
+                  className="tab-link"
+                  activeClassName="active-tab"
+                >
+                  Список
+                </NavLink>
+              </TabMode>
+              <TabMode>
+                <NavLink
+                  to={{
+                    pathname: `${match.url}/categories`,
+                  }}
+                  className="tab-link"
+                  activeClassName="active-tab"
+                >
+                  Категории
+                </NavLink>
+              </TabMode>
+            </TabsModeView>
+            <DatePicker
+              selected={startDate}
+              locale={ru}
+              onChange={date => setStartDate(date)}
+              dateFormat="MM/yyyy"
+              showMonthYearPicker
+              showFullMonthYearPicker
+              showTwoColumnMonthYearPicker
+              open={calendarIsOpen}
+              onClickOutside={openDatePicker}
+              customInput={<CustomInput />}
+            />
+          </ExpenseListHeader>
+          <ExpenseListWrap>
+            <Route path={`${match.url}/list`}>
+              <ExpenseList date={startDate} />
+            </Route>
+            <Route path={`${match.url}/categories`}>
+              <ExpenseCategories date={startDate} />
+            </Route>
+          </ExpenseListWrap>
+          <ExpenseListImg src={expenseList} alt="expense list background" />
+        </ExpenseListContainer>
+      )}
+    </>
+  );
 };
 
 export default ExpensePage;
