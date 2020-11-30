@@ -42,6 +42,11 @@ export const PlanFormStyled = styled.div`
     border: none;
     border-bottom: 1px solid rgba(24, 25, 31, 0.36);
     border-radius: 8px 8px 0px 0px;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
   .secondColumn label:nth-of-type(1) input,
   .secondColumn label:nth-of-type(2) input {
@@ -56,14 +61,7 @@ export const PlanFormStyled = styled.div`
   input:focus {
     border-bottom: 1px solid rgb(33, 150, 243);
   }
-  input {
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      /* display: none; <- Crashes Chrome on hover */
-      -webkit-appearance: none;
-      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-    }
-  }
+
   /* .selectWrapper {
     position: absolute;
     top: 34px;
