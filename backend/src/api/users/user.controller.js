@@ -9,7 +9,8 @@ const getCurrentUser = async (req, res, next) => {
   );
   const currentBalance =
     req.user.totalSalary + req.user.passiveIncome - currentExpenses;
-  return res.status(200).json({
+
+  const response = {
     id: req.user._id,
     username: req.user.username,
     email: req.user.email,
@@ -20,7 +21,10 @@ const getCurrentUser = async (req, res, next) => {
     passiveIncome: req.user.passiveIncome,
     incomePercentageToSavings: req.user.incomePercentageToSavings,
     monthBalance: currentBalance,
-  });
+  };
+  response.picture = req.user.picture ? req.user.picture : 'none';
+
+  return res.status(200).json(response);
 };
 
 const updateUsersController = catchAsync(async (req, res, next) => {

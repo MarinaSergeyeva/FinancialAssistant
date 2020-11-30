@@ -35,7 +35,7 @@ const ProgressInfo = () => {
         <tbody>
           <tr>
             <td className="left">Накоплено, %:</td>
-            <td className="right">{savingsPercentage * 100} %</td>
+            <td className="right">{savingsPercentage} %</td>
           </tr>
           <tr>
             <td className="left">Накоплено, грн:</td>

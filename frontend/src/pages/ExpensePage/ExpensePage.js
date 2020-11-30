@@ -114,6 +114,7 @@ const ExpensePage = () => {
                 dateFormat="MM/yyyy"
                 showMonthYearPicker
                 showFullMonthYearPicker
+                showTwoColumnMonthYearPicker
                 open={calendarIsOpen}
                 onClickOutside={openDatePicker}
                 customInput={<CustomInput />}
