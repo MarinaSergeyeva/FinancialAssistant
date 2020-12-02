@@ -1,5 +1,4 @@
 import { useMediaQuery } from 'react-responsive';
-import useDeviceSizes from '../hooks/useDeviceSizes';
 
 export const size = {
   mobile: '320px',
@@ -38,5 +37,3 @@ export const Desktop = ({ children }) => {
   });
   return isDesktopQuery && children;
 };
-
-// export default device;
