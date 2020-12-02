@@ -4,7 +4,6 @@ import DatePicker from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
-import { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
 import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
@@ -12,9 +11,9 @@ import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-d
 import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
 import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
+import CustomInput from '../../components/CustomInput/CustomInput';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import {
-  BtnCalendar,
   ExpenseFormWrapper,
   ExpenseListContainer,
   ExpenseListHeader,
@@ -23,12 +22,13 @@ import {
   ExpensePageContainer,
   ExpensePageImg,
   ForecastExpenseWrapper,
-  SvgIcon,
   TabMode,
   TabsModeView,
 } from './expensePageStyled';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const ExpensePage = () => {
+  const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
   const [isTransactionSend, setTransactionStatus] = useState(false);
   const resetForm = () => {
     return isTransactionSend;
@@ -37,29 +37,10 @@ const ExpensePage = () => {
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
   const [calendarIsOpen, openDatePicker] = useHandleBoolChange(false);
-  // const openDatePicker = () => {
-  //   setIsOpenCalendar(!calendarIsOpen);
-  // };
+  const handleChange = date => {
+    setStartDate(date);
+  };
 
-  const CustomInput = React.forwardRef((props, ref) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleClick = () => {
-      setIsOpen(!isOpen);
-      props.onClick();
-      openDatePicker();
-    };
-    return (
-      <BtnCalendar onClick={handleClick} ref={ref}>
-        {isOpen ? (
-          props.value
-        ) : (
-          <SvgIcon>
-            <use href="#calendar"></use>
-          </SvgIcon>
-        )}
-      </BtnCalendar>
-    );
-  });
   return (
     <>
       {location.pathname === match.path ? (
@@ -73,25 +54,14 @@ const ExpensePage = () => {
           <ForecastExpenseWrapper>
             <ForecastExpense setTransactionStatus={setTransactionStatus} />
           </ForecastExpenseWrapper>
-          <Mobile>
-            <ExpensePageImg
-              src={expensePageMobile}
-              alt="expense page background"
-            />
-          </Mobile>
-          <Tablet>
-            <ExpensePageImg
-              // height="320"
-              src={expensePageTablet}
-              alt="expense page background"
-            />
-          </Tablet>
-          <Desktop>
-            <ExpensePageImg
-              src={expensePageDesktop}
-              alt="expense page background"
-            />
-          </Desktop>
+          <ExpensePageImg
+            src={
+              (isMobileDevice && expensePageMobile) ||
+              (isTabletDevice && expensePageTablet) ||
+              (isDesktopDevice && expensePageDesktop)
+            }
+            alt="expense page background"
+          />
         </ExpensePageContainer>
       ) : (
         <ExpenseListContainer>
@@ -120,18 +90,21 @@ const ExpensePage = () => {
                 </NavLink>
               </TabMode>
             </TabsModeView>
-            <DatePicker
-              selected={startDate}
-              locale={ru}
-              onChange={date => setStartDate(date)}
-              dateFormat="MM/yyyy"
-              showMonthYearPicker
-              showFullMonthYearPicker
-              showTwoColumnMonthYearPicker
-              open={calendarIsOpen}
-              onClickOutside={openDatePicker}
-              customInput={<CustomInput />}
-            />
+            <div>
+              <DatePicker
+                selected={startDate}
+                locale={ru}
+                onChange={handleChange}
+                dateFormat="MM/yyyy"
+                showMonthYearPicker
+                showFullMonthYearPicker
+                showTwoColumnMonthYearPicker
+                open={calendarIsOpen}
+                onClickOutside={openDatePicker}
+                customInput={<CustomInput toggleOpen={openDatePicker} />}
+                popperPlacement="bottom-end"
+              />
+            </div>
           </ExpenseListHeader>
           <ExpenseListWrap>
             <Route path={`${match.url}/list`}>

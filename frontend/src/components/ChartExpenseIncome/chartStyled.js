@@ -1,15 +1,21 @@
-import React from 'react';
 import styled from 'styled-components';
 import { device } from '../../common/deviceSizes';
 
-export default function ChartTitle() {
-  return (
-    <>
-      <ChartTitlteSC>Динамика расходов и накоплений</ChartTitlteSC>
-    </>
-  );
-}
-const ChartTitlteSC = styled.p`
+export const ChartWrapperSC = styled.div`
+  height: 527px;
+  width: 280px;
+  margin: 0 auto;
+  @media ${device.tablet} {
+    width: 510px;
+    height: 390px;
+  }
+  @media ${device.desktop} {
+    width: 468px;
+    height: 390px;
+  }
+`;
+
+export const ChartTitle = styled.p`
   width: 230px;
 
   font-weight: 800;

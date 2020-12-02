@@ -1,79 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import React from 'react';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
 import {
   ExpenseFormStyled,
   CalcIconStyled,
   CalcWrapper,
-} from '../ExpenseForm/expenseFormStyled';
+} from './expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import { Mobile } from '../../common/deviceSizes';
-import categoriesOperations from '../../redux/operations/categoriesOperations';
-import transactionActions from '../../redux/actions/transactionActions';
 import useShowCalculator from './hooks/useShowCalculator';
 import useReduxState from '../../hooks/useReduxState';
-import {
-  useTextInputValue,
-  useNumberInputValue,
-} from '../../hooks/useInputValue';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
+import useExpenseFormLogic from './hooks/useExpenseFormLogic';
 
 const ExpenseForm = ({ resetForm }) => {
-  const dispatch = useDispatch();
-  const { userInfo, categories, calculatorResult } = useReduxState();
-  const { balance } = userInfo;
-
-  const isTransactionSend = resetForm();
-
-  const [amount, setAmount, onAmountChange] = useNumberInputValue();
-  const [comment, setComment, onCommentChange] = useTextInputValue();
-  const [category, setCategory, onCategoryChange] = useTextInputValue();
   const { isMobileDevice } = useDeviceSizes();
-
   const [showCalculator, showCalculatorHandler] = useShowCalculator();
+  const { userInfo, categories } = useReduxState();
+  const { monthBalance } = userInfo;
 
-  useEffect(() => {
-    if (isTransactionSend) {
-      setAmount('');
-      setComment('');
-      setCategory('');
-      resetForm();
-    }
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isTransactionSend]);
-
-  useEffect(() => {
-    const transactionInfoLS = JSON.parse(
-      localStorage.getItem('persist:transaction'),
-    );
-    if (transactionInfoLS) {
-      setComment(JSON.parse(transactionInfoLS.comment));
-      setCategory(JSON.parse(transactionInfoLS.category));
-      setAmount(Number(JSON.parse(transactionInfoLS.amount)));
-    }
-    dispatch(categoriesOperations.getCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (calculatorResult) {
-      setAmount(calculatorResult);
-    }
-    // eslint-disable-next-line
-  }, [calculatorResult]);
-
-  useEffect(() => {
-    const transactionInfo = {
-      amount,
-      category,
-      comment,
-    };
-
-    if (transactionInfo) {
-      dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-    }
-  }, [amount, category, comment, dispatch]);
+  const { values, onChange } = useExpenseFormLogic(resetForm);
+  const { amount, category, comment } = values;
+  const { onAmountChange, onCommentChange, onCategoryChange } = onChange;
 
   return (
     <ExpenseFormStyled>
@@ -84,7 +32,7 @@ const ExpenseForm = ({ resetForm }) => {
             <select type="text">
               <option defaultValue>Карта VISA (**** 1234)</option>
             </select>
-            <p>Остаток на счете: {balance} UAH</p>
+            <p>Остаток на счете: {monthBalance} UAH</p>
           </label>
           <label>
             <span>Название статьи</span>
