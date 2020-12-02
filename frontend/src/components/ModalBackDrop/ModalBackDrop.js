@@ -1,60 +1,84 @@
 import React, { Component } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import modalTransition from './modalTransition.module.css';
+// import modalTransition from './modalTransition.module.css';
 import styled from 'styled-components';
+import useModalLogic from '../Modal/hooks/useModalLogic';
 
-const modalBackDrop = WrappedComponent => {
-  return class ModalBackDrop extends Component {
-    state = {
-      isOpen: false,
-    };
+// const modalBackDrop = WrappedComponent => {
+//   // console.log('props', this.props);
 
-    componentDidMount() {
-      this.setState({ isOpen: true });
-      window.addEventListener('keydown', this.closeModalKeydown);
-      document.addEventListener('click', this.closeModalOverlay);
-      document.body.style.overflow = 'hidden';
-    }
-    
-    componentWillUnmount() {
-      window.removeEventListener('keydown', this.closeModalKeydown);
-      document.removeEventListener('click', this.closeModalOverlay);
-      document.body.style.overflow = 'auto';
-    }
+//   return class ModalBackDrop extends Component {
+//     // const ModalBackDrop = WrappedComponent => {
+//     state = {
+//       isOpen: false,
+//     };
 
-    closeModal = () => {
-      this.props.close();
-    };
+//     componentDidMount() {
+//       this.setState({ isOpen: true });
+//       window.addEventListener('keydown', this.closeModalKeydown);
+//       document.addEventListener('click', this.closeModalOverlay);
+//       document.body.style.overflow = 'hidden';
+//     }
 
-    closeModalKeydown = e => {
-      if (e.code === 'Escape') {
-        this.closeModal();
-      }
-    };
+//     componentWillUnmount() {
+//       window.removeEventListener('keydown', this.closeModalKeydown);
+//       document.removeEventListener('click', this.closeModalOverlay);
+//       document.body.style.overflow = 'auto';
+//     }
 
-    closeModalOverlay = e => {
-      if (e.target.dataset.type === 'modal') {
-        this.closeModal();
-      }
-    };
+//     closeModal = () => {
+//       this.props.close();
+//     };
 
-    render() {
-      return (
-        <ModalOverlay data-type="modal">
-          <CSSTransition
-            in={this.state.isOpen}
-            timeout={250}
-            classNames={modalTransition}
-            unmountOnExit
-          >
-            <WrappedComponent {...this.props} closeModal={this.closeModal} />
-          </CSSTransition>
-        </ModalOverlay>
-      );
-    }
-  };
+//     closeModalKeydown = e => {
+//       if (e.code === 'Escape') {
+//         this.closeModal();
+//       }
+//     };
+
+//     closeModalOverlay = e => {
+//       if (e.target.dataset.type === 'modal') {
+//         this.closeModal();
+//       }
+//     };
+
+//     render() {
+//       console.log('props', this.props);
+//       return (
+//         <ModalOverlay data-type="modal">
+//           <CSSTransition
+//             in={this.state.isOpen}
+//             timeout={250}
+//             classNames={modalTransition}
+//             unmountOnExit
+//           >
+//             <WrappedComponent {...this.props} closeModal={this.closeModal} />
+//           </CSSTransition>
+//         </ModalOverlay>
+//       );
+//     }
+//   };
+// };
+// export default modalBackDrop;
+
+const ModalBackDrop = WrappedComponent => {
+  console.log('this.props', this.props);
+  const { isModalOpen, closeModal } = useModalBackDropLogic();
+  return (
+    <ModalOverlay data-type="modal">
+      <CSSTransition
+        in={isModalOpen}
+        timeout={250}
+        classNames={modalTransition}
+        unmountOnExit
+      >
+        <WrappedComponent {...this.props} closeModal={closeModal} />
+      </CSSTransition>
+    </ModalOverlay>
+  );
 };
-export default modalBackDrop;
+
+export default ModalBackDrop;
 
 // import React, { useState, useEffect } from 'react';
 // import { CSSTransition } from 'react-transition-group';
