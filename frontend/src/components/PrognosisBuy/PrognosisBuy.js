@@ -7,7 +7,7 @@ import { PrognosisBuyStyled, MessageStyled } from './prognosisBuyStyled';
 
 function PrognosisBuy({ fields }) {
   const [years, setYears] = useState(0);
-  const [monthes, setMonthes] = useState(0);
+  const [months, setMonths] = useState(0);
   const [isShowModal, setIsShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const infoCurrentUser = useSelector(state => state.user.info);
@@ -27,32 +27,44 @@ function PrognosisBuy({ fields }) {
         100;
       const requiredAmount = Number(fields.flatPrice) - Number(fields.balance);
       const yearsResult = Math.floor(requiredAmount / incomeToSavings / 12);
-      const monthesResult = Math.ceil(
+      const monthsResult = Math.ceil(
         requiredAmount / incomeToSavings - yearsResult * 12,
       );
 
       setYears(yearsResult);
-      setMonthes(monthesResult);
+      setMonths(monthsResult);
     } else {
       setYears(0);
-      setMonthes(0);
+      setMonths(0);
     }
   };
 
   const getResultBD = () => {
-    const incomeToSavings =
-      ((Number(infoCurrentUser.totalSalary) +
-        Number(infoCurrentUser.passiveIncome)) *
-        Number(infoCurrentUser.incomePercentageToSavings)) /
-      100;
-    const requiredAmount =
-      Number(infoCurrentUser.flatPrice) - Number(infoCurrentUser.balance);
-    const yearsResult = Math.floor(requiredAmount / incomeToSavings / 12);
-    const monthesResult = Math.ceil(
-      requiredAmount / incomeToSavings - yearsResult * 12,
-    );
-    setYears(yearsResult);
-    setMonthes(monthesResult);
+    if (
+      infoCurrentUser.totalSalary &&
+      infoCurrentUser.passiveIncome &&
+      infoCurrentUser.balance &&
+      infoCurrentUser.flatPrice &&
+      infoCurrentUser.incomePercentageToSavings &&
+      infoCurrentUser.balance <= infoCurrentUser.flatPrice
+    ) {
+      const incomeToSavings =
+        ((Number(infoCurrentUser.totalSalary) +
+          Number(infoCurrentUser.passiveIncome)) *
+          Number(infoCurrentUser.incomePercentageToSavings)) /
+        100;
+      const requiredAmount =
+        Number(infoCurrentUser.flatPrice) - Number(infoCurrentUser.balance);
+      const yearsResult = Math.floor(requiredAmount / incomeToSavings / 12);
+      const monthsResult = Math.ceil(
+        requiredAmount / incomeToSavings - yearsResult * 12,
+      );
+      setYears(yearsResult);
+      setMonths(monthsResult);
+    } else {
+      setYears(0);
+      setMonths(0);
+    }
   };
 
   function declOfNum(number, words) {
@@ -78,8 +90,12 @@ function PrognosisBuy({ fields }) {
     e.preventDefault();
     if (infoCurrentUser.flatPrice > 0) {
       setMessage('Ваши данные уже были сохранены!');
-    } else {
-      monthes && (await dispatch(operation.updateUserInfo(fields)));
+    } else if (fields.balance > fields.flatPrice) {
+      setMessage(
+        'У Вас достаточно сбережений, чтобы купить квартиру прямо сейчас',
+      );
+    } else if (years >= 1 || months >= 1) {
+      await dispatch(operation.updateUserInfo(fields));
       setMessage('Ваши данные сохранены!');
     }
     setIsShowModal(true);
@@ -112,13 +128,13 @@ function PrognosisBuy({ fields }) {
             <label>
               <input
                 type="text"
-                name="monthes"
+                name="months"
                 value={
-                  !monthes
+                  !months
                     ? ''
-                    : monthes +
+                    : months +
                       ' ' +
-                      declOfNum(monthes, ['месяц', 'месяца', 'месяцев'])
+                      declOfNum(months, ['месяц', 'месяца', 'месяцев'])
                 }
                 onChange={() => {}}
                 placeholder="0 месяцев"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { CurrencyStyled } from './currencyStyled';
-import sprite from '../../assets/icons/PlanForm/currency-sprite.svg';
+import sprite from '../../assets/icons/Currency/currency-sprite.svg';
 
 function Currency({ currencySvg, setCurrencySvg, setCurrency }) {
   const [isShowCurrency, setShowCurrency] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { PlanFormStyled } from './planFormStyled';
-import Currency from './Currency';
+import Currency from '../Currency/Currency';
 
 const placeHolder = 'Введите сумму';
 
@@ -28,7 +28,7 @@ function PlanForm({ state, getState }) {
     getState({
       ...state,
       [e.target.name]:
-        Number(e.target.value) *
+        e.target.valueAsNumber *
         (currency[currencySvg] ? Number(currency[currencySvg]) : 1),
     });
   };
@@ -77,7 +77,6 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="balance"
-              // value={!state.balance ? '' : state.balance}
               value={
                 !currentUserInfo.balance
                   ? state.balance
