@@ -38,17 +38,17 @@ const ExpenseListItem = ({ expense, date }) => {
   const [img, setImg] = useState();
   useEffect(() => {
     if (expense.category === 'ЖКХ') {
-      return setImg(homeImg);
+      setImg(homeImg);
     } else if (expense.category === 'Другое') {
-      return setImg(otherImg);
+      setImg(otherImg);
     } else if (expense.category === 'Развлечения') {
-      return setImg(entertainmentImg);
+      setImg(entertainmentImg);
     } else if (expense.category === 'Продукты') {
-      return setImg(foodImg);
+      setImg(foodImg);
     } else if (expense.category === 'Товары') {
-      return setImg(productsImg);
+      setImg(productsImg);
     } else if (expense.category === 'Транспорт') {
-      return setImg(transportImg);
+      setImg(transportImg);
     }
     // eslint-disable-next-line
   }, [img]);
