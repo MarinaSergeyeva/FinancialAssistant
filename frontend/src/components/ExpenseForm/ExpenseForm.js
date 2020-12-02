@@ -7,7 +7,7 @@ import {
   ExpenseFormStyled,
   CalcIconStyled,
   CalcWrapper,
-} from '../ExpenseForm/expenseFormStyled';
+} from './expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import { Mobile } from '../../common/deviceSizes';
 import categoriesOperations from '../../redux/operations/categoriesOperations';
@@ -23,7 +23,7 @@ import useDeviceSizes from '../../hooks/useDeviceSizes';
 const ExpenseForm = ({ resetForm }) => {
   const dispatch = useDispatch();
   const { userInfo, categories, calculatorResult } = useReduxState();
-  const { balance } = userInfo;
+  const { monthBalance } = userInfo;
 
   const isTransactionSend = resetForm();
 
@@ -84,7 +84,7 @@ const ExpenseForm = ({ resetForm }) => {
             <select type="text">
               <option defaultValue>Карта VISA (**** 1234)</option>
             </select>
-            <p>Остаток на счете: {balance} UAH</p>
+            <p>Остаток на счете: {monthBalance} UAH</p>
           </label>
           <label>
             <span>Название статьи</span>
