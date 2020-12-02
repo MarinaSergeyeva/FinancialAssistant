@@ -5,14 +5,12 @@ import { LogoContainer, LogoImg } from './logoStyled';
 
 const Logo = () => {
   return (
-    <>
-      <LogoContainer>
-        <Link to="/" className="logoIcon">
-          <LogoImg src={logoImg} alt="logo img" />
-          <p className="logoText">Finance</p>
-        </Link>
-      </LogoContainer>
-    </>
+    <LogoContainer>
+      <Link to="/" className="logoIcon">
+        <LogoImg src={logoImg} alt="logo img" />
+        <p className="logoText">Finance</p>
+      </Link>
+    </LogoContainer>
   );
 };
 

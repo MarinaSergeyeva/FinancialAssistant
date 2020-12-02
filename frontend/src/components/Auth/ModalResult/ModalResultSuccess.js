@@ -17,31 +17,29 @@ const ModalResultSuccess = ({
   };
 
   return (
-    <>
-      <CongratulationWrapper>
-        <p>Ура!</p>
-        <p>Вы успешно зарегистрировались!</p>
-        <span>
-          Пожалуйста, <b>войдите</b> на сайт
-        </span>
+    <CongratulationWrapper>
+      <p>Ура!</p>
+      <p>Вы успешно зарегистрировались!</p>
+      <span>
+        Пожалуйста, <b>войдите</b> на сайт
+      </span>
 
-        <ButtonModal
-          type="button"
-          onClick={() => {
-            closeModal();
-          }}
-        >
-          Назад
-        </ButtonModal>
-        <ButtonModal type="button" onClick={switchModals}>
-          Войти
-        </ButtonModal>
-        <CongratulationBackgroundImg
-          src={mobileBackgroundImg}
-          alt="background img"
-        />
-      </CongratulationWrapper>
-    </>
+      <ButtonModal
+        type="button"
+        onClick={() => {
+          closeModal();
+        }}
+      >
+        Назад
+      </ButtonModal>
+      <ButtonModal type="button" onClick={switchModals}>
+        Войти
+      </ButtonModal>
+      <CongratulationBackgroundImg
+        src={mobileBackgroundImg}
+        alt="background img"
+      />
+    </CongratulationWrapper>
   );
 };
 

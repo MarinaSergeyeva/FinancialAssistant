@@ -28,20 +28,19 @@ const MainPage = () => {
   const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
 
   return (
-    <>
-      <MainPageContainer>
-        <MainPageTitle>
-          Планировщик{isDesktopDevice ? <br /> : ''} для совместного
-          <MainPageTitleOrange> накопления</MainPageTitleOrange> на квартиру
-        </MainPageTitle>
-        <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
-          <GoogleAuthBtnImg
-            src={googleLogo}
-            alt="google auth picture"
-          ></GoogleAuthBtnImg>
-          Sign up with Google
-        </GoogleAuthBtn>
-        {/* <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
+    <MainPageContainer>
+      <MainPageTitle>
+        Планировщик{isDesktopDevice ? <br /> : ''} для совместного
+        <MainPageTitleOrange> накопления</MainPageTitleOrange> на квартиру
+      </MainPageTitle>
+      <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
+        <GoogleAuthBtnImg
+          src={googleLogo}
+          alt="google auth picture"
+        ></GoogleAuthBtnImg>
+        Sign up with Google
+      </GoogleAuthBtn>
+      {/* <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
           <FacebookAuthBtnImg
             src={facebookLogo}
             alt="facebook auth picture"
@@ -49,40 +48,39 @@ const MainPage = () => {
           Sign up with Facebook
         </FacebookAuthBtn> */}
 
-        <Mobile>
-          <AuthContainer>
-            {!userInfoRegistr && (
-              <>
-                <Registration />
-                <AuthParagraph>
-                  Уже есть аккаунт?
-                  <span onClick={setUserInfoRegistr}>Войти</span>
-                </AuthParagraph>
-              </>
-            )}
+      <Mobile>
+        <AuthContainer>
+          {!userInfoRegistr && (
+            <>
+              <Registration />
+              <AuthParagraph>
+                Уже есть аккаунт?
+                <span onClick={setUserInfoRegistr}>Войти</span>
+              </AuthParagraph>
+            </>
+          )}
 
-            {userInfoRegistr && (
-              <>
-                <Login />
-                <AuthParagraph>
-                  Еще нет аккаунта?
-                  <span onClick={setUserInfoRegistr}>Зарегистрироваться</span>
-                </AuthParagraph>
-              </>
-            )}
-          </AuthContainer>
-        </Mobile>
+          {userInfoRegistr && (
+            <>
+              <Login />
+              <AuthParagraph>
+                Еще нет аккаунта?
+                <span onClick={setUserInfoRegistr}>Зарегистрироваться</span>
+              </AuthParagraph>
+            </>
+          )}
+        </AuthContainer>
+      </Mobile>
 
-        <MainPageImg
-          src={
-            (isMobileDevice && mainPictureMobile) ||
-            (isTabletDevice && mainPictureTablet) ||
-            (isDesktopDevice && mainPictureDesktop)
-          }
-          alt="main page picture"
-        />
-      </MainPageContainer>
-    </>
+      <MainPageImg
+        src={
+          (isMobileDevice && mainPictureMobile) ||
+          (isTabletDevice && mainPictureTablet) ||
+          (isDesktopDevice && mainPictureDesktop)
+        }
+        alt="main page picture"
+      />
+    </MainPageContainer>
   );
 };
 

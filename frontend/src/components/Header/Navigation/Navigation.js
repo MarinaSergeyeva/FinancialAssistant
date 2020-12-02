@@ -19,42 +19,40 @@ const Navigation = ({ showNavigation, isNavigationOn }) => {
   };
 
   return (
-    <>
-      <NavigationContainer>
-        <StyleNavLInk
-          to="/plan"
-          activeClassName="active"
-          onClick={onHandleChange}
-        >
-          Персональный план
-        </StyleNavLInk>
-        <StyleNavLInk
-          to="/expense"
-          exact
-          activeClassName="active"
-          onClick={onHandleChange}
-        >
-          Расходы
-        </StyleNavLInk>
-        <StyleNavLInk
-          to="/dynamics"
-          activeClassName="active"
-          onClick={onHandleChange}
-        >
-          Динамика
-        </StyleNavLInk>
-        {isMobileDevice && <ExpenseButton showNavigation={showNavigation} />}
-        {(isMobileDevice || isTabletDevice) && (
-          <LogoutButton showNavigation={showNavigation} />
-        )}
-        {isTabletDevice && (
-          <NavigationBgImg
-            src={navigationBackgroundTablet}
-            alt="navigation tablet background"
-          />
-        )}
-      </NavigationContainer>
-    </>
+    <NavigationContainer>
+      <StyleNavLInk
+        to="/plan"
+        activeClassName="active"
+        onClick={onHandleChange}
+      >
+        Персональный план
+      </StyleNavLInk>
+      <StyleNavLInk
+        to="/expense"
+        exact
+        activeClassName="active"
+        onClick={onHandleChange}
+      >
+        Расходы
+      </StyleNavLInk>
+      <StyleNavLInk
+        to="/dynamics"
+        activeClassName="active"
+        onClick={onHandleChange}
+      >
+        Динамика
+      </StyleNavLInk>
+      {isMobileDevice && <ExpenseButton showNavigation={showNavigation} />}
+      {(isMobileDevice || isTabletDevice) && (
+        <LogoutButton showNavigation={showNavigation} />
+      )}
+      {isTabletDevice && (
+        <NavigationBgImg
+          src={navigationBackgroundTablet}
+          alt="navigation tablet background"
+        />
+      )}
+    </NavigationContainer>
   );
 };
 
