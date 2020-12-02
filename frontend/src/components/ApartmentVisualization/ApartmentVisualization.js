@@ -6,7 +6,7 @@ import { ApartmentWrapper, Overlay } from './apartmentVizualization';
 
 const ApartmentVisualization = () => {
   const { stats } = useReduxState();
-  const { savingPercentage } = stats;
+  const { savingsPercentage } = stats;
 
   const { isMobileDevice, isTabletDevice } = useDeviceSizes();
 
@@ -18,7 +18,7 @@ const ApartmentVisualization = () => {
         width={isTabletDevice ? '240' : isMobileDevice ? '280' : '269'}
         height="166"
       />
-      <Overlay savingPercentage={savingPercentage}></Overlay>
+      <Overlay savingPercentage={savingsPercentage}></Overlay>
     </ApartmentWrapper>
   );
 };
