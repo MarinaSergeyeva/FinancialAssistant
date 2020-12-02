@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
 import logoutImg from '../../assets/icons/Header/icon-logout.svg';
 import Modal from '../Modal/Modal';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
+import { useSelector } from 'react-redux';
 
 const LoginHeader = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
@@ -16,9 +17,14 @@ const LoginHeader = () => {
       : setIsShowLogin(true);
   };
 
+
   const closeRegistration = () => {
     setIsShowRegistration(prev => !prev);
   };
+
+  const closeBtnRegistration = () =>{
+
+  }
 
   const closeLogin = () => {
     setIsShowLogin(prev => !prev);

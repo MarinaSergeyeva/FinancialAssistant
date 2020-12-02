@@ -1,11 +1,9 @@
 import authAction from '../actions/authAction';
 import axios from 'axios';
-import setError from '../actions/errorActions'
+import setError from '../actions/errorActions';
 import { authSelector } from '../selectors';
 
 axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
-// axios.defaults.baseURL = 'http://localhost:8080';
-
 
 export const token = {
   set(token) {
@@ -18,7 +16,8 @@ export const token = {
 
 const userRegistration = credentials => dispatch => {
   dispatch(authAction.registrationRequest());
-  axios
+ 
+  return axios
     .post('/api/v1/auth/sign-up', credentials)
     .then(res => {
       console.log(res.data, 'Registration');
@@ -26,14 +25,16 @@ const userRegistration = credentials => dispatch => {
       dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
     })
     .catch(err => {
+      console.log(err.response.data.error, 'ERROR');
       dispatch(authAction.registrationError(err));
+      return new Error(err);
     });
 };
 
 const userLogin = credentials => dispatch => {
-  console.log(credentials)
+  console.log(credentials);
   dispatch(authAction.loginRequest());
-  axios
+  return axios
     .post('/api/v1/auth/sign-in', credentials)
     .then(res => {
       token.set(res.data.token);
@@ -44,6 +45,7 @@ const userLogin = credentials => dispatch => {
     .catch(err => {
       console.log(err.message);
       dispatch(authAction.loginError(err));
+      return new Error(err);
     });
 };
 

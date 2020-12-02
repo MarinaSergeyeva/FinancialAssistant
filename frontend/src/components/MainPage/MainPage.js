@@ -22,69 +22,55 @@ const MainPage = () => {
   const [successModal, setSuccessModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const userInfo = useSelector(state => state.auth.id);
-  const [userInfoRegistr, setUserInfoRegistr] = useState(false)
+  const [userInfoRegistr, setUserInfoRegistr] = useState(false);
 
   useEffect(() => {
     if (userInfo) {
       setUserInfoRegistr(true);
-      
     } else {
       setUserInfoRegistr(false);
-
     }
 
-   
     // console.log(userInfo, "userInfo");
 
-    if(loginModal){
+    if (loginModal) {
       // console.log(loginModal, "loginModal")
-      setSuccessModal(false)
+      setSuccessModal(false);
     }
-   
 
-    if(userInfoRegistr){
+    if (userInfoRegistr) {
       // console.log(userInfoRegistr, "userInfoRegistr");
-      setSuccessModal(true)
-    }else{
-      setSuccessModal(false)
+      setSuccessModal(true);
+    } else {
+      setSuccessModal(false);
     }
-
-
-
   }, [userInfo]);
 
   const isOnLargeTablet = useMediaQuery({
     query: device.largeTablet,
   });
 
-   const closeSuccessModal = () => {
+  const closeSuccessModal = () => {
     setSuccessModal(prev => !prev);
-    };
-
-    // const [stateAuthUser, setStateAuthUser] = useState('')
-
-    // useEffect(() => {
-    //   const authUser = JSON.parse(localStorage.getItem("persist:auth"));
-    //   if(authUser){
-    //     setStateAuthUser(JSON.parse(authUser.username))
-    //   }
-    // }, [])
+  };
 
   return (
     <>
-  
-      {/* {(userInfoRegistr && isOnLargeTablet && successModal && 
+      {userInfoRegistr && isOnLargeTablet && successModal && (
         <Modal closeModal={closeSuccessModal}>
-            <ModalResultSuccess closeModal={closeSuccessModal} showLoginModal={setLoginModal} setSuccessModal={setSuccessModal}/>
+          <ModalResultSuccess
+            closeModal={closeSuccessModal}
+            showLoginModal={setLoginModal}
+            setSuccessModal={setSuccessModal}
+          />
         </Modal>
-      )} */}
+      )}
 
-      {( isOnLargeTablet && loginModal && 
-         <Modal closeModal={setLoginModal}>
-             <Login closeModal={setLoginModal}/>
-         </Modal>
-       )}
-
+      {isOnLargeTablet && loginModal && (
+        <Modal closeModal={setLoginModal}>
+          <Login closeModal={setLoginModal} />
+        </Modal>
+      )}
 
       <MainPageContainer>
         <Mobile>

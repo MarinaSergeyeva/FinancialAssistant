@@ -7,8 +7,7 @@ import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
 import device from '../../../common/deviceSizes';
-import setError from '../../../redux/actions/errorActions'
-
+import setError from '../../../redux/actions/errorActions';
 import {
   AuthFormWrapper,
   AuthForm,
@@ -25,45 +24,7 @@ import funcErrTranslator from '../utilsAuth/funcErrTranslator';
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const errState = useSelector(state => getError(state));
-
-  const [messageErr, setMessageErr] = useState('');
-
-    const MessageErr =  (errState) => {
-    const message = funcErrTranslator(Number(errState?.status));
-    setMessageErr(message);
-  };
-
-
-  useEffect(() => {
-    if(messageErr){
-      console.log("is mistake")
-      console.log(messageErr, "messageErr")
-    }else{
-      console.log("NO mistake")
-      console.log(messageErr, "messageErr")
-    }
-   
-  }, [MessageErr]);
-
-
-  useEffect(() => {
-    // MessageErr(errState);
-    const MessageErr =  (errState) => {
-      const message = funcErrTranslator(Number(errState?.status));
-      setMessageErr(message);
-    };
-    MessageErr();
-    
-  //  if(messageErr){
-  //    console.log("is mistake")
-  //  }else{
-  //    console.log("NO mistake")
-  //  }
-  //  //  console.log(messageErr,"messageErrcloseModal!!!1")
-    console.log(errState,"errState")
- }, [errState]);
-
+  ///USERNAME AFTER REGISTR
   const userInfo = useSelector(state => state.auth.username);
   const [userInfoRegistr, setUserInfoRegistr] = useState(
     userInfo ? true : false,
@@ -75,9 +36,28 @@ const Registration = ({ closeModal }) => {
     } else {
       setUserInfoRegistr(false);
     }
-    // console.log(userInfo,"userInfo")
-    // console.log(userInfoRegistr,"userInfoRegistr")
   }, [userInfo]);
+
+  ///ERROR-AUTH
+  const errState = useSelector(state => getError(state));
+  const [messageErr, setMessageErr] = useState('');
+
+  const MessageErr = errState => {
+    const message = funcErrTranslator(Number(errState?.status));
+    setMessageErr(message);
+  };
+
+  useEffect(() => {
+    if (messageErr) {
+      console.log('is mistake');
+      console.log(messageErr, 'messageErr');
+    }
+  }, [errState]);
+
+  useEffect(() => {
+    MessageErr(errState);
+    console.log(errState, 'errState');
+  }, [errState]);
 
   const isOnMobile = useMediaQuery({
     query: device.mobile,
@@ -92,11 +72,18 @@ const Registration = ({ closeModal }) => {
           password: '',
         }}
         validationSchema={registrationFrontSchema}
-        onSubmit={async (values) => {
-        dispatch(await operation.userRegistration({ ...values }));
-        
-          !isOnMobile && !messageErr && closeModal();
-          closeModal() && dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
+        onSubmit={async values => {
+          const data = dispatch( operation.userRegistration({ ...values }));
+          data.then((response)=>{ 
+            console.log(response, "RES")
+            if(response){
+            return
+            }else{
+              !isOnMobile && userInfoRegistr && closeModal();
+            }
+            }).catch(()=>!isOnMobile && closeModal())
+         
+          // dispatch(await setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -139,7 +126,6 @@ const Registration = ({ closeModal }) => {
                   name="email"
                   id="email"
                   borderErrColor={errState?.status === 409 ? 'red' : '#a3a3a3'}
-
                 />
                 {(
                   <ErrorValidation

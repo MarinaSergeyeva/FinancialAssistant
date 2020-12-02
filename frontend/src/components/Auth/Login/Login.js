@@ -56,8 +56,16 @@ const Login = ({ closeModal }) => {
         validationSchema={loginFrontSchema}
         onSubmit={async (values) => {
         
-          dispatch(await operation.userLogin({ ...values }));
-          !isOnMobile && messageErrLogin && closeModal();
+          const data = dispatch( operation.userLogin({ ...values }));
+
+          data.then((response)=>{ 
+            console.log(response, "response LOGIN")
+            if(response){
+            return
+            }else{
+              !isOnMobile && closeModal();
+            }
+            })
           
         }}
       >
@@ -102,7 +110,7 @@ const Login = ({ closeModal }) => {
                   placeholder="Введите ваш пароль"
                   name="password"
                   id="password"
-                  borderErrColor={errState?.status === 404 || errState?.status === 500 ? 'red' : '#a3a3a3'}
+                  borderErrColor={errState?.status === 403 || errState?.status === 500 ? 'red' : '#a3a3a3'}
 
                 />
                 {(
