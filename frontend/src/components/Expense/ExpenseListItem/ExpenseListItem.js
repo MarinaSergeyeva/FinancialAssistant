@@ -11,20 +11,7 @@ import { device, Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 import { useDispatch } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
 import useReduxState from '../../../hooks/useReduxState';
-
-const useInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
-
-  const onChange = e => {
-    setValue(e.target.value);
-  };
-  const clear = () => setValue('');
-  return {
-    bind: { value, onChange },
-    value,
-    clear,
-  };
-};
+import { useInput } from '../../../hooks/useInputValue';
 
 const ExpenseListItem = ({ expense, date }) => {
   const dispatch = useDispatch();
