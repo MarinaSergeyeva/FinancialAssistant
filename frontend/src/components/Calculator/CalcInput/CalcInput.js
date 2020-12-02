@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import { device } from '../../../common/deviceSizes';
 
 const Input = props => {
-  return (
-    <>
-      <InputWrapper>{props.input}</InputWrapper>
-    </>
-  );
+  return <InputWrapper>{props.input}</InputWrapper>;
 };
 
 export default Input;

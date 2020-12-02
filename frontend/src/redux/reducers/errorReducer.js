@@ -7,7 +7,7 @@ const initialResponse = {
   statusText: '',
 };
 
-const error = (state = {...initialResponse}, action) => {
+const error = (state = { ...initialResponse }, action) => {
   switch (action.type) {
     case authConstants.REGISTER_ERROR:
       return {
