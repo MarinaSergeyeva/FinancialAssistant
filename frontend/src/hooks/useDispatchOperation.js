@@ -1,5 +1,5 @@
-const { useEffect } = require('react');
-const { useDispatch } = require('react-redux');
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const useDispatchOperation = (param, operation) => {
   const dispatch = useDispatch();

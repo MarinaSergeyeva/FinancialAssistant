@@ -9,7 +9,7 @@ import {
   userSelectors,
 } from '../redux/selectors';
 
-const { useSelector } = require('react-redux');
+import { useSelector } from 'react-redux';
 
 const useReduxState = () => {
   // AUTH //
