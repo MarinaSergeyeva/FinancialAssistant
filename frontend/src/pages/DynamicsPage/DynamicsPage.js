@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GiftCompleting from '../../components/GiftCompleting/GiftCompleting';
-import { MonthlyExecutionPlan } from '../MonthlyExecutionPlan/MonthlyExecutionPlan.js';
-import ChartWrapper from '../ChartExpenseIncome/ChartWrapper.js';
+import { MonthlyExecutionPlan } from '../../components/MonthlyExecutionPlan/MonthlyExecutionPlan';
+import ChartWrapper from '../../components/ChartExpenseIncome/ChartWrapper';
 import ProgressInfo from '../../components/ProgressInfo/ProgressInfo';
 import ApartmentVisualization from '../../components/ApartmentVisualization/ApartmentVisualization';
 import { useDispatch, useSelector } from 'react-redux';
