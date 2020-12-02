@@ -16,7 +16,7 @@ import {
   AuthInputTxt,
   AuthInput,
   AuthButtonBlock,
-  ErrMessage
+  ErrMessage,
 } from '../../../common/globalStyleComponents';
 import { getError } from '../../../redux/selectors/errorSelector';
 import funcErrTranslator from '../utilsAuth/funcErrTranslator';
@@ -26,24 +26,17 @@ const Login = ({ closeModal }) => {
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
-  const [state, setstate] = useState(null)
+  const [state, setstate] = useState(null);
   const errState = useSelector(state => getError(state));
   const [messageErrLogin, setMessageErrlogin] = useState(null);
 
-  const MessageErrlogin =  () => {
+  const MessageErrlogin = () => {
     const message = funcErrTranslator(Number(errState?.status));
-    console.log(message);
     setMessageErrlogin(message);
   };
   useEffect(() => {
     MessageErrlogin();
-   
   }, [errState]);
-
-  useEffect(() => {
-    console.log(state,"state")
-  }, [])
-
 
   return (
     <AuthFormWrapperLogin>
@@ -52,28 +45,24 @@ const Login = ({ closeModal }) => {
           email: '',
           password: '',
         }}
-
         validationSchema={loginFrontSchema}
-        onSubmit={async (values) => {
-        
-          const data = dispatch( operation.userLogin({ ...values }));
+        onSubmit={async values => {
+          const data = dispatch(operation.userLogin({ ...values }));
 
-          data.then((response)=>{ 
-            console.log(response, "response LOGIN")
-            if(response){
-            return
-            }else{
+          data.then(response => {
+            if (response) {
+              return;
+            } else {
               !isOnMobile && closeModal();
             }
-            })
-          
+          });
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-              {errState?.kindOfErr === 'Login' &&(
+              {errState?.kindOfErr === 'Login' && (
                 <ErrMessage>{messageErrLogin}</ErrMessage>
               )}
               <AuthInputForm>
@@ -86,8 +75,12 @@ const Login = ({ closeModal }) => {
                   placeholder="Введите ваш e-mail"
                   name="email"
                   id="email"
-                  borderErrColor={errState?.status === 404 || errState?.status === 500 ? 'red' : '#a3a3a3'}
-                  touched={setstate("rjcyekcz")}
+                  borderErrColor={
+                    errState?.status === 404 || errState?.status === 500
+                      ? 'red'
+                      : '#a3a3a3'
+                  }
+                  touched={setstate('rjcyekcz')}
                 />
                 {(
                   <ErrorValidation
@@ -95,7 +88,7 @@ const Login = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
-                 {/* {errState?.status === 404 && errState?.kindOfErr === 'Login' && (
+                {/* {errState?.status === 404 && errState?.kindOfErr === 'Login' && (
                   <ErrMessage>{messageErr}</ErrMessage>
                 )} */}
               </AuthInputForm>
@@ -110,8 +103,11 @@ const Login = ({ closeModal }) => {
                   placeholder="Введите ваш пароль"
                   name="password"
                   id="password"
-                  borderErrColor={errState?.status === 403 || errState?.status === 500 ? 'red' : '#a3a3a3'}
-
+                  borderErrColor={
+                    errState?.status === 403 || errState?.status === 500
+                      ? 'red'
+                      : '#a3a3a3'
+                  }
                 />
                 {(
                   <ErrorValidation
@@ -159,6 +155,5 @@ const AuthFormWrapperLogin = styled.div`
     height: 276px;
   }
 `;
-
 
 export default Login;

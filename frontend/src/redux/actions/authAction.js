@@ -4,13 +4,10 @@ const registrationRequest = () => ({
   type: constants.REGISTER_REQUEST,
 });
 
-const registrationSuccess = credential => {
-  console.log(credential);
- return {
+const registrationSuccess = credential => ({
   type: constants.REGISTER_SUCCESS,
   payload: credential,
-}
-};
+});
 
 const registrationError = error => ({
   type: constants.REGISTER_ERROR,
@@ -22,10 +19,8 @@ const loginRequest = () => ({
 });
 
 const loginSuccess = credential => ({
-
-    type: constants.LOGIN_SUCCESS,
-    payload: credential,
-  
+  type: constants.LOGIN_SUCCESS,
+  payload: credential,
 });
 
 const loginError = error => ({

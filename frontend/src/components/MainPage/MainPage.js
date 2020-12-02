@@ -18,7 +18,6 @@ const path = require('path');
 require('dotenv').config({ path: path.join('../../../../backend/.env') });
 
 const MainPage = () => {
-  const errState = useSelector(state => getError(state));
   const [successModal, setSuccessModal] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const userInfo = useSelector(state => state.auth.id);
@@ -31,15 +30,12 @@ const MainPage = () => {
       setUserInfoRegistr(false);
     }
 
-    // console.log(userInfo, "userInfo");
 
     if (loginModal) {
-      // console.log(loginModal, "loginModal")
       setSuccessModal(false);
     }
 
     if (userInfoRegistr) {
-      // console.log(userInfoRegistr, "userInfoRegistr");
       setSuccessModal(true);
     } else {
       setSuccessModal(false);

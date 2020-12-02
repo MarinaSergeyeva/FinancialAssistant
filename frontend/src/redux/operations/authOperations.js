@@ -16,34 +16,29 @@ export const token = {
 
 const userRegistration = credentials => dispatch => {
   dispatch(authAction.registrationRequest());
- 
+
   return axios
     .post('/api/v1/auth/sign-up', credentials)
     .then(res => {
-      console.log(res.data, 'Registration');
       dispatch(authAction.registrationSuccess(res.data));
       dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
     })
     .catch(err => {
-      console.log(err.response.data.error, 'ERROR');
       dispatch(authAction.registrationError(err));
       return new Error(err);
     });
 };
 
 const userLogin = credentials => dispatch => {
-  console.log(credentials);
   dispatch(authAction.loginRequest());
   return axios
     .post('/api/v1/auth/sign-in', credentials)
     .then(res => {
       token.set(res.data.token);
-      console.log(res.data);
       dispatch(authAction.loginSuccess(res.data));
       dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
     })
     .catch(err => {
-      console.log(err.message);
       dispatch(authAction.loginError(err));
       return new Error(err);
     });

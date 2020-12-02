@@ -48,15 +48,7 @@ const Registration = ({ closeModal }) => {
   };
 
   useEffect(() => {
-    if (messageErr) {
-      console.log('is mistake');
-      console.log(messageErr, 'messageErr');
-    }
-  }, [errState]);
-
-  useEffect(() => {
     MessageErr(errState);
-    console.log(errState, 'errState');
   }, [errState]);
 
   const isOnMobile = useMediaQuery({
@@ -81,9 +73,7 @@ const Registration = ({ closeModal }) => {
             }else{
               !isOnMobile && userInfoRegistr && closeModal();
             }
-            }).catch(()=>!isOnMobile && closeModal())
-         
-          // dispatch(await setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
+            })
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
