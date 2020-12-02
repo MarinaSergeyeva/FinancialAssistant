@@ -1,1 +1,3 @@
-export const getError = state => state.error;
+const getError = state => state.error;
+
+export default {getError} ;

@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/notFound/dribbble_1.gif';
-import isAuth from '../../redux/selectors/authSelector'
+import isAuth from '../../redux/selectors/authSelector';
 
 const NotFound = () => {
   return (
     <>
-      <SectionNotFound>
+       <SectionNotFound>
         <SectionText>404</SectionText>
         <img src={img} alt="/" width="700" />
         <h2>Look like you're lost...</h2>
@@ -22,17 +22,22 @@ const NotFound = () => {
 
 export default NotFound;
 
+{
+ 
+}
+
 const SectionNotFound = styled.section`
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   height: 100vh;
 
-  margin-top: 50px;
+  /* margin-top: 50px; */
   width: 100%;
 
   & button {
-    background-color: green;
+    background: rgba(255, 108, 0, 1);
     border-radius: 5px;
     margin: 20px 10px;
     padding: 10px;
@@ -48,7 +53,7 @@ const SectionNotFound = styled.section`
 
 const SectionText = styled.p`
   position: absolute;
-  top: 20%;
+  top: 15%;
   font-size: 80px;
 `;
 

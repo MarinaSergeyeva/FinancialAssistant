@@ -6,7 +6,6 @@ import operation from '../../../redux/operations/authOperations';
 import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-import device from '../../../common/deviceSizes';
 import setError from '../../../redux/actions/errorActions';
 import {
   AuthFormWrapper,
@@ -18,9 +17,10 @@ import {
   AuthButtonBlock,
   ErrMessage,
 } from '../../../common/globalStyleComponents';
-import { getError } from '../../../redux/selectors/errorSelector';
-import funcErrTranslator from '../utilsAuth/funcErrTranslator';
 
+import  getError  from '../../../redux/selectors/errorSelector';
+import funcErrTranslator from '../utilsAuth/funcErrTranslator';
+import {device} from '../../../common/deviceSizes';
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const Registration = ({ closeModal }) => {
   const [userInfoRegistr, setUserInfoRegistr] = useState(
     userInfo ? true : false,
   );
-
+ 
   useEffect(() => {
     if (userInfo) {
       setUserInfoRegistr(true);
@@ -37,9 +37,9 @@ const Registration = ({ closeModal }) => {
       setUserInfoRegistr(false);
     }
   }, [userInfo]);
-
-  ///ERROR-AUTH
-  const errState = useSelector(state => getError(state));
+  
+  ///ERROR-AUTHerrState
+  const errState = useSelector(state => getError.getError(state));
   const [messageErr, setMessageErr] = useState('');
 
   const MessageErr = errState => {
@@ -65,15 +65,15 @@ const Registration = ({ closeModal }) => {
         }}
         validationSchema={registrationFrontSchema}
         onSubmit={async values => {
-          const data = dispatch( operation.userRegistration({ ...values }));
-          data.then((response)=>{ 
-            console.log(response, "RES")
-            if(response){
-            return
-            }else{
+          const data = dispatch(operation.userRegistration({ ...values }));
+          data.then(response => {
+            console.log(response, 'RES');
+            if (response) {
+              return;
+            } else {
               !isOnMobile && userInfoRegistr && closeModal();
             }
-            })
+          });
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -123,9 +123,6 @@ const Registration = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
-                {/* {(errState?.status === 409) && errState?.kindOfErr === 'Register' && (
-                  <ErrMessage>{messageErr}</ErrMessage>
-                )} */}
               </AuthInputForm>
 
               <AuthInputForm>
@@ -146,9 +143,6 @@ const Registration = ({ closeModal }) => {
                     message={errors.password}
                   />
                 ) && funcMessage(errors.password)}
-                {/* {errState?.status === 403 && errState?.kindOfErr === 'Register' && (
-                  <ErrMessage>{messageErr}</ErrMessage>
-                )} */}
               </AuthInputForm>
 
               <AuthButtonBlock>

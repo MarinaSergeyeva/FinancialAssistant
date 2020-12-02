@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
@@ -9,100 +9,102 @@ import {
   CalcWrapper,
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
-import device, { Mobile } from '../../common/deviceSizes';
+import { Mobile } from '../../common/deviceSizes';
 import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
-import categoriesSelector from '../../redux/selectors/categoriesSelector';
-import calculatorSelector from '../../redux/selectors/calculatorSelector';
-import calculatorActions from '../../redux/actions/calculatorActions';
-import { transactionSelectors, userSelectors } from '../../redux/selectors';
+import useShowCalculator from './hooks/useShowCalculator';
+import useReduxState from '../../hooks/useReduxState';
+import {
+  useTextInputValue,
+  useNumberInputValue,
+} from '../../hooks/useInputValue';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
-const useInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
-
-  const onChange = e => {
-    setValue(e.target.value);
-  };
-  const clear = () => setValue('');
-  return {
-    bind: { value, onChange },
-    value,
-    clear,
-  };
-};
-
-const ExpenseForm = () => {
-  const [showCalculator, setShowCalculator] = useState(false);
-  const [amount, setAmount] = useState('');
-
-  const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
-  const categories = useSelector(state => categoriesSelector(state));
-  const calculatorResult = useSelector(state =>
-    calculatorSelector.calcResult(state),
-  );
-
+const ExpenseForm = ({ resetForm }) => {
   const dispatch = useDispatch();
+  const { userInfo, categories, calculatorResult } = useReduxState();
+  const { balance } = userInfo;
 
-  const showCalculatorHandler = () => {
-    setShowCalculator(!showCalculator);
-  };
+  const isTransactionSend = resetForm();
 
-  const onAmountChange = e => {
-    setAmount(e.target.value);
-  };
+  const [amount, setAmount, onAmountChange] = useNumberInputValue();
+  const [comment, setComment, onCommentChange] = useTextInputValue();
+  const [category, setCategory, onCategoryChange] = useTextInputValue();
+  const { isMobileDevice } = useDeviceSizes();
 
-  useEffect(() => {
-    dispatch(categoriesOperations.getCategories());
-  }, []);
-
-  const comment = useInput('');
-  // const amount = useInput('');
-  const category = useInput('');
-
-  const transactionInfo = {
-    comment: comment.bind.value,
-    amount: Number(amount),
-    category: category.bind.value,
-  };
-
-  const isMobileDevice = useMediaQuery({
-    query: device.mobile,
-  });
+  const [showCalculator, showCalculatorHandler] = useShowCalculator();
 
   useEffect(() => {
-    setAmount(calculatorResult);
-    dispatch(
-      transactionActions.changeTransactionSuccess({
-        ...transactionInfo,
-        amount: calculatorResult,
-      }),
+    if (isTransactionSend) {
+      setAmount('');
+      setComment('');
+      setCategory('');
+      resetForm();
+    }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTransactionSend]);
+
+  useEffect(() => {
+    const transactionInfoLS = JSON.parse(
+      localStorage.getItem('persist:transaction'),
     );
+    if (transactionInfoLS) {
+      setComment(JSON.parse(transactionInfoLS.comment));
+      setCategory(JSON.parse(transactionInfoLS.category));
+      setAmount(Number(JSON.parse(transactionInfoLS.amount)));
+    }
+    dispatch(categoriesOperations.getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (calculatorResult) {
+      setAmount(calculatorResult);
+    }
+    // eslint-disable-next-line
   }, [calculatorResult]);
 
   useEffect(() => {
-    dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
-  }, [transactionInfo]);
+    const transactionInfo = {
+      amount,
+      category,
+      comment,
+    };
+
+    if (transactionInfo) {
+      dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
+    }
+  }, [amount, category, comment, dispatch]);
 
   return (
     <ExpenseFormStyled>
       <form>
         <div className="smallFormContainer">
-          <label className="">
+          <label className="select-arrow">
             <span>Со счета</span>
             <select type="text">
-              <option defaultValue>Карта VISA (Ваня)</option>
+              <option defaultValue>Карта VISA (**** 1234)</option>
             </select>
             <p>Остаток на счете: {balance} UAH</p>
           </label>
           <label>
             <span>Название статьи</span>
-            <input type="text" {...comment.bind} />
+            <input
+              type="text"
+              placeholder="Введите статью расходов"
+              value={comment}
+              onChange={onCommentChange}
+            />
           </label>
 
-          <label>
+          <label className="select-arrow">
             <span>На категорию</span>
-            <select type="text" {...category.bind}>
-              <option key="Без категории" value="Без категории" defaultValue>
+            <select
+              className="select-arrow"
+              type="text"
+              value={category}
+              onChange={onCategoryChange}
+            >
+              <option key="Без категории" defaultValue>
                 -- Выберите категорию --
               </option>
               {categories.map(elem => (
@@ -114,12 +116,12 @@ const ExpenseForm = () => {
           </label>
           <label>
             <span>Сумма</span>
-            {/* <input className="calc-input" type="number" {...amount.bind} /> */}
             <input
               className="calc-input"
               type="number"
+              placeholder="Введите сумму"
               onChange={onAmountChange}
-              value={amount}
+              value={amount.toString()}
             />
           </label>
           <CalcIconStyled onClick={showCalculatorHandler}>

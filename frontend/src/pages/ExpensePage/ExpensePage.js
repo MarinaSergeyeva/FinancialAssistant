@@ -1,127 +1,151 @@
-import React from 'react';
-import { Route, Link, useRouteMatch, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
+import 'react-datepicker/dist/react-datepicker.css';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
-import { device, Mobile, Tablet, Desktop } from '../../common/deviceSizes';
+import { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
-// import { size } from '../../common/deviceSizes';
 import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
 import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
-import LogoutModal from '../../components/Logout/LogoutModal';
-import ExpenseCategories from '../../components/ExpenseCategories/ExpenseCategories';
-import ExpenseList from '../../components/ExpenseList/ExpenseList';
+import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
+import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
+import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
+import useHandleBoolChange from '../../hooks/useHandleBoolChange';
+import {
+  BtnCalendar,
+  ExpenseFormWrapper,
+  ExpenseListContainer,
+  ExpenseListHeader,
+  ExpenseListImg,
+  ExpenseListWrap,
+  ExpensePageContainer,
+  ExpensePageImg,
+  ForecastExpenseWrapper,
+  SvgIcon,
+  TabMode,
+  TabsModeView,
+} from './expensePageStyled';
 
 const ExpensePage = () => {
-  {
-    const match = useRouteMatch();
-    const location = useLocation();
-    // console.log('location', location);
-    // console.log('match', match); // '/expense'
+  const [isTransactionSend, setTransactionStatus] = useState(false);
+  const resetForm = () => {
+    return isTransactionSend;
+  };
+  const match = useRouteMatch();
+  const location = useLocation();
+  const [startDate, setStartDate] = useState(new Date());
+  const [calendarIsOpen, openDatePicker] = useHandleBoolChange(false);
+  // const openDatePicker = () => {
+  //   setIsOpenCalendar(!calendarIsOpen);
+  // };
+
+  const CustomInput = React.forwardRef((props, ref) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClick = () => {
+      setIsOpen(!isOpen);
+      props.onClick();
+      openDatePicker();
+    };
     return (
-      <>
-        {location.pathname === match.path ? (
-          <ExpensePageContainer>
-            <ExpenseFormWrapper>
-              <ExpenseForm />
-            </ExpenseFormWrapper>
-            <ForecastExpense />
-            <Mobile>
-              <ExpensePageImg
-                src={expensePageMobile}
-                alt="expense page background"
-              />
-            </Mobile>
-            <Tablet>
-              <ExpensePageImg
-                height="320"
-                src={expensePageTablet}
-                alt="expense page background"
-              />
-            </Tablet>
-            <Desktop>
-              <ExpensePageImg
-                src={expensePageDesktop}
-                alt="expense page background"
-              />
-            </Desktop>
-          </ExpensePageContainer>
+      <BtnCalendar onClick={handleClick} ref={ref}>
+        {isOpen ? (
+          props.value
         ) : (
-          <ul style={{ margin: '50px 50px', display: 'flex' }}>
-            <li style={{ marginRight: '35px' }}>
-              <Link
-                to={{
-                  pathname: `${match.url}/list`,
-                }}
-              >
-                Список
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={{
-                  pathname: `${match.url}/categories`,
-                }}
-              >
-                Категории
-              </Link>
-            </li>
-          </ul>
+          <SvgIcon>
+            <use href="#calendar"></use>
+          </SvgIcon>
         )}
-        <Route path={`${match.url}/list`}>
-          <ExpenseList />
-        </Route>
-        <Route path={`${match.url}/categories`}>
-          <ExpenseCategories />
-        </Route>
-        {/* <Route path={`${match.path}/categories`} component={ExpenseCategories} /> */}
-        {/* <Route path={`${match.path}/list`} component={ExpensesList} /> */}
-      </>
+      </BtnCalendar>
     );
-  }
+  });
+  return (
+    <>
+      {location.pathname === match.path ? (
+        <ExpensePageContainer>
+          <ExpenseFormWrapper>
+            <ExpenseForm
+              setTransactionStatus={setTransactionStatus}
+              resetForm={resetForm}
+            />
+          </ExpenseFormWrapper>
+          <ForecastExpenseWrapper>
+            <ForecastExpense setTransactionStatus={setTransactionStatus} />
+          </ForecastExpenseWrapper>
+          <Mobile>
+            <ExpensePageImg
+              src={expensePageMobile}
+              alt="expense page background"
+            />
+          </Mobile>
+          <Tablet>
+            <ExpensePageImg
+              // height="320"
+              src={expensePageTablet}
+              alt="expense page background"
+            />
+          </Tablet>
+          <Desktop>
+            <ExpensePageImg
+              src={expensePageDesktop}
+              alt="expense page background"
+            />
+          </Desktop>
+        </ExpensePageContainer>
+      ) : (
+        <ExpenseListContainer>
+          <ExpenseListHeader>
+            <TabsModeView>
+              <TabMode>
+                <NavLink
+                  to={{
+                    pathname: `${match.url}/list`,
+                  }}
+                  className="tab-link"
+                  activeClassName="active-tab"
+                >
+                  Список
+                </NavLink>
+              </TabMode>
+              <TabMode>
+                <NavLink
+                  to={{
+                    pathname: `${match.url}/categories`,
+                  }}
+                  className="tab-link"
+                  activeClassName="active-tab"
+                >
+                  Категории
+                </NavLink>
+              </TabMode>
+            </TabsModeView>
+            <DatePicker
+              selected={startDate}
+              locale={ru}
+              onChange={date => setStartDate(date)}
+              dateFormat="MM/yyyy"
+              showMonthYearPicker
+              showFullMonthYearPicker
+              showTwoColumnMonthYearPicker
+              open={calendarIsOpen}
+              onClickOutside={openDatePicker}
+              customInput={<CustomInput />}
+            />
+          </ExpenseListHeader>
+          <ExpenseListWrap>
+            <Route path={`${match.url}/list`}>
+              <ExpenseList date={startDate} />
+            </Route>
+            <Route path={`${match.url}/categories`}>
+              <ExpenseCategories date={startDate} />
+            </Route>
+          </ExpenseListWrap>
+          <ExpenseListImg src={expenseList} alt="expense list background" />
+        </ExpenseListContainer>
+      )}
+    </>
+  );
 };
 
 export default ExpensePage;
-
-const ExpensePageContainer = styled.div`
-  position: relative;
-  margin: 0 auto;
-  padding-top: 40px;
-  padding-bottom: 200px;
-  width: 280px;
-  @media ${device.tablet} {
-    max-height: calc(100vh - 87px);
-    padding-top: 74px;
-    padding-bottom: 510px;
-    width: 690px;
-  }
-  @media ${device.desktop} {
-    max-height: 100vh;
-    padding-top: 64px;
-    padding-bottom: 220px;
-    width: 770px;
-  }
-`;
-
-const ExpenseFormWrapper = styled.div`
-  margin: 0 auto;
-
-  margin-bottom: 52px;
-  /* width: 690px; */
-  /* display: flex; */
-`;
-
-const ExpensePageImg = styled.img`
-  position: absolute;
-  bottom: 0px;
-  left: -20px;
-
-  @media ${device.tablet} {
-    max-height: 320px;
-    left: -40px;
-  }
-
-  @media ${device.largeDesktop} {
-    left: -255px;
-  } ;
-`;

@@ -3,20 +3,20 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { size } from '../../common/deviceSizes';
 import { textColor, colors } from '../../stylesheet/vars';
-import { statsFlatSelectors } from '../../redux/selectors';
+import useReduxState from '../../hooks/useReduxState';
 
 const YEARS_CASES = ['год', 'года', 'лет'];
 const MONTHS_CASES = ['месяц', 'месяца', 'месяцев'];
 
 const ProgressInfo = () => {
-  const statsFlat = useSelector(statsFlatSelectors.getStatsFlat);
+  const { stats } = useReduxState();
   const {
     savingsPercentage,
     savingsValue,
     savingsInSquareMeters,
     totalSquareMeters,
     monthsLeftToSaveForFlat,
-  } = statsFlat;
+  } = stats.statsFlat;
   const years = Math.abs(Math.floor(monthsLeftToSaveForFlat / 12));
   const months = Math.abs(monthsLeftToSaveForFlat % 12);
   const progressLength = (savingsInSquareMeters / totalSquareMeters) * 100;
@@ -35,7 +35,7 @@ const ProgressInfo = () => {
         <tbody>
           <tr>
             <td className="left">Накоплено, %:</td>
-            <td className="right">{savingsPercentage} %</td>
+            <td className="right">{Math.round(savingsPercentage * 100)} %</td>
           </tr>
           <tr>
             <td className="left">Накоплено, грн:</td>

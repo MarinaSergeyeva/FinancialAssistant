@@ -1,47 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { textColor } from '../../stylesheet/vars';
+import { textColor } from '../../../stylesheet/vars';
 
-const BurgerMenu = ({ showNavigation }) => {
-  const [className, setClassName] = useState('burger');
-  const [isActiveClass, setActiveClass] = useState(false);
-
-  const prevLocation = useRef('');
-
-  const match = useRouteMatch();
-  const { pathname } = useLocation();
-  const [location, setLocation] = useState(pathname);
-
-  const classNameHandleChange = () => {
-    showNavigation();
-    setActiveClass(!isActiveClass);
-  };
-
-  useEffect(() => {
-    setLocation(pathname);
-    if (prevLocation.current !== location) setActiveClass(!isActiveClass);
-  }, [pathname]);
-
-  useEffect(() => {
-    isActiveClass
-      ? setClassName('burger burger-active')
-      : setClassName('burger');
-  }, [isActiveClass]);
-
-  return (
-    <BurgerMenuWrapper
-      className="burger-wrapper"
-      onClick={classNameHandleChange}
-    >
-      <div className={className}></div>
-    </BurgerMenuWrapper>
-  );
-};
-
-export default BurgerMenu;
-
-const BurgerMenuWrapper = styled.div`
+export const BurgerMenuWrapper = styled.div`
   cursor: pointer;
 
   .burger-wrapper {

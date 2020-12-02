@@ -17,8 +17,9 @@ const getMonthReport = catchAsync(async (req, res, next) => {
   const userId = req.user._id;
 
   const date = new Date();
-  startDate = new Date(date.getFullYear() - 1, date.getMonth());
+  startDate = new Date(endYear - 1, endMonth);
   const endDate = new Date(endYear, endMonth);
+  console.log('endDate', endDate);
 
   monthReports = await MonthReportModel.aggregate([
     {

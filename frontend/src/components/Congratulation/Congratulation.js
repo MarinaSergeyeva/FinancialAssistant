@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import device, { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
+import { device, Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import mobileBackgroundImg from '../../assets/images/Congratulation/mobileCongratulation.svg';
 import backgroundImg from '../../assets/images/Congratulation/congratulation.svg';
 

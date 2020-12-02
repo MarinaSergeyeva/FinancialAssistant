@@ -7,38 +7,35 @@ import { userSelectors, transactionSelectors } from '../../redux/selectors';
 import { transactionOperations } from '../../redux/operations';
 import Modal from '../Modal/Modal';
 
-const ForecastExpense = () => {
+const ForecastExpense = ({ setTransactionStatus }) => {
   const transaction = useSelector(transactionSelectors.getTransaction);
   const userData = useSelector(userSelectors.getCurrentUser);
-
   const { monthBalance, incomePercentageToSavings } = userData;
   const freeMoney = monthBalance * (1 - incomePercentageToSavings / 100);
-
-  const todayDate = new Date();
-  const restDays =
-    daysInMonth(todayDate.getMonth(), todayDate.getFullYear()) -
-    todayDate.getDate() +
-    1;
+  const today = new Date();
+  const allMonthDays = daysInMonth(today.getMonth(), today.getFullYear());
+  const restDays = allMonthDays - today.getDate() + 1;
   const dailyLimit = (
     freeMoney / restDays -
     Number(transaction.amount)
   ).toFixed(2);
-
   const monthLimit = (freeMoney - Number(transaction.amount)).toFixed(2);
-
   const [isShowModal, setIsShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
   const handleClick = async () => {
-    if (transaction.amount) {
+    const { amount, category, comment } = transaction;
+    if (amount) {
       const newTransaction = {
-        ...transaction,
+        amount,
+        category,
+        comment,
         transactionDate: Date.now(),
         type: 'EXPENSE',
       };
-      console.log('newTransaction', newTransaction);
       await dispatch(transactionOperations.createTransaction(newTransaction));
+      setTransactionStatus(true);
       setMessage('Ваши данные по расходам сохранены!');
     } else {
       setMessage('Введите сумму транзакции больше нуля');
@@ -79,7 +76,7 @@ const ForecastExpense = () => {
 export default ForecastExpense;
 
 function daysInMonth(month, year) {
-  return new Date(year, month, 0).getDate();
+  return new Date(year, month + 1, 0).getDate();
 }
 
 const ForecastExpenseWrapper = styled.div`

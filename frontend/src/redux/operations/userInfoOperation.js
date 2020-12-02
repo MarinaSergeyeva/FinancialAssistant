@@ -3,7 +3,7 @@ import userInfoAction from '../actions/userInfoAction';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-axios.defaults.baseURL = 'http://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
 
 const updateUserInfo = userInfo => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
@@ -14,7 +14,6 @@ const updateUserInfo = userInfo => async (dispatch, getState) => {
   dispatch(userInfoAction.updateUserInfoRequest());
   try {
     const result = await axios.put('/api/v1/users/savings-info', userInfo);
-    console.log('update UserInfo', result.data);
     dispatch(userInfoAction.updateUserInfoSuccess(result.data));
   } catch (err) {
     console.log(err.message);

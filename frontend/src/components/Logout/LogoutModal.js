@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { background, colors } from '../../stylesheet/vars';
 import authOperations from '../../redux/operations/authOperations';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { useMediaQuery } from 'react-responsive';
 
 const LogoutModal = props => {

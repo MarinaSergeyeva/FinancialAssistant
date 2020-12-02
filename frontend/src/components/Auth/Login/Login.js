@@ -8,7 +8,7 @@ import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
 
-import device from '../../../common/deviceSizes';
+import {device} from '../../../common/deviceSizes';
 import {
   AuthForm,
   AuthTxt,
@@ -18,7 +18,7 @@ import {
   AuthButtonBlock,
   ErrMessage,
 } from '../../../common/globalStyleComponents';
-import { getError } from '../../../redux/selectors/errorSelector';
+import getError from '../../../redux/selectors/errorSelector';
 import funcErrTranslator from '../utilsAuth/funcErrTranslator';
 
 const Login = ({ closeModal }) => {
@@ -27,7 +27,7 @@ const Login = ({ closeModal }) => {
     query: device.mobile,
   });
   const [state, setstate] = useState(null);
-  const errState = useSelector(state => getError(state));
+  const errState = useSelector(state => getError.getError(state));
   const [messageErrLogin, setMessageErrlogin] = useState(null);
 
   const MessageErrlogin = () => {

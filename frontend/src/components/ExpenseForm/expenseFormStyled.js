@@ -1,11 +1,12 @@
 import styled from 'styled-components';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import {
   colors,
   background,
   textColor,
   boxShadow,
 } from '../../stylesheet/vars';
+import arrow from '../../assets/images/ExpensePage/select-arrow.png';
 
 export const CalcIconStyled = styled.svg`
   width: 20px;
@@ -128,6 +129,10 @@ export const ExpenseFormStyled = styled.div`
     border-bottom: 1px solid rgba(24, 25, 31, 0.36);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    /* pointer-events: none; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+-ms-appearance: none; // reset default input, select css
 
     @media ${device.tablet} {
       width: 330px;
@@ -141,6 +146,8 @@ export const ExpenseFormStyled = styled.div`
   label:hover,
   label:focus {
     color: ${colors.formTextHover};
+        border: none;
+
   }
 
   input:hover,
@@ -149,4 +156,31 @@ export const ExpenseFormStyled = styled.div`
   select:focus {
     border-bottom: 1px solid ${colors.formTextHover};
   }
+
+  .select-arrow{
+position:relative;
+  cursor:pointer;
+
+  }
+
+  .select-arrow::after{
+    /* content:'';
+    display: block;
+    background-color: red; */
+    /* background: url(${arrow}) no-repeat right center; */
+    content: "▼";
+    padding: 0 8px;
+  font-size: 12px;
+  position: absolute;
+  right: 6px;
+  top: 46%;
+  /* transform:translateY(-50%); */
+  z-index: 1;
+  text-align: center;
+  width: 10%;
+  height: 100%;
+  pointer-events: none;
+  box-sizing: border-box;
+  }
+  
 `;

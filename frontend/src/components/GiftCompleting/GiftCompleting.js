@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import giftImg from '../../assets/images/GiftCompleting/gift grey.png';
 import giftImg2 from '../../assets/images/GiftCompleting/gift 2.png';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { useDispatch, useSelector } from 'react-redux';
 import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
 import statsOperatioins from '../../redux/operations/statsOperatioins';
-// import Congratulation from '../Congratulation/Congratulation';
-import Error from '../Error/Error';
-import Modal from '../../components/Modal/Modal';
 
 const GiftCompleting = () => {
   const giftForUnpack = useSelector(state =>
@@ -24,37 +21,15 @@ const GiftCompleting = () => {
     dispatch(await statsOperatioins.updateGifts());
   };
 
-  // const [isShowCongratulation, setIsShowCongratulation] = useState(false);
-  // const closeCongratulation = () => {
-  //   setIsShowCongratulation(prev => !prev);
-  // };
-
-  const [isShowError, setIsShowError] = useState(false);
-  const closeError = () => {
-    setIsShowError(prev => !prev);
-  };
-
   return (
     <>
-      {/* {isShowCongratulation && (
-        <Modal closeModal={closeCongratulation}>
-          <Congratulation closeModal={closeCongratulation} />
-        </Modal>
-      )} */}
-
-      {isShowError && (
-        <Modal closeModal={closeError}>
-          <Error closeModal={closeError} />
-        </Modal>
-      )}
-
       <Wrapper>
         <TitleWrapper>
-          <Title onClick={() => closeError()}>
+          <Title>
             Чтобы добавить еще <Quantity>1 кв.м</Quantity> на планировку,
             осталось накопить
           </Title>
-          <Price>{savingsForNextSquareMeterLeft} ₴</Price>
+          <Price>{savingsForNextSquareMeterLeft.toFixed(0)} ₴</Price>
         </TitleWrapper>
         <ImgWrapper onClick={unpackGift}>
           {!giftForUnpack > 0 ? (
@@ -77,6 +52,7 @@ const Wrapper = styled.div`
   padding-bottom: 34px;
   padding-right: 27px;
   padding-left: 27px;
+  margin: 0 auto;
   width: 280px;
   height: 388px;
   @media ${device.largeTablet} {

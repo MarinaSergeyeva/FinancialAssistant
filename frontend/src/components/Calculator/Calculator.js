@@ -5,7 +5,7 @@ import { Button } from './CalcButton/CalcButton';
 import styled from 'styled-components';
 import Input from './CalcInput/CalcInput';
 import { ClearButton } from './CalcButton/ClearButton';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { useDispatch } from 'react-redux';
 import calculatorActions from '../../redux/actions/calculatorActions';
 

@@ -1,14 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { PlanFormStyled } from './planFormStyled';
+import Currency from './Currency';
 
 const placeHolder = 'Введите сумму';
 
 function PlanForm({ state, getState }) {
   const [isFieldActive, setFieldActive] = useState(false);
+  const [currency, setCurrency] = useState({});
+  const [currencySvg, setCurrencySvg] = useState('hryvnaRate');
+  const [rateValue, setRateValue] = useState('');
+  const currentUserInfo = useSelector(state => state.user.info);
 
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
   };
+  const setFlatPrice = () => {
+    getState({
+      ...state,
+      flatPrice:
+        Number(rateValue) *
+        (currency[currencySvg] ? Number(currency[currencySvg]) : 1),
+    });
+  };
+  const onSetRateValue = e => {
+    setRateValue(e.target.value);
+    getState({
+      ...state,
+      [e.target.name]:
+        Number(e.target.value) *
+        (currency[currencySvg] ? Number(currency[currencySvg]) : 1),
+    });
+  };
+  useEffect(() => {
+    setFlatPrice();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currencySvg]);
 
   const onHandleFocus = () => setFieldActive(true);
   const onHandleBlur = () => setFieldActive(false);
@@ -22,7 +49,11 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="totalSalary"
-              value={!state.totalSalary ? '' : state.totalSalary}
+              value={
+                !currentUserInfo.totalSalary
+                  ? state.totalSalary
+                  : currentUserInfo.totalSalary
+              }
               placeholder={placeHolder}
               onChange={onHandleChange}
             />
@@ -32,7 +63,11 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="passiveIncome"
-              value={!state.passiveIncome ? '' : state.passiveIncome}
+              value={
+                !currentUserInfo.passiveIncome
+                  ? state.passiveIncome
+                  : currentUserInfo.passiveIncome
+              }
               placeholder={placeHolder}
               onChange={onHandleChange}
             />
@@ -42,7 +77,12 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="balance"
-              value={!state.balance ? '' : state.balance}
+              // value={!state.balance ? '' : state.balance}
+              value={
+                !currentUserInfo.balance
+                  ? state.balance
+                  : currentUserInfo.balance
+              }
               placeholder={placeHolder}
               onChange={onHandleChange}
             />
@@ -51,12 +91,23 @@ function PlanForm({ state, getState }) {
         <div className="secondColumn">
           <label>
             <span>4. Укажите стоимость вашей будущей квартиры</span>
+
+            <Currency
+              currencySvg={currencySvg}
+              setCurrencySvg={setCurrencySvg}
+              setCurrency={setCurrency}
+            />
+
             <input
               type="number"
               name="flatPrice"
-              value={!state.flatPrice ? '' : state.flatPrice}
+              value={
+                !currentUserInfo.flatPrice
+                  ? rateValue
+                  : currentUserInfo.flatPrice
+              }
               placeholder={placeHolder}
-              onChange={onHandleChange}
+              onChange={onSetRateValue}
             />
           </label>
           <label>
@@ -64,7 +115,11 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="flatSquareMeters"
-              value={!state.flatSquareMeters ? '' : state.flatSquareMeters}
+              value={
+                !currentUserInfo.flatSquareMeters
+                  ? state.flatSquareMeters
+                  : currentUserInfo.flatSquareMeters
+              }
               placeholder={placeHolder}
               onChange={onHandleChange}
             />
@@ -75,9 +130,9 @@ function PlanForm({ state, getState }) {
               type="number"
               name="incomePercentageToSavings"
               value={
-                !state.incomePercentageToSavings
-                  ? ''
-                  : state.incomePercentageToSavings
+                !currentUserInfo.incomePercentageToSavings
+                  ? state.incomePercentageToSavings
+                  : currentUserInfo.incomePercentageToSavings
               }
               placeholder={placeHolder}
               onFocus={onHandleFocus}
@@ -85,7 +140,7 @@ function PlanForm({ state, getState }) {
               onChange={onHandleChange}
             />
             <p>
-              {!!isFieldActive &&
+              {isFieldActive &&
                 'Укажите процент, который бы хотели накапливать в месяц от общей суммы доходов и вы увидите, когда достигните цели'}
             </p>
           </label>
