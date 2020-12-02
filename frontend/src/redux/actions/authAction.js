@@ -18,12 +18,10 @@ const loginRequest = () => ({
   type: constants.LOGIN_REQUEST,
 });
 
-const loginSuccess = credential => {
-  return {
-    type: constants.LOGIN_SUCCESS,
-    payload: credential,
-  };
-};
+const loginSuccess = credential => ({
+  type: constants.LOGIN_SUCCESS,
+  payload: credential,
+});
 
 const loginError = error => ({
   type: constants.LOGIN_ERROR,

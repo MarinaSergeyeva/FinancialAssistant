@@ -1,13 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
 import { Formik, Form } from 'formik';
-import operation from '../../../redux/operations/authOperations';
+import { useDispatch, useSelector } from 'react-redux';
 import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
+import useMessageErr from '../hooks/useMessageErr';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-import { device } from '../../../common/deviceSizes';
-
+import operation from '../../../redux/operations/authOperations';
+import useUserInfoAuth from '../../MainPage/hooks/useUserInfoAuth';
+import useDeviceSizes from '../../../hooks/useDeviceSizes';
 import {
   AuthFormWrapper,
   AuthForm,
@@ -16,14 +16,15 @@ import {
   AuthInputTxt,
   AuthInput,
   AuthButtonBlock,
+  ErrMessage,
 } from '../../../common/globalStyleComponents';
 
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
-
-  const isOnMobile = useMediaQuery({
-    query: device.mobile,
-  });
+  const { isMobileDevice } = useDeviceSizes();
+  const userInfo = useSelector(state => state.auth.username);
+  const [userInfoRegistr] = useUserInfoAuth(userInfo ? true : false);
+  const { messageErr, error } = useMessageErr();
 
   return (
     <AuthFormWrapper>
@@ -35,17 +36,25 @@ const Registration = ({ closeModal }) => {
         }}
         validationSchema={registrationFrontSchema}
         onSubmit={async values => {
-          dispatch(await operation.userRegistration({ ...values }));
-          !isOnMobile && closeModal();
+          const data = dispatch(operation.userRegistration({ ...values }));
+          data.then(response => {
+            if (response) {
+              return;
+            } else {
+              !isMobileDevice && userInfoRegistr && closeModal();
+            }
+          });
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form>
             <AuthForm>
               <AuthTxt>
-                {isOnMobile ? 'Готовы подписаться?' : 'Регистрация'}
+                {isMobileDevice ? 'Готовы подписаться?' : 'Регистрация'}
               </AuthTxt>
-
+              {error?.kindOfErr === 'Register' && (
+                <ErrMessage positionTop={'-24px'}>{messageErr}</ErrMessage>
+              )}
               <AuthInputForm>
                 <AuthInputTxt>Name</AuthInputTxt>
                 <AuthInput
@@ -56,6 +65,7 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваше имя"
                   name="username"
                   id="username"
+                  borderErrColor={'#a3a3a3'}
                 />
                 {(
                   <ErrorValidation
@@ -75,6 +85,7 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваш e-mail"
                   name="email"
                   id="email"
+                  borderErrColor={error?.status === 409 ? 'red' : '#a3a3a3'}
                 />
                 {(
                   <ErrorValidation
@@ -94,6 +105,7 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваш пароль"
                   name="password"
                   id="password"
+                  borderErrColor={'#a3a3a3'}
                 />
                 {(
                   <ErrorValidation
