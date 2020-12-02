@@ -1,4 +1,3 @@
-// import React from 'react';
 import useReduxState from '../../../hooks/useReduxState';
 
 const useIndicators = () => {
