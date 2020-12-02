@@ -4,7 +4,6 @@ import DatePicker from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import 'react-datepicker/dist/react-datepicker.css';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
-import { Mobile, Tablet, Desktop } from '../../common/deviceSizes';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
 import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
 import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
@@ -26,8 +25,10 @@ import {
   TabMode,
   TabsModeView,
 } from './expensePageStyled';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const ExpensePage = () => {
+  const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
   const [isTransactionSend, setTransactionStatus] = useState(false);
   const resetForm = () => {
     return isTransactionSend;
@@ -53,24 +54,14 @@ const ExpensePage = () => {
           <ForecastExpenseWrapper>
             <ForecastExpense setTransactionStatus={setTransactionStatus} />
           </ForecastExpenseWrapper>
-          <Mobile>
-            <ExpensePageImg
-              src={expensePageMobile}
-              alt="expense page background"
-            />
-          </Mobile>
-          <Tablet>
-            <ExpensePageImg
-              src={expensePageTablet}
-              alt="expense page background"
-            />
-          </Tablet>
-          <Desktop>
-            <ExpensePageImg
-              src={expensePageDesktop}
-              alt="expense page background"
-            />
-          </Desktop>
+          <ExpensePageImg
+            src={
+              (isMobileDevice && expensePageMobile) ||
+              (isTabletDevice && expensePageTablet) ||
+              (isDesktopDevice && expensePageDesktop)
+            }
+            alt="expense page background"
+          />
         </ExpensePageContainer>
       ) : (
         <ExpenseListContainer>

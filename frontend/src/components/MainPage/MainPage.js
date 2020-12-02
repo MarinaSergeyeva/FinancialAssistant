@@ -5,7 +5,7 @@ import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.pn
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
 import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
 import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
-import { Desktop, Mobile, Tablet } from '../../common/deviceSizes';
+import { Mobile } from '../../common/deviceSizes';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
 import {
@@ -17,38 +17,23 @@ import {
   GoogleAuthBtnImg,
   MainPageContainer,
   MainPageImg,
-  MainPageTitile,
-  MainPageTitileOrange,
+  MainPageTitle,
+  MainPageTitleOrange,
 } from './mainPageStyled';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
-
-// const path = require('path');
-// require('dotenv').config({ path: path.join('../../../../backend/.env') });
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const MainPage = () => {
   const [userInfoRegistr, setUserInfoRegistr] = useHandleBoolChange(true);
+  const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
 
   return (
     <>
       <MainPageContainer>
-        <Mobile>
-          <MainPageTitile>
-            Планировщик для совместного
-            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-          </MainPageTitile>
-        </Mobile>
-        <Tablet>
-          <MainPageTitile>
-            Планировщик для совместного
-            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-          </MainPageTitile>
-        </Tablet>
-        <Desktop>
-          <MainPageTitile>
-            Планировщик <br /> для совместного
-            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-          </MainPageTitile>
-        </Desktop>
+        <MainPageTitle>
+          Планировщик{isDesktopDevice ? <br /> : ''} для совместного
+          <MainPageTitleOrange> накопления</MainPageTitleOrange> на квартиру
+        </MainPageTitle>
         <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
           <GoogleAuthBtnImg
             src={googleLogo}
@@ -88,24 +73,14 @@ const MainPage = () => {
           </AuthContainer>
         </Mobile>
 
-        <Mobile>
-          <MainPageImg
-            src={mainPictureMobile}
-            alt="main page picture"
-          ></MainPageImg>
-        </Mobile>
-        <Tablet>
-          <MainPageImg
-            src={mainPictureTablet}
-            alt="main page picture"
-          ></MainPageImg>
-        </Tablet>
-        <Desktop>
-          <MainPageImg
-            src={mainPictureDesktop}
-            alt="main page picture"
-          ></MainPageImg>
-        </Desktop>
+        <MainPageImg
+          src={
+            (isMobileDevice && mainPictureMobile) ||
+            (isTabletDevice && mainPictureTablet) ||
+            (isDesktopDevice && mainPictureDesktop)
+          }
+          alt="main page picture"
+        />
       </MainPageContainer>
     </>
   );
