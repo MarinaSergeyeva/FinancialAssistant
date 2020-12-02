@@ -12,7 +12,7 @@ import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-d
 import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
 import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
-import CustomInput from './CustomInput';
+import CustomInput from '../../components/CustomInput/CustomInput';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import {
   ExpenseFormWrapper,

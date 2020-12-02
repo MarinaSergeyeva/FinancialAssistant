@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { BtnCalendar, SvgIcon } from './expensePageStyled';
+import { BtnCalendar, SvgIcon } from './customInputStyled';
 
 const CustomInput = forwardRef((props, ref) => {
   const handleClick = () => {
