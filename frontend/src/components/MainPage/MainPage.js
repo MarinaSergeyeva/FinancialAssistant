@@ -1,5 +1,5 @@
 import React from 'react';
-import { Desktop, Mobile, Tablet } from '../../common/deviceSizes';
+import { Mobile } from '../../common/deviceSizes';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
@@ -19,18 +19,27 @@ import {
   GoogleAuthBtnImg,
   MainPageContainer,
   MainPageImg,
-  MainPageTitile,
-  MainPageTitileOrange,
+  MainPageTitle,
+  MainPageTitleOrange,
 } from './mainPageStyled';
 
 const MainPage = () => {
+  const {
+    isMobileDevice,
+    isTabletDevice,
+    isDesktopDevice,
+    isLargeTablet,
+  } = useDeviceSizes();
   const [userInfoRegistr, setUserInfoRegistr] = useUserInfoAuth(false);
   const [successModal, setSuccessModal] = useSuccessModal(userInfoRegistr);
   const [loginModal, setLoginModal] = useLoginModal(setSuccessModal);
-  const { isLargeTablet } = useDeviceSizes();
 
   const closeSuccessModal = () => {
     setSuccessModal(prev => !prev);
+  };
+
+  const switchMobileForm = () => {
+    setUserInfoRegistr(prev => !prev);
   };
 
   return (
@@ -52,24 +61,10 @@ const MainPage = () => {
       )}
 
       <MainPageContainer>
-        <Mobile>
-          <MainPageTitile>
-            Планировщик для совместного
-            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-          </MainPageTitile>
-        </Mobile>
-        <Tablet>
-          <MainPageTitile>
-            Планировщик для совместного
-            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-          </MainPageTitile>
-        </Tablet>
-        <Desktop>
-          <MainPageTitile>
-            Планировщик <br /> для совместного
-            <MainPageTitileOrange> накопления</MainPageTitileOrange> на квартиру
-          </MainPageTitile>
-        </Desktop>
+        <MainPageTitle>
+          Планировщик{isDesktopDevice ? <br /> : ''} для совместного
+          <MainPageTitleOrange> накопления</MainPageTitleOrange> на квартиру
+        </MainPageTitle>
         <GoogleAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/google">
           <GoogleAuthBtnImg
             src={googleLogo}
@@ -84,7 +79,7 @@ const MainPage = () => {
                 <Registration />
                 <AuthParagraph>
                   Уже есть аккаунт?
-                  <span onClick={setUserInfoRegistr}>Войти</span>
+                  <span onClick={switchMobileForm}>Войти</span>
                 </AuthParagraph>
               </>
             )}
@@ -94,31 +89,21 @@ const MainPage = () => {
                 <Login />
                 <AuthParagraph>
                   Еще нет аккаунта?
-                  <span onClick={setUserInfoRegistr}>Зарегистрироваться</span>
+                  <span onClick={switchMobileForm}>Зарегистрироваться</span>
                 </AuthParagraph>
               </>
             )}
           </AuthContainer>
         </Mobile>
 
-        <Mobile>
-          <MainPageImg
-            src={mainPictureMobile}
-            alt="main page picture"
-          ></MainPageImg>
-        </Mobile>
-        <Tablet>
-          <MainPageImg
-            src={mainPictureTablet}
-            alt="main page picture"
-          ></MainPageImg>
-        </Tablet>
-        <Desktop>
-          <MainPageImg
-            src={mainPictureDesktop}
-            alt="main page picture"
-          ></MainPageImg>
-        </Desktop>
+        <MainPageImg
+          src={
+            (isMobileDevice && mainPictureMobile) ||
+            (isTabletDevice && mainPictureTablet) ||
+            (isDesktopDevice && mainPictureDesktop)
+          }
+          alt="main page picture"
+        />
       </MainPageContainer>
     </>
   );

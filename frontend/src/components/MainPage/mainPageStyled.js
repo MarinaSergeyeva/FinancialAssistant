@@ -20,7 +20,7 @@ export const MainPageContainer = styled.div`
   }
 `;
 
-export const MainPageTitile = styled.h2`
+export const MainPageTitle = styled.h2`
   font-family: Gilroy;
   font-style: normal;
   font-weight: 800;
@@ -43,7 +43,7 @@ export const MainPageTitile = styled.h2`
   }
 `;
 
-export const MainPageTitileOrange = styled.span`
+export const MainPageTitleOrange = styled.span`
   color: #ff6c00;
 `;
 

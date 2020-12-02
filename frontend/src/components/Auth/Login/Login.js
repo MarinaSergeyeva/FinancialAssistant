@@ -49,7 +49,7 @@ const Login = ({ closeModal }) => {
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
               {error?.kindOfErr === 'Login' && (
-                <ErrMessage>{messageErr}</ErrMessage>
+                <ErrMessage positionTop={'25px'}>{messageErr}</ErrMessage>
               )}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>

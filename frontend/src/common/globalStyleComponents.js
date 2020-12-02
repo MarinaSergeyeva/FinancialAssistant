@@ -126,6 +126,14 @@ export const ErrMessage = styled.p`
   font-weight: 500;
   color: #fe6083;
   width: 80%;
+
+  @media ${device.mobile} {
+    top: ${prop => prop.positionTop};
+    font-size: 10px;
+    font-weight: 500;
+    left: 30px;
+    z-index: 999;
+  }
 `;
 
 //MODAL SUCCESS//

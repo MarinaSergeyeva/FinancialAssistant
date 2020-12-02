@@ -1,5 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';

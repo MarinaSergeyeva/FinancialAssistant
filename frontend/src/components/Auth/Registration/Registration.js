@@ -53,7 +53,7 @@ const Registration = ({ closeModal }) => {
                 {isMobileDevice ? 'Готовы подписаться?' : 'Регистрация'}
               </AuthTxt>
               {error?.kindOfErr === 'Register' && (
-                <ErrMessage>{messageErr}</ErrMessage>
+                <ErrMessage positionTop={'-24px'}>{messageErr}</ErrMessage>
               )}
               <AuthInputForm>
                 <AuthInputTxt>Name</AuthInputTxt>

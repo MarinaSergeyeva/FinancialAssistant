@@ -1,23 +1,14 @@
-import React, { useEffect } from 'react';
 import Chart from 'chart.js';
-import { device } from '../../common/deviceSizes.js';
-import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
-import chartSelector from '../../redux/selectors/chartSelector';
-export const MyChart = () => {
-  const allReports = useSelector(state => {
-    return chartSelector.getMonthlyReport(state);
-  });
+import { useEffect } from 'react';
+import useDeviceSizes from '../../../hooks/useDeviceSizes';
+import useReduxState from '../../../hooks/useReduxState';
 
-  const reportsNewR = Object.values(allReports);
-  const isOnMobile = useMediaQuery({
-    query: device.mobile,
-  });
-  const isOnTablet = useMediaQuery({
-    query: device.tablet,
-  });
+const useChartExpenseIncomeLogic = () => {
+  const { monthReports } = useReduxState();
+  const reportsNewR = Object.values(monthReports);
+  const { isMobileDevice } = useDeviceSizes();
 
-  const reportsNew = isOnMobile
+  const reportsNew = isMobileDevice
     ? reportsNewR.splice(0, 12)
     : reportsNewR.splice(0, 12).reverse();
   let arrayOfTotalSavings = [];
@@ -66,7 +57,7 @@ export const MyChart = () => {
       },
     };
     var chart = new Chart(ctx, {
-      type: isOnMobile ? 'horizontalBar' : 'bar',
+      type: isMobileDevice ? 'horizontalBar' : 'bar',
 
       data: {
         display: true,
@@ -106,37 +97,27 @@ export const MyChart = () => {
             fontColor: 'rgba(24, 25, 31, 0.54)',
             boxWidth: 20,
             boxHeight: 20,
-            padding: isOnMobile ? 5 : 30,
+            padding: isMobileDevice ? 5 : 30,
           },
         },
         layout: {
           padding: {
-            left: isOnMobile ? 0 : 0,
-            right: isOnMobile ? 10 : 0,
+            left: isMobileDevice ? 0 : 0,
+            right: isMobileDevice ? 10 : 0,
             top: 10,
-            bottom: isOnMobile ? 0 : 10,
+            bottom: isMobileDevice ? 0 : 10,
           },
         },
 
         scales: {
-          xAxes: [isOnMobile ? yAxesConfig : xAxesConfig],
-          yAxes: [isOnMobile ? xAxesConfig : yAxesConfig],
+          xAxes: [isMobileDevice ? yAxesConfig : xAxesConfig],
+          yAxes: [isMobileDevice ? xAxesConfig : yAxesConfig],
         },
       },
     });
 
     return () => chart.destroy();
   });
-
-  return (
-    <>
-      <div className="chartjs-wrapper">
-        <canvas
-          id="myChart"
-          height={isOnTablet ? '200' : isOnMobile ? '480' : '200'}
-          className="chartjs"
-        ></canvas>
-      </div>
-    </>
-  );
 };
+
+export default useChartExpenseIncomeLogic;

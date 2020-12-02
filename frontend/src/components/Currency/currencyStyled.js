@@ -78,7 +78,6 @@ export const CurrencyStyled = styled.div`
       height: 70px;
     }
     .currencyOptionWrapper {
-      /* width: 35px; */
       height: 70px;
     }
   }
