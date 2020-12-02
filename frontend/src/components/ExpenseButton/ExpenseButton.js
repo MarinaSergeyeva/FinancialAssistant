@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { device } from '../../common/deviceSizes';
 import { colors } from '../../stylesheet/vars';
+import dynamics from '../../assets/images/Navigation/dynamics.svg';
 
 const ExpenseButton = ({ showNavigation }) => {
   return (
@@ -12,9 +13,7 @@ const ExpenseButton = ({ showNavigation }) => {
         activeClassName="active"
         onClick={showNavigation}
       >
-        <SvgIcon>
-          <use href="#dynamics"></use>
-        </SvgIcon>
+        <img width="12" height="12" alt="graph" src={dynamics} />
       </BtnNavLInk>
     </>
   );
