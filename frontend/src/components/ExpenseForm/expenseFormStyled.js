@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import {
   colors,
   background,

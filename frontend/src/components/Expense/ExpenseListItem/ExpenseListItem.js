@@ -7,25 +7,28 @@ import homeImg from '../../../assets/images/expenseListItem/home.svg';
 import transportImg from '../../../assets/images/expenseListItem/taxi.svg';
 import productsImg from '../../../assets/images/expenseListItem/products.svg';
 import entertainmentImg from '../../../assets/images/expenseListItem/entertainment.svg';
-import device, { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
-import { useInput } from '../../ExpenseForm/ExpenseForm';
-import { useDispatch, useSelector } from 'react-redux';
+import { device, Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
+import { useDispatch } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
-import categoriesOperations from '../../../redux/operations/categoriesOperations';
-import categoriesSelector from '../../../redux/selectors/categoriesSelector';
+import useReduxState from '../../../hooks/useReduxState';
+
+const useInput = initialValue => {
+  const [value, setValue] = useState(initialValue);
+
+  const onChange = e => {
+    setValue(e.target.value);
+  };
+  const clear = () => setValue('');
+  return {
+    bind: { value, onChange },
+    value,
+    clear,
+  };
+};
 
 const ExpenseListItem = ({ expense, date }) => {
   const dispatch = useDispatch();
-  const categories = useSelector(state => categoriesSelector(state));
-
-  // const categories = [
-  //   'Другое',
-  //   'Развлечения',
-  //   'Продукты',
-  //   'Товары',
-  //   'Транспорт',
-  //   'ЖКХ',
-  // ];
+  const { categories } = useReduxState();
 
   const [img, setImg] = useState();
   useEffect(() => {

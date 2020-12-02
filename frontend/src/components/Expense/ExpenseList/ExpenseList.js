@@ -4,9 +4,10 @@ import ExpenseListItem from '../ExpenseListItem/ExpenseListItem';
 import transactionOperations from '../../../redux/operations/transactionOperations';
 import { transactionSelectors } from '../../../redux/selectors';
 import styled from 'styled-components';
-import device from '../../../common/deviceSizes';
+import { device } from '../../../common/deviceSizes';
 import { DateTime } from 'luxon';
 import categoriesOperations from '../../../redux/operations/categoriesOperations';
+import useReduxState from '../../../hooks/useReduxState';
 
 const ExpenseList = ({ date }) => {
   const [page, setPage] = useState(1);
@@ -32,9 +33,8 @@ const ExpenseList = ({ date }) => {
     // eslint-disable-next-line
   }, [page, date]);
 
-  const expenses = useSelector(state =>
-    transactionSelectors.getExpenses(state),
-  );
+  const { userTransactions } = useReduxState();
+  const { expenses } = userTransactions;
 
   const getDate = transactionDate => {
     const date = DateTime.fromISO(transactionDate);

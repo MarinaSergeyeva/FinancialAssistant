@@ -1,28 +1,16 @@
 import React from 'react';
-// import Unauthorized from '../Header/Unauthorized';
-// import Authorized from '../Header/Authorized';
-import Logo from './Logo';
-import styled from 'styled-components';
-import device from '../../common/deviceSizes';
-import Userinfo from './UserInfo';
-import { useSelector } from 'react-redux';
-import { authSelector } from '../../redux/selectors';
-// import Logout from './Logout';
-import Navigation from './Navigation';
-import { useMediaQuery } from 'react-responsive';
-import LoginHeader from './LoginHeader';
+import Logo from './Logo/Logo';
+import Navigation from './Navigation/Navigation';
+import LoginHeader from './LoginHeader/LoginHeader';
 import ExpenseButton from '../ExpenseButton/ExpenseButton';
+import Userinfo from './UserInfo/UserInfo';
+import { HeaderContainer, UserInfoWrapper } from './headerStyled';
+import useReduxState from '../../hooks/useReduxState';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const Header = ({ showNavigation, isNavigationOn }) => {
-  const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
-
-  const isMobileDevice = useMediaQuery({
-    query: device.mobile,
-  });
-
-  const isDesktopDevice = useMediaQuery({
-    query: device.desktop,
-  });
+  const { isUserAuth } = useReduxState();
+  const { isMobileDevice, isDesktopDevice } = useDeviceSizes();
 
   return (
     <>
@@ -45,28 +33,3 @@ const Header = ({ showNavigation, isNavigationOn }) => {
 };
 
 export default Header;
-
-const HeaderContainer = styled.div`
-  width: 280px;
-  margin: 0 auto;
-  padding: 17px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e5e9f2;
-
-  @media ${device.tablet} {
-    width: 690px;
-  }
-
-  @media ${device.desktop} {
-    width: 1170px;
-  } ;
-`;
-
-const UserInfoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  /* width: 280px;
-  margin: 0 auto; */
-`;

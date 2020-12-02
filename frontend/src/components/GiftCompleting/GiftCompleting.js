@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import giftImg from '../../assets/images/GiftCompleting/gift grey.png';
 import giftImg2 from '../../assets/images/GiftCompleting/gift 2.png';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { useDispatch, useSelector } from 'react-redux';
 import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
 import statsOperatioins from '../../redux/operations/statsOperatioins';

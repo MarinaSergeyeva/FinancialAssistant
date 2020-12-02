@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import styled from 'styled-components';
 import operation from '../../../redux/operations/authOperations';
@@ -8,7 +8,7 @@ import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
 // import { getError } from '../../../redux/selectors/errorSelector'
-import device from '../../../common/deviceSizes';
+import { device } from '../../../common/deviceSizes';
 import {
   AuthForm,
   AuthTxt,
@@ -17,7 +17,7 @@ import {
   AuthInput,
   AuthButtonBlock,
 } from '../../../common/globalStyleComponents';
-import { getError } from '../../../redux/selectors/errorSelector';
+import useReduxState from '../../../hooks/useReduxState';
 
 const Login = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Login = ({ closeModal }) => {
     query: device.mobile,
   });
 
-  const errState = useSelector(state => getError(state));
+  const { error } = useReduxState();
 
   return (
     <AuthFormWrapperLogin>
@@ -44,7 +44,7 @@ const Login = ({ closeModal }) => {
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-              {errState && <ErrMessage>{errState}</ErrMessage>}
+              {error && <ErrMessage>{error}</ErrMessage>}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>
                 <AuthInput

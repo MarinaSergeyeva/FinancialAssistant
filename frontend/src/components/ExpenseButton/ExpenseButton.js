@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { colors } from '../../stylesheet/vars';
 
 const ExpenseButton = ({ showNavigation }) => {

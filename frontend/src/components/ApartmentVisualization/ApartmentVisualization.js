@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import apartmentImg from '../../assets/images/VisualizationApartment/flat_plan-min.jpg';
 import { useMediaQuery } from 'react-responsive';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { useSelector } from 'react-redux';
 import statsFlatSelectors from '../../redux/selectors/statsFlatSelectors';
 

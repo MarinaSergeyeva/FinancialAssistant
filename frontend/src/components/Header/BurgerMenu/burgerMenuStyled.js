@@ -1,35 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { textColor } from '../../stylesheet/vars';
+import { textColor } from '../../../stylesheet/vars';
 
-const BurgerMenu = ({ showNavigation, isNavigationOn }) => {
-  const [className, setClassName] = useState('burger');
-  const [isActiveClass, setActiveClass] = useState(false);
-
-  const classNameHandleChange = () => {
-    showNavigation();
-    setActiveClass(!isActiveClass);
-  };
-
-  useEffect(() => {
-    isNavigationOn
-      ? setClassName('burger burger-active')
-      : setClassName('burger');
-  }, [isNavigationOn]);
-
-  return (
-    <BurgerMenuWrapper
-      className="burger-wrapper"
-      onClick={classNameHandleChange}
-    >
-      <div className={className}></div>
-    </BurgerMenuWrapper>
-  );
-};
-
-export default BurgerMenu;
-
-const BurgerMenuWrapper = styled.div`
+export const BurgerMenuWrapper = styled.div`
   cursor: pointer;
 
   .burger-wrapper {

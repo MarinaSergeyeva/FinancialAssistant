@@ -1,3 +1,3 @@
-const categoriesSelector = state => state.categories;
+const getCategories = state => state.categories;
 
-export default categoriesSelector;
+export default { getCategories };

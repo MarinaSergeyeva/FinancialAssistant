@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import Calculator from '../../components/Calculator/Calculator';
 import Modal from '../Modal/Modal';
@@ -9,61 +9,30 @@ import {
   CalcWrapper,
 } from '../ExpenseForm/expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
-import device, { Mobile } from '../../common/deviceSizes';
+import { Mobile } from '../../common/deviceSizes';
 import categoriesOperations from '../../redux/operations/categoriesOperations';
 import transactionActions from '../../redux/actions/transactionActions';
-import categoriesSelector from '../../redux/selectors/categoriesSelector';
-import calculatorSelector from '../../redux/selectors/calculatorSelector';
-import { userSelectors } from '../../redux/selectors';
-
-export const useInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
-
-  const onChange = e => {
-    setValue(e.target.value);
-  };
-  const clear = () => setValue('');
-  return {
-    bind: { value, onChange },
-    value,
-    clear,
-  };
-};
+import useShowCalculator from './hooks/useShowCalculator';
+import useReduxState from '../../hooks/useReduxState';
+import {
+  useTextInputValue,
+  useNumberInputValue,
+} from '../../hooks/useInputValue';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const ExpenseForm = ({ resetForm }) => {
+  const dispatch = useDispatch();
+  const { userInfo, categories, calculatorResult } = useReduxState();
+  const { balance } = userInfo;
+
   const isTransactionSend = resetForm();
 
-  const [showCalculator, setShowCalculator] = useState(false);
+  const [amount, setAmount, onAmountChange] = useNumberInputValue();
+  const [comment, setComment, onCommentChange] = useTextInputValue();
+  const [category, setCategory, onCategoryChange] = useTextInputValue();
+  const { isMobileDevice } = useDeviceSizes();
 
-  const [amount, setAmount] = useState('');
-  const [comment, setComment] = useState('');
-  const [category, setCategory] = useState('');
-
-  const { balance } = useSelector(state => userSelectors.getCurrentUser(state));
-  const categories = useSelector(state => categoriesSelector(state));
-  const calculatorResult = useSelector(state =>
-    calculatorSelector.calcResult(state),
-  );
-
-  const dispatch = useDispatch();
-
-  const showCalculatorHandler = () => {
-    setShowCalculator(!showCalculator);
-  };
-
-  const onAmountChange = e => {
-    setAmount(Number(e.target.value));
-  };
-  const onCommentChange = e => {
-    setComment(e.target.value);
-  };
-  const onCategoryChange = e => {
-    setCategory(e.target.value);
-  };
-
-  const isMobileDevice = useMediaQuery({
-    query: device.mobile,
-  });
+  const [showCalculator, showCalculatorHandler] = useShowCalculator();
 
   useEffect(() => {
     if (isTransactionSend) {
@@ -85,8 +54,7 @@ const ExpenseForm = ({ resetForm }) => {
       setAmount(Number(JSON.parse(transactionInfoLS.amount)));
     }
     dispatch(categoriesOperations.getCategories());
-    // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (calculatorResult) {
@@ -105,8 +73,7 @@ const ExpenseForm = ({ resetForm }) => {
     if (transactionInfo) {
       dispatch(transactionActions.changeTransactionSuccess(transactionInfo));
     }
-    // eslint-disable-next-line
-  }, [amount, category, comment]);
+  }, [amount, category, comment, dispatch]);
 
   return (
     <ExpenseFormStyled>

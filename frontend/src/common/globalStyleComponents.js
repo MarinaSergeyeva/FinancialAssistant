@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import device from '../common/deviceSizes';
+import { device } from '../common/deviceSizes';
 
 //!Auth//
 export const AuthFormWrapper = styled.div`
@@ -125,7 +125,7 @@ export const AuthButtonBlock = styled.div`
 export const CongratulationWrapper = styled.div`
   display: flex;
   justify-content: center;
-  position:relative; 
+  position: relative;
   text-align: center;
   flex-wrap: wrap;
   width: 400px;

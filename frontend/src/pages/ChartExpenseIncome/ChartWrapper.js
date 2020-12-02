@@ -1,7 +1,7 @@
 import { MyChart } from './ChartExpenseIncome';
 import ChartTitle from './ChartTitle';
 import styled from 'styled-components';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 
 export default function ChartWrapper() {
   return (

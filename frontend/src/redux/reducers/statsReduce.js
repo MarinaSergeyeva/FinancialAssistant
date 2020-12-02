@@ -14,12 +14,9 @@ const initialState = {
 };
 
 const countPercentage = state => {
-  console.log('state.giftsUnpacked', state.giftsUnpacked);
-  console.log('state.totalSquareMeters', state.totalSquareMeters);
   const result =
     Math.ceil(((state.giftsUnpacked + 1) / state.totalSquareMeters) * 100) /
     100;
-  console.log('result', result);
   return result;
 };
 
