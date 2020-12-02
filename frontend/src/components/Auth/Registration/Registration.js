@@ -6,7 +6,7 @@ import operation from '../../../redux/operations/authOperations';
 import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-import device from '../../../common/deviceSizes';
+import { device } from '../../../common/deviceSizes';
 
 import {
   AuthFormWrapper,
@@ -18,15 +18,13 @@ import {
   AuthButtonBlock,
 } from '../../../common/globalStyleComponents';
 
-
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
-
 
   const isOnMobile = useMediaQuery({
     query: device.mobile,
   });
- 
+
   return (
     <>
       <AuthFormWrapper>

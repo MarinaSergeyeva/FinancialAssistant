@@ -37,5 +37,3 @@ export const Desktop = ({ children }) => {
   });
   return isDesktopQuery && children;
 };
-
-export default device;

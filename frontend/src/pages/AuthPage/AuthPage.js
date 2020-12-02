@@ -7,7 +7,7 @@ import action from '../../redux/actions/authAction';
 import Modal from '../../components/Modal/Modal';
 import ModalResultSuccess from '../../components/Auth/ModalResult/ModalResultSuccess';
 import Login from '../../components/Auth/Login/Login';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 
 const AuthPage = () => {
   const dispatch = useDispatch();

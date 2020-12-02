@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Chart from 'chart.js';
-import device from '../../common/deviceSizes.js';
+import { device } from '../../common/deviceSizes.js';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';

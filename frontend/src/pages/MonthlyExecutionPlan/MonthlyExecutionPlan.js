@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './MonthlyExecutionPlan.module.css';
 import ru from 'date-fns/locale/ru';
 import styled from 'styled-components';
-import device from '../../common/deviceSizes';
+import { device } from '../../common/deviceSizes';
 import { useSelector, useDispatch } from 'react-redux';
 import chartSelector from '../../redux/selectors/chartSelector';
 import chartOperation from '../../redux/operations/chartOperations';

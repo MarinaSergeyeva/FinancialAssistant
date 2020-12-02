@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
@@ -7,30 +7,18 @@ import PublicRoute from '../CustomRoutes/PublicRoute';
 import NotFound from '../../pages/NotFound/NotFound';
 import userOperations from '../../redux/operations/userOperations';
 import Header from '../Header/Header';
-import Navigation from '../Header/Navigation';
-import device from '../../common/deviceSizes';
+import Navigation from '../Header/Navigation/Navigation';
 import Spinner from '../Spinner/Spinner';
-import { useMediaQuery } from 'react-responsive';
-import { authSelector } from '../../redux/selectors';
+import useReduxState from '../../hooks/useReduxState';
+import useHandleBoolChange from '../../hooks/useHandleBoolChange';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
+import useDispatchOperation from '../../hooks/useDispatchOperation';
 
 const App = () => {
-  const [showNavigation, setShowMobileNavigation] = useState(false);
-
-  const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
-
-  const isDesktopDevice = useMediaQuery({
-    query: device.desktop,
-  });
-
-  const showNavigationHandler = () => {
-    setShowMobileNavigation(!showNavigation);
-  };
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(userOperations.getCurrentUser());
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUserAuth]);
+  const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
+  const { isUserAuth } = useReduxState();
+  const { isDesktopDevice } = useDeviceSizes();
+  useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
 
   return (
     <>
