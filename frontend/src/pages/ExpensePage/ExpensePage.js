@@ -27,8 +27,10 @@ import {
   TabMode,
   TabsModeView,
 } from './expensePageStyled';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const ExpensePage = () => {
+  const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
   const [isTransactionSend, setTransactionStatus] = useState(false);
   const resetForm = () => {
     return isTransactionSend;
@@ -73,25 +75,14 @@ const ExpensePage = () => {
           <ForecastExpenseWrapper>
             <ForecastExpense setTransactionStatus={setTransactionStatus} />
           </ForecastExpenseWrapper>
-          <Mobile>
-            <ExpensePageImg
-              src={expensePageMobile}
-              alt="expense page background"
-            />
-          </Mobile>
-          <Tablet>
-            <ExpensePageImg
-              // height="320"
-              src={expensePageTablet}
-              alt="expense page background"
-            />
-          </Tablet>
-          <Desktop>
-            <ExpensePageImg
-              src={expensePageDesktop}
-              alt="expense page background"
-            />
-          </Desktop>
+          <ExpensePageImg
+            src={
+              (isMobileDevice && expensePageMobile) ||
+              (isTabletDevice && expensePageTablet) ||
+              (isDesktopDevice && expensePageDesktop)
+            }
+            alt="expense page background"
+          />
         </ExpensePageContainer>
       ) : (
         <ExpenseListContainer>

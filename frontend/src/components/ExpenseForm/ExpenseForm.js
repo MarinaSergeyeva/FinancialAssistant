@@ -5,7 +5,7 @@ import {
   ExpenseFormStyled,
   CalcIconStyled,
   CalcWrapper,
-} from '../ExpenseForm/expenseFormStyled';
+} from './expenseFormStyled';
 import { ReactComponent as CalcIcon } from '../../assets/icons/icon-calculator.svg';
 import { Mobile } from '../../common/deviceSizes';
 import useShowCalculator from './hooks/useShowCalculator';

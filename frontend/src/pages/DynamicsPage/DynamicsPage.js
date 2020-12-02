@@ -34,7 +34,7 @@ const DynamicsPage = () => {
   //   //eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  useDispatchOperation(null, statsOperatioins.getStatsFlat);
+  useDispatchOperation(null, statsOperatioins.getStatsFlat, null);
 
   const congratulationModal = useSelector(state => modalCongratulation(state));
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { registerLocale } from 'react-datepicker';
-import useDispatchOperation from '../../../hooks/useDispatchOperation';
 import useReduxState from '../../../hooks/useReduxState';
 import chartOperations from '../../../redux/operations/chartOperations';
 import ru from 'date-fns/locale/ru';
@@ -11,7 +10,6 @@ const useMonthlyExecutionPlanLogic = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { monthReports } = useReduxState();
 
-  //   useDispatchOperation(startDate, chartOperations.getMonthReport(startDate));
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(chartOperations.getMonthReport(startDate));
