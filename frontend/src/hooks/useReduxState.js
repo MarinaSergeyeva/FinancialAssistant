@@ -13,59 +13,41 @@ const { useSelector } = require('react-redux');
 
 const useReduxState = () => {
   // AUTH //
-  const isUserAuth = useSelector(state => authSelector.isAuthenticated(state));
+  const isUserAuth = useSelector(authSelector.isAuthenticated);
 
   // USERINFO //
-  const userInfo = useSelector(state => userSelectors.getCurrentUser(state));
+  const userInfo = useSelector(userSelectors.getCurrentUser);
 
   // TRANSACTIONS //
-  const transaction = useSelector(state =>
-    transactionSelectors.getTransaction(state),
-  );
-  const expenses = useSelector(state =>
-    transactionSelectors.getExpenses(state),
-  );
-  const expensesCategories = useSelector(state =>
-    transactionSelectors.getExpensesCats(state),
-  );
+  const transaction = useSelector(transactionSelectors.getTransaction);
+  const expenses = useSelector(transactionSelectors.getExpenses);
+  const expensesCategories = useSelector(transactionSelectors.getExpensesCats);
 
   // STATS //
-  const giftsForUnpacking = useSelector(state =>
-    statsFlatSelectors.getGiftsForUnpacking(state),
+  const giftsForUnpacking = useSelector(
+    statsFlatSelectors.getGiftsForUnpacking,
   );
-  const savingsPercentage = useSelector(state =>
-    statsFlatSelectors.getSavingsPercentage(state),
+  const savingsPercentage = useSelector(
+    statsFlatSelectors.getSavingsPercentage,
   );
-  const savingsValue = useSelector(state =>
-    statsFlatSelectors.getSavingsValue(state),
+  const savingsValue = useSelector(statsFlatSelectors.getSavingsValue);
+  const savingsForNextSquareMeterLeft = useSelector(
+    statsFlatSelectors.getSavingsForNextSquareMeterLeft,
   );
-  const savingsForNextSquareMeterLeft = useSelector(state =>
-    statsFlatSelectors.getSavingsForNextSquareMeterLeft(state),
-  );
-  const statsFlat = useSelector(state =>
-    statsFlatSelectors.getStatsFlat(state),
-  );
-  const flatPrice = useSelector(state =>
-    statsFlatSelectors.getFlatPrice(state),
-  );
+  const statsFlat = useSelector(statsFlatSelectors.getStatsFlat);
+  const flatPrice = useSelector(statsFlatSelectors.getFlatPrice);
 
   // CHART //
-  const monthReports = useSelector(state =>
-    chartSelector.getMonthlyReport(state),
-  );
+  const monthReports = useSelector(chartSelector.getMonthlyReport);
 
   // CATEGORIES //
-  const categories = useSelector(state =>
-    categoriesSelector.getCategories(state),
-  );
+  const categories = useSelector(categoriesSelector.getCategories);
 
   // CALCULATOR //
-  const calculatorResult = useSelector(state =>
-    calculatorSelector.calcResult(state),
-  );
+  const calculatorResult = useSelector(calculatorSelector.calcResult);
 
   // ERROR //
-  const error = useSelector(state => errorSelector.getError(state));
+  const error = useSelector(errorSelector.getError);
 
   return {
     isUserAuth,

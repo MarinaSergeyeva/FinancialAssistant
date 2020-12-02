@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ExpenseListItem from '../ExpenseListItem/ExpenseListItem';
 import transactionOperations from '../../../redux/operations/transactionOperations';
-import { transactionSelectors } from '../../../redux/selectors';
-import styled from 'styled-components';
-import { device } from '../../../common/deviceSizes';
-import { DateTime } from 'luxon';
 import categoriesOperations from '../../../redux/operations/categoriesOperations';
 import useReduxState from '../../../hooks/useReduxState';
+import useExpense from '../hooks/useExpense';
+import { Button, ExpensesList } from './expenseListStyled';
 
 const ExpenseList = ({ date }) => {
-  const [page, setPage] = useState(1);
+  const { page, loadMore, getDate } = useExpense();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(categoriesOperations.getCategories());
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -36,14 +36,6 @@ const ExpenseList = ({ date }) => {
   const { userTransactions } = useReduxState();
   const { expenses } = userTransactions;
 
-  const getDate = transactionDate => {
-    const date = DateTime.fromISO(transactionDate);
-    return `${date.c.year}.${date.c.month}.${date.c.day}`;
-  };
-
-  const loadMore = () => {
-    setPage(page + 1);
-  };
   return (
     <>
       <ExpensesList>
@@ -59,29 +51,5 @@ const ExpenseList = ({ date }) => {
     </>
   );
 };
-
-const Button = styled.button`
-  background-color: #ff6c00;
-  border-radius: 8px;
-  border: 0;
-  width: 100px;
-  height: 40px;
-  margin: 0 auto;
-  display: block;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  transition: all 0.2s linear;
-  :hover {
-    background-color: #7c9af2;
-  }
-`;
-
-const ExpensesList = styled.ul`
-  @media ${device.tablet} {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-`;
 
 export default ExpenseList;
