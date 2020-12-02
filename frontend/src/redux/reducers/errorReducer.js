@@ -2,29 +2,27 @@ import errorConstants from '../constants/errorConstants';
 import authConstants from '../constants/authConstants';
 
 const initialResponse = {
-  data: '',
+  kindOfErr: '',
   status: 0,
   statusText: '',
 };
 
-const error = (state = null, action) => {
+const error = (state = { ...initialResponse }, action) => {
   switch (action.type) {
-    case errorConstants.SET_ERROR:
     case authConstants.REGISTER_ERROR:
+      return {
+        statusText: action.payload.message,
+        status: action.payload.response.status,
+        kindOfErr: 'Register',
+      };
     case authConstants.LOGIN_ERROR:
-      // const response = action.payload.response
-        // ? {
-      //       data: action.payload.response.data,
-      //       status: action.payload.response.status,
-      //       statusText: action.payload.response.statusText,
-      //     }
-      //   : initialResponse;
-      // return {
-      //   ...response,
-      return action.payload.message;
-        // message: 
-      // };
-
+      return {
+        statusText: action.payload.message,
+        status: action.payload.response.status,
+        kindOfErr: 'Login',
+      };
+    case errorConstants.SET_ERROR:
+      return action.payload;
     case errorConstants.HIDE_ERROR:
     case authConstants.REGISTER_REQUEST:
     case authConstants.LOGIN_REQUEST:

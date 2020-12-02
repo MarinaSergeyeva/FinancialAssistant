@@ -1,5 +1,6 @@
 import authAction from '../actions/authAction';
 import axios from 'axios';
+import setError from '../actions/errorActions';
 import { authSelector } from '../selectors';
 
 axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
@@ -15,28 +16,31 @@ export const token = {
 
 const userRegistration = credentials => dispatch => {
   dispatch(authAction.registrationRequest());
-  axios
+
+  return axios
     .post('/api/v1/auth/sign-up', credentials)
     .then(res => {
-      console.log(res.data, 'Registration');
       dispatch(authAction.registrationSuccess(res.data));
+      dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
     })
     .catch(err => {
       dispatch(authAction.registrationError(err));
+      return new Error(err);
     });
 };
 
 const userLogin = credentials => dispatch => {
   dispatch(authAction.loginRequest());
-  axios
+  return axios
     .post('/api/v1/auth/sign-in', credentials)
     .then(res => {
       token.set(res.data.token);
       dispatch(authAction.loginSuccess(res.data));
+      dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
     })
     .catch(err => {
-      console.log(err.message);
       dispatch(authAction.loginError(err));
+      return new Error(err);
     });
 };
 

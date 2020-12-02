@@ -65,7 +65,7 @@ export const StyleNavLInk = styled(NavLink)`
         margin:0;
       }
     }
-  }
+  
 
   @media ${device.tablet} {
     &:last-of-type {
