@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form } from 'formik';
+import React from 'react';
 import styled from 'styled-components';
+import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import operation from '../../../redux/operations/authOperations';
 import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-
-import {device} from '../../../common/deviceSizes';
+import useMessageErr from '../hooks/useMessageErr';
+import useDeviceSizes from '../../../hooks/useDeviceSizes';
+import { device } from '../../../common/deviceSizes';
 import {
   AuthForm,
   AuthTxt,
@@ -18,25 +18,11 @@ import {
   AuthButtonBlock,
   ErrMessage,
 } from '../../../common/globalStyleComponents';
-import getError from '../../../redux/selectors/errorSelector';
-import funcErrTranslator from '../utilsAuth/funcErrTranslator';
 
 const Login = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const isOnMobile = useMediaQuery({
-    query: device.mobile,
-  });
-  const [state, setstate] = useState(null);
-  const errState = useSelector(state => getError.getError(state));
-  const [messageErrLogin, setMessageErrlogin] = useState(null);
-
-  const MessageErrlogin = () => {
-    const message = funcErrTranslator(Number(errState?.status));
-    setMessageErrlogin(message);
-  };
-  useEffect(() => {
-    MessageErrlogin();
-  }, [errState]);
+  const { isMobileDevice } = useDeviceSizes();
+  const { messageErr, error } = useMessageErr();
 
   return (
     <AuthFormWrapperLogin>
@@ -53,7 +39,7 @@ const Login = ({ closeModal }) => {
             if (response) {
               return;
             } else {
-              !isOnMobile && closeModal();
+              !isMobileDevice && closeModal();
             }
           });
         }}
@@ -62,8 +48,8 @@ const Login = ({ closeModal }) => {
           <Form>
             <AuthForm>
               <AuthTxt>Вход</AuthTxt>
-              {errState?.kindOfErr === 'Login' && (
-                <ErrMessage>{messageErrLogin}</ErrMessage>
+              {error?.kindOfErr === 'Login' && (
+                <ErrMessage>{messageErr}</ErrMessage>
               )}
               <AuthInputForm>
                 <AuthInputTxt>E-mail</AuthInputTxt>
@@ -76,11 +62,10 @@ const Login = ({ closeModal }) => {
                   name="email"
                   id="email"
                   borderErrColor={
-                    errState?.status === 404 || errState?.status === 500
+                    error?.status === 404 || error?.status === 500
                       ? 'red'
                       : '#a3a3a3'
                   }
-                  touched={setstate('rjcyekcz')}
                 />
                 {(
                   <ErrorValidation
@@ -88,9 +73,6 @@ const Login = ({ closeModal }) => {
                     message={errors.email}
                   />
                 ) && funcMessage(errors.email)}
-                {/* {errState?.status === 404 && errState?.kindOfErr === 'Login' && (
-                  <ErrMessage>{messageErr}</ErrMessage>
-                )} */}
               </AuthInputForm>
 
               <AuthInputForm>
@@ -104,7 +86,7 @@ const Login = ({ closeModal }) => {
                   name="password"
                   id="password"
                   borderErrColor={
-                    errState?.status === 403 || errState?.status === 500
+                    error?.status === 403 || error?.status === 500
                       ? 'red'
                       : '#a3a3a3'
                   }
@@ -115,9 +97,6 @@ const Login = ({ closeModal }) => {
                     message={errors.password}
                   />
                 ) && funcMessage(errors.password)}
-                {/* {errState?.status === 403 && errState?.kindOfErr === 'Login' && (
-                  <ErrMessage>{messageErr}</ErrMessage>
-                )} */}
               </AuthInputForm>
 
               <AuthButtonBlock>

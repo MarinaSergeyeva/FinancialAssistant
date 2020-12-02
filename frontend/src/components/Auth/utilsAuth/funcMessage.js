@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 function funcMessage(errorMessage) {
   return (
@@ -16,6 +16,6 @@ const ErrMessage = styled.span`
   font-size: 9.5px;
   font-weight: 500;
   color: #fe6083;
-`
+`;
 
 export default funcMessage;

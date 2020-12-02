@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
+import React from 'react';
 import { Formik, Form } from 'formik';
-import operation from '../../../redux/operations/authOperations';
+import { useDispatch, useSelector } from 'react-redux';
 import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
+import useMessageErr from '../hooks/useMessageErr';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-import setError from '../../../redux/actions/errorActions';
+import operation from '../../../redux/operations/authOperations';
+import useUserInfoAuth from '../../MainPage/hooks/useUserInfoAuth';
+import useDeviceSizes from '../../../hooks/useDeviceSizes';
 import {
   AuthFormWrapper,
   AuthForm,
@@ -18,42 +19,12 @@ import {
   ErrMessage,
 } from '../../../common/globalStyleComponents';
 
-import  getError  from '../../../redux/selectors/errorSelector';
-import funcErrTranslator from '../utilsAuth/funcErrTranslator';
-import {device} from '../../../common/deviceSizes';
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
-
-  ///USERNAME AFTER REGISTR
+  const { isMobileDevice } = useDeviceSizes();
   const userInfo = useSelector(state => state.auth.username);
-  const [userInfoRegistr, setUserInfoRegistr] = useState(
-    userInfo ? true : false,
-  );
- 
-  useEffect(() => {
-    if (userInfo) {
-      setUserInfoRegistr(true);
-    } else {
-      setUserInfoRegistr(false);
-    }
-  }, [userInfo]);
-  
-  ///ERROR-AUTHerrState
-  const errState = useSelector(state => getError.getError(state));
-  const [messageErr, setMessageErr] = useState('');
-
-  const MessageErr = errState => {
-    const message = funcErrTranslator(Number(errState?.status));
-    setMessageErr(message);
-  };
-
-  useEffect(() => {
-    MessageErr(errState);
-  }, [errState]);
-
-  const isOnMobile = useMediaQuery({
-    query: device.mobile,
-  });
+  const [userInfoRegistr] = useUserInfoAuth(userInfo ? true : false);
+  const { messageErr, error } = useMessageErr();
 
   return (
     <AuthFormWrapper>
@@ -67,11 +38,10 @@ const Registration = ({ closeModal }) => {
         onSubmit={async values => {
           const data = dispatch(operation.userRegistration({ ...values }));
           data.then(response => {
-            console.log(response, 'RES');
             if (response) {
               return;
             } else {
-              !isOnMobile && userInfoRegistr && closeModal();
+              !isMobileDevice && userInfoRegistr && closeModal();
             }
           });
         }}
@@ -80,9 +50,9 @@ const Registration = ({ closeModal }) => {
           <Form>
             <AuthForm>
               <AuthTxt>
-                {isOnMobile ? 'Готовы подписаться?' : 'Регистрация'}
+                {isMobileDevice ? 'Готовы подписаться?' : 'Регистрация'}
               </AuthTxt>
-              {errState?.kindOfErr === 'Register' && (
+              {error?.kindOfErr === 'Register' && (
                 <ErrMessage>{messageErr}</ErrMessage>
               )}
               <AuthInputForm>
@@ -115,7 +85,7 @@ const Registration = ({ closeModal }) => {
                   placeholder="Введите ваш e-mail"
                   name="email"
                   id="email"
-                  borderErrColor={errState?.status === 409 ? 'red' : '#a3a3a3'}
+                  borderErrColor={error?.status === 409 ? 'red' : '#a3a3a3'}
                 />
                 {(
                   <ErrorValidation

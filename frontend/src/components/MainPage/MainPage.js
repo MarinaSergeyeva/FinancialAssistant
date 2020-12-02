@@ -1,64 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Desktop, Mobile, Tablet } from '../../common/deviceSizes';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
 import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
-import {device, Desktop, Mobile, Tablet } from '../../common/deviceSizes';
+import ModalResultSuccess from '../Auth/ModalResult/ModalResultSuccess';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
-import { useSelector } from 'react-redux';
-import { getError } from '../../redux/selectors/errorSelector';
 import Modal from '../Modal/Modal';
-import { useMediaQuery } from 'react-responsive';
-import ModalResultSuccess from '../Auth/ModalResult/ModalResultSuccess';
-import useHandleBoolChange from '../../hooks/useHandleBoolChange';
- import {
-    AuthContainer,
-    AuthParagraph,
-    GoogleAuthBtn,
-    GoogleAuthBtnImg,
-    MainPageContainer,
-    MainPageImg,
-    MainPageTitile,
-    MainPageTitileOrange,
-  } from './mainPageStyled';
-
+import useDeviceSizes from '../../hooks/useDeviceSizes';
+import useUserInfoAuth from './hooks/useUserInfoAuth';
+import useSuccessModal from './hooks/useSuccessModal';
+import useLoginModal from './hooks/useLoginModal';
+import {
+  AuthContainer,
+  AuthParagraph,
+  GoogleAuthBtn,
+  GoogleAuthBtnImg,
+  MainPageContainer,
+  MainPageImg,
+  MainPageTitile,
+  MainPageTitileOrange,
+} from './mainPageStyled';
 
 const MainPage = () => {
-  const [successModal, setSuccessModal] = useState(false);
-  const [loginModal, setLoginModal] = useState(false);
-
-  const userInfo = useSelector(state => state.auth.id);
-  const [userInfoRegistr, setUserInfoRegistr] = useState(false);
-
-  useEffect(() => {
-    if (userInfo) {
-      setUserInfoRegistr(true);
-    } else {
-      setUserInfoRegistr(false);
-    }
-
-
-    if (loginModal) {
-      setSuccessModal(false);
-    }
-
-    if (userInfoRegistr) {
-      setSuccessModal(true);
-    } else {
-      setSuccessModal(false);
-    }
-  }, [userInfo]);
-
-  
- 
-
-
-  // const [userInfoRegistr, setUserInfoRegistr] = useHandleBoolChange(true);
-
-  const isOnLargeTablet = useMediaQuery({
-    query: device.largeTablet,
-  });
+  const [userInfoRegistr, setUserInfoRegistr] = useUserInfoAuth(false);
+  const [successModal, setSuccessModal] = useSuccessModal(userInfoRegistr);
+  const [loginModal, setLoginModal] = useLoginModal(setSuccessModal);
+  const { isLargeTablet } = useDeviceSizes();
 
   const closeSuccessModal = () => {
     setSuccessModal(prev => !prev);
@@ -66,7 +35,7 @@ const MainPage = () => {
 
   return (
     <>
-      {userInfoRegistr && isOnLargeTablet && successModal && (
+      {userInfoRegistr && isLargeTablet && successModal && (
         <Modal closeModal={closeSuccessModal}>
           <ModalResultSuccess
             closeModal={closeSuccessModal}
@@ -76,7 +45,7 @@ const MainPage = () => {
         </Modal>
       )}
 
-      {isOnLargeTablet && loginModal && (
+      {isLargeTablet && loginModal && (
         <Modal closeModal={setLoginModal}>
           <Login closeModal={setLoginModal} />
         </Modal>

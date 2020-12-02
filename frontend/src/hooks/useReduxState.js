@@ -6,6 +6,7 @@ import {
   errorSelector,
   statsFlatSelectors,
   transactionSelectors,
+  userIDSelector,
   userSelectors,
 } from '../redux/selectors';
 
@@ -18,6 +19,8 @@ const useReduxState = () => {
   // USERINFO //
   const userInfo = useSelector(state => userSelectors.getCurrentUser(state));
 
+  // USER_ID
+  const userID = useSelector(state => userIDSelector.getUserID(state));
   // TRANSACTIONS //
   const transaction = useSelector(state =>
     transactionSelectors.getTransaction(state),
@@ -69,6 +72,7 @@ const useReduxState = () => {
 
   return {
     isUserAuth,
+    userID,
     userInfo,
     userTransactions: { transaction, expenses, expensesCategories },
     stats: {
