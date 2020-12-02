@@ -48,8 +48,6 @@ const ExpenseListItem = ({ expense, date }) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // const date = new Date(expense.transactionDate);
-    // console.log(date);
     dispatch(
       await transactionOperations.updateTransactionExpense(
         updatedExpense,
