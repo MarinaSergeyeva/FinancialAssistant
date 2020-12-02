@@ -1,35 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { CurrencyStyled } from './currencyStyled';
 import sprite from '../../assets/icons/Currency/currency-sprite.svg';
+import { useCurrency } from './hooks/useCurrency';
 
 function Currency({ currencySvg, setCurrencySvg, setCurrency }) {
-  const [isShowCurrency, setShowCurrency] = useState(false);
-  const flatPrice = useSelector(state => state.user.info.flatPrice);
-
-  const showCurrency = () => setShowCurrency(prevState => !prevState);
-
-  const selectedCurrency = e => {
-    setCurrencySvg(e.target.id);
-    setShowCurrency(false);
-  };
-
-  const fetchExchangeRates = () => {
-    fetch(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
-      .then(result => result.json())
-      .then(result => {
-        setCurrency({
-          dollarRate: result[0].buy,
-          euroRate: result[1].buy,
-          hryvnaRate: 1,
-        });
-      });
-  };
-
-  useEffect(() => {
-    fetchExchangeRates();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { valueCurrency, methodCurrency } = useCurrency(
+    setCurrencySvg,
+    setCurrency,
+  );
+  const { flatPrice, isShowCurrency } = valueCurrency;
+  const { showCurrency, selectedCurrency } = methodCurrency;
 
   return (
     <CurrencyStyled>
