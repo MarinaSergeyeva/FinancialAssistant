@@ -20,8 +20,7 @@ const useMonthlyExecutionPlanLogic = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(chartOperations.getMonthReport(startDate));
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate]);
+  }, [dispatch, startDate]);
 
   const onChange = dt => {
     setStartDate(dt);

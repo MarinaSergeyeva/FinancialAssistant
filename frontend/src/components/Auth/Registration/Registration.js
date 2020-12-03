@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registrationFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import useMessageErr from '../hooks/useMessageErr';
 import ErrorValidation from '../utilsAuth/ErrorValidation';

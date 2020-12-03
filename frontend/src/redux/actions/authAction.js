@@ -28,8 +28,16 @@ const loginError = error => ({
   payload: error,
 });
 
-const logout = () => ({
-  type: constants.LOGOUT,
+const logoutRequest = () => ({
+  type: constants.LOGOUT_REQUEST,
+});
+
+const logoutSuccess = () => ({
+  type: constants.LOGOUT_SUCCESS,
+});
+
+const logoutError = () => ({
+  type: constants.LOGOUT_ERROR,
 });
 
 export default {
@@ -39,5 +47,7 @@ export default {
   loginRequest,
   loginSuccess,
   loginError,
-  logout,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
 };
