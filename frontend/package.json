@@ -26,7 +26,6 @@
     "react-scripts": "4.0.0",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.16",
@@ -71,6 +70,7 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "redux-devtools-extension": "^2.13.8"
   }
 }
