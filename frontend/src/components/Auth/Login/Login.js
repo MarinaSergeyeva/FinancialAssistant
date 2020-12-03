@@ -7,7 +7,6 @@ import operation from '../../../redux/operations/authOperations';
 import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
-// import { getError } from '../../../redux/selectors/errorSelector'
 import { device } from '../../../common/deviceSizes';
 import {
   AuthForm,
@@ -123,7 +122,5 @@ const ErrMessage = styled.p`
   font-size: 13px;
   text-align: center;
   margin-bottom: 10px;
-  /* position: absolute;
-top: 60%; */
 `;
 export default Login;

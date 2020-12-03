@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { transactionOperations } from '../../redux/operations';
 import { transactionSelectors } from '../../redux/selectors';
-import ExpenseItemCategory, { expensesCategories } from './ExpenseItemCategory';
+import ExpenseItemCategory, {
+  expensesCategories,
+} from './ExpenseItemCategory/ExpenseItemCategory';
 
 const ExpenseListCats = ({ date }) => {
   const dispatch = useDispatch();
@@ -11,7 +13,7 @@ const ExpenseListCats = ({ date }) => {
   useEffect(() => {
     dispatch(transactionOperations.getTransactionsCats(date));
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date]);
+  }, [dispatch, date]);
   return (
     <>
       {transactions && (
@@ -19,7 +21,7 @@ const ExpenseListCats = ({ date }) => {
           {expensesCategories.map(item => {
             const cat = Object.keys(item)[0];
             if (!transactions[cat]) {
-              return;
+              return null;
             }
             return <ExpenseItemCategory key={cat} category={cat} />;
           })}

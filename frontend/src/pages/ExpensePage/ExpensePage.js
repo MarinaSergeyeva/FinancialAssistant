@@ -38,6 +38,8 @@ const ExpensePage = () => {
   const [calendarIsOpen, openDatePicker] = useHandleBoolChange(false);
   const handleChange = date => {
     setStartDate(date);
+    console.log('date', date);
+    console.log('startDate', startDate);
   };
 
   return (
