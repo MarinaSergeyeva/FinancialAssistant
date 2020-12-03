@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import useReduxState from '../../../hooks/useReduxState';
 
 export const useCurrency = (setCurrencySvg, setCurrency) => {
@@ -12,7 +12,7 @@ export const useCurrency = (setCurrencySvg, setCurrency) => {
     setShowCurrency(false);
   };
 
-  const fetchExchangeRates = () => {
+  const fetchExchangeRates = useCallback(() => {
     fetch(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
       .then(result => result.json())
       .then(result => {
@@ -22,13 +22,9 @@ export const useCurrency = (setCurrencySvg, setCurrency) => {
           hryvnaRate: 1,
         });
       });
-  };
+  }, [setCurrency]);
 
-  useEffect(() => {
-    fetchExchangeRates();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-    return () => {};
-  }, [fetchExchangeRates]);
+  useEffect(() => fetchExchangeRates(), [fetchExchangeRates]);
 
   return {
     valueCurrency: { flatPrice, isShowCurrency },
