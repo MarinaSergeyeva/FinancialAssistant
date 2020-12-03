@@ -24,32 +24,30 @@ const App = () => {
   }, [dispatch, isUserAuth, userInfo.totalSalary]);
 
   return (
-    <>
-      <Suspense fallback={<Spinner />}>
-        <Header
+    <Suspense fallback={<Spinner />}>
+      <Header
+        showNavigation={showNavigationHandler}
+        isNavigationOn={showNavigation}
+      />
+      {isUserAuth && showNavigation && !isDesktopDevice && (
+        <Navigation
           showNavigation={showNavigationHandler}
           isNavigationOn={showNavigation}
         />
-        {isUserAuth && showNavigation && !isDesktopDevice && (
-          <Navigation
-            showNavigation={showNavigationHandler}
-            isNavigationOn={showNavigation}
-          />
-        )}
-        {!showNavigation && (
-          <Switch>
-            {routes.map(route =>
-              route.private ? (
-                <PrivateRoute key={route.label} {...route} />
-              ) : (
-                <PublicRoute key={route.label} {...route} />
-              ),
-            )}
-            <Route component={NotFound} />
-          </Switch>
-        )}
-      </Suspense>
-    </>
+      )}
+      {!showNavigation && (
+        <Switch>
+          {routes.map(route =>
+            route.private ? (
+              <PrivateRoute key={route.label} {...route} />
+            ) : (
+              <PublicRoute key={route.label} {...route} />
+            ),
+          )}
+          <Route component={NotFound} />
+        </Switch>
+      )}
+    </Suspense>
   );
 };
 
