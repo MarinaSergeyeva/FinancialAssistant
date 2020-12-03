@@ -8,6 +8,11 @@ import {
   NavigationContainer,
   StyleNavLInk,
 } from './navigationStyled';
+import {
+  planRoute,
+  expenseRoute,
+  dynamicsRoute,
+} from '../../../assets/routes/routes';
 
 const Navigation = ({ showNavigation, isNavigationOn }) => {
   const { isMobileDevice, isTabletDevice } = useDeviceSizes();
@@ -21,14 +26,14 @@ const Navigation = ({ showNavigation, isNavigationOn }) => {
   return (
     <NavigationContainer>
       <StyleNavLInk
-        to="/plan"
+        to={planRoute.path}
         activeClassName="active"
         onClick={onHandleChange}
       >
         Персональный план
       </StyleNavLInk>
       <StyleNavLInk
-        to="/expense"
+        to={expenseRoute.path}
         exact
         activeClassName="active"
         onClick={onHandleChange}
@@ -36,7 +41,7 @@ const Navigation = ({ showNavigation, isNavigationOn }) => {
         Расходы
       </StyleNavLInk>
       <StyleNavLInk
-        to="/dynamics"
+        to={dynamicsRoute.path}
         activeClassName="active"
         onClick={onHandleChange}
       >

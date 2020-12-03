@@ -15,12 +15,6 @@ const fields = {
 
 const PlanPage = () => {
   const [state, getState] = useState(fields);
-  // const flatPrice = useSelector(state => state.user.info.flatPrice);
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   flatPrice && history.push('/expense');
-  // }, [flatPrice]);
 
   return (
     <PlanPageStyled>

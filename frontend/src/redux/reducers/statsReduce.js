@@ -1,4 +1,4 @@
-const { default: statsConstants } = require('../constants/statsConstants');
+import statsConstants from '../constants/statsConstants';
 
 const initialState = {
   stats: {

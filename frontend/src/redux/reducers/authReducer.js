@@ -6,7 +6,7 @@ const initialState = {
   token: '',
 };
 
-const auth = (state = {...initialState}, { type, payload }) => {
+const auth = (state = { ...initialState }, { type, payload }) => {
   switch (type) {
     case authConstants.REGISTER_SUCCESS:
       return { ...payload };
@@ -14,8 +14,8 @@ const auth = (state = {...initialState}, { type, payload }) => {
     case authConstants.LOGIN_SUCCESS:
       return { ...payload };
 
-    case authConstants.LOGOUT:
-      return state;
+    case authConstants.LOGOUT_SUCCESS:
+      return { ...initialState };
 
     default:
       return state;

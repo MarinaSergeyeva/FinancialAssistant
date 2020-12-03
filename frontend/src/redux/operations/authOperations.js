@@ -50,10 +50,16 @@ const userLogout = () => (dispatch, getState) => {
     return;
   }
   token.set(persistedToken);
-  axios.delete('/api/v1/auth/sign-out').then(res => {
-    token.unSet();
-    dispatch(authAction.logout());
-  });
+  axios
+    .delete('/api/v1/auth/sign-out')
+    .then(() => {
+      token.unSet();
+      dispatch(authAction.logoutSuccess());
+    })
+    .catch(err => {
+      console.log(err.message);
+      dispatch(authAction.logoutError(err));
+    });
 };
 
 export default {

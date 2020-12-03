@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import routes from '../../assets/routes/routes';
+import { routes } from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
 import PublicRoute from '../CustomRoutes/PublicRoute';
 import NotFound from '../../pages/NotFound/NotFound';

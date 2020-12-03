@@ -9,7 +9,13 @@ const ExpenseButton = ({ showNavigation }) => {
       activeClassName="active"
       onClick={showNavigation}
     >
-      <img width="12" height="12" alt="graph" src={dynamics} />
+      <img
+        className="graph-icon"
+        width="12"
+        height="12"
+        alt="graph"
+        src={dynamics}
+      />
     </BtnNavLInk>
   );
 };

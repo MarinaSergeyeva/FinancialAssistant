@@ -1,4 +1,4 @@
-const { useState, useEffect } = require('react');
+import { useState, useEffect } from 'react';
 
 const useBurgerMenuClass = (menuStatus, openMenuFn) => {
   const [className, setClassName] = useState('burger');

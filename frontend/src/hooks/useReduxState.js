@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
   authSelector,
   calculatorSelector,
@@ -9,8 +10,6 @@ import {
   userIDSelector,
   userSelectors,
 } from '../redux/selectors';
-
-const { useSelector } = require('react-redux');
 
 const useReduxState = () => {
   // AUTH //
