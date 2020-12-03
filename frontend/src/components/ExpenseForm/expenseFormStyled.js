@@ -132,7 +132,7 @@ export const ExpenseFormStyled = styled.div`
     /* pointer-events: none; */
     -webkit-appearance: none;
     -moz-appearance: none;
--ms-appearance: none; // reset default input, select css
+    -ms-appearance: none; // reset default input, select css
 
     @media ${device.tablet} {
       width: 330px;
@@ -182,5 +182,4 @@ position:relative;
   pointer-events: none;
   box-sizing: border-box;
   }
-  
-`;
+  `;

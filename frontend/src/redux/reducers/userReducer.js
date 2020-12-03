@@ -11,7 +11,7 @@ const initialState = {
     flatPrice: 0,
     flatSquareMeters: 0,
     monthBalance: 0,
-    username: 'NewUser',
+    username: '',
     picture: 'none',
   },
 };
@@ -27,7 +27,7 @@ const info = (state = initialState.info, { type, payload }) => {
     case authConstants.LOGIN_SUCCESS:
       return { ...state, ...payload.user };
 
-    case authConstants.LOGOUT:
+    case authConstants.LOGOUT_SUCCESS:
       return initialState.info;
 
     default:

@@ -24,8 +24,7 @@ const useExpenseFormLogic = props => {
       setCategory('');
       props();
     }
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isTransactionSend]);
+  }, [isTransactionSend, setAmount, setComment, setCategory, props]);
 
   useEffect(() => {
     const transactionInfoLS = JSON.parse(
@@ -37,14 +36,13 @@ const useExpenseFormLogic = props => {
       setAmount(Number(JSON.parse(transactionInfoLS.amount)));
     }
     dispatch(categoriesOperations.getCategories());
-  }, [dispatch]);
+  }, [dispatch, setComment, setCategory, setAmount]);
 
   useEffect(() => {
     if (calculatorResult) {
       setAmount(calculatorResult);
     }
-    // eslint-disable-next-line
-  }, [calculatorResult]);
+  }, [calculatorResult, setAmount]);
 
   useEffect(() => {
     const transactionInfo = {

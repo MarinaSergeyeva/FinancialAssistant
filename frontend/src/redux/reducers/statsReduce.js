@@ -1,4 +1,4 @@
-const { default: statsConstants } = require('../constants/statsConstants');
+import statsConstants from '../constants/statsConstants';
 
 const initialState = {
   stats: {
@@ -27,12 +27,10 @@ const stats = (state = initialState.stats, { type, payload }) => {
     case statsConstants.UPDATE_UNPACK_GIFT_SUCCESS:
       return {
         ...state,
-        ...{
-          ...payload,
-          giftsUnpacked: state.giftsUnpacked + 1,
-          savingsInSquareMeters: state.savingsInSquareMeters + 1,
-          savingsPercentage: countPercentage(state),
-        },
+        ...payload,
+        giftsUnpacked: state.giftsUnpacked + 1,
+        savingsInSquareMeters: state.savingsInSquareMeters + 1,
+        savingsPercentage: countPercentage(state),
       };
 
     default:

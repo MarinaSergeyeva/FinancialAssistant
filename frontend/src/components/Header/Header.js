@@ -13,22 +13,20 @@ const Header = ({ showNavigation, isNavigationOn }) => {
   const { isMobileDevice, isDesktopDevice } = useDeviceSizes();
 
   return (
-    <>
-      <HeaderContainer>
-        {isUserAuth && isDesktopDevice && <Navigation />}
-        <Logo />
-        <UserInfoWrapper>
-          {isUserAuth && !isMobileDevice && <ExpenseButton />}
-          {isUserAuth && (
-            <Userinfo
-              showNavigation={showNavigation}
-              isNavigationOn={isNavigationOn}
-            />
-          )}
-          {!isUserAuth && !isMobileDevice && <LoginHeader />}
-        </UserInfoWrapper>
-      </HeaderContainer>
-    </>
+    <HeaderContainer>
+      {isUserAuth && isDesktopDevice && <Navigation />}
+      <Logo />
+      <UserInfoWrapper>
+        {isUserAuth && !isMobileDevice && <ExpenseButton />}
+        {isUserAuth && (
+          <Userinfo
+            showNavigation={showNavigation}
+            isNavigationOn={isNavigationOn}
+          />
+        )}
+        {!isUserAuth && !isMobileDevice && <LoginHeader />}
+      </UserInfoWrapper>
+    </HeaderContainer>
   );
 };
 

@@ -15,7 +15,11 @@ const useDeviceSizes = () => {
     query: device.desktop,
   });
 
-  return { isMobileDevice, isTabletDevice, isDesktopDevice };
+  const isLargeTablet = useMediaQuery({
+    query: device.largeTablet,
+  });
+
+  return { isMobileDevice, isTabletDevice, isDesktopDevice, isLargeTablet };
 };
 
 export default useDeviceSizes;

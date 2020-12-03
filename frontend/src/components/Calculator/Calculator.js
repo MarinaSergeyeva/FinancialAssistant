@@ -10,6 +10,10 @@ const Calculator = ({ closeModal }) => {
 
   const { input, addToInput, setInput } = inputValues;
 
+  const getResult = () => {
+    handleEqual();
+  };
+
   return (
     <>
       {isCalcShow && (
@@ -54,7 +58,7 @@ const Calculator = ({ closeModal }) => {
             </Button>
             <RowL>
               <Button handleClick={addToInput}>.</Button>
-              <Button handleClick={() => handleEqual()}>=</Button>
+              <Button handleClick={getResult}>=</Button>
             </RowL>
           </RowD>
         </CalculatorWrapper>

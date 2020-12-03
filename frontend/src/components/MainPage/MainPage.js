@@ -1,18 +1,20 @@
 import React from 'react';
-// import gapi from 'gapi';
+import { Mobile } from '../../common/deviceSizes';
 import mainPictureMobile from '../../assets/images/mainPagePic/mainpagemobile.png';
 import mainPictureTablet from '../../assets/images/mainPagePic/mainpagetablet.png';
 import mainPictureDesktop from '../../assets/images/mainPagePic/mainpagedesktop.png';
 import googleLogo from '../../assets/images/mainPagePic/googlemobile.png';
-import facebookLogo from '../../assets/images/mainPagePic/facebookmobile.png';
-import { Mobile } from '../../common/deviceSizes';
+import ModalResultSuccess from '../Auth/ModalResult/ModalResultSuccess';
 import Registration from '../Auth/Registration/Registration';
 import Login from '../Auth/Login/Login';
+import Modal from '../Modal/Modal';
+import useDeviceSizes from '../../hooks/useDeviceSizes';
+import useUserInfoAuth from './hooks/useUserInfoAuth';
+import useSuccessModal from './hooks/useSuccessModal';
+import useLoginModal from './hooks/useLoginModal';
 import {
   AuthContainer,
   AuthParagraph,
-  FacebookAuthBtn,
-  FacebookAuthBtnImg,
   GoogleAuthBtn,
   GoogleAuthBtnImg,
   MainPageContainer,
@@ -20,15 +22,44 @@ import {
   MainPageTitle,
   MainPageTitleOrange,
 } from './mainPageStyled';
-import useHandleBoolChange from '../../hooks/useHandleBoolChange';
-import useDeviceSizes from '../../hooks/useDeviceSizes';
 
 const MainPage = () => {
-  const [userInfoRegistr, setUserInfoRegistr] = useHandleBoolChange(true);
-  const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
+  const {
+    isMobileDevice,
+    isTabletDevice,
+    isDesktopDevice,
+    isLargeTablet,
+  } = useDeviceSizes();
+  const [userInfoRegistr, setUserInfoRegistr] = useUserInfoAuth(false);
+  const [successModal, setSuccessModal] = useSuccessModal(userInfoRegistr);
+  const [loginModal, setLoginModal] = useLoginModal(setSuccessModal);
+
+  const closeSuccessModal = () => {
+    setSuccessModal(prev => !prev);
+  };
+
+  const switchMobileForm = () => {
+    setUserInfoRegistr(prev => !prev);
+  };
 
   return (
     <>
+      {userInfoRegistr && isLargeTablet && successModal && (
+        <Modal closeModal={closeSuccessModal}>
+          <ModalResultSuccess
+            closeModal={closeSuccessModal}
+            showLoginModal={setLoginModal}
+            setSuccessModal={setSuccessModal}
+          />
+        </Modal>
+      )}
+
+      {isLargeTablet && loginModal && (
+        <Modal closeModal={setLoginModal}>
+          <Login closeModal={setLoginModal} />
+        </Modal>
+      )}
+
       <MainPageContainer>
         <MainPageTitle>
           Планировщик{isDesktopDevice ? <br /> : ''} для совместного
@@ -41,14 +72,6 @@ const MainPage = () => {
           ></GoogleAuthBtnImg>
           Sign up with Google
         </GoogleAuthBtn>
-        {/* <FacebookAuthBtn href="https://financial-assistant-bc22.herokuapp.com/api/v1/auth/facebook">
-          <FacebookAuthBtnImg
-            src={facebookLogo}
-            alt="facebook auth picture"
-          ></FacebookAuthBtnImg>
-          Sign up with Facebook
-        </FacebookAuthBtn> */}
-
         <Mobile>
           <AuthContainer>
             {!userInfoRegistr && (
@@ -56,7 +79,7 @@ const MainPage = () => {
                 <Registration />
                 <AuthParagraph>
                   Уже есть аккаунт?
-                  <span onClick={setUserInfoRegistr}>Войти</span>
+                  <span onClick={switchMobileForm}>Войти</span>
                 </AuthParagraph>
               </>
             )}
@@ -66,7 +89,7 @@ const MainPage = () => {
                 <Login />
                 <AuthParagraph>
                   Еще нет аккаунта?
-                  <span onClick={setUserInfoRegistr}>Зарегистрироваться</span>
+                  <span onClick={switchMobileForm}>Зарегистрироваться</span>
                 </AuthParagraph>
               </>
             )}

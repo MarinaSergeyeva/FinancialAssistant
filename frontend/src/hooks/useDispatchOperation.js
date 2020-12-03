@@ -1,12 +1,11 @@
-const { useEffect } = require('react');
-const { useDispatch } = require('react-redux');
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const useDispatchOperation = (param, operation) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(operation());
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param]);
+  }, [dispatch, param, operation]);
 };
 export default useDispatchOperation;

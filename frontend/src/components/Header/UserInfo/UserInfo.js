@@ -18,7 +18,6 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
   const { isMobileDevice, isDesktopDevice } = useDeviceSizes();
 
   return (
-    <>
       <UserinfoContainer>
         <UserInfoWrapper>
           {picture === 'none' ? (
@@ -42,7 +41,6 @@ const Userinfo = ({ showNavigation, isNavigationOn }) => {
           />
         )}
       </UserinfoContainer>
-    </>
   );
 };
 

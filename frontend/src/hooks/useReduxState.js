@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
   authSelector,
   calculatorSelector,
@@ -6,10 +7,9 @@ import {
   errorSelector,
   statsFlatSelectors,
   transactionSelectors,
+  userIDSelector,
   userSelectors,
 } from '../redux/selectors';
-
-const { useSelector } = require('react-redux');
 
 const useReduxState = () => {
   // AUTH //
@@ -18,6 +18,8 @@ const useReduxState = () => {
   // USERINFO //
   const userInfo = useSelector(userSelectors.getCurrentUser);
 
+  // USER_ID
+  const userID = useSelector(state => userIDSelector.getUserID(state));
   // TRANSACTIONS //
   const transaction = useSelector(transactionSelectors.getTransaction);
   const expenses = useSelector(transactionSelectors.getExpenses);
@@ -51,6 +53,7 @@ const useReduxState = () => {
 
   return {
     isUserAuth,
+    userID,
     userInfo,
     userTransactions: { transaction, expenses, expensesCategories },
     stats: {

@@ -18,20 +18,26 @@ const loginRequest = () => ({
   type: constants.LOGIN_REQUEST,
 });
 
-const loginSuccess = credential => {
-  return {
-    type: constants.LOGIN_SUCCESS,
-    payload: credential,
-  };
-};
+const loginSuccess = credential => ({
+  type: constants.LOGIN_SUCCESS,
+  payload: credential,
+});
 
 const loginError = error => ({
   type: constants.LOGIN_ERROR,
   payload: error,
 });
 
-const logout = () => ({
-  type: constants.LOGOUT,
+const logoutRequest = () => ({
+  type: constants.LOGOUT_REQUEST,
+});
+
+const logoutSuccess = () => ({
+  type: constants.LOGOUT_SUCCESS,
+});
+
+const logoutError = () => ({
+  type: constants.LOGOUT_ERROR,
 });
 
 export default {
@@ -41,5 +47,7 @@ export default {
   loginRequest,
   loginSuccess,
   loginError,
-  logout,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
 };

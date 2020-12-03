@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
-import ru from 'date-fns/locale/ru';
+import { Route, useRouteMatch, useLocation } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
@@ -11,21 +9,17 @@ import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-d
 import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
 import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
-import CustomInput from '../../components/CustomInput/CustomInput';
-import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import {
   ExpenseFormWrapper,
   ExpenseListContainer,
-  ExpenseListHeader,
   ExpenseListImg,
   ExpenseListWrap,
   ExpensePageContainer,
   ExpensePageImg,
   ForecastExpenseWrapper,
-  TabMode,
-  TabsModeView,
 } from './expensePageStyled';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
+import ExpenseListHeader from '../../components/ExpenseListHeader/ExpenseListHeader';
 
 const ExpensePage = () => {
   const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
@@ -36,10 +30,6 @@ const ExpensePage = () => {
   const match = useRouteMatch();
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
-  const [calendarIsOpen, openDatePicker] = useHandleBoolChange(false);
-  const handleChange = date => {
-    setStartDate(date);
-  };
 
   return (
     <>
@@ -65,47 +55,10 @@ const ExpensePage = () => {
         </ExpensePageContainer>
       ) : (
         <ExpenseListContainer>
-          <ExpenseListHeader>
-            <TabsModeView>
-              <TabMode>
-                <NavLink
-                  to={{
-                    pathname: `${match.url}/list`,
-                  }}
-                  className="tab-link"
-                  activeClassName="active-tab"
-                >
-                  Список
-                </NavLink>
-              </TabMode>
-              <TabMode>
-                <NavLink
-                  to={{
-                    pathname: `${match.url}/categories`,
-                  }}
-                  className="tab-link"
-                  activeClassName="active-tab"
-                >
-                  Категории
-                </NavLink>
-              </TabMode>
-            </TabsModeView>
-            <div>
-              <DatePicker
-                selected={startDate}
-                locale={ru}
-                onChange={handleChange}
-                dateFormat="MM/yyyy"
-                showMonthYearPicker
-                showFullMonthYearPicker
-                showTwoColumnMonthYearPicker
-                open={calendarIsOpen}
-                onClickOutside={openDatePicker}
-                customInput={<CustomInput toggleOpen={openDatePicker} />}
-                popperPlacement="bottom-end"
-              />
-            </div>
-          </ExpenseListHeader>
+          <ExpenseListHeader
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
           <ExpenseListWrap>
             <Route path={`${match.url}/list`}>
               <ExpenseList date={startDate} />

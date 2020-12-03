@@ -7,14 +7,20 @@ import { useDispatch } from 'react-redux';
 registerLocale('ru', ru);
 
 const useMonthlyExecutionPlanLogic = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const curDateMonth = new Date();
+  const [startDate, setStartDate] = useState(
+    new Date(
+      curDateMonth.getFullYear(),
+      curDateMonth.getMonth() - 1,
+      curDateMonth.getMonth(),
+    ),
+  );
   const { monthReports } = useReduxState();
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(chartOperations.getMonthReport(startDate));
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate]);
+  }, [dispatch, startDate]);
 
   const onChange = dt => {
     setStartDate(dt);

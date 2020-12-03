@@ -1,25 +1,27 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import useReduxState from '../../hooks/useReduxState';
 import { transactionOperations } from '../../redux/operations';
-import { transactionSelectors } from '../../redux/selectors';
-import ExpenseItemCategory, { expensesCategories } from './ExpenseItemCategory';
+import ExpenseItemCategory from './ExpenseItemCategory/ExpenseItemCategory';
+import { expensesCats } from './ExpenseItemCategory/hooks/useItemFields';
+import styled from 'styled-components';
 
 const ExpenseListCats = ({ date }) => {
   const dispatch = useDispatch();
-  const transactions = useSelector(transactionSelectors.getExpensesCats);
+  const { userTransactions } = useReduxState();
+  const { expensesCategories } = userTransactions;
   useEffect(() => {
     dispatch(transactionOperations.getTransactionsCats(date));
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date]);
+  }, [dispatch, date]);
   return (
     <>
-      {transactions && (
+      {expensesCategories && (
         <ul>
-          {expensesCategories.map(item => {
+          {expensesCats.map(item => {
             const cat = Object.keys(item)[0];
-            if (!transactions[cat]) {
-              return;
+            if (!expensesCategories[cat]) {
+              return null;
             }
             return <ExpenseItemCategory key={cat} category={cat} />;
           })}

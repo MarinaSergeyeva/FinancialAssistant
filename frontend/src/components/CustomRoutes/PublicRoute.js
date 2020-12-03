@@ -6,17 +6,19 @@ const PublicRoute = ({
   component: Component,
   isAuthenticated,
   ...routeProps
-}) => (
-  <Route
-    {...routeProps}
-    render={props =>
-      isAuthenticated && routeProps.restricted ? (
-        <Redirect to="/plan" />
-      ) : (
-        <Component {...props} />
-      )
-    }
-  />
-);
+}) => {
+  return (
+    <Route
+      {...routeProps}
+      render={props =>
+        isAuthenticated && routeProps.restricted ? (
+          <Redirect to="/plan" />
+        ) : (
+          <Component {...props} />
+        )
+      }
+    />
+  );
+};
 
 export default withRouterHOC(PublicRoute);

@@ -33,7 +33,6 @@ export const CongratulationWrapper = styled.div`
   }
 
   & span {
-    width: 120px;
     flex-wrap: wrap;
     font-family: 'Roboto';
     font-style: normal;
