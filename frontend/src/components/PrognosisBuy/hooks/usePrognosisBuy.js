@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import operation from '../../../redux/operations/userInfoOperation';
+import useReduxState from '../../../hooks/useReduxState';
 
 export const usePrognosisBuy = fields => {
   const [years, setYears] = useState(0);
   const [months, setMonths] = useState(0);
   const [isShowModal, setIsShowModal] = useState(false);
   const [message, setMessage] = useState('');
-  const infoCurrentUser = useSelector(state => state.user.info);
+  const { userInfo } = useReduxState();
 
   const getResult = () => {
     if (
@@ -39,21 +40,20 @@ export const usePrognosisBuy = fields => {
 
   const getResultBD = () => {
     if (
-      infoCurrentUser.totalSalary &&
-      infoCurrentUser.passiveIncome &&
-      infoCurrentUser.balance &&
-      infoCurrentUser.flatPrice &&
-      infoCurrentUser.flatSquareMeters &&
-      infoCurrentUser.incomePercentageToSavings &&
-      infoCurrentUser.balance <= infoCurrentUser.flatPrice
+      userInfo.totalSalary &&
+      userInfo.passiveIncome &&
+      userInfo.balance &&
+      userInfo.flatPrice &&
+      userInfo.flatSquareMeters &&
+      userInfo.incomePercentageToSavings &&
+      userInfo.balance <= userInfo.flatPrice
     ) {
       const incomeToSavings =
-        ((Number(infoCurrentUser.totalSalary) +
-          Number(infoCurrentUser.passiveIncome)) *
-          Number(infoCurrentUser.incomePercentageToSavings)) /
+        ((Number(userInfo.totalSalary) + Number(userInfo.passiveIncome)) *
+          Number(userInfo.incomePercentageToSavings)) /
         100;
       const requiredAmount =
-        Number(infoCurrentUser.flatPrice) - Number(infoCurrentUser.balance);
+        Number(userInfo.flatPrice) - Number(userInfo.balance);
       const yearsResult = Math.floor(requiredAmount / incomeToSavings / 12);
       const monthsResult = Math.ceil(
         requiredAmount / incomeToSavings - yearsResult * 12,
@@ -75,7 +75,7 @@ export const usePrognosisBuy = fields => {
   }
 
   useEffect(() => {
-    if (infoCurrentUser.flatPrice) {
+    if (userInfo.flatPrice) {
       getResultBD();
     } else {
       getResult();
@@ -87,7 +87,7 @@ export const usePrognosisBuy = fields => {
 
   const onHandleSubmit = async e => {
     e.preventDefault();
-    if (infoCurrentUser.flatPrice > 0) {
+    if (userInfo.flatPrice > 0) {
       setMessage('Ваши данные уже были сохранены!');
     } else if (fields.balance > fields.flatPrice) {
       setMessage(

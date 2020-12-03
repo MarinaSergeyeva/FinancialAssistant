@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import useReduxState from '../../../hooks/useReduxState';
 
 export const usePlanForm = (state, getState) => {
   const [isFieldActive, setFieldActive] = useState(false);
   const [currency, setCurrency] = useState({});
   const [currencySvg, setCurrencySvg] = useState('hryvnaRate');
   const [rateValue, setRateValue] = useState('');
-  const currentUserInfo = useSelector(state => state.user.info);
+  const { userInfo } = useReduxState();
 
   const onHandleChange = e => {
     getState({ ...state, [e.target.name]: e.target.value });
@@ -40,7 +40,7 @@ export const usePlanForm = (state, getState) => {
       isFieldActive,
       currencySvg,
       rateValue,
-      currentUserInfo,
+      userInfo,
     },
     setStatePlan: { setCurrency, setCurrencySvg },
     onChangePlan: {
