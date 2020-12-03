@@ -87,193 +87,191 @@ const ExpenseListItem = ({ expense, date }) => {
   };
 
   return (
-    <>
-      {expense && (
-        <>
-          <Mobile>
-            {showInput ? (
-              <Form onSubmit={handleSubmit}>
+    expense && (
+      <>
+        <Mobile>
+          {showInput ? (
+            <Form onSubmit={handleSubmit}>
+              <Label>
+                Название: <Input type="text" {...comment.bind} />
+              </Label>
+              <Label>
+                Сумма:
+                <Input type="number" {...amount.bind} />
+              </Label>
+              <Label>
+                Категория:
+                <Select type="text" {...category.bind}>
+                  <option
+                    key="Без категории"
+                    value="Без категории"
+                    defaultValue
+                  >
+                    -- Выберите категорию --
+                  </option>
+                  {categories.map(elem => (
+                    <option value={elem} key={elem}>
+                      {elem}
+                    </option>
+                  ))}
+                </Select>
+              </Label>
+              <Date>19.12.2019</Date>
+              <Button>Сохранить</Button>
+            </Form>
+          ) : (
+            <Wrapper>
+              <WrapperSecondary>
+                <ExpenseName>{expense.comment}</ExpenseName>
+                <EditButton onClick={openEdit}>
+                  <img width="20" height="20" alt="other" src={editImg} />
+                </EditButton>
+              </WrapperSecondary>
+              <WrapperSecondary>
+                <Value>{expense.amount} грн</Value>
+                <CategoryWrapper>
+                  <IconWrapper>
+                    <img
+                      width="20"
+                      height="20"
+                      alt={expense.category}
+                      src={img}
+                    />
+                  </IconWrapper>
+                  <Category>{expense.category}</Category>
+                </CategoryWrapper>
+              </WrapperSecondary>
+              <Date>{date}</Date>
+            </Wrapper>
+          )}
+        </Mobile>
+        <Tablet>
+          {showInput ? (
+            <Form onSubmit={handleSubmit}>
+              <Label>
+                Название: <Input type="text" {...comment.bind} />
+              </Label>
+              <Label>
+                Сумма:
+                <Input type="number" {...amount.bind} />
+              </Label>
+              <Label>
+                Категория:
+                <Select type="text" {...category.bind}>
+                  <option
+                    key="Без категории"
+                    value="Без категории"
+                    defaultValue
+                  >
+                    -- Выберите категорию --
+                  </option>
+                  {categories.map(elem => (
+                    <option value={elem} key={elem}>
+                      {elem}
+                    </option>
+                  ))}
+                </Select>
+              </Label>
+              <Date>19.12.2019</Date>
+              <Button>Сохранить</Button>
+            </Form>
+          ) : (
+            <Wrapper>
+              <WrapperSecondary>
+                <ExpenseName>{expense.comment}</ExpenseName>
+                <EditButton onClick={openEdit}>
+                  <img width="20" height="20" alt="other" src={editImg} />
+                </EditButton>
+              </WrapperSecondary>
+              <WrapperSecondary>
+                <Value>{expense.amount} грн</Value>
+                <CategoryWrapper>
+                  <IconWrapper>
+                    <img
+                      width="20"
+                      height="20"
+                      alt={expense.category}
+                      src={img}
+                    />
+                  </IconWrapper>
+                  <Category>{expense.category}</Category>
+                </CategoryWrapper>
+              </WrapperSecondary>
+              <Date>{date}</Date>
+            </Wrapper>
+          )}
+        </Tablet>
+        <Desktop>
+          {showInput ? (
+            <Form _id={expense._id} onSubmit={handleSubmit}>
+              <LeftWrapper>
+                <Date>19.12.2019</Date>
                 <Label>
                   Название: <Input type="text" {...comment.bind} />
                 </Label>
-                <Label>
-                  Сумма:
-                  <Input type="number" {...amount.bind} />
-                </Label>
-                <Label>
-                  Категория:
-                  <Select type="text" {...category.bind}>
-                    <option
-                      key="Без категории"
-                      value="Без категории"
-                      defaultValue
-                    >
-                      -- Выберите категорию --
-                    </option>
-                    {categories.map(elem => (
-                      <option value={elem} key={elem}>
-                        {elem}
-                      </option>
-                    ))}
-                  </Select>
-                </Label>
-                <Date>19.12.2019</Date>
-                <Button>Сохранить</Button>
-              </Form>
-            ) : (
-              <Wrapper>
-                <WrapperSecondary>
-                  <ExpenseName>{expense.comment}</ExpenseName>
-                  <EditButton onClick={openEdit}>
-                    <img width="20" height="20" alt="other" src={editImg} />
-                  </EditButton>
-                </WrapperSecondary>
-                <WrapperSecondary>
-                  <Value>{expense.amount} грн</Value>
-                  <CategoryWrapper>
-                    <IconWrapper>
-                      <img
-                        width="20"
-                        height="20"
-                        alt={expense.category}
-                        src={img}
-                      />
-                    </IconWrapper>
-                    <Category>{expense.category}</Category>
-                  </CategoryWrapper>
-                </WrapperSecondary>
-                <Date>{date}</Date>
-              </Wrapper>
-            )}
-          </Mobile>
-          <Tablet>
-            {showInput ? (
-              <Form onSubmit={handleSubmit}>
-                <Label>
-                  Название: <Input type="text" {...comment.bind} />
-                </Label>
-                <Label>
-                  Сумма:
-                  <Input type="number" {...amount.bind} />
-                </Label>
-                <Label>
-                  Категория:
-                  <Select type="text" {...category.bind}>
-                    <option
-                      key="Без категории"
-                      value="Без категории"
-                      defaultValue
-                    >
-                      -- Выберите категорию --
-                    </option>
-                    {categories.map(elem => (
-                      <option value={elem} key={elem}>
-                        {elem}
-                      </option>
-                    ))}
-                  </Select>
-                </Label>
-                <Date>19.12.2019</Date>
-                <Button>Сохранить</Button>
-              </Form>
-            ) : (
-              <Wrapper>
-                <WrapperSecondary>
-                  <ExpenseName>{expense.comment}</ExpenseName>
-                  <EditButton onClick={openEdit}>
-                    <img width="20" height="20" alt="other" src={editImg} />
-                  </EditButton>
-                </WrapperSecondary>
-                <WrapperSecondary>
-                  <Value>{expense.amount} грн</Value>
-                  <CategoryWrapper>
-                    <IconWrapper>
-                      <img
-                        width="20"
-                        height="20"
-                        alt={expense.category}
-                        src={img}
-                      />
-                    </IconWrapper>
-                    <Category>{expense.category}</Category>
-                  </CategoryWrapper>
-                </WrapperSecondary>
-                <Date>{date}</Date>
-              </Wrapper>
-            )}
-          </Tablet>
-          <Desktop>
-            {showInput ? (
-              <Form _id={expense._id} onSubmit={handleSubmit}>
-                <LeftWrapper>
-                  <Date>19.12.2019</Date>
+              </LeftWrapper>
+              <RightWrapper>
+                <WrapperSecondary2>
                   <Label>
-                    Название: <Input type="text" {...comment.bind} />
+                    Сумма:
+                    <Input type="number" {...amount.bind} />
                   </Label>
-                </LeftWrapper>
-                <RightWrapper>
-                  <WrapperSecondary2>
-                    <Label>
-                      Сумма:
-                      <Input type="number" {...amount.bind} />
-                    </Label>
-                    <WrapperSecondary>
-                      <CategoryWrapper>
-                        <label>
-                          <Select type="text" {...category.bind}>
-                            <option
-                              key="Без категории"
-                              value="Без категории"
-                              defaultValue
-                            >
-                              -- Выберите категорию --
+                  <WrapperSecondary>
+                    <CategoryWrapper>
+                      <label>
+                        <Select type="text" {...category.bind}>
+                          <option
+                            key="Без категории"
+                            value="Без категории"
+                            defaultValue
+                          >
+                            -- Выберите категорию --
+                          </option>
+                          {categories.map(elem => (
+                            <option value={elem} key={elem}>
+                              {elem}
                             </option>
-                            {categories.map(elem => (
-                              <option value={elem} key={elem}>
-                                {elem}
-                              </option>
-                            ))}
-                          </Select>
-                        </label>
-                      </CategoryWrapper>
-                    </WrapperSecondary>
-                  </WrapperSecondary2>
-                  <Button>Сохранить</Button>
-                </RightWrapper>
-              </Form>
-            ) : (
-              <Wrapper>
-                <LeftWrapper>
-                  <Date>{date}</Date>
-                  <ExpenseName>{expense.comment}</ExpenseName>
-                </LeftWrapper>
-                <RightWrapper>
-                  <WrapperSecondary2>
-                    <Value>{expense.amount} грн</Value>
-                    <WrapperSecondary>
-                      <CategoryWrapper>
-                        <IconWrapper>
-                          <img
-                            width="20"
-                            height="20"
-                            alt={expense.category}
-                            src={img}
-                          />
-                        </IconWrapper>
-                        <Category>{expense.category}</Category>
-                      </CategoryWrapper>
-                    </WrapperSecondary>
-                  </WrapperSecondary2>
-                  <EditButton onClick={openEdit}>
-                    <img width="20" height="20" alt="other" src={editImg} />
-                  </EditButton>
-                </RightWrapper>
-              </Wrapper>
-            )}
-          </Desktop>
-        </>
-      )}
-    </>
+                          ))}
+                        </Select>
+                      </label>
+                    </CategoryWrapper>
+                  </WrapperSecondary>
+                </WrapperSecondary2>
+                <Button>Сохранить</Button>
+              </RightWrapper>
+            </Form>
+          ) : (
+            <Wrapper>
+              <LeftWrapper>
+                <Date>{date}</Date>
+                <ExpenseName>{expense.comment}</ExpenseName>
+              </LeftWrapper>
+              <RightWrapper>
+                <WrapperSecondary2>
+                  <Value>{expense.amount} грн</Value>
+                  <WrapperSecondary>
+                    <CategoryWrapper>
+                      <IconWrapper>
+                        <img
+                          width="20"
+                          height="20"
+                          alt={expense.category}
+                          src={img}
+                        />
+                      </IconWrapper>
+                      <Category>{expense.category}</Category>
+                    </CategoryWrapper>
+                  </WrapperSecondary>
+                </WrapperSecondary2>
+                <EditButton onClick={openEdit}>
+                  <img width="20" height="20" alt="other" src={editImg} />
+                </EditButton>
+              </RightWrapper>
+            </Wrapper>
+          )}
+        </Desktop>
+      </>
+    )
   );
 };
 
