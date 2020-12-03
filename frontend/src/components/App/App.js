@@ -21,7 +21,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(userOperations.getCurrentUser());
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, isUserAuth, userInfo.totalSalary]);
 
   return (
