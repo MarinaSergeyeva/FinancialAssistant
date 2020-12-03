@@ -18,12 +18,13 @@ import {
   AuthButtonBlock,
   ErrMessage,
 } from '../../../common/globalStyleComponents';
+import useReduxState from '../../../hooks/useReduxState';
 
 const Registration = ({ closeModal }) => {
   const dispatch = useDispatch();
   const { isMobileDevice } = useDeviceSizes();
-  const userInfo = useSelector(state => state.auth.username);
-  const [userInfoRegistr] = useUserInfoAuth(userInfo ? true : false);
+  const { userID } = useReduxState();
+  const [userInfoRegistr] = useUserInfoAuth(userID ? true : false);
   const { messageErr, error } = useMessageErr();
 
   return (
