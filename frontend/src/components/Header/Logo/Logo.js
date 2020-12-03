@@ -6,7 +6,7 @@ import { LogoContainer, LogoImg } from './logoStyled';
 const Logo = () => {
   return (
     <LogoContainer>
-      <Link to="/" className="logoIcon">
+      <Link to="/Authpage" className="logoIcon">
         <LogoImg src={logoImg} alt="logo img" />
         <p className="logoText">Finance</p>
       </Link>
