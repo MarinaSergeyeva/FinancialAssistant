@@ -2,12 +2,13 @@ import React from 'react';
 import { ButtonWrapper } from './calcButtonStyled';
 
 export const Button = props => {
+  const { children, handleClick, radius } = props;
   const clickCalc = () => {
-    props.handleClick(props.children);
+    handleClick(children);
   };
   return (
-    <ButtonWrapper radius={props.radius} onClick={clickCalc}>
-      {props.children}
+    <ButtonWrapper radius={radius} onClick={clickCalc}>
+      {children}
     </ButtonWrapper>
   );
 };

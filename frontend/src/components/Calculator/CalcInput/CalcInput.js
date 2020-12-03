@@ -2,7 +2,8 @@ import React from 'react';
 import { InputWrapper } from './calcInputStyled';
 
 const Input = props => {
-  return <InputWrapper>{props.input}</InputWrapper>;
+  const { input } = props;
+  return <InputWrapper>{input}</InputWrapper>;
 };
 
 export default Input;
