@@ -4,13 +4,13 @@ import authOperations from '../../redux/operations/authOperations';
 import { ButtonExit, ButtonStay, LogoutWrapper } from './logoutModalStyled';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
 
-const LogoutModal = props => {
+const LogoutModal = ({ showNavigation, closeModal }) => {
   const dispatch = useDispatch();
   const { isDesktopDevice } = useDeviceSizes();
 
-  const logoutUser = async () => {
-    !isDesktopDevice && props.showNavigation();
-    await dispatch(authOperations.userLogout());
+  const logoutUser = () => {
+    !isDesktopDevice && showNavigation();
+    dispatch(authOperations.userLogout());
   };
 
   return (
@@ -18,7 +18,7 @@ const LogoutModal = props => {
       <p className="modalTitle">
         Вы действительно хотите покинуть наше чудесное приложение?
       </p>
-      <ButtonStay className="btn" onClick={props.closeModal}>
+      <ButtonStay className="btn" onClick={closeModal}>
         Нет, я останусь
       </ButtonStay>
       <ButtonExit className="btn" onClick={logoutUser}>

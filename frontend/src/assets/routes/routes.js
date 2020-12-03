@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-export default [
+export const routes = [
   {
     path: '/',
     label: 'AuthPage',
@@ -46,3 +46,11 @@ export default [
     restricted: false,
   },
 ];
+
+export const homeRoute = routes.find(route => route.label === 'AuthPage');
+export const dynamicsRoute = routes.find(
+  route => route.label === 'DynamicsPage',
+);
+export const expenseRoute = routes.find(route => route.label === 'ExpensePage');
+export const planRoute = routes.find(route => route.label === 'PlanPage');
+export const notfoundRoute = routes.find(route => route.label === 'NotFound');
