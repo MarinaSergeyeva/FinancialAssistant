@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { device } from '../common/deviceSizes';
 
-//!Auth//
+//Auth//
 export const AuthFormWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +35,7 @@ export const AuthTxt = styled.p`
   font-size: 20px;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 
   @media ${device.mobile} {
     font-size: 14px;
@@ -43,8 +44,6 @@ export const AuthTxt = styled.p`
 
 export const AuthInputForm = styled.label`
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   flex-direction: column;
   position: relative;
   padding-top: 7px;
@@ -53,13 +52,12 @@ export const AuthInputForm = styled.label`
 export const AuthInput = styled.input`
   width: 316px;
   height: 56px;
-  border: 1px solid rgba(0, 0, 0, 0.36);
+  border: 1px solid ${prop => prop.borderErrColor};
   box-sizing: border-box;
   border-radius: 4px;
   margin-bottom: 30px;
   padding-left: 18px;
-  color: rgba(24, 25, 31, 0.54);
-
+  color: ${prop => prop.textErrColor};
   &::placeholder {
     padding-left: 18px;
   }
@@ -119,8 +117,26 @@ export const AuthButtonBlock = styled.div`
   }
 `;
 
-//!
-//!MODAL SUCCESS
+export const ErrMessage = styled.p`
+  position: absolute;
+  text-align: center;
+  top: 70px;
+  left: 40px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #fe6083;
+  width: 80%;
+
+  @media ${device.mobile} {
+    top: ${prop => prop.positionTop};
+    font-size: 10px;
+    font-weight: 500;
+    left: 30px;
+    z-index: 999;
+  }
+`;
+
+//MODAL SUCCESS//
 
 export const CongratulationWrapper = styled.div`
   display: flex;
@@ -186,5 +202,48 @@ export const CongratulationBackgroundImg = styled.img`
   @media ${device.desktop} {
     top: 50%;
     left: 50%;
+  }
+`;
+
+//MODAL SUCCESS FOR AUTH//
+export const ErrorWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  width: 280px;
+  height: 303px;
+  font-family: 'Gilroy';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 20px;
+  color: #7c9af2;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14),
+    0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
+
+  & p {
+    min-width: 120px;
+    height: 20px;
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #ff2e00;
+  }
+
+  & span {
+    width: 215px;
+    height: auto;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #ff2e00;
   }
 `;

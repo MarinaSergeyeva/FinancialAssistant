@@ -7,13 +7,13 @@ import isAuth from '../../redux/selectors/authSelector';
 const NotFound = () => {
   return (
     <>
-       <SectionNotFound>
+      <SectionNotFound>
         <SectionText>404</SectionText>
         <img src={img} alt="/" width="700" />
         <h2>Look like you're lost...</h2>
         <p>The page you are looking for not avaible!</p>
         <button>
-          <LinkNotFound to={isAuth? "/plan" : "/"}>Go to Home</LinkNotFound>
+          <LinkNotFound to={isAuth ? '/plan' : '/'}>Go to Home</LinkNotFound>
         </button>
       </SectionNotFound>
     </>
@@ -22,18 +22,12 @@ const NotFound = () => {
 
 export default NotFound;
 
-{
- 
-}
-
 const SectionNotFound = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-
-  /* margin-top: 50px; */
   width: 100%;
 
   & button {

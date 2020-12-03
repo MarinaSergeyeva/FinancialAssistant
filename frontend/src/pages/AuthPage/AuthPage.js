@@ -15,8 +15,7 @@ const AuthPage = () => {
 
   useEffect(() => {
     const token = new URLSearchParams(location.search).get('token');
-    dispatch(action.loginSuccess({ token }));
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+    token && dispatch(action.loginSuccess({ token }));
   }, [location.search]);
 
   const [successModal, setSuccessModal] = useState(false);
@@ -39,9 +38,7 @@ const AuthPage = () => {
     }
   }, [userInfo]);
 
-  const closeSuccessModal = () => {
-    setSuccessModal(prev => !prev);
-  };
+
 
   const isOnLargeTablet = useMediaQuery({
     query: device.largeTablet,
@@ -49,16 +46,6 @@ const AuthPage = () => {
 
   return (
     <>
-      {userInfoRegistr && isOnLargeTablet && successModal && (
-        <Modal closeModal={closeSuccessModal}>
-          <ModalResultSuccess
-            closeModal={closeSuccessModal}
-            showLoginModal={setLoginModal}
-            setSuccessModal={setSuccessModal}
-          />
-        </Modal>
-      )}
-
       {isOnLargeTablet && loginModal && (
         <Modal closeModal={setLoginModal}>
           <Login closeModal={setLoginModal} />
