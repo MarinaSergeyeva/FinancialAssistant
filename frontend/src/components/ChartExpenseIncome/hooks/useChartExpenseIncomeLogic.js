@@ -48,6 +48,9 @@ const useChartExpenseIncomeLogic = () => {
 
       ticks: {
         beginAtZero: true,
+        callback: function (value, index, values) {
+          return new Intl.NumberFormat('ua-UA').format(value);
+        },
       },
     };
     const xAxesConfig = {
@@ -81,7 +84,7 @@ const useChartExpenseIncomeLogic = () => {
           {
             categoryPercentage: 0.6,
             barPercentage: 0.8,
-            label: 'План',
+            label: 'Накоплено',
             backgroundColor: '#D7D8DD',
             data: arrayOfExpectedSavings === [] ? 0 : arrayOfExpectedSavings,
           },
