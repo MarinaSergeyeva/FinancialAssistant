@@ -7,6 +7,6 @@ const useDispatchOperation = (param, operation) => {
   useEffect(() => {
     dispatch(operation());
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [param]);
+  }, [dispatch, param]);
 };
 export default useDispatchOperation;
