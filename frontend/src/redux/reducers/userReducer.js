@@ -11,8 +11,6 @@ const initialState = {
     flatPrice: 0,
     flatSquareMeters: 0,
     monthBalance: 0,
-    username: 'NewUser',
-    picture: 'none',
   },
 };
 

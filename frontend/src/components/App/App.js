@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
@@ -11,13 +11,18 @@ import Spinner from '../Spinner/Spinner';
 import useReduxState from '../../hooks/useReduxState';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
-import useDispatchOperation from '../../hooks/useDispatchOperation';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
+  const dispatch = useDispatch();
   const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
-  const { isUserAuth } = useReduxState();
+  const { isUserAuth, userInfo } = useReduxState();
   const { isDesktopDevice } = useDeviceSizes();
-  useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
+
+  useEffect(() => {
+    dispatch(userOperations.getCurrentUser());
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, isUserAuth, userInfo.totalSalary]);
 
   return (
     <>
