@@ -1,10 +1,10 @@
 import React, { forwardRef } from 'react';
 import { BtnCalendar, SvgIcon } from './customInputStyled';
 
-const CustomInput = forwardRef((props, ref) => {
+const CustomInput = forwardRef(({ onClick, toggleOpen }, ref) => {
   const handleClick = () => {
-    props.onClick();
-    props.toggleOpen();
+    onClick();
+    toggleOpen();
   };
   return (
     <BtnCalendar onClick={handleClick} ref={ref}>
