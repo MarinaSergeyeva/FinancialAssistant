@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 import PlanForm from '../../components/PlanForm/PlanForm';
 import PrognosisBuy from '../../components/PrognosisBuy/PrognosisBuy';
 import { PlanPageStyled } from './planPageStyled';
@@ -15,12 +14,6 @@ const fields = {
 
 const PlanPage = () => {
   const [state, getState] = useState(fields);
-  // const flatPrice = useSelector(state => state.user.info.flatPrice);
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   flatPrice && history.push('/expense');
-  // }, [flatPrice]);
 
   return (
     <PlanPageStyled>

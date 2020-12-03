@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import useReduxState from '../../../hooks/useReduxState';
 
 export const useCurrency = (setCurrencySvg, setCurrency) => {
   const [isShowCurrency, setShowCurrency] = useState(false);
-  const flatPrice = useSelector(state => state.user.info.flatPrice);
-
   const showCurrency = () => setShowCurrency(prevState => !prevState);
+  const { userInfo } = useReduxState();
+  const { flatPrice } = userInfo;
 
   const selectedCurrency = e => {
     setCurrencySvg(e.target.id);
@@ -27,7 +27,8 @@ export const useCurrency = (setCurrencySvg, setCurrency) => {
   useEffect(() => {
     fetchExchangeRates();
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return () => {};
+  }, [fetchExchangeRates]);
 
   return {
     valueCurrency: { flatPrice, isShowCurrency },

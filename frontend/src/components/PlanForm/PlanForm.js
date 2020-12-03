@@ -10,7 +10,7 @@ function PlanForm({ state, getState }) {
     state,
     getState,
   );
-  const { isFieldActive, currencySvg, rateValue, currentUserInfo } = valuePlan;
+  const { isFieldActive, currencySvg, rateValue, userInfo } = valuePlan;
   const { setCurrency, setCurrencySvg } = setStatePlan;
   const {
     onHandleChange,
@@ -28,9 +28,7 @@ function PlanForm({ state, getState }) {
               type="number"
               name="totalSalary"
               value={
-                !currentUserInfo.totalSalary
-                  ? state.totalSalary
-                  : currentUserInfo.totalSalary
+                !userInfo.totalSalary ? state.totalSalary : userInfo.totalSalary
               }
               placeholder={placeHolder}
               onChange={onHandleChange}
@@ -42,9 +40,9 @@ function PlanForm({ state, getState }) {
               type="number"
               name="passiveIncome"
               value={
-                !currentUserInfo.passiveIncome
+                !userInfo.passiveIncome
                   ? state.passiveIncome
-                  : currentUserInfo.passiveIncome
+                  : userInfo.passiveIncome
               }
               placeholder={placeHolder}
               onChange={onHandleChange}
@@ -55,11 +53,7 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="balance"
-              value={
-                !currentUserInfo.balance
-                  ? state.balance
-                  : currentUserInfo.balance
-              }
+              value={!userInfo.balance ? state.balance : userInfo.balance}
               placeholder={placeHolder}
               onChange={onHandleChange}
             />
@@ -78,11 +72,7 @@ function PlanForm({ state, getState }) {
             <input
               type="number"
               name="flatPrice"
-              value={
-                !currentUserInfo.flatPrice
-                  ? rateValue
-                  : currentUserInfo.flatPrice
-              }
+              value={!userInfo.flatPrice ? rateValue : userInfo.flatPrice}
               placeholder={placeHolder}
               onChange={onSetRateValue}
             />
@@ -93,9 +83,9 @@ function PlanForm({ state, getState }) {
               type="number"
               name="flatSquareMeters"
               value={
-                !currentUserInfo.flatSquareMeters
+                !userInfo.flatSquareMeters
                   ? state.flatSquareMeters
-                  : currentUserInfo.flatSquareMeters
+                  : userInfo.flatSquareMeters
               }
               placeholder={placeHolder}
               onChange={onHandleChange}
@@ -107,9 +97,9 @@ function PlanForm({ state, getState }) {
               type="number"
               name="incomePercentageToSavings"
               value={
-                !currentUserInfo.incomePercentageToSavings
+                !userInfo.incomePercentageToSavings
                   ? state.incomePercentageToSavings
-                  : currentUserInfo.incomePercentageToSavings
+                  : userInfo.incomePercentageToSavings
               }
               placeholder={placeHolder}
               onFocus={onHandleFocus}
