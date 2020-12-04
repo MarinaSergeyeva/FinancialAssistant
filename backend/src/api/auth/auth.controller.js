@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const UserModel = require('../users/user.model');
 const AppError = require('../errors/appError');
-const jwt = require('jsonwebtoken');
 const { createToken } = require('../../utils/createToken');
 
 exports.createNewUser = async (req, res, next) => {
@@ -73,7 +72,7 @@ function removeExpiredTokens(array) {
   return array.filter(item => item.expires > Date.now());
 }
 
-exports.AuthGoogle_FB = async (req, res, next) => {
+exports.authWithGoogle = async (req, res, next) => {
   const existingUser = req.user;
   const expiresIn = 2 * 24 * 60 * 60;
   const token = createToken(existingUser, expiresIn);
