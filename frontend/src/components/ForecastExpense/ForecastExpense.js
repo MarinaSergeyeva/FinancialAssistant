@@ -17,9 +17,11 @@ const ForecastExpense = ({ setTransactionStatus }) => {
 
   const handleClick = async () => {
     const { amount, category, comment } = transaction;
+
     if (amount) {
+      const transactionAmount = Math.abs(Number(amount.toFixed(2)));
       const newTransaction = {
-        amount,
+        amount: transactionAmount,
         category,
         comment,
         transactionDate: Date.now(),
