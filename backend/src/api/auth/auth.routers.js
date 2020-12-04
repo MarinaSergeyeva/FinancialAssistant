@@ -3,7 +3,7 @@ const passport = require('passport');
 const Joi = require('joi');
 const authRouter = Router();
 const { validate, authorize, catchAsync } = require('../../utils');
-const AuthController = require('./auth.controller');
+const authController = require('./auth.controller');
 
 const registerSchema = Joi.object({
   username: Joi.string().required(),
@@ -19,13 +19,13 @@ const loginSchema = Joi.object({
 authRouter.post(
   '/sign-up',
   validate(registerSchema),
-  catchAsync(AuthController.createNewUser),
+  catchAsync(authController.createNewUser),
 );
 
 authRouter.post(
   '/sign-in',
   validate(loginSchema),
-  catchAsync(AuthController.loginUser),
+  catchAsync(authController.loginUser),
 );
 
 authRouter.get(
@@ -36,24 +36,13 @@ authRouter.get(
 authRouter.get(
   '/google/callback',
   passport.authenticate('google', { session: false }),
-  catchAsync(AuthController.AuthGoogle_FB),
-);
-
-authRouter.get(
-  '/facebook',
-  passport.authenticate('facebook', { scope: ['email', 'profile'] }),
-);
-
-authRouter.get(
-  '/facebook/callback',
-  passport.authenticate('facebook', { session: false }),
-  catchAsync(AuthController.AuthGoogle_FB),
+  catchAsync(authController.authWithGoogle),
 );
 
 authRouter.delete(
   '/sign-out',
   catchAsync(authorize),
-  catchAsync(AuthController.logoutUser),
+  catchAsync(authController.logoutUser),
 );
 
 module.exports = authRouter;
