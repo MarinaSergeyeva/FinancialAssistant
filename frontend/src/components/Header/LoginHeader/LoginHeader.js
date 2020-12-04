@@ -17,10 +17,10 @@ const LoginHeader = () => {
   return (
     <>
       <LoginHeaderWrapper>
-        <ButtonLogin className="btn" onClick={showModalAuth}>
+        <ButtonLogin className="btn" onClick={showModalAuth} data-auth='login'>
           Войти
         </ButtonLogin>
-        <ButtonRegistration className="btn" onClick={showModalAuth}>
+        <ButtonRegistration className="btn" onClick={showModalAuth} data-auth='registration'>
           Регистрация
         </ButtonRegistration>
       </LoginHeaderWrapper>

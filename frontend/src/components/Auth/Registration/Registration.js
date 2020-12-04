@@ -39,11 +39,8 @@ const Registration = ({ closeModal }) => {
         onSubmit={async values => {
           const data = dispatch(operation.userRegistration({ ...values }));
           data.then(response => {
-            if (response) {
-              return;
-            } else {
-              !isMobileDevice && userInfoRegistr && closeModal();
-            }
+            if (response) return;
+            !isMobileDevice && userInfoRegistr && closeModal();
           });
         }}
       >
