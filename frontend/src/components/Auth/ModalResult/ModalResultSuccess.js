@@ -5,6 +5,8 @@ import {
 } from '../../../common/globalStyleComponents';
 import { ButtonModal } from './ModalResultSuccessStyle';
 import mobileBackgroundImg from '../../../assets/images/Congratulation/mobileCongratulation.svg';
+import backgroundImg from '../../../assets/images/Congratulation/congratulation.svg';
+import useDeviceSizes from '../../../hooks/useDeviceSizes';
 
 const ModalResultSuccess = ({
   closeModal,
@@ -20,6 +22,8 @@ const ModalResultSuccess = ({
     closeModal();
   };
 
+  const { isMobileDevice } = useDeviceSizes();
+
   return (
     <CongratulationWrapper>
       <p>Ура!</p>
@@ -34,7 +38,7 @@ const ModalResultSuccess = ({
         Войти
       </ButtonModal>
       <CongratulationBackgroundImg
-        src={mobileBackgroundImg}
+        src={isMobileDevice ? mobileBackgroundImg : backgroundImg}
         alt="background img"
       />
     </CongratulationWrapper>

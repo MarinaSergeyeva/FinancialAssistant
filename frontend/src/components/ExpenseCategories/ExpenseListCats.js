@@ -1,10 +1,10 @@
+import styled from 'styled-components';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import useReduxState from '../../hooks/useReduxState';
 import { transactionOperations } from '../../redux/operations';
 import ExpenseItemCategory from './ExpenseItemCategory/ExpenseItemCategory';
 import { expensesCats } from './ExpenseItemCategory/hooks/useItemFields';
-import styled from 'styled-components';
 
 const ExpenseListCats = ({ date }) => {
   const dispatch = useDispatch();
@@ -12,7 +12,6 @@ const ExpenseListCats = ({ date }) => {
   const { expensesCategories } = userTransactions;
   useEffect(() => {
     dispatch(transactionOperations.getTransactionsCats(date));
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, date]);
   return (
     <>

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useLoginRegisterModal = () => {
   const [isShowRegistration, setIsShowRegistration] = useState(false);
   const [isShowLogin, setIsShowLogin] = useState(false);
 
+  useEffect(() => {});
   const showModalAuth = e => {
     e.target.dataset.auth === 'registration'
       ? setIsShowRegistration(true)

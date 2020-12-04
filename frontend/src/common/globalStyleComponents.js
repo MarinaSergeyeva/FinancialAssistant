@@ -145,7 +145,7 @@ export const CongratulationWrapper = styled.div`
   text-align: center;
   flex-wrap: wrap;
   width: 400px;
-  height: 303px;
+  height: 247px;
   font-family: 'Gilroy';
   font-style: normal;
   font-weight: 800;
@@ -158,7 +158,6 @@ export const CongratulationWrapper = styled.div`
   box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14),
     0px 9px 46px rgba(0, 0, 0, 0.12), 0px 11px 15px rgba(0, 0, 0, 0.2);
   & p {
-    height: 20px;
     font-family: 'Gilroy';
     font-style: normal;
     font-weight: 800;
@@ -166,19 +165,17 @@ export const CongratulationWrapper = styled.div`
     line-height: 20px;
     text-align: center;
     color: #7c9af2;
-    padding-top: 10px;
+    margin-bottom: 10px;
+    max-width: 320px;
   }
   & span {
     width: 215px;
-    height: auto;
-    margin-top: 15px;
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
     color: rgba(24, 25, 31, 0.87);
-    margin-top: 10px;
   }
 `;
 
@@ -187,22 +184,13 @@ export const CongratulationBackgroundWrapper = styled.div`
   justify-content: center;
   text-align: center;
   width: 380px;
-  height: 303px;
 `;
 
 export const CongratulationBackgroundImg = styled.img`
   position: absolute;
-  width: 100%;
+  top: 0;
+  left: 0;
   z-index: 1;
-  transform: translate(-50%, -50%);
-  @media ${device.tablet} {
-    top: 50%;
-    left: 50%;
-  }
-  @media ${device.desktop} {
-    top: 50%;
-    left: 50%;
-  }
 `;
 
 //MODAL SUCCESS FOR AUTH//
