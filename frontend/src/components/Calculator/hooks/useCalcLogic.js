@@ -17,7 +17,6 @@ const useCalcLogic = closeModal => {
     }
 
     if (val === '+/-') {
-      console.log('input', input);
       if (!input.includes(' ')) {
         setInput(` - ${input}`);
       }

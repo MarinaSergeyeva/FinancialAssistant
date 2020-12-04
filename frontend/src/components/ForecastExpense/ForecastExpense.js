@@ -39,6 +39,7 @@ const ForecastExpense = ({ setTransactionStatus }) => {
 
   const closeForm = () => {
     setIsShowModal();
+    setTransactionStatus(false);
   };
 
   return (

@@ -31,46 +31,39 @@ const ExpensePage = () => {
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
 
-  return (
-    <>
-      {location.pathname === match.path ? (
-        <ExpensePageContainer>
-          <ExpenseFormWrapper>
-            <ExpenseForm
-              setTransactionStatus={setTransactionStatus}
-              resetForm={resetForm}
-            />
-          </ExpenseFormWrapper>
-          <ForecastExpenseWrapper>
-            <ForecastExpense setTransactionStatus={setTransactionStatus} />
-          </ForecastExpenseWrapper>
-          <ExpensePageImg
-            src={
-              (isMobileDevice && expensePageMobile) ||
-              (isTabletDevice && expensePageTablet) ||
-              (isDesktopDevice && expensePageDesktop)
-            }
-            alt="expense page background"
-          />
-        </ExpensePageContainer>
-      ) : (
-        <ExpenseListContainer>
-          <ExpenseListHeader
-            startDate={startDate}
-            setStartDate={setStartDate}
-          />
-          <ExpenseListWrap>
-            <Route path={`${match.url}/list`}>
-              <ExpenseList date={startDate} />
-            </Route>
-            <Route path={`${match.url}/categories`}>
-              <ExpenseCategories date={startDate} />
-            </Route>
-          </ExpenseListWrap>
-          <ExpenseListImg src={expenseList} alt="expense list background" />
-        </ExpenseListContainer>
-      )}
-    </>
+  return location.pathname === match.path ? (
+    <ExpensePageContainer>
+      <ExpenseFormWrapper>
+        <ExpenseForm
+          setTransactionStatus={setTransactionStatus}
+          resetForm={resetForm}
+        />
+      </ExpenseFormWrapper>
+      <ForecastExpenseWrapper>
+        <ForecastExpense setTransactionStatus={setTransactionStatus} />
+      </ForecastExpenseWrapper>
+      <ExpensePageImg
+        src={
+          (isMobileDevice && expensePageMobile) ||
+          (isTabletDevice && expensePageTablet) ||
+          (isDesktopDevice && expensePageDesktop)
+        }
+        alt="expense page background"
+      />
+    </ExpensePageContainer>
+  ) : (
+    <ExpenseListContainer>
+      <ExpenseListHeader startDate={startDate} setStartDate={setStartDate} />
+      <ExpenseListWrap>
+        <Route path={`${match.url}/list`}>
+          <ExpenseList date={startDate} />
+        </Route>
+        <Route path={`${match.url}/categories`}>
+          <ExpenseCategories date={startDate} />
+        </Route>
+      </ExpenseListWrap>
+      <ExpenseListImg src={expenseList} alt="expense list background" />
+    </ExpenseListContainer>
   );
 };
 
