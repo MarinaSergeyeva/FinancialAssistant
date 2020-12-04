@@ -5,7 +5,7 @@ const useLoginRegisterModal = () => {
   const [isShowLogin, setIsShowLogin] = useState(false);
 
   const showModalAuth = e => {
-    e.target.innerText === 'Регистрация'
+    e.target.dataset.auth === 'registration'
       ? setIsShowRegistration(true)
       : setIsShowLogin(true);
   };

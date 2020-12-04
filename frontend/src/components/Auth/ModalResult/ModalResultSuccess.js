@@ -16,6 +16,10 @@ const ModalResultSuccess = ({
     showLoginModal(true);
   };
 
+  const closeModalSuccess = () => {
+    closeModal();
+  };
+
   return (
     <CongratulationWrapper>
       <p>Ура!</p>
@@ -23,13 +27,7 @@ const ModalResultSuccess = ({
       <span>
         Пожалуйста, <b>войдите</b> на сайт
       </span>
-
-      <ButtonModal
-        type="button"
-        onClick={() => {
-          closeModal();
-        }}
-      >
+      <ButtonModal type="button" onClick={closeModalSuccess}>
         Назад
       </ButtonModal>
       <ButtonModal type="button" onClick={switchModals}>
