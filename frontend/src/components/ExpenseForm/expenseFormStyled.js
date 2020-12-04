@@ -129,7 +129,6 @@ export const ExpenseFormStyled = styled.div`
     border-bottom: 1px solid rgba(24, 25, 31, 0.36);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    /* pointer-events: none; */
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none; // reset default input, select css

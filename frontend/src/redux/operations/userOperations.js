@@ -1,13 +1,9 @@
-// import { useSelector } from 'react-redux';
 import axios from 'axios';
 import userActions from '../actions/userActions';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
-
 const getCurrentUser = () => async (dispatch, getState) => {
-  // const isAuth = useSelector(state => authSelector.isAuthenticated(state));
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {
     return;

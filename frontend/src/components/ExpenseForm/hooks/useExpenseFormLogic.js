@@ -19,7 +19,7 @@ const useExpenseFormLogic = props => {
 
   useEffect(() => {
     if (isTransactionSend) {
-      setAmount('');
+      setAmount(0);
       setComment('');
       setCategory('');
       props();

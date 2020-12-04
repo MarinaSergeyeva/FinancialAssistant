@@ -33,7 +33,6 @@ describe('getMonthReports test suite', () => {
         });
         userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
         await userDoc.save();
-        console.log('userDoc', userDoc);
 
         response = await request(server)
           .get('/api/v1/month-reports/annual')

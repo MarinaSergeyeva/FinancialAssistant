@@ -3,8 +3,6 @@ import transactionActions from '../actions/transactionActions';
 import { authSelector } from '../selectors';
 import { token } from './authOperations';
 
-axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
-
 const createTransaction = transaction => async (dispatch, getState) => {
   const persistedToken = authSelector.isAuthenticated(getState());
   if (!persistedToken) {
@@ -70,7 +68,6 @@ const getTransactionsExpense = (month, year, page) => async (
   token.set(persistedToken);
   dispatch(transactionActions.getTransactionsExpenseRequest());
   try {
-    // const pagination =
     const res = await axios.get(
       `/api/v1/transactions/expenses?month=${month}&year=${year}${
         page ? `&page=${page}&limit=10` : null
