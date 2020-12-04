@@ -43,6 +43,7 @@ const Registration = ({ closeModal }) => {
               return;
             } else {
               !isMobileDevice && userInfoRegistr && closeModal();
+              
             }
           });
         }}
