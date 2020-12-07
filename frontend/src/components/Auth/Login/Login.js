@@ -31,12 +31,8 @@ const Login = ({ closeModal }) => {
           password: '',
         }}
         validationSchema={loginFrontSchema}
-        onSubmit={async values => {
-          const data = dispatch(operation.userLogin({ ...values }));
-          data.then(response => {
-            if (response) return;
-            !isMobileDevice && closeModal();
-          });
+        onSubmit={values => {
+          dispatch(operation.userLogin({ ...values }));
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (

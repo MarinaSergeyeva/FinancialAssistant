@@ -8,20 +8,16 @@ import userOperations from '../../redux/operations/userOperations';
 import Header from '../Header/Header';
 import Navigation from '../Header/Navigation/Navigation';
 import Spinner from '../Spinner/Spinner';
-import useReduxState from '../../hooks/useReduxState';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
-import { useDispatch } from 'react-redux';
+import useDispatchOperation from '../../hooks/useDispatchOperation';
+import useReduxState from '../../hooks/useReduxState';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
-  const { isUserAuth, userInfo } = useReduxState();
+  const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);  
   const { isDesktopDevice } = useDeviceSizes();
-
-  useEffect(() => {
-    dispatch(userOperations.getCurrentUser());
-  }, [dispatch, isUserAuth, userInfo.totalSalary]);
+  const { isUserAuth } = useReduxState();
+  useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
 
   return (
     <Suspense fallback={<Spinner />}>
