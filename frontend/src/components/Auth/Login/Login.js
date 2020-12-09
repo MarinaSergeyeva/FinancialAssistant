@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-import operation from '../../../redux/operations/authOperations';
+import { authOperations, userOperations } from '../../../redux/operations';
 import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
@@ -31,8 +31,10 @@ const Login = ({ closeModal }) => {
           password: '',
         }}
         validationSchema={loginFrontSchema}
-        onSubmit={values => {
-          dispatch(operation.userLogin({ ...values }));
+        onSubmit={async values => {
+          await dispatch(authOperations.userLogin({ ...values }));
+          // await dispatch(userOperations.getCurrentUser());
+          // closeModal();
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (

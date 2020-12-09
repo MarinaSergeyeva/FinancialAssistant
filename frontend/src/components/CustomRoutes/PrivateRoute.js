@@ -7,13 +7,9 @@ const PrivateRoute = ({
   isAuthenticated,
   ...routeProps
 }) => (
-  <Route
-    {...routeProps}
-    render={props =>
-      
-      isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
-    }
-  />
+  <Route {...routeProps}>
+    {isAuthenticated ? <Component /> : <Redirect to="/" />}
+  </Route>
 );
 
 export default withRouterHOC(PrivateRoute);

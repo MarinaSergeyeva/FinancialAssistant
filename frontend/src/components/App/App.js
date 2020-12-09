@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { routes } from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
@@ -16,9 +16,14 @@ import useDispatchOperation from '../../hooks/useDispatchOperation';
 const App = () => {
   const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
   const { isUserAuth, userInfo } = useReduxState();
-  const { flatPrice } = userInfo;
+  // const { flatPrice } = userInfo;
   const { isDesktopDevice } = useDeviceSizes();
-  useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
+  // useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
+  // const [userData, setUserData] = useState(0);
+  // useEffect(() => {
+  //   console.log('Rerender', flatPrice);
+  //   setUserData(flatPrice);
+  // }, [flatPrice]);
 
   return (
     <Suspense fallback={<Spinner />}>

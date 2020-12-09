@@ -42,7 +42,7 @@ export const routes = [
     label: 'NotFound',
     exact: true,
     component: lazy(() => import('../../pages/NotFound/NotFound')),
-    private: true,
+    private: false,
     restricted: false,
   },
 ];

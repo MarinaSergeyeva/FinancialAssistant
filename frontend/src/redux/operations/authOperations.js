@@ -1,4 +1,4 @@
-import authAction from '../actions/authAction';
+import { authAction, userActions } from '../actions';
 import axios from 'axios';
 import setError from '../actions/errorActions';
 import { authSelector } from '../selectors';
@@ -38,6 +38,11 @@ const userLogin = credentials => dispatch => {
       dispatch(authAction.loginSuccess(res.data));
       dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
     })
+    .then(() => {
+      dispatch(userActions.getCurrentUserRequest());
+      return axios.get('/api/v1/users/current');
+    })
+    .then(res => dispatch(userActions.getCurrentUserSuccess(res.data)))
     .catch(err => {
       dispatch(authAction.loginError(err));
       return new Error(err);

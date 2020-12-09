@@ -24,8 +24,8 @@ const info = (state = initialState.info, { type, payload }) => {
     case userInfoConstants.UPDATE_USER_INFO_SUCCESS:
       return { ...state, ...payload };
 
-    case authConstants.LOGIN_SUCCESS:
-      return { ...state, ...payload.user };
+    // case authConstants.LOGIN_SUCCESS:
+    //   return { ...state, ...payload.user };
 
     case authConstants.LOGOUT_SUCCESS:
       return initialState.info;
