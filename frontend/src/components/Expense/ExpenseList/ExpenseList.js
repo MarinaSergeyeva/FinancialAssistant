@@ -17,11 +17,13 @@ const ExpenseList = ({ date }) => {
     dispatch(categoriesOperations.getCategories());
     // eslint-disable-next-line
   }, []);
-  const [countTransactions, setCountTransactions] = useState(10);
+  const [countTransactions, setCountTransactions] = useState(0);
 
   useEffect(() => {
     if (expenses.length > 0) {
       const lastPage = Math.ceil(expenses.length / 10);
+      const lastPart = expenses.length - (lastPage - 1) * 10;
+      setCountTransactions(lastPart);
       if (page <= lastPage) {
         const prevDate = new Date(expenses[0].transactionDate);
         if (
@@ -30,8 +32,6 @@ const ExpenseList = ({ date }) => {
         ) {
           if (lastPage > page) {
             setPage(lastPage);
-            const lastPart = expenses.length - (lastPage - 1) * 10;
-            setCountTransactions(lastPart);
           }
           return;
         } else {
