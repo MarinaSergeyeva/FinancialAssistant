@@ -32,11 +32,7 @@ const Login = ({ closeModal }) => {
         }}
         validationSchema={loginFrontSchema}
         onSubmit={values => {
-          dispatch(operation.userLogin({ ...values })).then(response => {
-            console.log('response', response)
-            if (response) return;
-            !isMobileDevice && closeModal();
-          });
+          dispatch(operation.userLogin({ ...values }));
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur }) => (
