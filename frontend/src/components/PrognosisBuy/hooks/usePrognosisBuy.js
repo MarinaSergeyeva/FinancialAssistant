@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import operation from '../../../redux/operations/userInfoOperation';
 import useReduxState from '../../../hooks/useReduxState';
@@ -9,6 +10,7 @@ export const usePrognosisBuy = fields => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const { userInfo } = useReduxState();
+  const history = useHistory();
 
   const getResult = () => {
     if (
@@ -104,6 +106,9 @@ export const usePrognosisBuy = fields => {
 
   const closeForm = () => {
     setIsShowModal(prev => !prev);
+    if (years || months) {
+      history.push('/expense');
+    }
   };
 
   return {

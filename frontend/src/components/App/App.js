@@ -11,17 +11,14 @@ import Spinner from '../Spinner/Spinner';
 import useReduxState from '../../hooks/useReduxState';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
-import { useDispatch } from 'react-redux';
+import useDispatchOperation from '../../hooks/useDispatchOperation';
 
 const App = () => {
-  const dispatch = useDispatch();
   const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
   const { isUserAuth, userInfo } = useReduxState();
+  const { flatPrice } = userInfo;
   const { isDesktopDevice } = useDeviceSizes();
-
-  useEffect(() => {
-    dispatch(userOperations.getCurrentUser());
-  }, [dispatch, isUserAuth, userInfo.totalSalary]);
+  useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
 
   return (
     <Suspense fallback={<Spinner />}>
