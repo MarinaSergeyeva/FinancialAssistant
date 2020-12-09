@@ -15,6 +15,7 @@ const useExpense = () => {
 
   return {
     page,
+    setPage,
     loadMore,
     getDate,
   };
