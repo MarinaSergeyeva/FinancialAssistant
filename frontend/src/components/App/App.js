@@ -8,15 +8,15 @@ import userOperations from '../../redux/operations/userOperations';
 import Header from '../Header/Header';
 import Navigation from '../Header/Navigation/Navigation';
 import Spinner from '../Spinner/Spinner';
-import useReduxState from '../../hooks/useReduxState';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
 import useDispatchOperation from '../../hooks/useDispatchOperation';
+import useReduxState from '../../hooks/useReduxState';
 
 const App = () => {
   const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
-  const { isUserAuth } = useReduxState();
   const { isDesktopDevice } = useDeviceSizes();
+  const { isUserAuth } = useReduxState();
   useDispatchOperation(isUserAuth, userOperations.getCurrentUser);
 
   return (

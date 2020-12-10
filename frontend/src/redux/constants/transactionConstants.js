@@ -8,12 +8,15 @@ const CREATE_TRANSACTION_ERROR = '@transaction/createTransactionError';
 const GET_TRANSACTIONS_CATS_REQUEST = '@transaction/getTransactionsCatsRequest';
 const GET_TRANSACTIONS_CATS_SUCCESS = '@transaction/getTransactionsCatsSuccess';
 const GET_TRANSACTIONS_CATS_ERROR = '@transaction/getTransactionsCatsError';
+
 const GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST =
   '@transactions/getMonthlyExpenseRequest';
 const GET_MONTHLY_EXPENSE_TRANSACTIONS_SUCCESS =
   '@transactions/getMonthlyExpenseSuccess';
 const GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR =
   '@transactions/getMonthlyExpenseError';
+
+const RESET_MONTHLY_EXPENSE_TRANSACTIONS = '@transactions/resetMonthlyExpense';
 
 const UPDATE_TRANSACTION_REQUEST = '@transactions/updateRequest';
 const UPDATE_TRANSACTION_SUCCESS = '@transactions/updateSuccess';
@@ -34,6 +37,8 @@ export default {
   GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST,
   GET_MONTHLY_EXPENSE_TRANSACTIONS_SUCCESS,
   GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR,
+
+  RESET_MONTHLY_EXPENSE_TRANSACTIONS,
 
   UPDATE_TRANSACTION_REQUEST,
   UPDATE_TRANSACTION_SUCCESS,
