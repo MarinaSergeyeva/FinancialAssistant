@@ -42,7 +42,7 @@ describe('Test for request from auth suite', () => {
         token = jwt.sign({ id: userDoc._id }, process.env.JWT_SECRET, {
           expiresIn,
         });
-        userDoc.tokens.push({ token, expires: Date.now() + expiresIn });
+        userDoc.tokens.push({ token, expires: Date.now() + expiresIn * 1000 });
         await userDoc.save();
 
         response = await request(server)

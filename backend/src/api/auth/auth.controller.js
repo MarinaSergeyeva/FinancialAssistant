@@ -45,7 +45,7 @@ exports.loginUser = async (req, res, next) => {
   const expiresIn = 2 * 24 * 60 * 60;
   const token = createToken(existingUser, expiresIn);
 
-  existingUser.tokens.push({ token, expires: Date.now() + expiresIn });
+  existingUser.tokens.push({ token, expires: Date.now() + expiresIn * 1000 });
   existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
   return res.status(200).json({
@@ -69,7 +69,7 @@ exports.logoutUser = async (req, res, next) => {
 };
 
 function removeExpiredTokens(array) {
-  return array.filter(item => item.expires > Date.now());
+  return array.filter(item => Date.parse(item.expires) > Date.now());
 }
 
 exports.authWithGoogle = async (req, res, next) => {
@@ -77,7 +77,7 @@ exports.authWithGoogle = async (req, res, next) => {
   const expiresIn = 2 * 24 * 60 * 60;
   const token = createToken(existingUser, expiresIn);
 
-  existingUser.tokens.push({ token, expires: Date.now() + expiresIn });
+  existingUser.tokens.push({ token, expires: Date.now() + expiresIn * 1000 });
   existingUser.tokens = removeExpiredTokens(existingUser.tokens);
   await existingUser.save();
 
