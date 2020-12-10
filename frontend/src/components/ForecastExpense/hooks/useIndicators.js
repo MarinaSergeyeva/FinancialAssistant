@@ -2,15 +2,21 @@ import useReduxState from '../../../hooks/useReduxState';
 
 const useIndicators = () => {
   const { userInfo, userTransactions } = useReduxState();
-  const { monthBalance, incomePercentageToSavings } = userInfo;
+  const {
+    totalSalary,
+    passiveIncome,
+    currentExpenses,
+    incomePercentageToSavings,
+  } = userInfo;
   const { transaction } = userTransactions;
   const amount = Math.abs(Number(transaction.amount));
   const freeMoney =
-    (monthBalance - amount) * (1 - incomePercentageToSavings / 100);
+    (totalSalary + passiveIncome) * (1 - incomePercentageToSavings / 100) -
+    currentExpenses;
   const today = new Date();
   const allMonthDays = daysInMonth(today.getMonth(), today.getFullYear());
   const restDays = allMonthDays - today.getDate() + 1;
-  const dailyLimit = (freeMoney / restDays).toFixed(2);
+  const dailyLimit = (freeMoney / restDays).toFixed(2) - amount;
   const monthLimit = (freeMoney - amount).toFixed(2);
   return { dailyLimit, monthLimit };
 };
