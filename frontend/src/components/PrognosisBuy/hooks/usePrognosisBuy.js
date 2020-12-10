@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import operation from '../../../redux/operations/userInfoOperation';
+import { userOperations, userInfoOperation } from '../../../redux/operations';
+import { expenseRoute } from '../../../assets/routes/routes';
 import useReduxState from '../../../hooks/useReduxState';
 
 export const usePrognosisBuy = fields => {
@@ -96,7 +97,8 @@ export const usePrognosisBuy = fields => {
         'У Вас достаточно сбережений, чтобы купить квартиру прямо сейчас',
       );
     } else if (years > 0 || months > 0) {
-      await dispatch(operation.updateUserInfo(fields));
+      await dispatch(userInfoOperation.updateUserInfo(fields));
+      await dispatch(userOperations.getCurrentUser());
       setMessage('Ваши данные сохранены!');
     } else {
       setMessage('*все поля должны быть заполнены');
@@ -105,10 +107,10 @@ export const usePrognosisBuy = fields => {
   };
 
   const closeForm = () => {
-    setIsShowModal(prev => !prev);
-    if (years || months) {
-      history.push('/expense');
+    if (years > 0 || months > 0) {
+      history.push(expenseRoute.path);
     }
+    setIsShowModal(prev => !prev);
   };
 
   return {

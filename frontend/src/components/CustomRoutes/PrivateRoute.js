@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import withRouterHOC from './withRouterHOC';
+import { homeRoute } from '../../assets/routes/routes';
 
 const PrivateRoute = ({
   component: Component,
@@ -8,7 +9,7 @@ const PrivateRoute = ({
   ...routeProps
 }) => (
   <Route {...routeProps}>
-    {isAuthenticated ? <Component /> : <Redirect to="/" />}
+    {isAuthenticated ? <Component /> : <Redirect to={homeRoute.path} />}
   </Route>
 );
 
