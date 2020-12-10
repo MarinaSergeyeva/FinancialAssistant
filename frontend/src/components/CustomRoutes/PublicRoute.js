@@ -4,17 +4,12 @@ import useReduxState from '../../hooks/useReduxState';
 import withRouterHOC from './withRouterHOC';
 
 const PublicRoute = ({
-  userData,
   component: Component,
   isAuthenticated,
   ...routeProps
 }) => {
   const { userInfo } = useReduxState();
-  const { username, flatPrice } = userData;
-  console.log('isAuthenticated', isAuthenticated);
-  console.log('userInfo.flatPrice', flatPrice);
-  console.log('username', username);
-  console.dir(userData);
+  const { username, flatPrice } = userInfo;
   return (
     <Route {...routeProps}>
       {isAuthenticated && username && routeProps.restricted ? (
