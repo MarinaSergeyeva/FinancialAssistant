@@ -74,6 +74,7 @@ const getTransactionsExpense = (month, year, page) => async (
       }`,
     );
     dispatch(transactionActions.getTransactionsExpenseSuccess(res.data));
+    return res.data.length;
   } catch (error) {
     dispatch(transactionActions.getTransactionsExpenseError(error));
   }

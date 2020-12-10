@@ -49,6 +49,10 @@ const getTransactionsExpenseError = error => ({
   payload: error,
 });
 
+const resetTransactionsExpense = () => ({
+  type: transactionConstants.RESET_MONTHLY_EXPENSE_TRANSACTIONS,
+});
+
 const updateTransactionRequest = () => ({
   type: transactionConstants.UPDATE_TRANSACTION_REQUEST,
 });
@@ -77,6 +81,8 @@ export default {
   getTransactionsExpenseRequest,
   getTransactionsExpenseSuccess,
   getTransactionsExpenseError,
+
+  resetTransactionsExpense,
 
   updateTransactionRequest,
   updateTransactionSuccess,
