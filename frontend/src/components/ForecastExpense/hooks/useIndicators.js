@@ -12,11 +12,11 @@ const useIndicators = () => {
   const amount = Math.abs(Number(transaction.amount));
   const freeMoney =
     (totalSalary + passiveIncome) * (1 - incomePercentageToSavings / 100) -
-    (currentExpenses + amount);
+    currentExpenses;
   const today = new Date();
   const allMonthDays = daysInMonth(today.getMonth(), today.getFullYear());
   const restDays = allMonthDays - today.getDate() + 1;
-  const dailyLimit = (freeMoney / restDays).toFixed(2);
+  const dailyLimit = (freeMoney / restDays).toFixed(2) - amount;
   const monthLimit = (freeMoney - amount).toFixed(2);
   return { dailyLimit, monthLimit };
 };
