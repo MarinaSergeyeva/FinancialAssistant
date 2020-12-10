@@ -1,4 +1,4 @@
-import authAction from '../actions/authAction';
+import { authAction, userActions } from '../actions';
 import axios from 'axios';
 import setError from '../actions/errorActions';
 import { authSelector } from '../selectors';
@@ -15,6 +15,7 @@ export const token = {
 };
 
 const userRegistration = credentials => dispatch => {
+  console.log('dispatch userRegistration');
   dispatch(authAction.registrationRequest());
 
   return axios
@@ -31,17 +32,26 @@ const userRegistration = credentials => dispatch => {
 
 const userLogin = credentials => dispatch => {
   dispatch(authAction.loginRequest());
-  return axios
-    .post('/api/v1/auth/sign-in', credentials)
-    .then(res => {
-      token.set(res.data.token);
-      dispatch(authAction.loginSuccess(res.data));
-      dispatch(setError.setError({ kindOfErr: '', status: 0, statusText: '' }));
-    })
-    .catch(err => {
-      dispatch(authAction.loginError(err));
-      return new Error(err);
-    });
+  return (
+    axios
+      .post('/api/v1/auth/sign-in', credentials)
+      .then(res => {
+        token.set(res.data.token);
+        dispatch(authAction.loginSuccess(res.data));
+        dispatch(
+          setError.setError({ kindOfErr: '', status: 0, statusText: '' }),
+        );
+      })
+      // .then(() => {
+      //   dispatch(userActions.getCurrentUserRequest());
+      //   return axios.get('/api/v1/users/current');
+      // })
+      // .then(res => dispatch(userActions.getCurrentUserSuccess(res.data)))
+      .catch(err => {
+        dispatch(authAction.loginError(err));
+        return new Error(err);
+      })
+  );
 };
 
 const userLogout = () => (dispatch, getState) => {

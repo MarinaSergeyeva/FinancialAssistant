@@ -1,12 +1,11 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
-import operation from '../../../redux/operations/authOperations';
+import { authOperations as operation } from '../../../redux/operations';
 import { loginFrontSchema } from '../utilsAuth/AuthFrontSchema';
 import ErrorValidation from '../utilsAuth/ErrorValidation';
 import funcMessage from '../utilsAuth/funcMessage';
 import useMessageErr from '../hooks/useMessageErr';
-import useDeviceSizes from '../../../hooks/useDeviceSizes';
 import {
   AuthForm,
   AuthTxt,
@@ -18,9 +17,8 @@ import {
 } from '../../../common/globalStyleComponents';
 import { AuthFormWrapperLogin } from './LoginStyle';
 
-const Login = ({ closeModal }) => {
+const Login = () => {
   const dispatch = useDispatch();
-  const { isMobileDevice } = useDeviceSizes();
   const { messageErr, error } = useMessageErr();
 
   return (

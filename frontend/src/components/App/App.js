@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { routes } from '../../assets/routes/routes';
 import PrivateRoute from '../CustomRoutes/PrivateRoute';
@@ -14,7 +14,7 @@ import useDispatchOperation from '../../hooks/useDispatchOperation';
 import useReduxState from '../../hooks/useReduxState';
 
 const App = () => {
-  const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);  
+  const [showNavigation, showNavigationHandler] = useHandleBoolChange(false);
   const { isDesktopDevice } = useDeviceSizes();
   const { isUserAuth } = useReduxState();
   useDispatchOperation(isUserAuth, userOperations.getCurrentUser);

@@ -1,18 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import authSelector from '../../redux/selectors/authSelector';
+import useReduxState from '../../hooks/useReduxState';
 
 const withAuth = WrappedComponent => {
   function WithAuth(props) {
-    return <WrappedComponent {...props} />;
+    const { isUserAuth } = useReduxState();
+    return <WrappedComponent isAuthenticated={isUserAuth} {...props} />;
   }
-
-  const mapStateToProps = state => ({
-    isAuthenticated: authSelector.isAuthenticated(state),
-  });
-
-  return withRouter(connect(mapStateToProps)(WithAuth));
+  return withRouter(WithAuth);
 };
 
 export default withAuth;
