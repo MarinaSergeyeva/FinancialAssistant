@@ -15,6 +15,7 @@ const ExpenseListHeader = ({ startDate, setStartDate }) => {
   const [calendarIsOpen, openDatePicker] = useHandleBoolChange(false);
   const handleChange = date => {
     setStartDate(date);
+    openDatePicker();
   };
 
   return (

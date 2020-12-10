@@ -5,6 +5,7 @@ import useIndicators from './hooks/useIndicators';
 import useReduxState from '../../hooks/useReduxState';
 import useHandleBoolChange from '../../hooks/useHandleBoolChange';
 import { transactionOperations, userOperations } from '../../redux/operations';
+import transactionActions from '../../redux/actions/transactionActions';
 import { ForecastExpenseWrapper, Message } from './forecastExpenseStyled';
 
 const ForecastExpense = ({ setTransactionStatus }) => {
@@ -29,6 +30,7 @@ const ForecastExpense = ({ setTransactionStatus }) => {
       };
       await dispatch(transactionOperations.createTransaction(newTransaction));
       await dispatch(userOperations.getCurrentUser());
+      dispatch(transactionActions.resetTransactionsExpense());
       setTransactionStatus(true);
       setMessage('Ваши данные по расходам сохранены!');
     } else {
