@@ -21,6 +21,7 @@ const getCurrentUser = async (req, res, next) => {
     passiveIncome: req.user.passiveIncome,
     incomePercentageToSavings: req.user.incomePercentageToSavings,
     monthBalance: currentBalance,
+    currentExpenses,
   };
   response.picture = req.user.picture ? req.user.picture : 'none';
 
