@@ -91,10 +91,11 @@ const updateTransactionExpense = (updatedInfo, id) => async (
   dispatch(transactionActions.updateTransactionRequest());
   try {
     const { comment, amount, category } = updatedInfo;
-    await axios.patch(
-      `https://financial-assistant-bc22.herokuapp.com/api/v1/transactions/${id}`,
-      { comment, amount, category },
-    );
+    await axios.patch(`/api/v1/transactions/${id}`, {
+      comment,
+      amount,
+      category,
+    });
     dispatch(transactionActions.updateTransactionSuccess(updatedInfo));
   } catch (error) {
     dispatch(transactionActions.updateTransactionError(error));
