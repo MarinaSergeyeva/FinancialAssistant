@@ -1,8 +1,8 @@
 import transactionConstants from '../constants/transactionConstants';
 
-const categories = (state = null, { type, payload }) => {
+const expenseStats = (state = null, { type, payload }) => {
   switch (type) {
-    case transactionConstants.GET_TRANSACTIONS_CATS_SUCCESS:
+    case transactionConstants.GET_STATS_EXPENSE:
       return { ...state, ...payload };
 
     default:
@@ -10,4 +10,4 @@ const categories = (state = null, { type, payload }) => {
   }
 };
 
-export default categories;
+export default expenseStats;

@@ -56,7 +56,15 @@ const getListExpensesMonth = async (req, res) => {
     },
     { $project: { _id: 0 } }
   ]);
-  const [{ totalAmount, totalCount }] = total;
+
+  let totalAmount = 0;
+  let totalCount = 0;
+  let countPages = 0;
+  if (total.length) {
+    [{ totalAmount, totalCount }] = total;
+    countPages = Math.ceil(totalCount / limit);
+  } 
+  // const [{ totalAmount, totalCount }] = total;
 
   const categories = await TransactionModel.aggregate([
     {
@@ -80,7 +88,10 @@ const getListExpensesMonth = async (req, res) => {
       }
     }
   ]);
-  const countPages = Math.ceil(totalCount/limit)
+  let categoryStats = [];
+  if (categories.length) {
+    categoryStats = categories;
+  }
 
   const options = {
     select: '_id amount category comment transactionDate',

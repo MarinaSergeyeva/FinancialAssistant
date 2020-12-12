@@ -19,44 +19,6 @@ const createTransaction = transaction => async (dispatch, getState) => {
   }
 };
 
-const getTransactionsCats = date => async (dispatch, getState) => {
-  const persistedToken = authSelector.isAuthenticated(getState());
-  if (!persistedToken) {
-    return;
-  }
-  token.set(persistedToken);
-  dispatch(transactionActions.getTransactionsCatsRequest());
-  try {
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const res = await axios.get(
-      `/api/v1/transactions/expenses?month=${month}&year=${year}`,
-    );
-    const expenses = {
-      other: 0,
-      food: 0,
-      products: 0,
-      entertainment: 0,
-      transport: 0,
-      services: 0,
-      totalAmount: 0,
-    };
-
-    res.data.forEach(item => {
-      for (let cat in expensesCategories) {
-        if (expensesCategories[cat] === item.category) {
-          expenses[cat] += item.amount;
-        }
-      }
-      expenses.totalAmount += item.amount;
-    });
-    dispatch(transactionActions.getTransactionsCatsSuccess(expenses));
-  } catch (error) {
-    console.log(error.message);
-    dispatch(transactionActions.getTransactionsCatsError(error));
-  }
-};
-
 const getTransactionsExpense = (month, year, page) => async (
   dispatch,
   getState,
@@ -73,8 +35,28 @@ const getTransactionsExpense = (month, year, page) => async (
         page ? `&page=${page}&limit=10` : null
       }`,
     );
-    dispatch(transactionActions.getTransactionsExpenseSuccess(res.data));
-    return res.data.length;
+    dispatch(
+      transactionActions.getTransactionsExpenseSuccess(res.data.expenses),
+    );
+    const { categories, totalAmount, totalCount, countPages } = res.data;
+    const catsExpenses = {
+      other: 0,
+      food: 0,
+      products: 0,
+      entertainment: 0,
+      transport: 0,
+      services: 0,
+    };
+    categories.forEach(item => {
+      for (let cat in expensesCategories) {
+        if (expensesCategories[cat] === item._id) {
+          catsExpenses[cat] += item.total;
+        }
+      }
+    });
+
+    const stats = { ...catsExpenses, totalAmount, totalCount, countPages };
+    dispatch(transactionActions.getStatsExpense(stats));
   } catch (error) {
     dispatch(transactionActions.getTransactionsExpenseError(error));
   }
@@ -105,7 +87,6 @@ const updateTransactionExpense = (updatedInfo, id) => async (
 
 export default {
   createTransaction,
-  getTransactionsCats,
   getTransactionsExpense,
   updateTransactionExpense,
 };

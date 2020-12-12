@@ -20,6 +20,7 @@ import {
 } from './expensePageStyled';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
 import ExpenseListHeader from '../../components/ExpenseListHeader/ExpenseListHeader';
+import useExpenseStats from './hooks/useExpenseStats';
 
 const ExpensePage = () => {
   const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
@@ -30,6 +31,7 @@ const ExpensePage = () => {
   const match = useRouteMatch();
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
+  const { page, setPage } = useExpenseStats(startDate);
 
   return location.pathname === match.path ? (
     <ExpensePageContainer>
@@ -56,10 +58,10 @@ const ExpensePage = () => {
       <ExpenseListHeader startDate={startDate} setStartDate={setStartDate} />
       <ExpenseListWrap>
         <Route path={`${match.url}/list`}>
-          <ExpenseList date={startDate} />
+          <ExpenseList date={startDate} page={page} setPage={setPage} />
         </Route>
         <Route path={`${match.url}/categories`}>
-          <ExpenseCategories date={startDate} />
+          <ExpenseCategories />
         </Route>
       </ExpenseListWrap>
       <ExpenseListImg src={expenseList} alt="expense list background" />

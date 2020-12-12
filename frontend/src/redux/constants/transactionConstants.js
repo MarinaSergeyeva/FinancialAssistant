@@ -5,10 +5,6 @@ const CREATE_TRANSACTION_REQUEST = '@transaction/createTransactionRequest';
 const CREATE_TRANSACTION_SUCCESS = '@transaction/createTransactionSuccess';
 const CREATE_TRANSACTION_ERROR = '@transaction/createTransactionError';
 
-const GET_TRANSACTIONS_CATS_REQUEST = '@transaction/getTransactionsCatsRequest';
-const GET_TRANSACTIONS_CATS_SUCCESS = '@transaction/getTransactionsCatsSuccess';
-const GET_TRANSACTIONS_CATS_ERROR = '@transaction/getTransactionsCatsError';
-
 const GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST =
   '@transactions/getMonthlyExpenseRequest';
 const GET_MONTHLY_EXPENSE_TRANSACTIONS_SUCCESS =
@@ -17,6 +13,8 @@ const GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR =
   '@transactions/getMonthlyExpenseError';
 
 const RESET_MONTHLY_EXPENSE_TRANSACTIONS = '@transactions/resetMonthlyExpense';
+
+const GET_STATS_EXPENSE = '@transaction/getStatsExpense';
 
 const UPDATE_TRANSACTION_REQUEST = '@transactions/updateRequest';
 const UPDATE_TRANSACTION_SUCCESS = '@transactions/updateSuccess';
@@ -30,15 +28,12 @@ export default {
   CREATE_TRANSACTION_SUCCESS,
   CREATE_TRANSACTION_ERROR,
 
-  GET_TRANSACTIONS_CATS_REQUEST,
-  GET_TRANSACTIONS_CATS_SUCCESS,
-  GET_TRANSACTIONS_CATS_ERROR,
-
   GET_MONTHLY_EXPENSE_TRANSACTIONS_REQUEST,
   GET_MONTHLY_EXPENSE_TRANSACTIONS_SUCCESS,
-  GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR,
+  GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR,  
 
   RESET_MONTHLY_EXPENSE_TRANSACTIONS,
+  GET_STATS_EXPENSE,
 
   UPDATE_TRANSACTION_REQUEST,
   UPDATE_TRANSACTION_SUCCESS,
