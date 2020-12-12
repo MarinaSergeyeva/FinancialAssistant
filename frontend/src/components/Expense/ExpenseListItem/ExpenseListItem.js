@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import otherImg from '../../../assets/images/expenseListItem/other.svg';
-import editImg from '../../../assets/images/expenseListItem/edit.svg';
-import foodImg from '../../../assets/images/expenseListItem/food.svg';
-import homeImg from '../../../assets/images/expenseListItem/home.svg';
-import transportImg from '../../../assets/images/expenseListItem/taxi.svg';
-import productsImg from '../../../assets/images/expenseListItem/products.svg';
-import entertainmentImg from '../../../assets/images/expenseListItem/entertainment.svg';
+import React, { useState } from 'react';
+import {
+  IconEdit,
+  IconFood,
+  IconHome,
+  IconOther,
+  IconEntertainment,
+  IconProducts,
+  IconTransport,
+} from '../../Icons';
 import { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 import { useDispatch } from 'react-redux';
 import transactionOperations from '../../../redux/operations/transactionOperations';
@@ -34,24 +36,26 @@ import {
 const ExpenseListItem = ({ expense, date }) => {
   const dispatch = useDispatch();
   const { categories } = useReduxState();
-
-  const [img, setImg] = useState();
-  useEffect(() => {
-    if (expense.category === 'ЖКХ') {
-      setImg(homeImg);
-    } else if (expense.category === 'Другое') {
-      setImg(otherImg);
-    } else if (expense.category === 'Развлечения') {
-      setImg(entertainmentImg);
-    } else if (expense.category === 'Продукты') {
-      setImg(foodImg);
-    } else if (expense.category === 'Товары') {
-      setImg(productsImg);
-    } else if (expense.category === 'Транспорт') {
-      setImg(transportImg);
-    }
-    // eslint-disable-next-line
-  }, [img]);
+  let icon;
+  switch (expense.category) {
+    case 'ЖКХ':
+      icon = <IconHome />;
+      break;
+    case 'Продукты':
+      icon = <IconFood />;
+      break;
+    case 'Развлечения':
+      icon = <IconEntertainment />;
+      break;
+    case 'Товары':
+      icon = <IconProducts />;
+      break;
+    case 'Транспорт':
+      icon = <IconTransport />;
+      break;
+    default:
+      icon = <IconOther />;
+  }
 
   const [showInput, setShowInput] = useState(false);
 
@@ -124,19 +128,14 @@ const ExpenseListItem = ({ expense, date }) => {
               <WrapperSecondary>
                 <ExpenseName>{expense.comment}</ExpenseName>
                 <EditButton onClick={openEdit}>
-                  <img width="20" height="20" alt="other" src={editImg} />
+                  <IconEdit width="20" height="20" />
                 </EditButton>
               </WrapperSecondary>
               <WrapperSecondary>
                 <Value>{expense.amount} грн</Value>
                 <CategoryWrapper>
                   <IconWrapper>
-                    <img
-                      width="20"
-                      height="20"
-                      alt={expense.category}
-                      src={img}
-                    />
+                    <icon.type width="20" height="20" />
                   </IconWrapper>
                   <Category>{expense.category}</Category>
                 </CategoryWrapper>
@@ -180,19 +179,14 @@ const ExpenseListItem = ({ expense, date }) => {
               <WrapperSecondary>
                 <ExpenseName>{expense.comment}</ExpenseName>
                 <EditButton onClick={openEdit}>
-                  <img width="20" height="20" alt="other" src={editImg} />
+                  <IconEdit width="20" height="20" />
                 </EditButton>
               </WrapperSecondary>
               <WrapperSecondary>
                 <Value>{expense.amount} грн</Value>
                 <CategoryWrapper>
                   <IconWrapper>
-                    <img
-                      width="20"
-                      height="20"
-                      alt={expense.category}
-                      src={img}
-                    />
+                    <icon.type width="20" height="20" />
                   </IconWrapper>
                   <Category>{expense.category}</Category>
                 </CategoryWrapper>
@@ -252,19 +246,14 @@ const ExpenseListItem = ({ expense, date }) => {
                   <WrapperSecondary>
                     <CategoryWrapper>
                       <IconWrapper>
-                        <img
-                          width="20"
-                          height="20"
-                          alt={expense.category}
-                          src={img}
-                        />
+                        <icon.type width="20" height="20" />
                       </IconWrapper>
                       <Category>{expense.category}</Category>
                     </CategoryWrapper>
                   </WrapperSecondary>
                 </WrapperSecondary2>
                 <EditButton onClick={openEdit}>
-                  <img width="20" height="20" alt="other" src={editImg} />
+                  <IconEdit width="20" height="20" />
                 </EditButton>
               </RightWrapper>
             </Wrapper>

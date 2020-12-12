@@ -151,16 +151,14 @@ export const Value = styled.p`
 
 export const CategoryWrapper = styled.div`
   display: flex;
+  align-items: center;
   @media ${device.desktop} {
     justify-content: space-between;
-    align-items: center;
   }
 `;
 
 export const IconWrapper = styled.div`
   margin-right: 10px;
-  @media ${device.desktop} {
-  }
 `;
 
 export const Category = styled.p``;
