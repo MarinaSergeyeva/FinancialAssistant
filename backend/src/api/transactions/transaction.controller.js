@@ -51,20 +51,20 @@ const getListExpensesMonth = async (req, res) => {
     },
     {
       $group: {
-        _id: null, totalAmount: { $sum: '$amount' }, totalCount: { $sum: 1 }
-      }
+        _id: null,
+        totalAmount: { $sum: '$amount' },
+        totalCount: { $sum: 1 },
+      },
     },
-    { $project: { _id: 0 } }
+    { $project: { _id: 0 } },
   ]);
 
-  let totalAmount = 0;
-  let totalCount = 0;
-  let countPages = 0;
+  let totalAmount, totalCount, countPages;
+  totalAmount = totalCount = countPages = 0;
   if (total.length) {
     [{ totalAmount, totalCount }] = total;
     countPages = Math.ceil(totalCount / limit);
-  } 
-  // const [{ totalAmount, totalCount }] = total;
+  }
 
   const categories = await TransactionModel.aggregate([
     {
@@ -72,21 +72,21 @@ const getListExpensesMonth = async (req, res) => {
     },
     {
       $group: {
-        _id: "$category",
-        "amountArray": { $push: "$amount" }
+        _id: '$category',
+        amountArray: { $push: '$amount' },
       },
     },
     {
       $project: {
-        "total": {
+        total: {
           $reduce: {
-            input: "$amountArray",
+            input: '$amountArray',
             initialValue: 0,
-            in: { $add: [ "$$value", "$$this" ] }
-          }
-        }
-      }
-    }
+            in: { $add: ['$$value', '$$this'] },
+          },
+        },
+      },
+    },
   ]);
   let categoryStats = [];
   if (categories.length) {
@@ -100,13 +100,13 @@ const getListExpensesMonth = async (req, res) => {
     pagination,
   };
   const { docs } = await TransactionModel.paginate(query, options);
-  
+
   return res.json({
     expenses: docs,
     categories,
     countPages,
     totalCount,
-    totalAmount
+    totalAmount,
   });
 };
 
