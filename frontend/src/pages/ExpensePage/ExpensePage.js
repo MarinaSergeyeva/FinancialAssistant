@@ -58,7 +58,7 @@ const ExpensePage = () => {
       <ExpenseListHeader startDate={startDate} setStartDate={setStartDate} />
       <ExpenseListWrap>
         <Route path={`${match.url}/list`}>
-          <ExpenseList date={startDate} page={page} setPage={setPage} />
+          <ExpenseList page={page} setPage={setPage} />
         </Route>
         <Route path={`${match.url}/categories`}>
           <ExpenseCategories />
