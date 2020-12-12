@@ -1,7 +1,7 @@
 const { TransactionModel } = require('./transaction.model');
 const { expensesCategories } = require('../dataset');
 
-const createTransaction = async (req, res, next) => {
+const createTransaction = async (req, res) => {
   const { body, user } = req;
   const userId = user._id;
   const info = { ...body, userId };
@@ -12,14 +12,14 @@ const createTransaction = async (req, res, next) => {
   });
 };
 
-const getTransactionCategories = (req, res) => {
+const getTransactionCategories = (_, res) => {
   const categories = Object.values(expensesCategories);
   return res.json({
     categories,
   });
 };
 
-const getListExpensesMonth = async (req, res, next) => {
+const getListExpensesMonth = async (req, res) => {
   const { user } = req;
   let { page, limit, month, year } = req.query;
   let pagination = true;
@@ -44,6 +44,44 @@ const getListExpensesMonth = async (req, res, next) => {
     transactionDate: { $gte: startDate, $lt: endDate },
     type: 'EXPENSE',
   };
+
+  const total = await TransactionModel.aggregate([
+    {
+      $match: query,
+    },
+    {
+      $group: {
+        _id: null, totalAmount: { $sum: '$amount' }, totalCount: { $sum: 1 }
+      }
+    },
+    { $project: { _id: 0 } }
+  ]);
+  const [{ totalAmount, totalCount }] = total;
+
+  const categories = await TransactionModel.aggregate([
+    {
+      $match: query,
+    },
+    {
+      $group: {
+        _id: "$category",
+        "amountArray": { $push: "$amount" }
+      },
+    },
+    {
+      $project: {
+        "total": {
+          $reduce: {
+            input: "$amountArray",
+            initialValue: 0,
+            in: { $add: [ "$$value", "$$this" ] }
+          }
+        }
+      }
+    }
+  ]);
+  const countPages = Math.ceil(totalCount/limit)
+
   const options = {
     select: '_id amount category comment transactionDate',
     page,
@@ -51,7 +89,14 @@ const getListExpensesMonth = async (req, res, next) => {
     pagination,
   };
   const { docs } = await TransactionModel.paginate(query, options);
-  return res.json(docs);
+  
+  return res.json({
+    expenses: docs,
+    categories,
+    countPages,
+    totalCount,
+    totalAmount
+  });
 };
 
 const updateTransaction = async (req, res) => {
