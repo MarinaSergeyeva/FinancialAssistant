@@ -20,7 +20,6 @@ import {
 } from './expensePageStyled';
 import useDeviceSizes from '../../hooks/useDeviceSizes';
 import ExpenseListHeader from '../../components/ExpenseListHeader/ExpenseListHeader';
-import useExpenseStats from './hooks/useExpenseStats';
 
 const ExpensePage = () => {
   const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
@@ -31,7 +30,6 @@ const ExpensePage = () => {
   const match = useRouteMatch();
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
-  // const { page, setPage } = useExpenseStats(startDate);
 
   return location.pathname === match.path ? (
     <ExpensePageContainer>
