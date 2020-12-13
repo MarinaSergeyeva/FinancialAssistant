@@ -110,6 +110,4 @@ async function getStatsMonthExpenses(query) {
   return { totalAmount, totalCount, categories };
 }
 
-module.exports = {
-  TransactionModel,
-};
+module.exports = { TransactionModel };
