@@ -5,12 +5,13 @@ import useExpense from '../hooks/useExpense';
 import { Button, ExpensesList } from './expenseListStyled';
 
 const ExpenseList = ({ date }) => {
-  const { countTransactions, loadMore, getDate } = useExpense(date);
+  const { page, loadMore, getDate } = useExpense(date);
 
   const { userTransactions } = useReduxState();
-  const { expenses } = userTransactions;
+  const { expenses, expenseStats } = userTransactions;
   return (
-    expenses.length > 0 && (
+    expenses.length > 0 &&
+    expenseStats && (
       <>
         <ExpensesList>
           {expenses.map(expense => (
@@ -21,7 +22,9 @@ const ExpenseList = ({ date }) => {
             />
           ))}
         </ExpensesList>
-        {countTransactions === 10 && <Button onClick={loadMore}>...</Button>}
+        {page < expenseStats.countPages && (
+          <Button onClick={loadMore}>...</Button>
+        )}
       </>
     )
   );

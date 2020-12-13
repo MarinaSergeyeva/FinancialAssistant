@@ -23,7 +23,7 @@ const useReduxState = () => {
   // TRANSACTIONS //
   const transaction = useSelector(transactionSelectors.getTransaction);
   const expenses = useSelector(transactionSelectors.getExpenses);
-  const expensesCategories = useSelector(transactionSelectors.getExpensesCats);
+  const expenseStats = useSelector(transactionSelectors.getExpenseStats);
 
   // STATS //
   const giftsForUnpacking = useSelector(
@@ -55,7 +55,7 @@ const useReduxState = () => {
     isUserAuth,
     userID,
     userInfo,
-    userTransactions: { transaction, expenses, expensesCategories },
+    userTransactions: { transaction, expenses, expenseStats },
     stats: {
       giftsForUnpacking,
       savingsPercentage,

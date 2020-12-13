@@ -1,25 +1,21 @@
 import styled from 'styled-components';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import useReduxState from '../../hooks/useReduxState';
-import { transactionOperations } from '../../redux/operations';
 import ExpenseItemCategory from './ExpenseItemCategory/ExpenseItemCategory';
-import { expensesCats } from './ExpenseItemCategory/hooks/useItemFields';
+import { expensesCats } from './hooks/useItemFields';
+import useNewData from './hooks/useNewData';
 
 const ExpenseListCats = ({ date }) => {
-  const dispatch = useDispatch();
   const { userTransactions } = useReduxState();
-  const { expensesCategories } = userTransactions;
-  useEffect(() => {
-    dispatch(transactionOperations.getTransactionsCats(date));
-  }, [dispatch, date]);
+  const { expenseStats } = userTransactions;
+  useNewData(date);
   return (
     <>
-      {expensesCategories && (
+      {expenseStats && (
         <ul>
           {expensesCats.map(item => {
             const cat = Object.keys(item)[0];
-            if (!expensesCategories[cat]) {
+            if (!expenseStats[cat]) {
               return null;
             }
             return <ExpenseItemCategory key={cat} category={cat} />;

@@ -1,7 +1,7 @@
 const getTransaction = state => state.user.transaction;
 
-const getExpensesCats = state => state.user.catsExpense;
+const getExpenseStats = state => state.user.expenseStats;
 
 const getExpenses = state => state.user.expenses;
 
-export default { getTransaction, getExpenses, getExpensesCats };
+export default { getTransaction, getExpenses, getExpenseStats };

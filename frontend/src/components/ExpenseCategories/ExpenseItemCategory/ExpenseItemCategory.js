@@ -1,6 +1,6 @@
 import React from 'react';
 import useReduxState from '../../../hooks/useReduxState';
-import useItemFields from './hooks/useItemFields';
+import useItemFields from '../hooks/useItemFields';
 import {
   CategoryPercentage,
   CategoryItem,
@@ -11,7 +11,7 @@ import {
 
 function ExpenseItemCategory({ category }) {
   const { userTransactions } = useReduxState();
-  const { expensesCategories } = userTransactions;
+  const { expenseStats } = userTransactions;
   const { name, icon } = useItemFields(category);
   return (
     <CategoryItem>
@@ -19,9 +19,9 @@ function ExpenseItemCategory({ category }) {
         <use href={`#${icon}`}></use>
       </CategoryIcon>
       <CategoryName>{name}</CategoryName>
-      <CategoryAmount>{`-${expensesCategories[category]} грн.`}</CategoryAmount>
+      <CategoryAmount>{`-${expenseStats[category]} грн.`}</CategoryAmount>
       <CategoryPercentage>{`${Math.round(
-        (expensesCategories[category] / expensesCategories.totalAmount) * 100,
+        (expenseStats[category] / expenseStats.totalAmount) * 100,
       )}%`}</CategoryPercentage>
     </CategoryItem>
   );
