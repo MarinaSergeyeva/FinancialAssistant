@@ -11,10 +11,3 @@ export const BtnCalendar = styled.button`
   border-width: 0;
   border-radius: 8px;
 `;
-
-export const SvgIcon = styled.svg`
-  width: 14px;
-  height: 16px;
-  fill: #18191f;
-  fill-opacity: 0.54;
-`;
