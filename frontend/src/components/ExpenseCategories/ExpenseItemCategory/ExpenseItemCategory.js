@@ -1,6 +1,6 @@
 import React from 'react';
 import useReduxState from '../../../hooks/useReduxState';
-import useItemFields from './hooks/useItemFields';
+import useItemFields from '../hooks/useItemFields';
 import {
   CategoryPercentage,
   CategoryItem,

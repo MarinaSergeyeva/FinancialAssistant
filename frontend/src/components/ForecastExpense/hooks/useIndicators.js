@@ -16,7 +16,7 @@ const useIndicators = () => {
   const today = new Date();
   const allMonthDays = daysInMonth(today.getMonth(), today.getFullYear());
   const restDays = allMonthDays - today.getDate() + 1;
-  const dailyLimit = (freeMoney / restDays).toFixed(2) - amount;
+  const dailyLimit = (freeMoney / restDays - amount).toFixed(2);
   const monthLimit = (freeMoney - amount).toFixed(2);
   return { dailyLimit, monthLimit };
 };

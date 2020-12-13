@@ -19,7 +19,7 @@ const createTransaction = transaction => async (dispatch, getState) => {
   }
 };
 
-const getTransactionsExpense = (month, year, page) => async (
+const getTransactionsExpense = (month, year, page = 1) => async (
   dispatch,
   getState,
 ) => {
@@ -31,32 +31,20 @@ const getTransactionsExpense = (month, year, page) => async (
   dispatch(transactionActions.getTransactionsExpenseRequest());
   try {
     const res = await axios.get(
-      `/api/v1/transactions/expenses?month=${month}&year=${year}${
-        page ? `&page=${page}&limit=10` : null
-      }`,
+      `/api/v1/transactions/expenses?month=${month}&year=${year}&page=${page}&limit=10`,
     );
-    dispatch(
-      transactionActions.getTransactionsExpenseSuccess(res.data.expenses),
-    );
-    const { categories, totalAmount, totalCount, countPages } = res.data;
-    const catsExpenses = {
-      other: 0,
-      food: 0,
-      products: 0,
-      entertainment: 0,
-      transport: 0,
-      services: 0,
-    };
-    categories.forEach(item => {
-      for (let cat in expensesCategories) {
-        if (expensesCategories[cat] === item._id) {
-          catsExpenses[cat] += item.total;
-        }
-      }
-    });
-
-    const stats = { ...catsExpenses, totalAmount, totalCount, countPages };
-    dispatch(transactionActions.getStatsExpense(stats));
+    const {
+      expenses,
+      countPages,
+      totalCount,
+      totalAmount,
+      categories,
+    } = res.data;
+    if (countPages) {
+      dispatch(transactionActions.getTransactionsExpenseSuccess(expenses));
+      const stats = { ...categories, totalAmount, totalCount, countPages };
+      dispatch(transactionActions.getStatsExpense(stats));
+    }
   } catch (error) {
     dispatch(transactionActions.getTransactionsExpenseError(error));
   }
@@ -89,13 +77,4 @@ export default {
   createTransaction,
   getTransactionsExpense,
   updateTransactionExpense,
-};
-
-const expensesCategories = {
-  other: 'Другое',
-  entertainment: 'Развлечения',
-  food: 'Продукты',
-  products: 'Товары',
-  transport: 'Транспорт',
-  services: 'ЖКХ',
 };

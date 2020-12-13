@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import React from 'react';
 import useReduxState from '../../hooks/useReduxState';
 import ExpenseItemCategory from './ExpenseItemCategory/ExpenseItemCategory';
-import { expensesCats } from './ExpenseItemCategory/hooks/useItemFields';
+import { expensesCats } from './hooks/useItemFields';
+import useNewData from './hooks/useNewData';
 
-const ExpenseListCats = () => {
+const ExpenseListCats = ({ date }) => {
   const { userTransactions } = useReduxState();
   const { expenseStats } = userTransactions;
+  useNewData(date);
   return (
     <>
       {expenseStats && (

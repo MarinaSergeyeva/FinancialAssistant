@@ -4,8 +4,8 @@ import useReduxState from '../../../hooks/useReduxState';
 import useExpense from '../hooks/useExpense';
 import { Button, ExpensesList } from './expenseListStyled';
 
-const ExpenseList = ({ page, setPage }) => {
-  const { loadMore, getDate } = useExpense(page, setPage);
+const ExpenseList = ({ date }) => {
+  const { page, loadMore, getDate } = useExpense(date);
 
   const { userTransactions } = useReduxState();
   const { expenses, expenseStats } = userTransactions;
