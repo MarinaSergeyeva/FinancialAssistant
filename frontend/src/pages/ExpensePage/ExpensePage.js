@@ -10,47 +10,46 @@ import {
   ExpensePageContainer,
   ExpenseFormWrapper,
   ExpensePageFooter,
-  ExpenseListWrap,
-  ExpenseListContainer,
-  ExpenseListFooter,
 } from './expensePageStyled';
 import ExpenseListHeader from '../../components/ExpenseListHeader/ExpenseListHeader';
 
 const ExpensePage = () => {
   const [isTransactionSend, setTransactionStatus] = useState(false);
-  const resetForm = () => {
-    return isTransactionSend;
-  };
   const match = useRouteMatch();
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
+  const isMain = location.pathname === match.path;
 
-  return location.pathname === match.path ? (
-    <ExpensePageWrap>
+  return (
+    <ExpensePageWrap className={isMain ? 'main' : 'list'}>
       <ExpensePageContainer>
-        <ExpenseFormWrapper>
-          <ExpenseForm
-            setTransactionStatus={setTransactionStatus}
-            resetForm={resetForm}
-          />
-        </ExpenseFormWrapper>
-        <ForecastExpense setTransactionStatus={setTransactionStatus} />
+        {isMain ? (
+          <>
+            <ExpenseFormWrapper>
+              <ExpenseForm
+                setTransactionStatus={setTransactionStatus}
+                resetForm={isTransactionSend}
+              />
+            </ExpenseFormWrapper>
+            <ForecastExpense setTransactionStatus={setTransactionStatus} />
+          </>
+        ) : (
+          <>
+            <ExpenseListHeader
+              startDate={startDate}
+              setStartDate={setStartDate}
+            />
+            <Route path={`${match.url}/list`}>
+              <ExpenseList date={startDate} />
+            </Route>
+            <Route path={`${match.url}/categories`}>
+              <ExpenseCategories date={startDate} />
+            </Route>
+          </>
+        )}
       </ExpensePageContainer>
-      <ExpensePageFooter />
+      <ExpensePageFooter className={isMain ? 'footer_main' : 'footer_list'} />
     </ExpensePageWrap>
-  ) : (
-    <ExpenseListWrap>
-      <ExpenseListContainer>
-        <ExpenseListHeader startDate={startDate} setStartDate={setStartDate} />
-        <Route path={`${match.url}/list`}>
-          <ExpenseList date={startDate} />
-        </Route>
-        <Route path={`${match.url}/categories`}>
-          <ExpenseCategories date={startDate} />
-        </Route>
-      </ExpenseListContainer>
-      <ExpenseListFooter />
-    </ExpenseListWrap>
   );
 };
 
