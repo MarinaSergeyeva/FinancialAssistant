@@ -3,7 +3,7 @@ import axios from 'axios';
 import setError from '../actions/errorActions';
 import { authSelector } from '../selectors';
 
-axios.defaults.baseURL = 'https://financial-assistant-bc22.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:8080'; //'https://financial-assistant-bc22.herokuapp.com';
 
 export const token = {
   set(token) {

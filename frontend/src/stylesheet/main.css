@@ -63,7 +63,3 @@ button:active,
 button:focus {
   outline: none;
 }
-
-#svg-sprite {
-  display: none;
-}

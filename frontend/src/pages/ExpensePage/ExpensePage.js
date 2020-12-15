@@ -3,26 +3,20 @@ import { Route, useRouteMatch, useLocation } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import ForecastExpense from '../../components/ForecastExpense/ForecastExpense';
-import expensePageMobile from '../../assets/images/ExpensePage/expensePage_bg-mobile.png';
-import expensePageTablet from '../../assets/images/ExpensePage/expensePage_bg-tablet.png';
-import expensePageDesktop from '../../assets/images/ExpensePage/expensePage_bg-desktop.png';
-import expenseList from '../../assets/images/ExpensePage/expenseList_bg.png';
 import ExpenseCategories from '../../components/ExpenseCategories/ExpenseListCats';
 import ExpenseList from '../../components/Expense/ExpenseList/ExpenseList';
 import {
-  ExpenseFormWrapper,
-  ExpenseListContainer,
-  ExpenseListImg,
-  ExpenseListWrap,
+  ExpensePageWrap,
   ExpensePageContainer,
-  ExpensePageImg,
-  ForecastExpenseWrapper,
+  ExpenseFormWrapper,
+  ExpensePageFooter,
+  ExpenseListWrap,
+  ExpenseListContainer,
+  ExpenseListFooter,
 } from './expensePageStyled';
-import useDeviceSizes from '../../hooks/useDeviceSizes';
 import ExpenseListHeader from '../../components/ExpenseListHeader/ExpenseListHeader';
 
 const ExpensePage = () => {
-  const { isMobileDevice, isTabletDevice, isDesktopDevice } = useDeviceSizes();
   const [isTransactionSend, setTransactionStatus] = useState(false);
   const resetForm = () => {
     return isTransactionSend;
@@ -32,38 +26,31 @@ const ExpensePage = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   return location.pathname === match.path ? (
-    <ExpensePageContainer>
-      <ExpenseFormWrapper>
-        <ExpenseForm
-          setTransactionStatus={setTransactionStatus}
-          resetForm={resetForm}
-        />
-      </ExpenseFormWrapper>
-      <ForecastExpenseWrapper>
+    <ExpensePageWrap>
+      <ExpensePageContainer>
+        <ExpenseFormWrapper>
+          <ExpenseForm
+            setTransactionStatus={setTransactionStatus}
+            resetForm={resetForm}
+          />
+        </ExpenseFormWrapper>
         <ForecastExpense setTransactionStatus={setTransactionStatus} />
-      </ForecastExpenseWrapper>
-      <ExpensePageImg
-        src={
-          (isMobileDevice && expensePageMobile) ||
-          (isTabletDevice && expensePageTablet) ||
-          (isDesktopDevice && expensePageDesktop)
-        }
-        alt="expense page background"
-      />
-    </ExpensePageContainer>
+      </ExpensePageContainer>
+      <ExpensePageFooter />
+    </ExpensePageWrap>
   ) : (
-    <ExpenseListContainer>
-      <ExpenseListHeader startDate={startDate} setStartDate={setStartDate} />
-      <ExpenseListWrap>
+    <ExpenseListWrap>
+      <ExpenseListContainer>
+        <ExpenseListHeader startDate={startDate} setStartDate={setStartDate} />
         <Route path={`${match.url}/list`}>
           <ExpenseList date={startDate} />
         </Route>
         <Route path={`${match.url}/categories`}>
           <ExpenseCategories date={startDate} />
         </Route>
-      </ExpenseListWrap>
-      <ExpenseListImg src={expenseList} alt="expense list background" />
-    </ExpenseListContainer>
+      </ExpenseListContainer>
+      <ExpenseListFooter />
+    </ExpenseListWrap>
   );
 };
 
