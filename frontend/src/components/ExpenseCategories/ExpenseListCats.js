@@ -3,12 +3,12 @@ import React from 'react';
 import useReduxState from '../../hooks/useReduxState';
 import ExpenseItemCategory from './ExpenseItemCategory/ExpenseItemCategory';
 import { expensesCats } from './hooks/useItemFields';
-import useNewData from './hooks/useNewData';
+import useNewData from '../ExpenseListHeader/hooks/useNewData';
 
 const ExpenseListCats = ({ date }) => {
   const { userTransactions } = useReduxState();
   const { expenseStats } = userTransactions;
-  useNewData(date);
+  // useNewData(date);
   return (
     <>
       {expenseStats && (
