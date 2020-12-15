@@ -38,15 +38,10 @@ const ExpensePage = () => {
             <ExpenseListHeader
               startDate={startDate}
               setStartDate={setStartDate}
-              isDateSend={isDateSend}
               setIsDateSend={setIsDateSend}
             />
             <Route path={`${match.url}/list`}>
-              <ExpenseList
-                date={startDate}
-                isDateSend={isDateSend}
-                setIsDateSend={setIsDateSend}
-              />
+              <ExpenseList date={startDate} isDateSend={isDateSend} />
             </Route>
             <Route path={`${match.url}/categories`}>
               <ExpenseCategories date={startDate} />
