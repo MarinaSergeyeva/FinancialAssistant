@@ -164,10 +164,10 @@ export const IconWrapper = styled.div`
 export const Category = styled.p``;
 
 export const EditButton = styled.div`
+  cursor: pointer;
   @media ${device.desktop} {
     background-color: transparent;
     width: 20px;
-    cursor: pointer;
     height: 20px;
     display: flex;
     align-self: flex-end;

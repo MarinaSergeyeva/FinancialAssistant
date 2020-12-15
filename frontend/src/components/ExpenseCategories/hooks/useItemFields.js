@@ -17,37 +17,37 @@ export const expensesCats = [
   {
     other: {
       name: 'Другое',
-      icon: 'other',
+      icon: 'IconOther',
     },
   },
   {
     entertainment: {
       name: 'Развлечения',
-      icon: 'cafe',
+      icon: 'IconEntertainment',
     },
   },
   {
     food: {
       name: 'Продукты',
-      icon: 'food',
+      icon: 'IconFood',
     },
   },
   {
     products: {
       name: 'Товары',
-      icon: 'clothes',
+      icon: 'IconProducts',
     },
   },
   {
     transport: {
       name: 'Транспорт',
-      icon: 'transport',
+      icon: 'IconTransport',
     },
   },
   {
     services: {
       name: 'ЖКХ',
-      icon: 'home',
+      icon: 'IconHome',
     },
   },
 ];

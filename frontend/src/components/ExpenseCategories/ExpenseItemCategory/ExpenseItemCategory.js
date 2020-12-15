@@ -8,15 +8,17 @@ import {
   CategoryIcon,
   CategoryAmount,
 } from './expenseItemCatStyled';
+import { lazy } from 'react';
 
 function ExpenseItemCategory({ category }) {
   const { userTransactions } = useReduxState();
   const { expenseStats } = userTransactions;
   const { name, icon } = useItemFields(category);
+  const Icon = lazy(() => import(`../../Icons/${icon}`));
   return (
     <CategoryItem>
       <CategoryIcon>
-        <use href={`#${icon}`}></use>
+        <Icon />
       </CategoryIcon>
       <CategoryName>{name}</CategoryName>
       <CategoryAmount>{`-${expenseStats[category]} грн.`}</CategoryAmount>

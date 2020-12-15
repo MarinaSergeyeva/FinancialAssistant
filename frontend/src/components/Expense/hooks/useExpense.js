@@ -25,7 +25,7 @@ const useExpense = (date, isDateSend) => {
   useEffect(() => {
     dispatch(categoriesOperations.getCategories());
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isDateSend) {
