@@ -5,10 +5,9 @@ import ExpenseItemCategory from './ExpenseItemCategory/ExpenseItemCategory';
 import { expensesCats } from './hooks/useItemFields';
 import useNewData from '../ExpenseListHeader/hooks/useNewData';
 
-const ExpenseListCats = ({ date }) => {
+const ExpenseListCats = () => {
   const { userTransactions } = useReduxState();
   const { expenseStats } = userTransactions;
-  // useNewData(date);
   return (
     <>
       {expenseStats && (

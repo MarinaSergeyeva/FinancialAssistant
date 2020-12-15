@@ -40,13 +40,30 @@ const getTransactionsExpense = (month, year, page = 1) => async (
       totalAmount,
       categories,
     } = res.data;
-    if (countPages) {
-      dispatch(transactionActions.getTransactionsExpenseSuccess(expenses));
-      const stats = { ...categories, totalAmount, totalCount, countPages };
-      dispatch(transactionActions.getStatsExpense(stats));
-    }
+    dispatch(transactionActions.getTransactionsExpenseSuccess(expenses));
+    const stats = { ...categories, totalAmount, totalCount, countPages };
+    dispatch(transactionActions.getStatsExpenseSuccess(stats));
   } catch (error) {
     dispatch(transactionActions.getTransactionsExpenseError(error));
+  }
+};
+
+const getExpenseStats = (month, year) => async (dispatch, getState) => {
+  const persistedToken = authSelector.isAuthenticated(getState());
+  if (!persistedToken) {
+    return;
+  }
+  token.set(persistedToken);
+  dispatch(transactionActions.getStatsExpenseRequest());
+  try {
+    const res = await axios.get(
+      `/api/v1/transactions/expenses/structure?month=${month}&year=${year}`,
+    );
+    const { totalCount, totalAmount, categories } = res.data;
+    const stats = { ...categories, totalAmount, totalCount };
+    dispatch(transactionActions.getStatsExpenseSuccess(stats));
+  } catch (error) {
+    dispatch(transactionActions.getStatsExpenseError(error));
   }
 };
 
@@ -76,5 +93,6 @@ const updateTransactionExpense = (updatedInfo, id) => async (
 export default {
   createTransaction,
   getTransactionsExpense,
+  getExpenseStats,
   updateTransactionExpense,
 };

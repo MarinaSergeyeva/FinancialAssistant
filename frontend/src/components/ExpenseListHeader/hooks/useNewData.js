@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import useReduxState from '../../../hooks/useReduxState';
-import transactionActions from '../../../redux/actions/transactionActions';
+import { transactionActions } from '../../../redux/actions';
 import { transactionOperations } from '../../../redux/operations';
 
 const useNewData = (date, setIsDateSend) => {

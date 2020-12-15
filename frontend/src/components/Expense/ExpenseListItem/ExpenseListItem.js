@@ -27,6 +27,7 @@ const ExpenseListItem = ({ expense, date }) => {
   const { categories } = useReduxState();
   const { openEdit, handleSubmit, showInput, inputs, icon } = useExpenseItem(
     expense,
+    date,
   );
   return (
     expense && (

@@ -11,7 +11,7 @@ import {
 } from '../../Icons';
 import { useState } from 'react';
 
-const useExpenseItem = expense => {
+const useExpenseItem = (expense, date) => {
   const dispatch = useDispatch();
 
   let icon;
@@ -48,13 +48,20 @@ const useExpenseItem = expense => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    dispatch(
-      await transactionOperations.updateTransactionExpense(
+    await dispatch(
+      transactionOperations.updateTransactionExpense(
         updatedExpense,
         expense._id,
       ),
     );
     closeEdit();
+    const dateConv = new Date(date);
+    await dispatch(
+      transactionOperations.getExpenseStats(
+        dateConv.getMonth() + 1,
+        dateConv.getFullYear(),
+      ),
+    );
   };
 
   const amount = useInput(expense.amount);

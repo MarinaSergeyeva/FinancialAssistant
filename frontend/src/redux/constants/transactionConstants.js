@@ -13,7 +13,10 @@ const GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR =
   '@transactions/getMonthlyExpenseError';
 
 const RESET_MONTHLY_EXPENSE_TRANSACTIONS = '@transactions/resetMonthlyExpense';
-const GET_STATS_EXPENSE = '@transaction/getStatsExpense';
+
+const GET_STATS_EXPENSE_REQUEST = '@transaction/getStatsExpenseRequest';
+const GET_STATS_EXPENSE_SUCCESS = '@transaction/getStatsExpenseSuccess';
+const GET_STATS_EXPENSE_ERROR = '@transaction/getStatsExpenseError';
 
 const UPDATE_TRANSACTION_REQUEST = '@transactions/updateRequest';
 const UPDATE_TRANSACTION_SUCCESS = '@transactions/updateSuccess';
@@ -32,7 +35,10 @@ export default {
   GET_MONTHLY_EXPENSE_TRANSACTIONS_ERROR,
 
   RESET_MONTHLY_EXPENSE_TRANSACTIONS,
-  GET_STATS_EXPENSE,
+
+  GET_STATS_EXPENSE_REQUEST,
+  GET_STATS_EXPENSE_SUCCESS,
+  GET_STATS_EXPENSE_ERROR,
 
   UPDATE_TRANSACTION_REQUEST,
   UPDATE_TRANSACTION_SUCCESS,

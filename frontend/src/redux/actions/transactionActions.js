@@ -39,9 +39,18 @@ const resetTransactionsExpense = () => ({
   type: transactionConstants.RESET_MONTHLY_EXPENSE_TRANSACTIONS,
 });
 
-const getStatsExpense = payload => ({
-  type: transactionConstants.GET_STATS_EXPENSE,
+const getStatsExpenseRequest = () => ({
+  type: transactionConstants.GET_STATS_EXPENSE_REQUEST,
+});
+
+const getStatsExpenseSuccess = payload => ({
+  type: transactionConstants.GET_STATS_EXPENSE_SUCCESS,
   payload,
+});
+
+const getStatsExpenseError = error => ({
+  type: transactionConstants.GET_STATS_EXPENSE_ERROR,
+  payload: error,
 });
 
 const updateTransactionRequest = () => ({
@@ -71,7 +80,10 @@ export default {
   getTransactionsExpenseError,
 
   resetTransactionsExpense,
-  getStatsExpense,
+
+  getStatsExpenseRequest,
+  getStatsExpenseSuccess,
+  getStatsExpenseError,
 
   updateTransactionRequest,
   updateTransactionSuccess,

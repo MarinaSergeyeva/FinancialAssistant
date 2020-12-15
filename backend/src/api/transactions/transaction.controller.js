@@ -30,7 +30,7 @@ const getListExpensesMonth = async (req, res) => {
   if (!page) {
     page = 1;
   }
-  const { stats, query } = getExpenseStats(month, year, user._id);
+  const { stats, query } = await getExpenseStats(month, year, user._id);
   const { totalAmount, totalCount, categories } = stats;
   const countPages = Math.ceil(totalCount / limit);
   const options = {
@@ -52,7 +52,7 @@ const getListExpensesMonth = async (req, res) => {
 const getExpenseStructure = async (req, res) => {
   const { user } = req;
   let { month, year } = req.query;
-  const { stats } = getExpenseStats(month, year, user._id);
+  const { stats } = await getExpenseStats(month, year, user._id);
   const { totalAmount, totalCount, categories } = stats;
   return res.json({ categories, totalCount, totalAmount });
 };
