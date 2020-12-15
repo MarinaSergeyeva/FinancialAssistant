@@ -20,7 +20,6 @@ const ExpensePage = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [isDateSend, setIsDateSend] = useState(false);
   const isMain = location.pathname === match.path;
-
   return (
     <ExpensePageWrap className={isMain ? 'main' : 'list'}>
       <ExpensePageContainer>

@@ -1,6 +1,6 @@
 import React from 'react';
-import dynamics from '../../assets/images/Navigation/dynamics.svg';
 import { BtnNavLInk } from './expenseButtonStyled';
+import IconGraph from '../Icons/IconGraph';
 
 const ExpenseButton = ({ showNavigation }) => {
   return (
@@ -8,14 +8,12 @@ const ExpenseButton = ({ showNavigation }) => {
       to="/expense/list"
       activeClassName="active"
       onClick={showNavigation}
+      isActive={(_, location) =>
+        location.pathname === '/expense/list' ||
+        location.pathname === '/expense/categories'
+      }
     >
-      <img
-        className="graph-icon"
-        width="12"
-        height="12"
-        alt="graph"
-        src={dynamics}
-      />
+      <IconGraph />
     </BtnNavLInk>
   );
 };
