@@ -1,7 +1,7 @@
 import React from 'react';
-import logoutImg from '../../../assets/icons/Header/icon-logout.svg';
 import Modal from '../../Modal/Modal';
 import LogoutModal from '../../Logout/LogoutModal';
+import IconLogout from '../../Icons/IconLogout';
 import useHandleBoolChange from '../../../hooks/useHandleBoolChange';
 import { ButtonLogout, LogoutImg } from './logoutButtonStyled';
 
@@ -12,7 +12,9 @@ const LogoutButton = ({ showNavigation }) => {
     <>
       <ButtonLogout onClick={showExitModalHandler}>
         Выйти
-        <LogoutImg src={logoutImg} alt={'Logout img'}></LogoutImg>
+        <LogoutImg>
+          <IconLogout />
+        </LogoutImg>
       </ButtonLogout>
       {showExitModal && (
         <Modal closeModal={showExitModalHandler}>
