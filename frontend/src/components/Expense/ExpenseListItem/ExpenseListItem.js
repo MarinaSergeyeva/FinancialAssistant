@@ -59,7 +59,7 @@ const ExpenseListItem = ({ expense, date }) => {
                   ))}
                 </Select>
               </Label>
-              <Date>19.12.2019</Date>
+              <Date>{date}</Date>
               <Button>Сохранить</Button>
             </Form>
           ) : (
@@ -110,7 +110,7 @@ const ExpenseListItem = ({ expense, date }) => {
                   ))}
                 </Select>
               </Label>
-              <Date>19.12.2019</Date>
+              <Date>{date}</Date>
               <Button>Сохранить</Button>
             </Form>
           ) : (
@@ -138,7 +138,7 @@ const ExpenseListItem = ({ expense, date }) => {
           {showInput ? (
             <Form _id={expense._id} onSubmit={handleSubmit}>
               <LeftWrapper>
-                <Date>19.12.2019</Date>
+                <Date>{date}</Date>
                 <Label>
                   Название: <Input type="text" {...inputs.comment.bind} />
                 </Label>

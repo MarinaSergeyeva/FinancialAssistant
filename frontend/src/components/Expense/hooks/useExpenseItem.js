@@ -55,11 +55,11 @@ const useExpenseItem = (expense, date) => {
       ),
     );
     closeEdit();
-    const dateConv = new Date(date);
+    const dateObj = new Date(date);
     await dispatch(
       transactionOperations.getExpenseStats(
-        dateConv.getMonth() + 1,
-        dateConv.getFullYear(),
+        dateObj.getMonth() + 1,
+        dateObj.getFullYear(),
       ),
     );
   };
