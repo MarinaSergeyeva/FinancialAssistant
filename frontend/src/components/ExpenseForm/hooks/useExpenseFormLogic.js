@@ -8,10 +8,10 @@ import useReduxState from '../../../hooks/useReduxState';
 import transactionActions from '../../../redux/actions/transactionActions';
 import categoriesOperations from '../../../redux/operations/categoriesOperations';
 
-const useExpenseFormLogic = props => {
+const useExpenseFormLogic = prop => {
   const { calculatorResult } = useReduxState();
   const dispatch = useDispatch();
-  const isTransactionSend = props();
+  const isTransactionSend = prop;
 
   const [amount, setAmount, onAmountChange] = useNumberInputValue();
   const [comment, setComment, onCommentChange] = useTextInputValue();
@@ -22,9 +22,8 @@ const useExpenseFormLogic = props => {
       setAmount(0);
       setComment('');
       setCategory('');
-      props();
     }
-  }, [isTransactionSend, setAmount, setComment, setCategory, props]);
+  }, [isTransactionSend, setAmount, setComment, setCategory]);
 
   useEffect(() => {
     const transactionInfoLS = JSON.parse(

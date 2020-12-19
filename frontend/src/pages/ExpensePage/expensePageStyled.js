@@ -1,76 +1,70 @@
 import styled from 'styled-components';
 import { device } from '../../common/deviceSizes';
 
-export const ExpensePageContainer = styled.div`
+export const ExpensePageWrap = styled.div`
   position: relative;
-  margin: 0 auto;
+  @media ${device.largeTablet} {
+    min-height: calc(100vh - 87px);
+    padding-bottom: 100px;
+  }
+  &.main {
+    @media ${device.largeTablet} {
+      padding-bottom: 350px;
+    }
+    @media ${device.desktop} {
+      padding-bottom: 175px;
+    }
+  }
+`;
+
+export const ExpensePageContainer = styled.div`
+  margin: 0 auto 35px;
   padding-top: 40px;
   width: 280px;
-  @media ${device.tablet} {
-    max-height: calc(100vh - 87px);
+  @media ${device.largeTablet} {
     padding-top: 74px;
-    padding-bottom: 510px;
     width: 690px;
   }
   @media ${device.desktop} {
-    max-height: 100vh;
     padding-top: 64px;
     width: 770px;
   }
 `;
 
 export const ExpenseFormWrapper = styled.div`
-  margin: 0 auto;
   margin-bottom: 52px;
 `;
 
-export const ForecastExpenseWrapper = styled.div`
-  margin-bottom: 34px;
-  @media ${device.tablet} {
-    margin-bottom: 160px;
+export const ExpensePageFooter = styled.div`
+  min-height: 163px;
+  background-repeat: no-repeat;
+  @media ${device.largeTablet} {
+    position: absolute;
+    bottom: 0;
   }
-`;
-
-export const ExpensePageImg = styled.img`
-  margin-left: -20px;
-
-  @media ${device.tablet} {
-    margin-left: -40px;
-    max-height: 320px;
-    left: -40px;
+  &.footer_main {
+    background-image: url('/images/ExpensePage/expensePage_bg-mobile.png');
+    background-position: left bottom;
+    @media ${device.largeTablet} {
+      left: 0;
+      height: 347px;
+      width: 574px;
+      background-image: url('/images/ExpensePage/expensePage_bg-tablet.png');
+    }
+    @media ${device.desktop} {
+      height: 265px;
+      width: 437px;
+      background-image: url('/images/ExpensePage/expensePage_bg-desktop.png');
+    }
   }
-
-  @media ${device.largeDesktop} {
-    margin-left: -200px;
+  &.footer_list {
+    background-image: url('/images/ExpensePage/expenseList_bg-mobile.png');
+    background-position: right bottom;
+    @media ${device.largeTablet} {
+      right: 0;
+      width: 355px;
+      height: 291px;
+      background-image: url('/images/ExpensePage/expenseList_bg.png');
+    }
   }
-`;
-
-export const ExpenseListContainer = styled.div`
-  margin: 0 auto;
-  padding-top: 40px;
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  @media ${device.tablet} {
-    padding-top: 74px;
-    width: 690px;
-  }
-  @media ${device.desktop} {
-    padding-top: 64px;
-    width: 770px;
-  }
-`;
-
-export const ExpenseListImg = styled.img`
-  margin-left: auto;
-  max-width: 55%;
-
-  @media ${device.largeDesktop} {
-    max-width: 315px;
-  }
-`;
-
-export const ExpenseListWrap = styled.div`
-  min-height: 355px;
-  margin-bottom: 55px;
 `;
