@@ -30,6 +30,34 @@ const getListExpensesMonth = async (req, res) => {
   if (!page) {
     page = 1;
   }
+  const { stats, query } = await getExpenseStats(month, year, user._id);
+  const { totalAmount, totalCount, categories } = stats;
+  const countPages = Math.ceil(totalCount / limit);
+  const options = {
+    select: '_id amount category comment transactionDate',
+    page,
+    limit,
+    pagination,
+  };
+  const { docs } = await TransactionModel.paginate(query, options);
+  return res.json({
+    expenses: docs,
+    categories,
+    countPages,
+    totalCount,
+    totalAmount,
+  });
+};
+
+const getExpenseStructure = async (req, res) => {
+  const { user } = req;
+  let { month, year } = req.query;
+  const { stats } = await getExpenseStats(month, year, user._id);
+  const { totalAmount, totalCount, categories } = stats;
+  return res.json({ categories, totalCount, totalAmount });
+};
+
+const getExpenseStats = async (month, year, userId) => {
   const today = new Date();
   if (!year) {
     year = today.getFullYear();
@@ -40,33 +68,13 @@ const getListExpensesMonth = async (req, res) => {
   const startDate = new Date(year, month - 1);
   const endDate = new Date(year, month);
   const query = {
-    userId: user._id,
+    userId,
     transactionDate: { $gte: startDate, $lt: endDate },
     type: 'EXPENSE',
   };
 
-  const {
-    totalAmount,
-    totalCount,
-    categories,
-  } = await TransactionModel.getStatsMonthExpenses(query);
-  const countPages = Math.ceil(totalCount / limit);
-
-  const options = {
-    select: '_id amount category comment transactionDate',
-    page,
-    limit,
-    pagination,
-  };
-  const { docs } = await TransactionModel.paginate(query, options);
-
-  return res.json({
-    expenses: docs,
-    categories,
-    countPages,
-    totalCount,
-    totalAmount,
-  });
+  const stats = await TransactionModel.getStatsMonthExpenses(query);
+  return { stats, query };
 };
 
 const updateTransaction = async (req, res) => {
@@ -91,5 +99,6 @@ module.exports = {
   createTransaction,
   getTransactionCategories,
   getListExpensesMonth,
+  getExpenseStructure,
   updateTransaction,
 };

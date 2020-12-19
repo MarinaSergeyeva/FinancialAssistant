@@ -40,6 +40,12 @@ transactionRouter.get(
 );
 
 transactionRouter.get(
+  '/expenses/structure',
+  catchAsync(authorize),
+  catchAsync(transactionController.getExpenseStructure),
+);
+
+transactionRouter.get(
   '/expenses',
   catchAsync(authorize),
   catchAsync(transactionController.getListExpensesMonth),
