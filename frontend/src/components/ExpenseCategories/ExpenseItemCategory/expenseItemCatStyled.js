@@ -31,9 +31,6 @@ const CategoryName = styled.span`
 const CategoryIcon = styled.div`
   margin-right: 10px;
   margin-bottom: 15px;
-  /* width: 18px;
-  height: 18px;
-  fill: #7c9af2; */
   @media (min-width: ${size.tablet}) {
     margin-bottom: 0;
   }
