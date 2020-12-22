@@ -13,7 +13,7 @@ const IconLogo = ({ color, width, height }) => {
       aria-labelledby="title"
     >
       <title id="title">Home</title>
-      <g clip-path="url(#clip0)">
+      <g clipPath="url(#clip0)">
         <path
           d="M3.71429 0C1.66623 0 0 1.66623 0 3.71429C0 5.76235 1.66623 7.42859 3.71429 7.42859C5.76235 7.42859 7.42859 5.76235 7.42859 3.71429C7.42859 1.66623 5.76235 0 3.71429 0Z"
           fill="#FF6C00"
