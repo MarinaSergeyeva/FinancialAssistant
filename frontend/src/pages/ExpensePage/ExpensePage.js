@@ -18,8 +18,8 @@ const ExpensePage = () => {
   const match = useRouteMatch();
   const location = useLocation();
   const [startDate, setStartDate] = useState(new Date());
+  const [isDateSend, setIsDateSend] = useState(false);
   const isMain = location.pathname === match.path;
-
   return (
     <ExpensePageWrap className={isMain ? 'main' : 'list'}>
       <ExpensePageContainer>
@@ -38,9 +38,10 @@ const ExpensePage = () => {
             <ExpenseListHeader
               startDate={startDate}
               setStartDate={setStartDate}
+              setIsDateSend={setIsDateSend}
             />
             <Route path={`${match.url}/list`}>
-              <ExpenseList date={startDate} />
+              <ExpenseList date={startDate} isDateSend={isDateSend} />
             </Route>
             <Route path={`${match.url}/categories`}>
               <ExpenseCategories date={startDate} />

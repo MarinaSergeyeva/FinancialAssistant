@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
-import {
-  IconEdit,
-  IconFood,
-  IconHome,
-  IconOther,
-  IconEntertainment,
-  IconProducts,
-  IconTransport,
-} from '../../Icons';
+import { IconEdit } from '../../Icons';
 import { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
-import { useDispatch } from 'react-redux';
-import transactionOperations from '../../../redux/operations/transactionOperations';
 import useReduxState from '../../../hooks/useReduxState';
-import { useInput } from '../../../hooks/useInputValue';
 import {
   Button,
   Category,
@@ -32,64 +21,14 @@ import {
   RightWrapper,
   WrapperSecondary2,
 } from './expenseListItemStyled';
+import useExpenseItem from '../hooks/useExpenseItem';
 
 const ExpenseListItem = ({ expense, date }) => {
-  const dispatch = useDispatch();
   const { categories } = useReduxState();
-  let icon;
-  switch (expense.category) {
-    case 'ЖКХ':
-      icon = <IconHome />;
-      break;
-    case 'Продукты':
-      icon = <IconFood />;
-      break;
-    case 'Развлечения':
-      icon = <IconEntertainment />;
-      break;
-    case 'Товары':
-      icon = <IconProducts />;
-      break;
-    case 'Транспорт':
-      icon = <IconTransport />;
-      break;
-    default:
-      icon = <IconOther />;
-  }
-
-  const [showInput, setShowInput] = useState(false);
-
-  const openEdit = () => {
-    setShowInput(true);
-  };
-
-  const closeEdit = () => {
-    setShowInput(false);
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-
-    dispatch(
-      await transactionOperations.updateTransactionExpense(
-        updatedExpense,
-        expense._id,
-      ),
-    );
-    closeEdit();
-  };
-
-  const amount = useInput(expense.amount);
-  const comment = useInput(expense.comment);
-  const category = useInput(expense.category);
-
-  const updatedExpense = {
-    amount: Number(amount.bind.value),
-    comment: comment.bind.value,
-    category: category.bind.value,
-    _id: expense._id,
-  };
-
+  const { openEdit, handleSubmit, showInput, inputs, icon } = useExpenseItem(
+    expense,
+    date,
+  );
   return (
     expense && (
       <>
@@ -97,15 +36,15 @@ const ExpenseListItem = ({ expense, date }) => {
           {showInput ? (
             <Form onSubmit={handleSubmit}>
               <Label>
-                Название: <Input type="text" {...comment.bind} />
+                Название: <Input type="text" {...inputs.comment.bind} />
               </Label>
               <Label>
                 Сумма:
-                <Input type="number" {...amount.bind} />
+                <Input type="number" {...inputs.amount.bind} />
               </Label>
               <Label>
                 Категория:
-                <Select type="text" {...category.bind}>
+                <Select type="text" {...inputs.category.bind}>
                   <option
                     key="Без категории"
                     value="Без категории"
@@ -120,7 +59,7 @@ const ExpenseListItem = ({ expense, date }) => {
                   ))}
                 </Select>
               </Label>
-              <Date>19.12.2019</Date>
+              <Date>{date}</Date>
               <Button>Сохранить</Button>
             </Form>
           ) : (
@@ -148,15 +87,15 @@ const ExpenseListItem = ({ expense, date }) => {
           {showInput ? (
             <Form onSubmit={handleSubmit}>
               <Label>
-                Название: <Input type="text" {...comment.bind} />
+                Название: <Input type="text" {...inputs.comment.bind} />
               </Label>
               <Label>
                 Сумма:
-                <Input type="number" {...amount.bind} />
+                <Input type="number" {...inputs.amount.bind} />
               </Label>
               <Label>
                 Категория:
-                <Select type="text" {...category.bind}>
+                <Select type="text" {...inputs.category.bind}>
                   <option
                     key="Без категории"
                     value="Без категории"
@@ -171,7 +110,7 @@ const ExpenseListItem = ({ expense, date }) => {
                   ))}
                 </Select>
               </Label>
-              <Date>19.12.2019</Date>
+              <Date>{date}</Date>
               <Button>Сохранить</Button>
             </Form>
           ) : (
@@ -199,21 +138,21 @@ const ExpenseListItem = ({ expense, date }) => {
           {showInput ? (
             <Form _id={expense._id} onSubmit={handleSubmit}>
               <LeftWrapper>
-                <Date>19.12.2019</Date>
+                <Date>{date}</Date>
                 <Label>
-                  Название: <Input type="text" {...comment.bind} />
+                  Название: <Input type="text" {...inputs.comment.bind} />
                 </Label>
               </LeftWrapper>
               <RightWrapper>
                 <WrapperSecondary2>
                   <Label>
                     Сумма:
-                    <Input type="number" {...amount.bind} />
+                    <Input type="number" {...inputs.amount.bind} />
                   </Label>
                   <WrapperSecondary>
                     <CategoryWrapper>
                       <label>
-                        <Select type="text" {...category.bind}>
+                        <Select type="text" {...inputs.category.bind}>
                           <option
                             key="Без категории"
                             value="Без категории"

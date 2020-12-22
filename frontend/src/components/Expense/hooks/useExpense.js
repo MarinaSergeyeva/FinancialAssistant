@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import useReduxState from '../../../hooks/useReduxState';
 import transactionActions from '../../../redux/actions/transactionActions';
 
-const useExpense = date => {
+const useExpense = (date, isDateSend) => {
   const { userTransactions } = useReduxState();
   const { expenses } = userTransactions;
   const [page, setPage] = useState(1);
@@ -25,25 +25,21 @@ const useExpense = date => {
   useEffect(() => {
     dispatch(categoriesOperations.getCategories());
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
+    if (!isDateSend) {
+      return;
+    }
     if (expenses.length > 0) {
       const lastPage = Math.ceil(expenses.length / 10);
-      if (page <= lastPage) {
-        const prevDate = new Date(expenses[0].transactionDate);
-        if (
-          prevDate.getMonth() === date.getMonth() &&
-          prevDate.getFullYear() === date.getFullYear()
-        ) {
-          if (lastPage > page) {
-            setPage(lastPage);
-          }
-          return;
-        } else {
-          dispatch(transactionActions.resetTransactionsExpense());
-          setPage(1);
-        }
+      if (page === lastPage) {
+        return;
+      }
+
+      if (page < lastPage) {
+        setPage(lastPage);
+        return;
       }
     }
     dispatch(
@@ -54,7 +50,7 @@ const useExpense = date => {
       ),
     );
     // eslint-disable-next-line
-  }, [page, date]);
+  }, [page]);
 
   return { page, loadMore, getDate };
 };

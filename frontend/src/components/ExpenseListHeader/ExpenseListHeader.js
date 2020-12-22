@@ -9,15 +9,17 @@ import {
   TabMode,
   TabsModeView,
 } from './expenseListHeaderStyled';
+import useNewData from './hooks/useNewData';
 
-const ExpenseListHeader = ({ startDate, setStartDate }) => {
+const ExpenseListHeader = ({ startDate, setStartDate, setIsDateSend }) => {
   const match = useRouteMatch();
   const [calendarIsOpen, openDatePicker] = useHandleBoolChange(false);
   const handleChange = date => {
     setStartDate(date);
     openDatePicker();
+    setIsDateSend(false);
   };
-
+  useNewData(startDate, setIsDateSend);
   return (
     <ExpenseListHeaderWrapper>
       <TabsModeView>

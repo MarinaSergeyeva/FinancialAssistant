@@ -20,5 +20,3 @@ export const LogoContainer = styled.div`
     padding-top: 2px;
   }
 `;
-
-export const LogoImg = styled.img``;

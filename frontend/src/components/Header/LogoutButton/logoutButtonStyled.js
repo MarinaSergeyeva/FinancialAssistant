@@ -19,6 +19,6 @@ export const ButtonLogout = styled.button`
   align-items: center;
 `;
 
-export const LogoutImg = styled.img`
+export const LogoutImg = styled.span`
   margin-left: 14px;
 `;
