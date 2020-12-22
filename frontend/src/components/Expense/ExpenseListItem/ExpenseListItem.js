@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IconEdit } from '../../Icons';
 import { Desktop, Mobile, Tablet } from '../../../common/deviceSizes';
 import useReduxState from '../../../hooks/useReduxState';

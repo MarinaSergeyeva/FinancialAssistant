@@ -6,7 +6,6 @@ import {
 } from '../../../redux/operations';
 import { DateTime } from 'luxon';
 import useReduxState from '../../../hooks/useReduxState';
-import transactionActions from '../../../redux/actions/transactionActions';
 
 const useExpense = (date, isDateSend) => {
   const { userTransactions } = useReduxState();

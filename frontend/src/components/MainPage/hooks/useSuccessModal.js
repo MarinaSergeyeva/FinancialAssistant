@@ -11,7 +11,7 @@ const useSuccessModal = userInfoRegistr => {
     } else {
       setSuccessModal(false);
     }
-  }, [userID]);
+  }, [userID, userInfoRegistr]);
 
   return [successModal, setSuccessModal];
 };
